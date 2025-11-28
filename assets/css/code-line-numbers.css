@@ -1,0 +1,117 @@
+/* Code Block Line Numbers Styling */
+
+/* Додає лічильник для нумерації рядків коду */
+pre.shiki {
+    position: relative;
+    counter-reset: line;
+    padding-left: 2.5rem;
+}
+
+/* Стилізація рядків коду з номерами */
+pre.shiki .line {
+    position: relative;
+    display: block;
+    min-height: 1.2em;
+}
+
+/* Псевдоелемент для відображення номера рядка */
+pre.shiki .line::before {
+    counter-increment: line;
+    content: counter(line);
+    position: absolute;
+    left: -3.5rem;
+    width: 2.5rem;
+    text-align: right;
+    color: rgba(115, 138, 148, 0.4);
+    user-select: none;
+    pointer-events: none;
+    z-index: 1; /* Номер рядка поверх виділення */
+}
+
+/* Виправлення для виділення тексту - не виділяти номери рядків */
+pre.shiki .line::before::selection {
+    background: transparent;
+}
+
+/* Стилі виділення для коду */
+pre.shiki .line::selection,
+pre.shiki .line *::selection {
+    background-color: rgba(173, 214, 255, 0.4);
+}
+
+.dark pre.shiki .line::selection,
+.dark pre.shiki .line *::selection {
+    background-color: rgba(90, 105, 130, 0.5);
+}
+
+/* Світла тема - колір номерів */
+html:not(.dark) pre.shiki .line::before {
+    color: rgba(107, 114, 128, 0.5);
+}
+
+/* Темна тема - колір номерів */
+.dark pre.shiki .line::before {
+    color: rgba(156, 163, 175, 0.4);
+}
+
+/* Виділені рядки - яскравіші номери */
+pre.shiki .line.highlight::before {
+    /* color: rgba(59, 130, 246, 0.6); */
+    left: -0.5rem;
+}
+
+.dark pre.shiki .line.highlight::before {
+    /* color: rgba(96, 165, 250, 0.6); */
+}
+
+/* Responsive adjustments - зменшення відступу на мобільних */
+@media (max-width: 768px) {
+    pre.shiki .line::before {
+        font-size: 0.85em;
+    }
+}
+
+/* Опціонально: стилі для скролу коду з великою кількістю рядків */
+pre.shiki {
+    overflow-x: auto;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+/* Тонкий скролбар для блоків коду */
+pre.shiki::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+pre.shiki::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+pre.shiki::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+}
+
+pre.shiki::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.dark pre.shiki::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.dark pre.shiki::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.dark pre.shiki::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+span.highlight {
+    margin-block: 0 !important;
+    margin-inline: -3rem !important;
+    padding-inline: 2.5rem !important;
+}

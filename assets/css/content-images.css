@@ -1,0 +1,61 @@
+/* Content Images Styling */
+
+/* Обмеження максимальної висоти для всіх зображень у контенті */
+.prose img {
+    max-height: 600px;
+    width: auto;
+    margin: 2rem auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Діаграми та схеми - максимальна висота 500px */
+.diagram-img {
+    max-height: 500px !important;
+    width: auto !important;
+    display: block;
+    margin: 2rem auto;
+    border-radius: 0.5rem;
+}
+
+/* Широкі зображення (timeline, порівняльні таблиці візуально) */
+.wide-img {
+    max-height: 400px !important;
+    width: 100% !important;
+    object-fit: contain;
+    margin: 2rem auto;
+    border-radius: 0.5rem;
+}
+
+/* Скріншоти IDE/редакторів - більш високі */
+.screenshot-img {
+    max-height: 700px !important;
+    width: auto !important;
+    display: block;
+    margin: 2rem auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Іконки та малі зображення */
+.icon-img {
+    max-height: 200px !important;
+    width: auto !important;
+    display: inline-block;
+    margin: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .prose img,
+    .diagram-img,
+    .screenshot-img {
+        max-height: 400px !important;
+        width: 100% !important;
+        object-fit: contain;
+    }
+
+    .wide-img {
+        max-height: 300px !important;
+    }
+}
