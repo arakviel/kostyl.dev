@@ -5,6 +5,15 @@ export default defineNuxtConfig({
         enabled: true,
     },
 
+    app: {
+        baseURL: '/kostyl.dev/', // Default GitHub Pages URL: https://arakviel.github.io/kostyl.dev/
+        buildAssetsDir: '/_nuxt/',
+    },
+
+    nitro: {
+        preset: 'github-pages',
+    },
+
     css: ['~/assets/css/content-images.css', '~/assets/css/code-line-numbers.css', '~/assets/css/content-width.css'],
 
     content: {
