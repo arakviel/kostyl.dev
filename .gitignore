@@ -35,5 +35,4 @@ logs
 #VSC
 .history
 .wrangler
-
-prompt.md
+.kilocode

@@ -5,7 +5,7 @@ export default defineNuxtConfig({
         enabled: true,
     },
 
-    css: ['~/assets/css/content-images.css', '~/assets/css/code-line-numbers.css'],
+    css: ['~/assets/css/content-images.css', '~/assets/css/code-line-numbers.css', '~/assets/css/content-width.css'],
 
     content: {
         build: {

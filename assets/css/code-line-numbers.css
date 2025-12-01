@@ -113,5 +113,5 @@ pre.shiki::-webkit-scrollbar-thumb:hover {
 span.highlight {
     margin-block: 0 !important;
     margin-inline: -3rem !important;
-    padding-inline: 2.5rem !important;
+    padding-inline: 3rem !important;
 }

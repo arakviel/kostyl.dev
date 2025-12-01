@@ -1,7 +1,7 @@
 export default defineAppConfig({
     docus: {
         title: 'kostyl.dev',
-        description: 'Фундаментальне навчання програмуванню від А до Я',
+        description: 'Майбутній сайт по навчальним матеріалами по програмуванню (в розробці)',
         url: 'https://kostyl.dev',
 
         aside: {
@@ -12,9 +12,15 @@ export default defineAppConfig({
 
         header: {
             title: 'kostyl.dev',
-            logo: false,
+            logo: true,
             showLinkIcon: true,
             fluid: true,
+            toggle: {
+                color: 'primary',
+                variant: 'soft',
+                class: 'rounded-full',
+                icon: 'i-lucide-menu',
+            },
         },
 
         footer: {
@@ -38,5 +44,14 @@ export default defineAppConfig({
             branch: 'main',
             edit: true,
         },
+    },
+    ui: {
+        colors: {
+            primary: 'blue',
+            neutral: 'zinc',
+        },
+    },
+    head: {
+        link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
     },
 })
