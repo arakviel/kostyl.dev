@@ -12,6 +12,10 @@ body.zen-mode aside[data-slot='left'] {
     display: none !important;
 }
 
+body.zen-mode nav[data-slot='root'] {
+    display: none !important;
+}
+
 /* Smooth transition for better UX */
 [data-slot='center'],
 aside[data-slot='left'] {
