@@ -1,0 +1,106 @@
+{
+    "$schema": "https://aka.ms/codetour-schema",
+    "title": "Бюджет-Трекер: Змінні та Типи Даних",
+    "steps": [
+        {
+            "file": "Category.cs",
+            "line": 3,
+            "description": "## Flags Enum та Бітові Операції\n\nАтрибут `[Flags]` дозволяє комбінувати значення enum за допомогою бітових операцій.\n\nКожна категорія має степінь двійки (1, 2, 4, 8, 16...), що дозволяє комбінувати їх:\n- `Food | Transport` = 3 (0011 в бінарному)\n- Перевірка: `(value & Food) == Food`"
+        },
+        {
+            "file": "TransactionType.cs",
+            "line": 3,
+            "description": "## Простий Enum\n\nБазовий enum для класифікації транзакцій. Значення за замовчуванням починаються з 0.\n\n- `Expense = 0` - витрата\n- `Income = 1` - дохід"
+        },
+        {
+            "file": "Transaction.cs",
+            "line": 3,
+            "description": "## Value Type (struct)\n\n`struct` є типом значення, який зберігається в стеку. При копіюванні створюється нова незалежна копія даних.\n\nВикористовуємо `readonly` поля, які можна ініціалізувати тільки в конструкторі."
+        },
+        {
+            "file": "Transaction.cs",
+            "line": 16,
+            "description": "## Тернарний Оператор\n\nСкорочена форма `if-else`:\n```csharp\nType == TransactionType.Expense ? -Amount : Amount\n```\n\nЯкщо витрата - повертаємо від'ємне значення, інакше - позитивне."
+        },
+        {
+            "file": "Budget.cs",
+            "line": 5,
+            "description": "## Константи: const\n\n`const` - константи часу компіляції. Значення вбудовується прямо в код при компіляції.\n\nВикористовуємо для справжніх констант, які ніколи не зміняться."
+        },
+        {
+            "file": "Budget.cs",
+            "line": 8,
+            "description": "## Константи: readonly\n\n`readonly` поля можна ініціалізувати тільки при оголошенні або в конструкторі. Значення визначається під час виконання.\n\nВикористовуємо приватні поля з префіксом `_` (camelCase)."
+        },
+        {
+            "file": "Budget.cs",
+            "line": 12,
+            "description": "## Reference Type (class)\n\nКлас є типом посилання. При копіюванні змінної копіюється лише посилання, а не сам об'єкт.\n\nОб'єкт зберігається в купі (heap), а змінна містить адресу."
+        },
+        {
+            "file": "Budget.cs",
+            "line": 36,
+            "description": "## Decimal для Фінансів\n\nДля грошових операцій завжди використовуємо `decimal` (128 біт, 28-29 цифр точності).\n\nУникаємо `double` та `float` через помилки округлення.\n\nЛітерал: `1000.00m` (суфікс m/M)"
+        },
+        {
+            "file": "Budget.cs",
+            "line": 40,
+            "description": "## Оператори Порівняння та Логічні\n\n- `==` - перевірка рівності\n- `>` - більше\n- `&&` - логічне І (обидва true)\n\nВикористовується short-circuit evaluation - другий операнд не обчислюється, якщо результат відомий."
+        },
+        {
+            "file": "Budget.cs",
+            "line": 59,
+            "description": "## Nullable Types\n\n`Category?` означає nullable value type - може бути `null` або значення.\n\n- `.HasValue` - перевірка на null\n- `.Value` - отримання значення\n- `??` - null-coalescing оператор"
+        },
+        {
+            "file": "Budget.cs",
+            "line": 63,
+            "description": "## Бітова Операція AND\n\n`(t.Category & filterCategory.Value) != 0` перевіряє, чи категорія транзакції містить хоча б одну з фільтруючих категорій.\n\nБітове І (`&`) повертає 1 тільки там, де обидва біти 1."
+        },
+        {
+            "file": "CurrencyConverter.cs",
+            "line": 5,
+            "description": "## Static Readonly\n\n`static readonly` поля спільні для всіх екземплярів класу.\n\nВикористовуємо PascalCase для статичних readonly полів.\n\nМожна ініціалізувати тільки при оголошенні або в статичному конструкторі."
+        },
+        {
+            "file": "CurrencyConverter.cs",
+            "line": 12,
+            "description": "## Арифметичні Операції\n\nБазові оператори:\n- `*` - множення\n- `/` - ділення\n- `+` - додавання\n- `-` - віднімання\n\nВсі розрахунки з `decimal` для точності."
+        },
+        {
+            "file": "Program.cs",
+            "line": 6,
+            "description": "## Nullable Reference Types\n\n`string?` означає nullable reference type - може бути null.\n\nБез `?` компілятор видасть попередження при можливому null.\n\nДоступно починаючи з C# 8.0."
+        },
+        {
+            "file": "Program.cs",
+            "line": 8,
+            "description": "## Перевірка на Null\n\n`string.IsNullOrWhiteSpace()` - статичний метод для безпечної перевірки рядка.\n\nПеревіряє чи рядок:\n- null\n- порожній (\"\")\n- містить тільки пробіли"
+        },
+        {
+            "file": "Program.cs",
+            "line": 96,
+            "description": "## Конверсія з TryParse\n\n`decimal.TryParse()` - безпечна конверсія без винятків:\n- Повертає `bool` (успіх/невдача)\n- Результат у `out` параметрі\n- Не викидає виняток при невдачі\n\nКраща альтернатива `Parse()` для введення користувача."
+        },
+        {
+            "file": "Program.cs",
+            "line": 183,
+            "description": "## Бітова Операція OR\n\n`filter |= Category.Food` - додавання категорії до комбінації.\n\nБітове АБО (`|`) встановлює біт в 1, якщо він 1 хоча б в одному з операндів."
+        },
+        {
+            "file": "Program.cs",
+            "line": 219,
+            "description": "## Value Type Копіювання\n\n`var transaction2 = transaction1` для struct створює повну копію.\n\nЗміна `transaction2` НЕ впливає на `transaction1`."
+        },
+        {
+            "file": "Program.cs",
+            "line": 225,
+            "description": "## Reference Type Копіювання\n\n`var list2 = list1` для class копіює тільки посилання.\n\nОбидві змінні вказують на ОДИН об'єкт в пам'яті."
+        },
+        {
+            "file": "Program.cs",
+            "line": 246,
+            "description": "## Бітові Операції: NOT та AND\n\n`combined &= ~Category.Transport` - видалення категорії:\n1. `~Category.Transport` - інверсія бітів (NOT)\n2. `&=` - бітове І з присвоюванням\n\nВстановлює біт Transport в 0, зберігаючи інші."
+        }
+    ]
+}

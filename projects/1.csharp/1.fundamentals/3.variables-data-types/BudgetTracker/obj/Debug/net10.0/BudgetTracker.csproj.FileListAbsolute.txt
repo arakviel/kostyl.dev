@@ -1,0 +1,15 @@
+/Users/arakviel/Work/kostyl.dev/projects/1.csharp/1.fundamentals/3.variables-data-types/BudgetTracker/bin/Debug/net10.0/BudgetTracker
+/Users/arakviel/Work/kostyl.dev/projects/1.csharp/1.fundamentals/3.variables-data-types/BudgetTracker/bin/Debug/net10.0/BudgetTracker.deps.json
+/Users/arakviel/Work/kostyl.dev/projects/1.csharp/1.fundamentals/3.variables-data-types/BudgetTracker/bin/Debug/net10.0/BudgetTracker.runtimeconfig.json
+/Users/arakviel/Work/kostyl.dev/projects/1.csharp/1.fundamentals/3.variables-data-types/BudgetTracker/bin/Debug/net10.0/BudgetTracker.dll
+/Users/arakviel/Work/kostyl.dev/projects/1.csharp/1.fundamentals/3.variables-data-types/BudgetTracker/bin/Debug/net10.0/BudgetTracker.pdb
+/Users/arakviel/Work/kostyl.dev/projects/1.csharp/1.fundamentals/3.variables-data-types/BudgetTracker/obj/Debug/net10.0/BudgetTracker.GeneratedMSBuildEditorConfig.editorconfig
+/Users/arakviel/Work/kostyl.dev/projects/1.csharp/1.fundamentals/3.variables-data-types/BudgetTracker/obj/Debug/net10.0/BudgetTracker.AssemblyInfoInputs.cache
+/Users/arakviel/Work/kostyl.dev/projects/1.csharp/1.fundamentals/3.variables-data-types/BudgetTracker/obj/Debug/net10.0/BudgetTracker.AssemblyInfo.cs
+/Users/arakviel/Work/kostyl.dev/projects/1.csharp/1.fundamentals/3.variables-data-types/BudgetTracker/obj/Debug/net10.0/BudgetTracker.csproj.CoreCompileInputs.cache
+/Users/arakviel/Work/kostyl.dev/projects/1.csharp/1.fundamentals/3.variables-data-types/BudgetTracker/obj/Debug/net10.0/BudgetTracker.sourcelink.json
+/Users/arakviel/Work/kostyl.dev/projects/1.csharp/1.fundamentals/3.variables-data-types/BudgetTracker/obj/Debug/net10.0/BudgetTracker.dll
+/Users/arakviel/Work/kostyl.dev/projects/1.csharp/1.fundamentals/3.variables-data-types/BudgetTracker/obj/Debug/net10.0/refint/BudgetTracker.dll
+/Users/arakviel/Work/kostyl.dev/projects/1.csharp/1.fundamentals/3.variables-data-types/BudgetTracker/obj/Debug/net10.0/BudgetTracker.pdb
+/Users/arakviel/Work/kostyl.dev/projects/1.csharp/1.fundamentals/3.variables-data-types/BudgetTracker/obj/Debug/net10.0/BudgetTracker.genruntimeconfig.cache
+/Users/arakviel/Work/kostyl.dev/projects/1.csharp/1.fundamentals/3.variables-data-types/BudgetTracker/obj/Debug/net10.0/ref/BudgetTracker.dll

@@ -1,0 +1,19 @@
+/* Zen Mode Styles */
+
+/* Expand center content area from col-span-8 to col-span-10 on desktop */
+@media (min-width: 64rem) {
+    body.zen-mode [data-slot='center'].lg\:col-span-8 {
+        grid-column: span 10 / span 10 !important;
+    }
+}
+
+/* Hide left sidebar (navigation) */
+body.zen-mode aside[data-slot='left'] {
+    display: none !important;
+}
+
+/* Smooth transition for better UX */
+[data-slot='center'],
+aside[data-slot='left'] {
+    transition: all 0.3s ease-in-out;
+}
