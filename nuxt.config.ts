@@ -33,8 +33,9 @@ export default defineNuxtConfig({
             markdown: {
                 highlight: {
                     theme: {
-                        default: 'github-light',
+                        default: 'dark-plus',
                         dark: 'dark-plus',
+                        light: 'light-plus',
                     },
                     langs: [
                         // .NET Languages
