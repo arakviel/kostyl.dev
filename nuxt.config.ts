@@ -6,10 +6,10 @@ export default defineNuxtConfig({
     },
 
     app: {
-        baseURL: '/kostyl.dev/', // Default GitHub Pages URL: https://arakviel.github.io/kostyl.dev/
+        baseURL: '/',
         buildAssetsDir: '/_nuxt/',
         head: {
-            link: [{ rel: 'icon', type: 'image/svg+xml', href: '/kostyl.dev/favicon.svg' }],
+            link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
         },
     },
 
