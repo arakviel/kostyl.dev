@@ -79,6 +79,11 @@ export default defineNuxtConfig({
 
     compatibilityDate: '2025-01-26',
 
+    icon: {
+        serverBundle: 'auto',
+        fetchTimeout: 5000,
+    },
+
     vite: {
         server: {
             allowedHosts: ['865fb62d150c.ngrok-free.app'],
