@@ -29,6 +29,13 @@ export default defineNuxtConfig({
     ],
 
     content: {
+        markdown: {
+            tags: {
+                'code-block': 'CodeBlock',
+                callout: 'Callout',
+                mermaid: 'Mermaid',
+            },
+        },
         build: {
             markdown: {
                 highlight: {
