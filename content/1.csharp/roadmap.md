@@ -446,3 +446,63 @@ _Мета: Тестувати та публікувати._
 -   Single File Executable.
 -   Trimming (Зменшення розміру).
 -   Native AOT (Ahead-of-Time compilation).
+
+## 10. Avalonia UI (Cross-Platform UI)
+
+_Мета: Створення кросплатформних інтерфейсів (Desktop, Mobile, Web, Embedded)._
+
+### 10.1. Introduction & Setup
+
+-   **Architecture**: How Avalonia works (SkiaSharp replacement handling, Windowing protocol), difference from WPF/MAUI.
+-   **Environment**: Avalonia Templates (`dotnet new avalonia`), Visual Studio & Rider extensions (Live Preview).
+-   **Application Lifecycle**: `App.axaml`, `Program.cs` (`BuildAvaloniaApp`).
+
+### 10.2. Core Concepts
+
+-   **XAML Basics**: Syntax, Namespaces, `x:Name` vs `Name`.
+-   **Trees**: Logical Tree vs Visual Tree (`VisualTreeHelper`).
+-   **Properties System**: Styled Properties, Attached Properties, Direct Properties.
+-   **Data Binding**: Binding Modes (OneWay, TwoWay), Binding to Commands, Compiled Bindings (`x:CompileBindings`).
+
+### 10.3. Layout & Controls
+
+-   **Panels**: `Grid` (Rows/Columns), `StackPanel`, `DockPanel`, `WrapPanel`, `RelativePanel`.
+-   **Common Controls**: `Button`, `TextBlock`, `TextBox`, `ComboBox`, `CheckBox`, `Slider`.
+-   **Collections**: `ListBox`, `ItemsControl`, `DataGrid` (sorting, filtering), `TreeView`.
+-   **Windowing**: Multiple Windows, Dialogs, File Pickers (`StorageProvider`).
+<!-- Inserted: expand with advanced layout patterns, virtualization, and references -->
+-   **Grid Advanced**: Star sizing (`*`), `Auto`, `Span`, `SharedSizeGroup`, `RowDefinitions`/`ColumnDefinitions` best practices.
+-   **Adaptive Layouts**: Techniques for responsive UI (fluid grids, `RelativePanel`, dynamic arrangement via bindings).
+-   **Data Templates**: `DataTemplate` for `ItemsControl`, `ItemTemplate`, `HierarchicalDataTemplate` for `TreeView`.
+-   **Virtualization**: `VirtualizingStackPanel` for large lists; built-in virtualization in `DataGrid`.
+-   **Dialog Patterns**: Modal dialogs via `ShowDialog<T>()`, custom dialogs, message boxes.
+-   **Reference**: Official Control Catalog — [Avalonia Controls](https://docs.avaloniaui.net/docs/controls) (recommended overview).
+
+### 10.4. Styling & Theming
+
+-   **Selectors**: CSS-like selectors (`:pointerover`, Classes).
+-   **Resources**: `StaticResource` vs `DynamicResource`, Resource Dictionaries, Theme Variants (Dark/Light).
+-   **Control Themes**: Templating controls, modifying visual states.
+-   **Styles**: Global styles (`App.axaml`) vs Local styles.
+
+### 10.5. MVVM in Avalonia
+
+-   **Patterns**: View-ViewModel interaction, ViewLocator.
+-   **Frameworks**:
+    -   **CommunityToolkit.Mvvm** (Recommended): `[ObservableProperty]`, `[RelayCommand]`.
+    -   **ReactiveUI**: `Where`, `Select`, `WhenAnyValue` (Functional approach).
+-   **Bindings**: `ReflectionBinding` vs `CompiledBinding`.
+
+### 10.6. Advanced Features
+
+-   **Custom Controls**: UserControl vs TemplatedControl (Lookless controls).
+-   **Assets**: Loading images/fonts (`avares://`), Vectors (`PathIcon`, `GeometryDrawing`).
+-   **Animations**: Transitions (`Transitions`), KeyFrame Animations (`Animation`).
+-   **Behaviors**: `Interaction.Behaviors`, EventToCommand.
+-   **Rendering**: Composition API, Custom drawing (`OnRender`).
+
+### 10.7. Cross-Platform Specifics
+
+-   **Mobile**: Android & iOS setup, Adaptive Layouts.
+-   **Web (WASM)**: Browser limitations, Browser-specific APIs.
+-   **Linux/Embedded**: Framebuffer (DRM/KMS), Headless mode.

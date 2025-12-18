@@ -115,3 +115,8 @@ span.highlight {
     margin-inline: -3rem !important;
     padding-inline: 3rem !important;
 }
+
+/* Copy code button fix to ensure clickable */
+button[aria-label='Copy code to clipboard'] {
+    z-index: 1;
+}
