@@ -383,32 +383,32 @@ body: JSON.stringify({ name: 'Іван' })
 
 ::tabs-item{label="FormData"}
 
-    ```javascript
-    // Відправлення форми з файлом
-    const formData = new FormData();
-    formData.append('username', 'maria_dev');
-    formData.append('email', 'maria@example.com');
+```javascript
+// Відправлення форми з файлом
+const formData = new FormData()
+formData.append('username', 'maria_dev')
+formData.append('email', 'maria@example.com')
 
-            // Додавання файлу з input[type="file"]
-            const fileInput = document.querySelector('#avatar');
-            formData.append('avatar', fileInput.files[0]);
+// Додавання файлу з input[type="file"]
+const fileInput = document.querySelector('#avatar')
+formData.append('avatar', fileInput.files[0])
 
-            const response = await fetch('https://api.example.com/profile', {
-            method: 'POST',
-            // Не встановлюємо Content-Type! Браузер зробить це автоматично
-            // з правильним boundary для multipart/form-data
-            body: formData
-            });
+const response = await fetch('https://api.example.com/profile', {
+    method: 'POST',
+    // Не встановлюємо Content-Type! Браузер зробить це автоматично
+    // з правильним boundary для multipart/form-data
+    body: formData,
+})
 
-            const result = await response.json();
-            console.log('Профіль оновлено:', result);
-    ```
+const result = await response.json()
+console.log('Профіль оновлено:', result)
+```
 
-    **Коли використовувати:** Завантаження файлів, форми з змішаним контентом (текст + файли)
+**Коли використовувати:** Завантаження файлів, форми з змішаним контентом (текст + файли)
 
-    ::note
-    FormData автоматично встановлює `Content-Type: multipart/form-data` з `boundary`. НЕ встановлюйте цей заголовок вручну, інакше запит не спрацює!
-    ::
+::note
+FormData автоматично встановлює `Content-Type: multipart/form-data` з `boundary`. НЕ встановлюйте цей заголовок вручну, інакше запит не спрацює!
+::
 
 ::
 
@@ -447,31 +447,30 @@ body: JSON.stringify({ name: 'Іван' })
 
 ::tabs-item{label="URLSearchParams"}
 
-    ```javascript
+```javascript
+// Формат application/x-www-form-urlencoded
+const params = new URLSearchParams()
+params.append('username', 'john_doe')
+params.append('password', 'secret123')
+params.append('remember', 'true')
 
-    // Формат application/x-www-form-urlencoded
-    const params = new URLSearchParams();
-    params.append('username', 'john_doe');
-    params.append('password', 'secret123');
-    params.append('remember', 'true');
-
-    const response = await fetch('https://api.example.com/login', {
+const response = await fetch('https://api.example.com/login', {
     method: 'POST',
     headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
     },
-    body: params // Автоматично конвертується у "username=john_doe&password=secret123&remember=true"
-    });
+    body: params, // Автоматично конвертується у "username=john_doe&password=secret123&remember=true"
+})
 
-    const result = await response.json();
-    console.log('Авторизація:', result);
-    ```
+const result = await response.json()
+console.log('Авторизація:', result)
+```
 
-    **Коли використовувати:** Legacy API, OAuth flows, деякі старі сервери, що очікують URL-encoded дані
+**Коли використовувати:** Legacy API, OAuth flows, деякі старі сервери, що очікують URL-encoded дані
 
-    ::tip
-    Сьогодні цей формат використовується рідко. Більшість сучасних API віддають перевагу JSON. Використовуйте `URLSearchParams` лише якщо API явно вимагає `application/x-www-form-urlencoded`.
-    ::
+::tip
+Сьогодні цей формат використовується рідко. Більшість сучасних API віддають перевагу JSON. Використовуйте `URLSearchParams` лише якщо API явно вимагає `application/x-www-form-urlencoded`.
+::
 
 ::
 ::

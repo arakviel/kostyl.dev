@@ -18,7 +18,8 @@ description: Вичерпний довідник усіх опцій Fetch API -
 -   Треба налаштувати Referer header
 -   Важлива валідація цілісності файлів (integrity)
 -   Потрібні аналітичні запити, які "переживають" закриття сторінки
-    ::
+
+::
 
 ## Повний синтаксис Fetch
 
@@ -225,7 +226,8 @@ console.log(await response.text()) // Помилка - доступ заборо
 
 -   Отримання даних API
 -   Будь-яких запитів, де потрібна відповідь
-    ::
+
+::
 
 ## Credentials - Cookies та Authentication
 
@@ -404,7 +406,8 @@ if (response.type === 'opaqueredirect') {
 -   Відстеження ланцюжків redirects
 -   Спеціальної логіки переадресацій
 -   Debugging redirect loops
-    ::
+
+::
 
 ## Integrity - Перевірка цілісності
 
@@ -462,7 +465,8 @@ curl https://code.jquery.com/jquery-3.7.1.min.js | openssl dgst -sha256 -binary 
 -   Завантаження скриптів з CDN
 -   Гарантування, що файли не змінені
 -   Захисту від компрометації CDN
-    ::
+
+::
 
 ## Keepalive - Запити після закриття сторінки
 
@@ -582,7 +586,8 @@ window.addEventListener('beforeunload', () => {
 -   Автоматично keepalive
 -   Простіший API
 -   Кращесь гарантії доставки
-    ::
+
+::
 
 ## Підсумки
 
