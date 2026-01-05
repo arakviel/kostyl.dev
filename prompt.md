@@ -170,15 +170,15 @@
 
 ```markdown
 ::tabs
-:::tab{label="Windows"}
+::tabs-item{label="Windows"}
 Встановіть через Chocolatey: `choco install dotnet`
-:::
-:::tab{label="macOS"}
+::
+::tabs-item{label="macOS"}
 Встановіть через Homebrew: `brew install dotnet`
-:::
-:::tab{label="Linux"}
+::
+::tabs-item{label="Linux"}
 Встановіть через APT: `sudo apt install dotnet-sdk-8.0`
-:::
+::
 ::
 ```
 
