@@ -142,9 +142,6 @@ sequenceDiagram
         Note over Browser,Server: (немає Access-Control-Allow-Origin)
         Note over Browser: ❌ Браузер блокує доступ до даних
     end
-
-    style Browser fill:#3b82f6,stroke:#1d4ed8,color:#ffffff
-    style Server fill:#10b981,stroke:#059669,color:#ffffff
 ```
 
 ::

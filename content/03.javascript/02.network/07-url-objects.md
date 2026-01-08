@@ -70,8 +70,6 @@ graph LR
     URL --> PathName
     URL --> S
     URL --> Ha
-
-    style URL fill:#f9f,stroke:#333
 ```
 
 ::

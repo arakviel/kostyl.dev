@@ -85,9 +85,6 @@ sequenceDiagram
     Signal->>Fetch: Сповіщення про переривання
     Fetch->>Server: (перериває з'єднання)
     Fetch-->>Code: Promise rejected with AbortError
-
-    style AC fill:#3b82f6,stroke:#1d4ed8,color:#ffffff
-    style Signal fill:#f59e0b,stroke:#b45309,color:#ffffff
 ```
 
 ::

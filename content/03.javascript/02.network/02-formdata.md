@@ -217,6 +217,42 @@ console.log(formData.getAll('tag'))
 </html>
 ```
 
+виправлена версія
+
+```html
+<script>
+    const form = document.querySelector('#registrationForm')
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault() // Запобігаємо перезавантаженню сторінки
+
+        // FormData автоматично збере ВСІ поля з атрибутом name
+        const formData = new FormData(form)
+
+        try {
+            const response = await fetch('https://api.escuelajs.co/api/v1/users/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(Object.fromEntries(formData)), // Content-Type встановиться автоматично!
+            })
+
+            if (!response.ok) {
+                throw new Error(`HTTP помилка: ${response.status}`)
+            }
+
+            const result = await response.json()
+            console.log('Користувача створено:', result)
+            alert('Реєстрація успішна!')
+        } catch (error) {
+            console.error('Помилка реєстрації:', error)
+            alert('Сталася помилка при реєстрації')
+        }
+    })
+</script>
+```
+
 **Ключові моменти:**
 
 **Ключові моменти:**
