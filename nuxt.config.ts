@@ -13,6 +13,10 @@ export default defineNuxtConfig({
         },
     },
 
+    image: {
+        provider: 'static',
+    },
+
     site: {
         name: 'kostyl.dev',
     },
