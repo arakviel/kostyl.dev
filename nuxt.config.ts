@@ -123,6 +123,8 @@ export default defineNuxtConfig({
                         // Web Languages
                         'typescript',
                         'javascript',
+                        'jsx',
+                        'tsx',
                         'html',
                         'css',
                         'vue',
