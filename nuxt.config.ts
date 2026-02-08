@@ -164,6 +164,7 @@ export default defineNuxtConfig({
                         'yaml',
                         'xml',
                         'toml',
+                        'ini',
                         // Other Programming Languages
                         'cpp',
                         'c',
