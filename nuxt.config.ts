@@ -161,6 +161,7 @@ export default defineNuxtConfig({
                         'powershell',
                         // Data/Config Languages
                         'json',
+                        'jsonc',
                         'yaml',
                         'xml',
                         'toml',
