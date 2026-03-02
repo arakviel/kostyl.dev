@@ -3,6 +3,7 @@ import pandas as pd
 import json
 import os
 import sys
+import re
 
 def convert_json_to_xlsx(json_path, xlsx_path):
     columns = [
@@ -28,6 +29,28 @@ def convert_json_to_xlsx(json_path, xlsx_path):
             return
             
         df = pd.DataFrame(data, columns=columns)
+        
+        # Пост-процесинг для нормалізації даних, якщо AI згенерував їх неточно
+        for index, row in df.iterrows():
+            q_type = str(row.get('Question Type', '')).strip()
+            ans = str(row.get('Correct Answer', ''))
+            
+            if q_type == 'Multiple Choice':
+                m = re.search(r'\d+', ans)
+                if m:
+                    df.at[index, 'Correct Answer'] = int(m.group(0))
+            elif q_type == 'Checkbox':
+                m = re.findall(r'\d+', ans)
+                if m:
+                    df.at[index, 'Correct Answer'] = ",".join(m)
+            elif q_type.lower() == 'fill-in-the-blank':
+                df.at[index, 'Question Type'] = 'Fill-in-the-Blank'
+                if pd.notna(ans) and str(ans).strip() != "":
+                    if pd.isna(row.get('Option 1')) or str(row.get('Option 1')).strip() == "":
+                        df.at[index, 'Option 1'] = ans
+                df.at[index, 'Correct Answer'] = ""
+                for opt in ['Option 2', 'Option 3', 'Option 4', 'Option 5']:
+                    df.at[index, opt] = ""
         
         # Створюємо директорію для файлу, якщо її немає
         os.makedirs(os.path.dirname(os.path.abspath(xlsx_path)), exist_ok=True)
