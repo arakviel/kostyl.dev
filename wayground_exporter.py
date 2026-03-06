@@ -38,7 +38,7 @@ def convert_json_to_xlsx(json_path, xlsx_path):
             if q_type == 'Multiple Choice':
                 m = re.search(r'\d+', ans)
                 if m:
-                    df.at[index, 'Correct Answer'] = int(m.group(0))
+                    df.at[index, 'Correct Answer'] = m.group(0)
             elif q_type == 'Checkbox':
                 m = re.findall(r'\d+', ans)
                 if m:
