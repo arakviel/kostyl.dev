@@ -564,6 +564,7 @@ HttpOnly
 
 #description
 Ваш найкращий друг для захисту від крадіжки сесій через XSS. JavaScript сліпий до цих cookies.
+
 ::
 
 ::card{icon="lucide:lock"}
@@ -572,6 +573,7 @@ Secure
 
 #description
 Гарантує, що cookie ніколи не полетить по відкритому дроту. Обов'язково для будь-яких чутливих даних.
+
 ::
 
 ::card{icon="lucide:globe"}
@@ -580,6 +582,7 @@ SameSite
 
 #description
 Ваш щит від CSRF атак. Контролює, коли cookie може "перетинати кордон" між сайтами. `Lax` - це новий стандарт.
+
 ::
 
 ::card{icon="lucide:hard-drive"}
@@ -588,6 +591,7 @@ SameSite
 
 #description
 Пам'ятайте про ліміт розміру. Cookies — це не база даних. Для великих даних є IndexedDB.
+
 ::
 
 ::

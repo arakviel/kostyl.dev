@@ -614,20 +614,24 @@ XMLHttpRequest — ветеран вебу. Він старий, має дивн
 ::card-group
 ::card{title="Legacy King" icon="i-lucide-history"}
 XHR започаткував еру AJAX. Ви будете зустрічати його в старому коді ще багато років. Знати його = поважати історію і розуміти "підкапотне" життя браузера.
+
 ::
 
 ::card{title="Upload Hero" icon="i-lucide-upload-cloud"}
 Якщо вам треба зробити завантаження файлу з красивим прогрес-баром — `xhr.upload` ваш найкращий друг. Це все ще найпростіший спосіб реалізації.
+
 ::
 
 ::card{title="Sync Support" icon="i-lucide-arrow-right-left"}
 Єдиний спосіб зробити синхронний запит (хоча ми вас попереджали, що це погана ідея з точки зору UX!).
+
 ::
 
 ::card{title="Low Level" icon="i-lucide-settings-2"}
 `readyState`, `timeout`, `abort` — XHR дає прямий контроль над станами. Fetch більш абстрагований.
 
 ::
+
 ::
 
 Отже, чи варто використовувати XHR у новому проекті?

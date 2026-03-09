@@ -7,27 +7,34 @@
 ::card-group
 ::card{title="Вступ до UI Бібліотек" to="./01.introduction-to-ui-libraries.md"}
 Огляд екосистеми UI бібліотек, типологія рішень, порівняння підходів та критерії вибору.
+
 ::
 
 ::card{title="Філософія shadcn/ui" to="./02.shadcn-philosophy.md"}
 Концептуальні основи shadcn/ui, архітектура та порівняння з традиційними бібліотеками.
+
 ::
 
 ::card{title="Установка та Налаштування" to="./03.shadcn-installation.md"}
 Покрокова інструкція зі встановлення shadcn/ui у Next.js та Vite проєктах.
+
 ::
 
 ::card{title="Базові Компоненти" to="./04.shadcn-components-basics.md"}
 Button, Card, Badge, Avatar та інші фундаментальні компоненти інтерфейсу.
+
 ::
 
 ::card{title="Компоненти Форм" to="./05.shadcn-components-forms.md"}
 Input, Select, Checkbox, Radio, Form та їх інтеграція з React Hook Form.
+
 ::
 
 ::card{title="Складні Компоненти" to="./06.shadcn-components-advanced.md"}
 Dialog, Dropdown Menu, Table, Command Palette та advanced патерни.
+
 ::
+
 ::
 
 ## Що ви дізнаєтесь
@@ -42,6 +49,7 @@ Dialog, Dropdown Menu, Table, Command Palette та advanced патерни.
 
 ::note
 **Важливо**: Для комфортного вивчення цього модуля рекомендується попередньо ознайомитись з [React Hook Form](../02.react-hook-form.md) та мати базове розуміння Tailwind CSS.
+
 ::
 
 ## Навчальна філософія

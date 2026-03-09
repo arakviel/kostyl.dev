@@ -1,3 +1,0 @@
-# Fundamentals
-
-Coming soon...

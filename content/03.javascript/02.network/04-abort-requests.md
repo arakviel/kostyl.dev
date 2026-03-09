@@ -45,19 +45,24 @@ const signal = controller.signal
 ::field-group
 ::field{name="controller.signal" type="AbortSignal"}
 Об'єкт-сигнал, який передається у функції для моніторингу стану переривання
+
 ::
 
 ::field{name="controller.abort()" type="Method"}
 Метод, який перериває операцію, генеруючи подію `abort` на `signal`
+
 ::
 
 ::field{name="signal.aborted" type="boolean"}
 Властивість, яка стає `true` після виклику `controller.abort()`
+
 ::
 
 ::field{name="signal.addEventListener('abort', handler)" type="Method"}
 Слухач події, який спрацьовує при перериванні
+
 ::
+
 ::
 
 ### Як це працює: архітектура взаємодії
@@ -184,6 +189,7 @@ loadData()
 **Чому важливо clearTimeout?**
 
 Після завершення запиту (успішно чи ні) потрібно обов'язково очистити таймер через `clearTimeout()`, щоб уникнути витоку пам'яті.
+
 ::
 
 ### Інтерактивний приклад з UI
@@ -675,6 +681,7 @@ input.oninput = async () => {
 ```
 
 ::
+
 ::
 
 ### Ключові концепції

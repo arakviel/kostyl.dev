@@ -13,6 +13,7 @@ description: Вивчіть Fetch API для виконання мережеви
 
 ::tip
 **AJAX (Asynchronous JavaScript And XML)** — це загальний термін для технологій, що дозволяють оновлювати частини веб-сторінки без повного перезавантаження. Незважаючи на те, що в назві присутній XML, сьогодні найчастіше використовується формат JSON.
+
 ::
 
 ### Що ми навчимося робити?
@@ -93,23 +94,29 @@ sequenceDiagram
 ::field-group
 ::field{name="status" type="number"}
 Код HTTP-статусу відповіді (наприклад, `200`, `404`, `500`)
+
 ::
 
 ::field{name="ok" type="boolean"}
 Логічне значення: `true`, якщо HTTP-статус у діапазоні 200-299, інакше `false`
+
 ::
 
 ::field{name="statusText" type="string"}
 Текстове повідомлення HTTP-статусу (наприклад, `"OK"`, `"Not Found"`)
+
 ::
 
 ::field{name="headers" type="Headers"}
 Об'єкт заголовків відповіді, схожий на `Map`
+
 ::
 
 ::field{name="url" type="string"}
 URL фінальної відповіді (може відрізнятися через редиректи)
+
 ::
+
 ::
 
 ### Методи читання тіла відповіді
@@ -337,19 +344,24 @@ body: JSON.stringify({ name: 'Іван' })
 ::field-group
 ::field{name="string (JSON)" type="String"}
 Рядок, зазвичай JSON. Використовується для API-запитів. Потрібно встановити `Content-Type: application/json`
+
 ::
 
 ::field{name="FormData" type="FormData"}
 Дані HTML-форми з файлами та без. Заголовок `Content-Type: multipart/form-data` встановлюється автоматично
+
 ::
 
 ::field{name="Blob / BufferSource" type="Blob | ArrayBuffer | TypedArray"}
 Бінарні дані: зображення, відео, аудіо файли. Браузер автоматично встановить `Content-Type`
+
 ::
 
 ::field{name="URLSearchParams" type="URLSearchParams"}
 Дані у кодуванні `application/x-www-form-urlencoded`. Використовується рідко, переважно для legacy API
+
 ::
+
 ::
 
 Розглянемо кожен тип детальніше:
@@ -408,6 +420,7 @@ console.log('Профіль оновлено:', result)
 
 ::note
 FormData автоматично встановлює `Content-Type: multipart/form-data` з `boundary`. НЕ встановлюйте цей заголовок вручну, інакше запит не спрацює!
+
 ::
 
 ::
@@ -470,9 +483,11 @@ console.log('Авторизація:', result)
 
 ::tip
 Сьогодні цей формат використовується рідко. Більшість сучасних API віддають перевагу JSON. Використовуйте `URLSearchParams` лише якщо API явно вимагає `application/x-www-form-urlencoded`.
+
 ::
 
 ::
+
 ::
 
 ### Порівняння форматів body
@@ -556,6 +571,7 @@ console.log('Перший байт:', uint8View[0])
 ```
 
 ::
+
 ::
 
 ## Заголовки HTTP
@@ -599,6 +615,7 @@ const response = await fetch('https://api.escuelajs.co/api/v1/products/10', {
 
 ::caution
 **Заборонені заголовки** Деякі заголовки контролюються виключно браузером і не можуть бути встановлені вручну з міркувань безпеки: `Cookie`, `Host`, `Origin`, `Referer`, `Content-Length`, `Connection` та інші. Повний список доступний у [специфікації](https://fetch.spec.whatwg.org/#forbidden-header-name).
+
 ::
 
 ## Comparison: Fetch vs XMLHttpRequest
@@ -624,6 +641,7 @@ const response = await fetch('https://api.escuelajs.co/api/v1/products/10', {
 2.  Відстеження прогресу **відвантаження** (upload progress), оскільки Fetch поки що не підтримує цю функцію нативно
 
 Для всіх інших сценаріїв **віддавайте перевагу Fetch API**.
+
 ::
 
 ## Практичні Сценарії
@@ -696,6 +714,7 @@ try {
 
 ::note
 У майбутньому планується додати вбудовану підтримку таймаутів через нову властивість `signal` та `AbortController` з параметром timeout. Детальніше про це у наступному розділі про [переривання запитів](/javascript/fetch-abort).
+
 ::
 
 ### Retry-механізм
@@ -793,6 +812,7 @@ if (!response.ok) {
 Та обгортайте у try-catch для мережевих помилок
 
 ::
+
 ::
 
 ### Методи Response для різних форматів
@@ -825,10 +845,12 @@ fetch(url, {
 Закріпіть отримані знання, пройшовши короткий тест:
 
 ::tally-embed{id="w2JQOb" title="Fetch API - Тест на розуміння"}
+
 ::
 
 ::note
 **Примітка**: Якщо тест не відображається, перейдіть за [прямим посиланням](https://tally.so/r/w2JQOb).
+
 ::
 
 ## Додаткові ресурси

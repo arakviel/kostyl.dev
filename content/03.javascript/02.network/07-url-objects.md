@@ -79,35 +79,44 @@ graph LR
 ::field-group
 ::field{name="href" type="string"}
 Повний URL (те саме, що `toString()`)
+
 ::
 
 ::field{name="protocol" type="string"}
 Протокол з двокрапкою (наприклад, `https:`)
+
 ::
 
 ::field{name="host" type="string"}
 Домен і порт (наприклад, `site.com:8080`)
+
 ::
 
 ::field{name="hostname" type="string"}
 Лише домен (наприклад, `site.com`)
+
 ::
 
 ::field{name="port" type="string"}
 Порт (наприклад, `8080`)
+
 ::
 
 ::field{name="pathname" type="string"}
 Шлях від кореня (наприклад, `/profile/admin`)
+
 ::
 
 ::field{name="search" type="string"}
 Рядок параметрів з `?` (наприклад, `?id=1&ref=google`)
+
 ::
 
 ::field{name="hash" type="string"}
 Якір з `#` (наприклад, `#top`)
+
 ::
+
 ::
 
 ### Приклади використання
@@ -239,6 +248,7 @@ const url = `https://site.com?q=${encodeURIComponent(param)}`
 **IPv6 та encodeURI**
 
 `encodeURI` має відомий баг із IPv6 адресами, які використовують квадратні дужки `[]`. Він помилково кодує їх, хоча вони дозволені в URL. Клас `URL` обробляє це коректно.
+
 ::
 
 ## Підсумки
@@ -269,6 +279,7 @@ url.searchParams.set('q', 'val')
 -   `URL` клас робить це **автоматично**! 🚀
 
 ::
+
 ::
 
 Використання об'єкта `URL` — це стандарт сучасної розробки. Він робить код чистішим, читабельнішим і захищає від типових помилок кодування URL-алрес.

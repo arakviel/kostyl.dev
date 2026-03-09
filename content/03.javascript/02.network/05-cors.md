@@ -25,6 +25,7 @@ Resultado: `❌ CORS policy: No 'Access-Control-Allow-Origin' header`
 **Критично важливо розуміти**
 
 CORS — це не про захист вашого сервера від атак. Це про **захист користувачів** від зловмисних веб-сайтів, які намагаються викрасти їхні дані з інших сайтів через браузер.
+
 ::
 
 ### Що ми навчимося розуміти?
@@ -53,13 +54,16 @@ Origin = https://example.com:443
 ::field-group
 ::field{name="Same Origin" type="Однакове джерело"}
 `https://site.com/page1` та `https://site.com/page2` — **той самий** origin
+
 ::
 
 ::field{name="Different Origin" type="Різні джерела"}
 `https://site.com` та `http://site.com` — **різні** (протокол)  
  `https://site.com` та `https://api.site.com` — **різні** (субдомен)  
  `https://site.com` та `https://site.com:8080` — **різні** (порт)
+
 ::
+
 ::
 
 ### Історія: чому існує CORS?
@@ -87,6 +91,7 @@ Origin = https://example.com:443
 **CORS — це компроміс**
 
 Браузер каже: "Я дозволю cross-origin запити, **але тільки якщо сервер явно підтвердить**, що довіряє вашому сайту."
+
 ::
 
 ## Типи Cross-Origin Запитів
@@ -178,6 +183,7 @@ Content-Type: application/json
 **Браузер автоматично додає Origin**
 
 Ви **не можете** вручну встановити `Origin` header — браузер робить це автоматично для всіх cross-origin запитів.
+
 ::
 
 ### CORS Headers для Safe Requests
@@ -366,6 +372,7 @@ Access-Control-Allow-Credentials: true
 ```
 
 Це захист проти атак.
+
 ::
 
 ### Приклад: Авторизований запит
@@ -566,6 +573,7 @@ Access-Control-Allow-Origin: https://exact-origin.com
 ```
 
 ❌ Не можна використовувати `*`
+
 ::
 
 ::card{title="Quick Setup" icon="i-lucide-code-2"}
@@ -589,6 +597,7 @@ res.setHeader('Access-Control-Allow-Credentials', 'true')
 ```
 
 ::
+
 ::
 
 ### Головні CORS Headers
@@ -635,6 +644,7 @@ res.setHeader('Access-Control-Allow-Credentials', 'true')
 
 ❌ **Помилка 4**: Думаєте, що CORS захищає ваш сервер  
 ✅ **Розуміння**: CORS захищає користувачів від зловмисних сайтів
+
 ::
 
 CORS може здаватися складним, але це критично важливий механізм безпеки веба. Розуміння того, як він працює, допоможе вам створювати безпечні та функціональні web-додатки.
