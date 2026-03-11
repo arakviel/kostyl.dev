@@ -17,6 +17,7 @@
 **Hook**: Чому одна веб-сторінка виглядає як шедевр дизайну, а інша — як текстовий файл 1992 року?
 
 **Ключові теми:**
+
 - Що таке CSS і каскадність (Cascading)
 - Три способи підключення CSS: inline, `<style>`, зовнішній файл — переваги та недоліки кожного
 - Синтаксис правила CSS: селектор, властивість, значення
@@ -28,6 +29,7 @@
 - Каскад: порядок, специфічність, `!important` (і чому його слід уникати)
 
 **Docus компоненти:**
+
 - `::mermaid` — діаграма ваг специфічності (0,0,0,0)
 - `::tabs` — порівняння трьох способів підключення CSS
 - `::card-group` — картки типів селекторів
@@ -43,6 +45,7 @@
 **Hook**: Чому елемент шириною `width: 200px` займає 240px у browser inspection?
 
 **Ключові теми:**
+
 - Блокова модель (Box Model): content, padding, border, margin
 - `width` та `height` — що насправді вимірюється
 - `box-sizing: content-box` vs `box-sizing: border-box` — революційна різниця
@@ -53,6 +56,7 @@
 - `visibility` vs `display: none` — різниця в поведінці та доступності
 
 **Docus компоненти:**
+
 - Схема блокової моделі як `::mermaid` або `::plant-uml`
 - `::tabs` — `content-box` vs `border-box` з live прикладами
 - `::note` — пояснення margin collapse
@@ -68,6 +72,7 @@
 **Hook**: Чому деякі сайти читаються легко, а інші — немов через матове скло?
 
 **Ключові теми:**
+
 - `font-family` та стек шрифтів (font stack): системні, веб-безпечні, Google Fonts
 - `@font-face` та підключення власних шрифтів
 - `font-size`: px, em, rem — різниця та коли що використовувати
@@ -81,6 +86,7 @@
 - CSS змінні (`--custom-properties`) для системи типографіки
 
 **Docus компоненти:**
+
 - `::tabs` — em vs rem з інтерактивним прикладом наслідування
 - `::card-group` — Google Fonts vs system fonts vs `@font-face`
 - `::tip` — правило золотого перетину для `line-height`
@@ -96,6 +102,7 @@
 **Hook**: Чому кольори в CSS задають п'ятьма різними способами — і який з них правильний?
 
 **Ключові теми:**
+
 - Колірні моделі: `hex`, `rgb()`, `rgba()`, `hsl()`, `hsla()`, `oklch()`
 - CSS Custom Properties (змінні) для кольорової теми
 - `background-color`, `background-image`, `background-size`, `background-position`
@@ -107,6 +114,7 @@
 - CSS-змінні для темної/світлої теми (`prefers-color-scheme`)
 
 **Docus компоненти:**
+
 - `::tabs` — hex/rgb/hsl/oklch порівняння з візуальними прикладами
 - `::mermaid` — схема HSL кола кольорів
 - `::tip` — коли використовувати `oklch` для доступності
@@ -122,6 +130,7 @@
 **Hook**: Як горизонтально та вертикально відцентрувати елемент — те, що роками займало 5 рядків CSS-хаків, тепер вирішується двома.
 
 **Ключові теми:**
+
 - Проблема до Flexbox: `float`, `inline-block`, `table-cell` — чому це хаки?
 - `display: flex` — контейнер та елементи
 - Головна вісь та поперечна вісь (main axis / cross axis)
@@ -134,6 +143,7 @@
 - Практика: navigation bar, card grid, sticky footer, centering
 
 **Docus компоненти:**
+
 - `::mermaid` — схема осей Flexbox
 - `::tabs` — justify-content vs align-items (з візуальними прикладами)
 - `::card-group` — головні властивості контейнера і елементів
@@ -142,13 +152,20 @@
 
 ---
 
-#### [NEW] [14.css-layout-grid.md](file:///y:/Work/kostyl.dev/content/12.html-css/14.css-layout-grid.md)
+#### [NEW] [14.css-layout-grid.md](file:///Users/arakviel/Work/kostyl.dev/content/12.html-css/14.css-layout-grid.md) ✅ Створено (1052 рядки)
 
-**CSS Grid. Двовимірний макет**
+**CSS Grid. Двовимірний макет. Частина 1**
 
 **Hook**: Flexbox вміє розкладати елементи в один рядок або стовпець. Що робити, коли потрібна справжня двовимірна сітка?
 
+---
+
+#### [NEW] [14b.css-layout-grid-advanced.md](file:///Users/arakviel/Work/kostyl.dev/content/12.html-css/14b.css-layout-grid-advanced.md) ✅ Створено (1143 рядки)
+
+**CSS Grid. Двовимірний макет. Частина 2 (Named Areas, вирівнювання, практика)**
+
 **Ключові теми:**
+
 - `display: grid` — контейнер та grid-елементи
 - `grid-template-columns`, `grid-template-rows`
 - Одиниця `fr` (fractional unit)
@@ -162,6 +179,7 @@
 - Практика: класичний page layout, card masonry
 
 **Docus компоненти:**
+
 - `::plant-uml` або `::mermaid` — схема Grid з named areas
 - `::tabs` — Flexbox vs Grid (порівняння)
 - `::card-group` — explicit grid vs implicit grid
@@ -177,6 +195,7 @@
 **Hook**: Чому `z-index: 9999` інколи не допомагає підняти елемент поверх іншого? Відповідь — в stacking context.
 
 **Ключові теми:**
+
 - `position: static` (за замовчуванням)
 - `position: relative` — зміщення без виходу з потоку
 - `position: absolute` — абсолютне позиціонування відносно позиціонованого предка
@@ -188,6 +207,7 @@
 - Практика: tooltip, modal overlay, sticky header, dropdown menu
 
 **Docus компоненти:**
+
 - `::mermaid` — схема stacking context (дерево контекстів)
 - `::tabs` — `absolute` vs `fixed` vs `sticky`
 - `::warning` — `z-index` без `position` не працює
@@ -203,6 +223,7 @@
 **Hook**: У 2024 році понад 60% веб-трафіку — мобільні пристрої. Як зробити один сайт для всіх екранів?
 
 **Ключові теми:**
+
 - Що таке адаптивний дизайн (Responsive Web Design)
 - `<meta name="viewport">` — чому без нього мобільний вигляд зламаний
 - `@media` — синтаксис та типи: `screen`, `print`, `prefers-color-scheme`, `prefers-reduced-motion`
@@ -214,6 +235,7 @@
 - Container Queries (новинка): `@container`
 
 **Docus компоненти:**
+
 - `::mermaid` — timeline еволюції підходів (fixed → fluid → responsive → container)
 - `::tabs` — Mobile-first vs Desktop-first з прикладами коду
 - `::card-group` — breakpoints та їх призначення
@@ -229,6 +251,7 @@
 **Hook**: Що відрізняє хороший UX від чудового? Часто — це 200мс плавного переходу, яких ви майже не помічаєте, але їх відсутність вас дратує.
 
 **Ключові теми:**
+
 - `transition`: властивість, тривалість, функція часу, затримка
 - Функції часу: `ease`, `linear`, `ease-in`, `ease-out`, `ease-in-out`, `cubic-bezier()`
 - Що можна анімувати: `transform`, `opacity`, `color` (GPU-accelerated vs layout-affecting)
@@ -240,6 +263,7 @@
 - Практика: hover effects, loading spinner, fade-in, slide-in
 
 **Docus компоненти:**
+
 - `::tabs` — `transition` vs `@keyframes animation`
 - `::mermaid` — порівняння GPU-accelerated vs layout-affecting властивостей
 - `::tip` — `transform` і `opacity` — найбезпечніші для анімації
@@ -255,6 +279,7 @@
 **Hook**: Як великі команди пишуть CSS без хаосу? Як Dark Mode вмикається одним рядком? Відповідь — CSS Custom Properties та чіткі методології.
 
 **Ключові теми:**
+
 - CSS Custom Properties (змінні): `--variable`, `var()`, `fallback`
 - Область видимості (scope): `:root` vs локальні змінні
 - Динамічна зміна змінних через JavaScript
@@ -266,6 +291,7 @@
 - CSS Reset vs Normalize vs Modern CSS Reset
 
 **Docus компоненти:**
+
 - `::tabs` — BEM vs Utility-first vs Component-based
 - `::mermaid` — схема BEM структури блоків
 - `::card-group` — порівняння методологій (BEM / SMACSS / OOCSS)
@@ -277,6 +303,7 @@
 ## Загальні принципи написання
 
 Кожна стаття:
+
 - Починається з **Hook** (проблема або реальний сценарій)
 - Містить мінімум **2 діаграми** (Mermaid або PlantUML)
 - Використовує **Docus компоненти** для інтерактивності
@@ -289,6 +316,7 @@
 ### Manual Verification
 
 Після написання кожної статті:
+
 1. Відкрити файл у VS Code та перевірити MDC-синтаксис (закриваючі `::` без пробілів)
 2. Запустити dev-сервер Docus (`npm run dev`) та перевірити відображення компонентів у браузері
 3. Перевірити, що всі `::mermaid` і `::plant-uml` діаграми рендеряться коректно
