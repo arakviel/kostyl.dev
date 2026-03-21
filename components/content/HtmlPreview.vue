@@ -1,6 +1,13 @@
 <script setup>
     import { ref, computed, useSlots, onMounted } from 'vue'
 
+    const props = defineProps({
+        tailwind: {
+            type: Boolean,
+            default: true,
+        },
+    })
+
     const slots = useSlots()
     const htmlCode = ref('')
     const cssCode = ref('')
@@ -63,7 +70,9 @@
 <html>
   <head>
     <meta charset="utf-8">
+    ${props.tailwind ? '<script src="https://unpkg.com/@tailwindcss/browser@4"><\/script>' : ''}
     <style>
+      ${props.tailwind ? '@import "tailwindcss";' : ''}
       html, body {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         padding: 1rem;
