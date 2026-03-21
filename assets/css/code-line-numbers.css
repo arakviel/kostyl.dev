@@ -74,8 +74,6 @@ pre.shiki .line.highlight::before {
 /* Опціонально: стилі для скролу коду з великою кількістю рядків */
 pre.shiki {
     overflow-x: auto;
-    max-height: 600px;
-    overflow-y: auto;
 }
 
 /* Тонкий скролбар для блоків коду */
