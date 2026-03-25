@@ -799,6 +799,62 @@ export default defineAppConfig({})
 
 Приклади:
 
+---
+
+## Custom: Docker Desktop GUI (Освітні компоненти)
+
+Спеціальний набір компонентів, що імітує інтерфейс Docker Desktop. Ідеально підходить для візуальних інструкцій та гайдів.
+
+### ::docker-desktop
+Головний контейнер (вікно додатка), що містить сайдбар та хедер.
+
+**Атрибути:**
+| Атрибут | Тип | За замовчуванням | Опис |
+| --- | --- | --- | --- |
+| `activeTab` | string | `containers` | Активний пункт меню (`containers`, `images`, `volumes`, `builds`, `dev-envs`, `extensions`) |
+| `os` | string | `mac` | Стиль вікна (`mac` або `windows`) |
+
+### ::docker-list та ::docker-list-item
+Компоненти для імітації таблиці зі списком контейнерів або образів.
+
+**Синтаксис:**
+```markdown
+::docker-desktop{activeTab="containers"}
+  ::docker-list{title="Containers" :showActions="true"}
+    ::docker-list-item{name="kostyl-web" image="node:20" status="running" ports="3000:3000"}
+    ::
+    ::docker-list-item{name="kostyl-db" image="postgres:15" status="exited" highlight="play"}
+    ::
+  ::
+::
+```
+
+**Атрибути `::docker-list-item`:**
+| Атрибут | Тип | Опис |
+| --- | --- | --- |
+| `name` | string | Назва контейнера |
+| `image` | string | Назва образу |
+| `status` | string | Статус (`running`, `exited`, `error`) |
+| `ports` | string | Рядок з портами (напр. `8080:80`) |
+| `highlight` | string | Опціональна підсвітка кнопок: `play` або `delete` |
+
+### ::docker-settings
+Компонент для імітації сторінки налаштувань Docker Desktop (зокрема для пояснення WSL Integration або Docker Engine).
+
+**Синтаксис:**
+```markdown
+::docker-desktop{activeTab="settings"}
+  ::docker-settings{activeSection="docker-engine"}
+    Тут контент налаштувань, наприклад JSON редактор або чекбокси.
+  ::
+::
+```
+
+**Атрибути `::docker-settings`:**
+| Атрибут | Тип | Опис |
+| --- | --- | --- |
+| `activeSection` | string | Відкритий розділ (`general`, `resources`, `docker-engine`, `builder`, `kubernetes`) |
+
 ```markdown
 :badge[v1.0]{color="green"}
 :icon{name="i-heroicons-star"}

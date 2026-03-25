@@ -1,0 +1,20 @@
+{
+    "url": "https://dev.to/",
+    "outputDir": "./screenshots",
+    "outputPattern": "{host}/{viewport}/{host}-{viewport}-{route}.{ext}",
+    "browserOptions": {
+        "headless": true
+    },
+    "captureOptions": {
+        "fullPage": true,
+        "imageType": "png"
+    },
+    "viewports": [
+        { "name": "mobile", "width": 375, "height": 812 },
+        { "name": "desktop", "width": 1440, "height": 900 }
+    ],
+    "crawl": true,
+    "crawlOptions": {
+        "crawlLimit": 10
+    }
+}

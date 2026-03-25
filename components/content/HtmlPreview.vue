@@ -5,7 +5,7 @@ import { useRoute } from 'nuxt/app'
     const props = defineProps({
         tailwind: {
             type: Boolean,
-            default: true,
+            default: false,
         },
     })
 
@@ -95,19 +95,51 @@ import { useRoute } from 'nuxt/app'
     const srcdoc = computed(
         () => `
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Preview</title>
     ${props.tailwind ? '<script src="https://unpkg.com/@tailwindcss/browser@4"><\/script>' : ''}
     <style>
-      ${props.tailwind ? '/* Tailwind 4 integrated via script */' : ''}
-      html, body {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        padding: 1rem;
-        margin: 0;
-        color: #333;
+      /* Base CSS Reset */
+      *, ::before, ::after {
+        box-sizing: border-box;
+        border-width: 0;
+        border-style: solid;
+        border-color: currentColor;
       }
-      * { box-sizing: border-box; }
+      
+      html {
+        line-height: 1.5;
+        -webkit-text-size-adjust: 100%;
+        -moz-tab-size: 4;
+        tab-size: 4;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      }
+
+      body {
+        margin: 0;
+        line-height: inherit;
+        ${props.tailwind ? '' : 'padding: 1rem; color: #1e293b;'}
+      }
+
+      /* Tailwind 4 integrated via script if active */
+      ${props.tailwind ? '' : `
+      h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+      a { color: inherit; text-decoration: inherit; }
+      b, strong { font-weight: bolder; }
+      code, kbd, samp, pre { font-family: ui-monospaced, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 1em; }
+      small { font-size: 80%; }
+      sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+      sub { bottom: -0.25em; }
+      sup { top: -0.5em; }
+      table { text-indent: 0; border-color: inherit; border-collapse: collapse; }
+      button, input, optgroup, select, textarea { font-family: inherit; font-size: 100%; font-weight: inherit; line-height: inherit; color: inherit; margin: 0; padding: 0; }
+      button, select { text-transform: none; }
+      button, [type='button'], [type='reset'], [type='submit'] { -webkit-appearance: button; background-color: transparent; background-image: none; }
+      `}
+      
       ${cssCode.value}
     </style>
   </head>

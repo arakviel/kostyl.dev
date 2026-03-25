@@ -1,0 +1,12 @@
+{
+  "name": "screenshoter",
+  "version": "1.0.0",
+  "description": "Website screenshot crawler using @nicacoder/webscreenshots",
+  "scripts": {
+    "start": "webscreenshots --config ./webscreenshots.json",
+    "start:cli": "webscreenshots"
+  },
+  "devDependencies": {
+    "@nicacoder/webscreenshots": "latest"
+  }
+}
