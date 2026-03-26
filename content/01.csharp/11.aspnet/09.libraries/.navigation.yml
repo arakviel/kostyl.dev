@@ -1,0 +1,15 @@
+title: Популярні бібліотеки
+icon: lucide:box
+items:
+  - 01.fluent-validation
+  - 02.mapster
+  - 03.erroror-result-pattern
+  - 04.serilog
+  - 05.mediatr
+  - 06.polly
+  - 07.health-checks
+  - 08.feature-management
+  - 09.fluent-email
+  - 10.quest-pdf
+  - 11.bogus
+  - 12.humanizer-guard
