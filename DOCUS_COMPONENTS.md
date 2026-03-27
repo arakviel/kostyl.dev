@@ -202,15 +202,15 @@ npm install @nuxt/ui-pro@next
 ````markdown
 ::code-tree
 
-    ```csharp [GlobalUsings.cs]
-    global using System;
-    global using System.Linq;
-    ```
+```csharp [GlobalUsings.cs]
+global using System;
+global using System.Linq;
+```
 
-    ```csharp [Services/UserService.cs]
-    namespace MyApp.Services;
-    public class UserService { }
-    ```
+```csharp [Services/UserService.cs]
+namespace MyApp.Services;
+public class UserService { }
+```
 
 ::
 ````
