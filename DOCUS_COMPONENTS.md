@@ -665,29 +665,6 @@ User "1" -- "*" Order : places
 
 ---
 
-### ::premium-alert
-
-Високоякісний компонент для виділення важливих думок, порад або застережень. На відміну від стандартних callouts, має ефекти глибокої прозорості (glassmorphism), текстуру шуму та мікро-анімації.
-
-**Синтаксис:**
-
-```markdown
-::premium-alert{type="tip" title="Best Practice"}
-Використовуйте `MemoryView` для візуального пояснення вказівників (pointers).
-::
-```
-
-**Атрибути:**
-
-| Атрибут | Тип    | За замовчуванням | Опис                                             |
-| ------- | ------ | ---------------- | ------------------------------------------------ |
-| `type`  | string | `info`           | Тип: `tip`, `info`, `warning`, `danger`          |
-| `title` | string | `undefined`      | Заголовок акценту                                |
-
-**Поведінка**: При наведенні іконка повертається і масштабується, а фоновий "glow" ефект стає яскравішим.
-
----
-
 ### ::debugger-view
 
 Візуалізація стану програми (змінних, регістрів) у стилі дебаг-панелі сучасних IDE (Xcode, VS Code).
@@ -928,7 +905,6 @@ to: /link
 | **Освітні**      |        |                                    |
 | `terminal-preview`| block  | CLI/Terminal macOS вікно           |
 | `html-preview`   | block  | Браузерне вікно macOS Chrome       |
-| `premium-alert`  | block  | Glassmorphism акценти з текстурою  |
 | `debugger-view`  | block  | Стан змінних (IDE style)           |
 | `memory-view`    | block  | Hex Dump / Memory visualizer       |
 

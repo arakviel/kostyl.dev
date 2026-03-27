@@ -155,6 +155,7 @@ export default defineNuxtConfig({
                         'html',
                         'css',
                         'vue',
+                        'php',
                         // Shell/Script Languages
                         'bash',
                         'shell',
