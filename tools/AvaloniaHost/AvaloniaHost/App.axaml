@@ -1,0 +1,28 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:AvaloniaHost"
+             xmlns:sty="using:FluentAvalonia.Styling"
+             x:Class="AvaloniaHost.App"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+
+    <Application.Resources>
+        <!-- Correct URI for embedded fonts in Avalonia 11 (removed the slash before #) -->
+        <FontFamily x:Key="SegoeUI">avares://AvaloniaHost/Assets/Fonts#Segoe UI</FontFamily>
+    </Application.Resources>
+
+    <Application.Styles>
+        <sty:FluentAvaloniaTheme PreferSystemTheme="True" PreferUserAccentColor="True" />
+        
+        <Style Selector="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource SegoeUI}" />
+        </Style>
+        <Style Selector="TemplatedControl">
+            <Setter Property="FontFamily" Value="{StaticResource SegoeUI}" />
+        </Style>
+    </Application.Styles>
+</Application>

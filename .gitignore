@@ -37,3 +37,10 @@ logs
 .history
 .wrangler
 .kilocode
+# .NET / C#
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.doccache

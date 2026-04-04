@@ -710,6 +710,64 @@ User "1" -- "*" Order : places
 
 ---
 
+### ::wpf-preview
+
+Найпотужніший компонент системи — живий превьюер **Avalonia UI (XAML)**, що працює на WebAssembly. Дозволяє показувати не тільки інтерфейс, а й C# логіку та результати виконання в реальному часі.
+
+**Синтаксис:**
+
+````markdown
+::wpf-preview{title="Вступ до XAML"}
+
+```xml
+<StackPanel Margin="20">
+  <Button Content="Привіт, Світ!" Command="{Binding ShowMessageCommand}" CommandParameter="Click!" />
+</StackPanel>
+```
+
+```csharp
+public partial class MainWindow : Window {
+    // Цей код буде показано у вкладці Code-behind
+}
+```
+
+::
+````
+
+**Атрибути:**
+
+| Атрибут | Тип    | За замовчуванням | Опис                     |
+| ------- | ------ | ---------------- | ------------------------ |
+| `title` | string | `WPF Preview`    | Заголовок вікна macOS    |
+
+**Функціональні вкладки:**
+
+1.  **WASM Preview**: Живий рендеринг інтерфейсу. Підтримує Windows 11 Fluent Design "з коробки".
+2.  **MainWindow.xaml**: Перегляд вихідного коду розмітки.
+3.  **MainWindow.xaml.cs**: Перегляд C# логіки (Code-behind). Шукає блок коду з мовою `csharp` або `cs`.
+4.  **Output**: Консоль виводу. Сюди потрапляють повідомлення про статус завантаження та логи від подій (через `LogToVue`).
+
+> [!IMPORTANT]
+> **Обмеження подій (Events):**
+> Атрибути на кшталт `Click="Button_Click"` у XAML **не працюватимуть**, оскільки код у вкладці `.cs` слугує лише для візуальної документації. Для імітації натискання кнопок та інших подій використовуйте систему **Commands** (див. нижче).
+
+**Особливості:**
+- **Авто-синхронізація теми**: Превью автоматично перемикається на світлу або темну тему Avalonia разом із сайтом.
+- **Підтримка подій (Logging)**: Використовуйте `Command="{Binding ShowMessageCommand}"` та `CommandParameter` у XAML, щоб продемонструвати реакцію інтерфейсу — результат з'явиться у вкладці **Output**.
+- **Segoe UI Integration**: Шрифт Segoe UI вбудований у WASM-хост для максимальної автентичності Windows-інтерфейсів.
+
+**🛠 Технічне обслуговування (для розробників):**
+
+Якщо ви змінили C# код хоста (наприклад, додали нові шрифти або команди), виконайте збірку:
+
+```bash
+dotnet publish tools/AvaloniaHost/AvaloniaHost.Browser/AvaloniaHost.Browser.csproj -c Release -o public/avalonia
+```
+
+Детальніше у [технічному README](file:///Users/arakviel/Work/kostyl.dev/tools/AvaloniaHost/README.md).
+
+---
+
 ## Code Block Features (MDC Magic)
 
 ### Line Numbers
