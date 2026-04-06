@@ -101,9 +101,16 @@ const sendThemeToWasm = () => {
 
 const sendXamlToWasm = () => {
     if (isWasmReady.value && iframeRef.value?.contentWindow) {
+        let finalXaml = xamlCode.value;
+        
+        // Inject default Avalonia namespaces if missing, to allow rendering raw snippets without Window boilerplate
+        if (finalXaml && !finalXaml.includes('xmlns=')) {
+            finalXaml = finalXaml.replace(/<([a-zA-Z0-9_]+)/, '<$1 xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"');
+        }
+
         iframeRef.value.contentWindow.postMessage({
             type: 'update-xaml',
-            xaml: xamlCode.value
+            xaml: finalXaml
         }, '*');
         sendThemeToWasm(); // Sync theme every time we update XAML too
     }
