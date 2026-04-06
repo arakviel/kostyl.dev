@@ -108,6 +108,19 @@ const sendXamlToWasm = () => {
             finalXaml = finalXaml.replace(/<([a-zA-Z0-9_]+)/, '<$1 xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"');
         }
 
+        // Translate WPF-specific static resources for Avalonia compatibility in preview
+        if (finalXaml) {
+            finalXaml = finalXaml
+                .replace(/\{x:Static SystemColors\.HighlightBrush\}/g, "Blue")
+                .replace(/\{x:Static SystemColors\.HighlightTextBrush\}/g, "White")
+                .replace(/\{x:Static SystemColors\.HotTrackBrush\}/g, "Blue")
+                .replace(/\{x:Static SystemColors\.WindowBrush\}/g, "White")
+                .replace(/\{x:Static SystemColors\.ActiveBorderBrush\}/g, "Gray")
+                .replace(/\{x:Static SystemColors\.WindowTextBrush\}/g, "Black")
+                .replace(/\{x:Static FlowDirection\.RightToLeft\}/g, "RightToLeft")
+                .replace(/\bToolTip="/g, 'ToolTip.Tip="');
+        }
+
         iframeRef.value.contentWindow.postMessage({
             type: 'update-xaml',
             xaml: finalXaml
