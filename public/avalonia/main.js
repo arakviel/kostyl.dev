@@ -1,8 +1,19 @@
 import { dotnet } from './_framework/dotnet.js'
 
+const urlParams = new URLSearchParams(window.location.search);
+const instanceId = urlParams.get('id');
+
+// WASM main.js initialized
+
 export function logToVue(message) {
     if (typeof window !== 'undefined') {
-        window.parent.postMessage({ type: 'wasm-log', message }, '*');
+        window.parent.postMessage({ type: 'wasm-log', message, id: instanceId }, '*');
+    }
+}
+
+export function setIframeHeight(height) {
+    if (typeof window !== 'undefined') {
+        window.parent.postMessage({ type: 'set-height', height, id: instanceId }, '*');
     }
 }
 
@@ -15,7 +26,8 @@ const dotnetRuntime = await dotnet
     .create();
 
 dotnetRuntime.setModuleImports("main.js", {
-    logToVue: (message) => logToVue(message)
+    logToVue: (message) => logToVue(message),
+    setIframeHeight: (height) => setIframeHeight(height)
 });
 
 const config = dotnetRuntime.getConfig();
@@ -37,16 +49,23 @@ try {
     window.addEventListener('message', (event) => {
         if (!event.data || !event.data.type) return;
 
+        // Filter by instanceId if provided in message
+        if (event.data.id && event.data.id !== instanceId) return;
+
         if (!bridge) {
             console.error("Bridge is not available.");
             return;
         }
 
         if (event.data.type === 'ping') {
-            window.parent.postMessage({ type: 'avalonia-ready' }, '*');
+            window.parent.postMessage({ type: 'avalonia-ready', id: instanceId }, '*');
         } else if (event.data.type === 'update-xaml') {
             try {
-                if (bridge.UpdateXaml) bridge.UpdateXaml(event.data.xaml);
+                if (bridge.UpdateXaml) {
+                    bridge.UpdateXaml(event.data.xaml);
+                } else {
+                    console.error("[WASM-JS] UpdateXaml not found on bridge");
+                }
             } catch (e) {
                 console.error("Error calling UpdateXaml:", e);
             }
@@ -64,7 +83,7 @@ try {
     });
 
     // Initial signal to parent
-    window.parent.postMessage({ type: 'avalonia-ready' }, '*');
+    window.parent.postMessage({ type: 'avalonia-ready', id: instanceId }, '*');
 } catch (err) {
     console.error("Failed to load assembly exports:", err);
 }

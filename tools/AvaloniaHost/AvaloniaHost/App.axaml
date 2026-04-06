@@ -10,19 +10,15 @@
         <local:ViewLocator/>
     </Application.DataTemplates>
 
-    <Application.Resources>
-        <!-- Correct URI for embedded fonts in Avalonia 11 (removed the slash before #) -->
-        <FontFamily x:Key="SegoeUI">avares://AvaloniaHost/Assets/Fonts#Segoe UI</FontFamily>
-    </Application.Resources>
-
     <Application.Styles>
         <sty:FluentAvaloniaTheme PreferSystemTheme="True" PreferUserAccentColor="True" />
-        
-        <Style Selector="TextBlock">
-            <Setter Property="FontFamily" Value="{StaticResource SegoeUI}" />
-        </Style>
-        <Style Selector="TemplatedControl">
-            <Setter Property="FontFamily" Value="{StaticResource SegoeUI}" />
+
+        <!-- Make Buttons mimic WPF's default Stretch alignments -->
+        <Style Selector="Button">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
         </Style>
     </Application.Styles>
 </Application>

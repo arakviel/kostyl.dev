@@ -2,89 +2,113 @@
 import { ref, computed, useSlots, onMounted, onUnmounted, watch } from 'vue'
 
 const props = defineProps({
-    title: {
-        type: String,
-        default: 'WPF / Avalonia Preview'
-    }
+    title: { type: String, default: 'WPF / Avalonia Preview' },
+    height: { type: [String, Number], default: 0 }
 })
 
 const slots = useSlots()
 const iframeRef = ref(null)
 const activeTab = ref('preview')
+const instanceId = ref('')
+const version = ref(0)
 const isWasmLoading = ref(true)
 const isWasmReady = ref(false)
 const wasmLogs = ref([])
+const xamlCode = ref('')
+const csharpCode = ref('')
+let lastHeightValue = 0
+let lastHeightTime = 0
 
-// Extract XAML and C# code from slots
-const extractedData = computed(() => {
-    const defaultSlot = slots.default?.() || []
-    let xamlSnippet = ''
-    const xVnodes = []
-    const cVnodes = []
-    let csharpSnippet = ''
+onMounted(() => {
+    instanceId.value = Math.random().toString(36).substring(7)
+    version.value = Date.now()
+    window.addEventListener('message', handleMessage)
+    
+    // Fallback: ping iframe until it responds
+    pingInterval = setInterval(() => {
+        if (!isWasmReady.value && iframeRef.value?.contentWindow) {
+            iframeRef.value.contentWindow.postMessage({ type: 'ping', id: instanceId.value }, '*');
+        }
+    }, 500);
 
-    const findCodes = (vnodes) => {
-        if (!vnodes) return;
-        const nodesArray = Array.isArray(vnodes) ? vnodes : [vnodes];
+    setTimeout(() => {
+        if (isWasmLoading.value && pingInterval) {
+            clearInterval(pingInterval);
+            isWasmLoading.value = false;
+        }
+    }, 20000); // 20s timeout for multiple instances
+})
+
+const findCodesInVNodes = (vnodes, targetLang) => {
+    let snippet = '';
+    const matchedVNodes = [];
+
+    const find = (nodes) => {
+        if (!nodes) return;
+        const nodesArray = Array.isArray(nodes) ? nodes : [nodes];
         
         for (const vnode of nodesArray) {
             if (!vnode) continue;
             
             const p = vnode.props || {};
-            // Nuxt Content specific: language and code might be in props or children
             const lang = p.language || p.lang || '';
             const code = p.code || '';
 
             if (lang && code) {
-                if (lang === 'xml' || lang === 'xaml' || lang === 'html') {
-                    xamlSnippet = code;
-                    xVnodes.push(vnode);
-                } else if (lang === 'csharp' || lang === 'cs') {
-                    csharpSnippet = code;
-                    cVnodes.push(vnode);
+                if (targetLang === 'xaml' && (lang === 'xml' || lang === 'xaml' || lang === 'html')) {
+                    snippet = code;
+                    matchedVNodes.push(vnode);
+                } else if (targetLang === 'csharp' && (lang === 'csharp' || lang === 'cs')) {
+                    snippet = code;
+                    matchedVNodes.push(vnode);
                 }
             } else {
-                // Fallback for standard markdown blocks if they are not pre-parsed by Prose
                 const tag = vnode.type || '';
                 const children = vnode.children || '';
                 if (typeof children === 'string' && tag === 'code' && p.class?.includes('language-')) {
                    const matchedLang = p.class.replace('language-', '');
-                   if (matchedLang === 'csharp' || matchedLang === 'cs') {
-                       csharpSnippet = children;
-                       cVnodes.push(vnode);
+                   if (targetLang === 'xaml' && (matchedLang === 'xml' || matchedLang === 'xaml' || matchedLang === 'html')) {
+                       snippet = children;
+                       matchedVNodes.push(vnode);
+                   } else if (targetLang === 'csharp' && (matchedLang === 'csharp' || matchedLang === 'cs')) {
+                       snippet = children;
+                       matchedVNodes.push(vnode);
                    }
                 }
             }
             
-            // Recurse into children
-            if (vnode.children) {
-                if (Array.isArray(vnode.children)) {
-                    findCodes(vnode.children);
-                } else if (typeof vnode.children === 'object' && vnode.children.default) {
-                    try { findCodes(vnode.children.default()); } catch (e) {}
-                }
+            if (vnode.children && Array.isArray(vnode.children)) {
+                find(vnode.children);
+            } else if (vnode.children && typeof vnode.children === 'object' && vnode.children.default) {
+                try { find(vnode.children.default()); } catch (e) {}
             }
             
-            // Handle components like ProseCode/ProsePre
             if (vnode.component?.subTree) {
-                findCodes(vnode.component.subTree);
+                find(vnode.component.subTree);
             }
         }
-    }
+    };
+    find(vnodes);
+    return { snippet: snippet.trim(), vnodes: matchedVNodes };
+}
 
-    findCodes(defaultSlot)
-    return {
-        xamlCode: xamlSnippet.trim(),
-        xamlVnodes: xVnodes,
-        csharpCode: csharpSnippet.trim(),
-        csharpVnodes: cVnodes
-    }
-})
+const XamlRenderer = () => {
+    const vnodes = slots.default?.() || [];
+    const result = findCodesInVNodes(vnodes, 'xaml');
+    Promise.resolve().then(() => {
+        if (xamlCode.value !== result.snippet) xamlCode.value = result.snippet;
+    });
+    return result.vnodes;
+}
 
-const xamlCode = computed(() => extractedData.value.xamlCode)
-const xamlVnodes = computed(() => extractedData.value.xamlVnodes)
-const csharpCode = computed(() => extractedData.value.csharpCode)
-const csharpVnodes = computed(() => extractedData.value.csharpVnodes)
+const CsharpRenderer = () => {
+    const vnodes = slots.default?.() || [];
+    const result = findCodesInVNodes(vnodes, 'csharp');
+    Promise.resolve().then(() => {
+        if (csharpCode.value !== result.snippet) csharpCode.value = result.snippet;
+    });
+    return result.vnodes;
+}
 
 // Theme Synchronization
 const colorMode = typeof useColorMode === 'function' ? useColorMode() : { value: 'dark' };
@@ -94,23 +118,28 @@ const sendThemeToWasm = () => {
     if (isWasmReady.value && iframeRef.value?.contentWindow) {
         iframeRef.value.contentWindow.postMessage({
             type: 'set-theme',
-            theme: currentTheme.value
+            theme: currentTheme.value,
+            id: instanceId.value
         }, '*');
     }
 }
 
+const iframeHeight = ref(300);
+
 const sendXamlToWasm = () => {
     if (isWasmReady.value && iframeRef.value?.contentWindow) {
-        let finalXaml = xamlCode.value;
+        let finalXaml = xamlCode.value.trim();
         
         // Inject default Avalonia namespaces if missing, to allow rendering raw snippets without Window boilerplate
         if (finalXaml && !finalXaml.includes('xmlns=')) {
-            finalXaml = finalXaml.replace(/<([a-zA-Z0-9_]+)/, '<$1 xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"');
+            finalXaml = finalXaml.replace(/<([a-zA-Z0-9_:]+)/, '<$1 xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"');
         }
 
         // Translate WPF-specific static resources for Avalonia compatibility in preview
         if (finalXaml) {
             finalXaml = finalXaml
+                .replace(/<PasswordBox\b/g, '<TextBox PasswordChar="*"')
+                .replace(/<\/PasswordBox>/g, '</TextBox>')
                 .replace(/\{x:Static SystemColors\.HighlightBrush\}/g, "Blue")
                 .replace(/\{x:Static SystemColors\.HighlightTextBrush\}/g, "White")
                 .replace(/\{x:Static SystemColors\.HotTrackBrush\}/g, "Blue")
@@ -118,12 +147,25 @@ const sendXamlToWasm = () => {
                 .replace(/\{x:Static SystemColors\.ActiveBorderBrush\}/g, "Gray")
                 .replace(/\{x:Static SystemColors\.WindowTextBrush\}/g, "Black")
                 .replace(/\{x:Static FlowDirection\.RightToLeft\}/g, "RightToLeft")
-                .replace(/\bToolTip="/g, 'ToolTip.Tip="');
+                .replace(/\bToolTip="/g, 'ToolTip.Tip="')
+                .replace(/<StatusBar\b/g, '<Border BorderBrush="#cbd5e1" BorderThickness="0,1,0,0"')
+                .replace(/<\/StatusBar>/g, '</Border>')
+                .replace(/<StatusBarItem\b/g, '<ContentControl')
+                .replace(/<\/StatusBarItem>/g, '</ContentControl>')
+                .replace(/\bVisibility="Collapsed"/g, 'IsVisible="False"')
+                .replace(/\bVisibility="Hidden"/g, 'IsHitTestVisible="False" Opacity="0"')
+                .replace(/\bVisibility="Visible"/g, 'IsVisible="True" Opacity="1"')
+                .replace(/([Pp]adding|[Mm]argin|[Cc]orner[Rr]adius)="([^"]+)"/g, (m, prop, val) => {
+                    return `${prop}="${val.replace(/,/g, ' ')}"`;
+                })
+                .replace(/\bCursor="SizeWE"/g, 'Cursor="SizeWestEast"')
+                .replace(/\bCursor="SizeNS"/g, 'Cursor="SizeNorthSouth"');
         }
 
         iframeRef.value.contentWindow.postMessage({
             type: 'update-xaml',
-            xaml: finalXaml
+            xaml: finalXaml,
+            id: instanceId.value
         }, '*');
         sendThemeToWasm(); // Sync theme every time we update XAML too
     }
@@ -140,7 +182,18 @@ watch(xamlCode, () => {
 let pingInterval = null;
 
 const handleMessage = (event) => {
-    if (event.data && event.data.type === 'avalonia-ready') {
+    if (!event.data) return;
+    
+    if (event.data.id !== instanceId.value) return;
+    
+    if (event.data.type === 'set-height') {
+        const height = event.data.height;
+        if (height > 0 && !props.height) {
+            iframeHeight.value = Math.max(150, Math.ceil(height));
+        }
+    }
+    if (event.data.type === 'avalonia-ready') {
+        console.log(`[Vue-WpfPreview] Instance ${instanceId.value} ready!`);
         isWasmLoading.value = false
         isWasmReady.value = true
         if (pingInterval) {
@@ -149,7 +202,7 @@ const handleMessage = (event) => {
         }
         sendXamlToWasm()
     }
-    if (event.data && event.data.type === 'wasm-log') {
+    if (event.data.type === 'wasm-log') {
         wasmLogs.value.push({
             id: Date.now() + Math.random(),
             message: event.data.message,
@@ -158,24 +211,6 @@ const handleMessage = (event) => {
         if (wasmLogs.value.length > 50) wasmLogs.value.shift()
     }
 }
-
-onMounted(() => {
-    window.addEventListener('message', handleMessage)
-    
-    // Fallback: ping iframe until it responds
-    pingInterval = setInterval(() => {
-        if (!isWasmReady.value && iframeRef.value?.contentWindow) {
-            iframeRef.value.contentWindow.postMessage({ type: 'ping' }, '*');
-        }
-    }, 500);
-
-    setTimeout(() => {
-        if (isWasmLoading.value && pingInterval) {
-            clearInterval(pingInterval);
-            isWasmLoading.value = false;
-        }
-    }, 10000);
-})
 
 onUnmounted(() => {
     window.removeEventListener('message', handleMessage)
@@ -196,12 +231,6 @@ const reloadWasm = () => {
         iframeRef.value.src = '/avalonia/index.html';
     }
 }
-
-// Functional component for rendering VNodes
-const VNodeRenderer = (props) => {
-    return props.vnodes || null
-}
-VNodeRenderer.props = ['vnodes']
 
 </script>
 
@@ -289,17 +318,20 @@ VNodeRenderer.props = ['vnodes']
         </div>
 
         <!-- content -->
-        <div class="flex-grow relative bg-white dark:bg-[#1e1e1e] overflow-hidden min-h-[400px] flex">
+        <div class="flex-grow relative bg-white dark:bg-[#1e1e1e] overflow-hidden flex" :style="{ minHeight: (height || iframeHeight) + 'px' }">
             <!-- WASM Preview Area -->
-            <div v-show="activeTab === 'preview'" class="w-full h-full min-h-[400px] relative flex">
+            <div v-show="activeTab === 'preview'" class="w-full h-full relative flex" :style="{ minHeight: iframeHeight + 'px' }">
                 
                 <!-- Real WASM iframe -->
-                <iframe 
-                    ref="iframeRef" 
-                    src="/avalonia/index.html" 
-                    class="w-full h-full border-none absolute inset-0 z-10 bg-[#f9f9f9] dark:bg-[#111111]"
-                    title="Avalonia WASM Host"
-                ></iframe>
+                <ClientOnly>
+                    <iframe 
+                        v-if="instanceId"
+                        ref="iframeRef" 
+                        :src="`/avalonia/index.html?v=${version}&id=${instanceId}`" 
+                        class="w-full h-full border-none absolute inset-0 z-10 bg-[#f9f9f9] dark:bg-[#111111]"
+                        title="Avalonia WASM Host"
+                    ></iframe>
+                </ClientOnly>
 
                 <!-- WASM Loading State Backdrop -->
                 <div v-if="isWasmLoading" class="absolute inset-0 z-20 bg-[#2d2d2d] flex flex-col items-center justify-center text-white transition-opacity duration-300">
@@ -322,7 +354,9 @@ VNodeRenderer.props = ['vnodes']
                 v-show="activeTab === 'xaml'" 
                 class="w-full px-6 py-4 code-tab-content animate-in fade-in duration-300 overflow-auto max-h-[600px] bg-white dark:bg-[#1e1e1e]"
             >
-                <VNodeRenderer :vnodes="xamlVnodes" />
+                <ClientOnly>
+                    <XamlRenderer />
+                </ClientOnly>
             </div>
 
             <!-- C# View -->
@@ -330,7 +364,9 @@ VNodeRenderer.props = ['vnodes']
                 v-show="activeTab === 'csharp'" 
                 class="w-full px-6 py-4 code-tab-content animate-in fade-in duration-300 overflow-auto max-h-[600px] bg-white dark:bg-[#1e1e1e]"
             >
-                <VNodeRenderer :vnodes="csharpVnodes" />
+                <ClientOnly>
+                    <CsharpRenderer />
+                </ClientOnly>
             </div>
 
             <!-- Output View -->
