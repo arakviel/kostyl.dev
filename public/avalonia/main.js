@@ -11,6 +11,12 @@ export function logToVue(message) {
     }
 }
 
+export function logErrorToVue(message, xaml) {
+    if (typeof window !== 'undefined') {
+        window.parent.postMessage({ type: 'wasm-error', message, xaml, id: instanceId }, '*');
+    }
+}
+
 export function setIframeHeight(height) {
     if (typeof window !== 'undefined') {
         window.parent.postMessage({ type: 'set-height', height, id: instanceId }, '*');
@@ -27,6 +33,7 @@ const dotnetRuntime = await dotnet
 
 dotnetRuntime.setModuleImports("main.js", {
     logToVue: (message) => logToVue(message),
+    logErrorToVue: (message, xaml) => logErrorToVue(message, xaml),
     setIframeHeight: (height) => setIframeHeight(height)
 });
 

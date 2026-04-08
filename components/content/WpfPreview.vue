@@ -155,6 +155,17 @@ const sendXamlToWasm = () => {
                 .replace(/\bVisibility="Collapsed"/g, 'IsVisible="False"')
                 .replace(/\bVisibility="Hidden"/g, 'IsHitTestVisible="False" Opacity="0"')
                 .replace(/\bVisibility="Visible"/g, 'IsVisible="True" Opacity="1"')
+                .replace(/<WrapPanel\b([^>]*)\bSpacing="([^"]+)"/g, '<WrapPanel$1ItemSpacing="$2"')
+                // First, strip any existing ScrollViewer. prefixes to avoid double prefixing
+                .replace(/\bScrollViewer\.(Vertical|Horizontal)ScrollBarVisibility/g, '$1ScrollBarVisibility')
+                // Then add them correctly
+                .replace(/\b(Vertical|Horizontal)ScrollBarVisibility="([^"]+)"/g, 'ScrollViewer.$1ScrollBarVisibility="$2"')
+                .replace(/\bRenderOptions\.BitmapScalingMode="([^"]+)"/g, 'RenderOptions.BitmapInterpolationMode="$1"')
+                .replace(/\bTickPlacement="Both"/g, 'TickPlacement="Outside"')
+                .replace(/<([a-zA-Z0-9_]+)\.ToolTip\b([^>]*)>/g, '<ToolTip.Tip$2>')
+                .replace(/<\/([a-zA-Z0-9_]+)\.ToolTip\s*>/g, '</ToolTip.Tip>')
+                .replace(/\b(Click|TextChanged|SelectionChanged|Checked|Unchecked|Opened|Closed|Scroll|Pointer[a-zA-Z]*|Key[a-zA-Z]*)="[^"{}]*"\s?/g, '')
+                .replace(/\bSource="https?:\/\/[^"]+"/g, 'Source="avares://AvaloniaHost/Assets/placeholder.png"')
                 .replace(/([Pp]adding|[Mm]argin|[Cc]orner[Rr]adius)="([^"]+)"/g, (m, prop, val) => {
                     return `${prop}="${val.replace(/,/g, ' ')}"`;
                 })
@@ -206,9 +217,77 @@ const handleMessage = (event) => {
         wasmLogs.value.push({
             id: Date.now() + Math.random(),
             message: event.data.message,
-            time: new Date().toLocaleTimeString()
+            time: new Date().toLocaleTimeString(),
+            isError: false
         })
         if (wasmLogs.value.length > 50) wasmLogs.value.shift()
+    }
+    if (event.data.type === 'wasm-error') {
+        let { message, xaml } = event.data;
+        
+        // Extract all possible line numbers (for AggregateExceptions or multiple errors)
+        const lineMatches = [...message.matchAll(/,\s*(\d+),\s*\d+(?=\s*\)|$)/g)];
+        const problemLineNums = lineMatches.length > 0 
+            ? lineMatches.map(m => parseInt(m[1], 10)) 
+            : [];
+        
+        // If matched via other formats, add them too
+        if (problemLineNums.length === 0) {
+            let altMatch = message.match(/[Ll]ine\s+(\d+)/) || message.match(/\((\d+),\d+\)/);
+            if (altMatch) problemLineNums.push(parseInt(altMatch[1], 10));
+        }
+
+        // Clean up the error message
+        let cleanedMessage = message
+            .replace(/^AggregateException_ctor_DefaultMessage\s*/, 'Multiple XAML Errors:')
+            .replace(/Xml_MessageWithErrorPosition, Xml_UserException, /g, '')
+            .replace(/\(([^)]+)\)/g, '\n  • $1') // Format multiple errors as bullets
+            .trim();
+
+        // If it's the "7, 4" lone format, prefix it
+        if (/^\d+,\s*\d+$/.test(cleanedMessage)) {
+            cleanedMessage = 'XAML Parse Error: ' + cleanedMessage;
+        }
+
+        console.group(`%c ❌ Avalonia XAML Parse Error `, `background: #dc2626; color: #ffffff; font-weight: bold; border-radius: 4px; padding: 2px 6px;`);
+        console.error(cleanedMessage);
+        
+        if (xaml) {
+            const lines = xaml.split('\n');
+            console.log('%c--- Problematic Code ---', 'color: #888; font-style: italic;');
+            
+            lines.forEach((line, index) => {
+                const currentLineNum = index + 1;
+                const isErrorLine = problemLineNums.includes(currentLineNum);
+                const isNearError = problemLineNums.some(num => Math.abs(currentLineNum - num) <= 3);
+
+                if (problemLineNums.length > 0) {
+                    if (isNearError) {
+                        if (isErrorLine) {
+                            console.log(`%c${currentLineNum.toString().padStart(3, ' ')} | %c${line}`, 'color: #888;', 'color: #ef4444; font-weight: bold; background: rgba(239, 68, 68, 0.1); padding: 2px 2px;');
+                        } else {
+                            console.log(`%c${currentLineNum.toString().padStart(3, ' ')} | ${line}`, 'color: #888;');
+                        }
+                    }
+                } else if (index < 10) {
+                    console.log(`%c${currentLineNum.toString().padStart(3, ' ')} | ${line}`, 'color: #888;');
+                }
+            });
+            
+            if (problemLineNums.length === 0 && lines.length > 10) {
+                console.log(`%c... (+ ${lines.length - 10} more lines)`, 'color: #888; font-style: italic;');
+            }
+            console.log('%c------------------------', 'color: #888; font-style: italic;');
+        }
+        console.groupEnd();
+        
+        wasmLogs.value.push({
+            id: Date.now() + Math.random(),
+            message: "XAML Error: " + message.split('\n')[0],
+            time: new Date().toLocaleTimeString(),
+            isError: true
+        });
+        if (wasmLogs.value.length > 50) wasmLogs.value.shift();
     }
 }
 
@@ -377,8 +456,8 @@ const reloadWasm = () => {
                 <div v-if="wasmLogs.length === 0" class="text-gray-500 italic">No output yet. Interact with the preview to see logs...</div>
                 <div v-for="log in wasmLogs" :key="log.id" class="mb-1">
                     <span class="text-gray-400 dark:text-gray-500">[{{ log.time }}]</span>
-                    <span class="text-green-600 dark:text-green-400 ml-2">></span>
-                    <span class="text-gray-700 dark:text-gray-300 ml-2">{{ log.message }}</span>
+                    <span :class="log.isError ? 'text-red-500' : 'text-green-600 dark:text-green-400'" class="ml-2">></span>
+                    <span :class="log.isError ? 'text-red-500 dark:text-red-400' : 'text-gray-700 dark:text-gray-300'" class="ml-2">{{ log.message }}</span>
                 </div>
             </div>
         </div>

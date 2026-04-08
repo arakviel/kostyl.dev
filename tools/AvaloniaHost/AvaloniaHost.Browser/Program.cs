@@ -8,6 +8,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Controls;
 using Avalonia.Styling;
 using Avalonia.Media;
+using Avalonia.Controls.Primitives;
 using AvaloniaHost;
 using Avalonia.Media.Fonts;
 
@@ -18,6 +19,9 @@ public partial class KostylBridge
     [JSImport("logToVue", "main.js")]
     internal static partial void LogToVue(string message);
 
+    [JSImport("logErrorToVue", "main.js")]
+    internal static partial void LogErrorToVue(string message, string xaml);
+
     [JSImport("setIframeHeight", "main.js")]
     internal static partial void SetIframeHeight(double height);
 
@@ -26,7 +30,7 @@ public partial class KostylBridge
     {
         try
         {
-            var content = AvaloniaRuntimeXamlLoader.Parse<object>(xaml);
+            var content = AvaloniaRuntimeXamlLoader.Load(new RuntimeXamlLoaderDocument(xaml));
             
             Avalonia.Threading.Dispatcher.UIThread.Post(() =>
             {
@@ -34,6 +38,12 @@ public partial class KostylBridge
                 {
                     if (content is Avalonia.Controls.Control control)
                     {
+                        // Ensure NameScope is present for ElementName bindings
+                        if (NameScope.GetNameScope(control) == null)
+                        {
+                            NameScope.SetNameScope(control, new NameScope());
+                        }
+
                         control.VerticalAlignment = Avalonia.Layout.VerticalAlignment.Top;
                         control.HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Stretch;
 
@@ -71,11 +81,12 @@ public partial class KostylBridge
         {
             Avalonia.Threading.Dispatcher.UIThread.Post(() =>
             {
+                LogErrorToVue(ex.Message, xaml);
                 if (global::AvaloniaHost.Views.MainView.Instance != null)
                 {
                     global::AvaloniaHost.Views.MainView.Instance.Content = new TextBlock 
                     { 
-                        Text = "XAML Error: " + ex.ToString(), 
+                        Text = "XAML Error: " + ex.Message, 
                         Foreground = Avalonia.Media.Brushes.Red,
                         Margin = new Thickness(10),
                         TextWrapping = Avalonia.Media.TextWrapping.Wrap
@@ -119,6 +130,16 @@ internal sealed partial class Program
 
     public static AppBuilder BuildAvaloniaApp()
     {
+        // Force reference types to ensure they are loaded and not trimmed
+        _ = typeof(Avalonia.Controls.AutoCompleteBox);
+        _ = typeof(Avalonia.Controls.ColorPicker);
+        _ = typeof(Avalonia.Controls.DataGrid);
+        _ = typeof(Avalonia.Controls.Separator);
+        _ = typeof(Avalonia.Controls.Primitives.Popup);
+        _ = typeof(Avalonia.Controls.Primitives.TemplatedControl);
+        _ = typeof(Avalonia.Controls.Primitives.PopupRoot);
+        _ = typeof(Avalonia.Controls.Primitives.AccessText);
+
         var builder = AppBuilder.Configure<App>()
             .ConfigureFonts(fontManager =>
             {
