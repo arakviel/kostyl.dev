@@ -168,13 +168,11 @@ const sendXamlToWasm = () => {
                     if (keyParam) {
                         let key = keyParam[1];
                         selector = key === 'BaseButton' ? type : `${type}.${key}`;
-                        newAttrs = newAttrs.replace(/\sx:Key="[^"]+"/, '').replace(/\sTargetType="[^"]+"/, '');
-                        newAttrs += ` Selector="${selector}"`;
                     } else {
                         selector = type;
-                        newAttrs = newAttrs.replace(/\sTargetType="[^"]+"/, '');
-                        newAttrs += ` Selector="${selector}"`;
                     }
+                    newAttrs = newAttrs.replace(/\s?x:Key="[^"]+"/, '').replace(/\s?TargetType="[^"]+"/, '');
+                    newAttrs += ` Selector="${selector}"`;
                 }
 
                 // Process <Style.Triggers>
@@ -197,8 +195,8 @@ const sendXamlToWasm = () => {
                 return `<Style${newAttrs}>${cleanedInner}</Style>`;
             });
 
-            // Extract all <Style> elements
-            finalXaml = finalXaml.replace(/<Style[\s\S]*?<\/Style>/g, (match) => {
+            // Extract all <Style> elements firmly with case insensitivity
+            finalXaml = finalXaml.replace(/<Style[\s\S]*?<\/Style>/gi, (match) => {
                 stylesContent += match + '\n';
                 return '';
             });
@@ -235,7 +233,7 @@ const sendXamlToWasm = () => {
                 { from: /\bRenderOptions\.BitmapScalingMode="([^"]+)"/g, to: 'RenderOptions.BitmapInterpolationMode="$1"' },
                 { from: /\bTickPlacement="Both"/g, to: 'TickPlacement="Outside"' },
                 { from: /\bTextWrapping="WrapWithOverflow"/g, to: 'TextWrapping="Wrap"' },
-                { from: /\b(Click|TextChanged|SelectionChanged|Checked|Unchecked|Opened|Closed|Scroll|Pointer[a-zA-Z]*|Mouse[a-zA-Z]*|Key[a-zA-Z]*)="[^"{}]*"\s?/g, to: '' },
+                { from: /\b(Click|TextChanged|SelectionChanged|Checked|Unchecked|Opened|Closed|Scroll|Pointer[a-zA-Z]*|Mouse[a-zA-Z]*|Key(Down|Up|Press))="[^"{}]*"\s?/gi, to: '' },
                 { from: /\bSource="https?:\/\/[^"]+"/g, to: 'Source="avares://AvaloniaHost/Assets/placeholder.png"' },
                 { from: /\bCursor="SizeWE"/g, to: 'Cursor="SizeWestEast"' },
                 { from: /\bCursor="SizeNS"/g, to: 'Cursor="SizeNorthSouth"' }
