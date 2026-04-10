@@ -152,58 +152,81 @@ const sendXamlToWasm = () => {
             finalXaml = finalXaml.replace(/<EventTrigger[\s\S]*?<\/EventTrigger>/gi, '');
             finalXaml = finalXaml.replace(/<(ControlTemplate|DataTemplate)\.Triggers>[\s\S]*?<\/\1\.Triggers>/gi, '');
 
-            // Rewrite WPF Style elements and extract Triggers
+            // Convert WPF <Style> to Avalonia <Style Selector="...">
+            // KEY INSIGHT from Avalonia docs (migration/wpf/styling.md):
+            //   WPF:      <Style x:Key="PrimaryButton" TargetType="Button">
+            //   Avalonia: <Style Selector="Button.PrimaryButton">
+            //   WPF:      <Style TargetType="Button"> (implicit/global)
+            //   Avalonia: <Style Selector="Button">
+            //   BasedOn is NOT supported — Avalonia uses CSS-like selector cascade instead
             finalXaml = finalXaml.replace(/<Style([^>]*)>([\s\S]*?)<\/Style>/gi, (match, styleAttrs, innerContent) => {
-                let newAttrs = styleAttrs.replace(/\sBasedOn="[^"]+"/g, '');
+                let newAttrs = styleAttrs;
+                // Strip BasedOn — Avalonia uses selector cascade for inheritance
+                newAttrs = newAttrs.replace(/\s?BasedOn="[^"]+"/g, '');
+
                 let selector = '';
 
-                let targetTypeParam = newAttrs.match(/TargetType="(?:\{x:Type\s+)?([a-zA-Z0-9_:]+)\}?"/);
-                let keyParam = newAttrs.match(/x:Key="([^"]+)"/);
-
                 if (newAttrs.includes('Selector=')) {
-                    let selMatch = newAttrs.match(/Selector="([^"]+)"/);
+                    // Already Avalonia syntax — extract selector for trigger binding
+                    const selMatch = newAttrs.match(/Selector="([^"]+)"/);
                     if (selMatch) selector = selMatch[1];
-                } else if (targetTypeParam) {
-                    let type = targetTypeParam[1];
-                    if (keyParam) {
-                        let key = keyParam[1];
-                        selector = key === 'BaseButton' ? type : `${type}.${key}`;
-                    } else {
-                        selector = type;
+                } else {
+                    // Extract WPF TargetType — handles both "{x:Type Button}" and "Button"
+                    const ttMatch = newAttrs.match(/\s?TargetType="(?:\{x:Type\s+)?([a-zA-Z0-9_:]+)\}?"/);
+                    const keyMatch = newAttrs.match(/\s?x:Key="([^"]+)"/);
+
+                    if (ttMatch) {
+                        const type = ttMatch[1];
+                        if (keyMatch) {
+                            // Named style → Avalonia class selector: Button.PrimaryButton
+                            selector = `${type}.${keyMatch[1]}`;
+                        } else {
+                            // Implicit style → targets all controls of that type
+                            selector = type;
+                        }
+                    } else if (keyMatch) {
+                        // x:Key only (no TargetType) — map as CSS class
+                        selector = `.${keyMatch[1]}`;
                     }
-                    newAttrs = newAttrs.replace(/\s?x:Key="[^"]+"/, '').replace(/\s?TargetType="[^"]+"/, '');
-                    newAttrs += ` Selector="${selector}"`;
+
+                    if (selector) {
+                        newAttrs = newAttrs
+                            .replace(/\s?x:Key="[^"]+"/g, '')
+                            .replace(/\s?TargetType="[^"]+"/g, '');
+                        newAttrs += ` Selector="${selector}"`;
+                    }
                 }
 
-                // Process <Style.Triggers>
-                let cleanedInner = innerContent.replace(/<Style\.Triggers>([\s\S]*?)<\/Style\.Triggers>/i, (tMatch, triggersContent) => {
-                    // Extract <Trigger>
-                    triggersContent.replace(/<Trigger\s+Property="([^"]+)"\s+Value="([^"]+)"[^>]*>([\s\S]*?)<\/Trigger>/gi, (trigMatch, prop, val, setters) => {
-                        let pseudoKey = `${prop}_${val}`;
+                // Convert <Style.Triggers> property triggers to separate pseudo-class styles
+                let cleanedInner = innerContent.replace(/<Style\.Triggers>([\s\S]*?)<\/Style\.Triggers>/gi, (_, triggersContent) => {
+                    triggersContent.replace(/<Trigger\s+Property="([^"]+)"\s+Value="([^"]+)"[^>]*>([\s\S]*?)<\/Trigger>/gi, (__, prop, val, setters) => {
+                        const pseudoKey = `${prop}_${val}`;
                         let pseudoClass = triggerMap[pseudoKey];
                         if (!pseudoClass && prop === 'IsChecked' && val === 'False') pseudoClass = ':unchecked';
-                        
+
                         if (pseudoClass && selector) {
                             triggerStyles += `<Style Selector="${selector}${pseudoClass}">\n${setters}\n</Style>\n`;
                         }
-                        return '';
                     });
-                    
-                    return ''; // Strip Style.Triggers completely to avoid WASM crash
+                    return ''; // Remove Style.Triggers block
                 });
 
                 return `<Style${newAttrs}>${cleanedInner}</Style>`;
             });
 
-            // Extract all <Style> elements firmly with case insensitivity
+            // CRITICAL: Extract ALL <Style> elements from the XAML.
+            // In Avalonia, <Style> must live in *.Styles, NOT *.Resources.
+            // Collected styles are re-injected via <Grid.Styles> wrapper below.
             finalXaml = finalXaml.replace(/<Style[\s\S]*?<\/Style>/gi, (match) => {
                 stylesContent += match + '\n';
                 return '';
             });
 
-            // Clean up empty containers
+            // Clean up empty *.Resources / *.Styles containers left after extraction
             finalXaml = finalXaml.replace(/<([a-zA-Z0-9_]+)\.(Resources|Styles)>\s*<\/\1\.\2>/g, '');
-            finalXaml = finalXaml.replace(/\sBasedOn="[^"]+"/g, '');
+
+            // WPF Style="{StaticResource Key}" → Avalonia Classes="Key"
+            // Avalonia docs: style classes replace WPF x:Key referenced styles
             finalXaml = finalXaml.replace(/\bStyle="\{StaticResource\s+([^}]+)\}"/g, 'Classes="$1"');
 
             // Refactored Simple Regex Replacements
@@ -233,7 +256,8 @@ const sendXamlToWasm = () => {
                 { from: /\bRenderOptions\.BitmapScalingMode="([^"]+)"/g, to: 'RenderOptions.BitmapInterpolationMode="$1"' },
                 { from: /\bTickPlacement="Both"/g, to: 'TickPlacement="Outside"' },
                 { from: /\bTextWrapping="WrapWithOverflow"/g, to: 'TextWrapping="Wrap"' },
-                { from: /\b(Click|TextChanged|SelectionChanged|Checked|Unchecked|Opened|Closed|Scroll|Pointer[a-zA-Z]*|Mouse[a-zA-Z]*|Key(Down|Up|Press))="[^"{}]*"\s?/gi, to: '' },
+                // Strip WPF event handlers — explicit list to avoid matching x:Key or other attrs
+                { from: /\b(Click|TextChanged|SelectionChanged|Checked|Unchecked|Opened|Closed|Scroll|PointerPressed|PointerReleased|PointerEntered|PointerExited|PointerMoved|MouseDoubleClick|MouseDown|MouseUp|MouseEnter|MouseLeave|MouseMove|MouseWheel|PreviewMouseDown|PreviewMouseUp|PreviewMouseMove|KeyDown|KeyUp|KeyPress|PreviewKeyDown|PreviewKeyUp|GotFocus|LostFocus|Loaded|Unloaded|SizeChanged|LayoutUpdated|IsVisibleChanged|DataContextChanged|ValueChanged|RangeChanged|ScrollChanged|DragOver|Drop|DragEnter|DragLeave|ManipulationStarted|ManipulationDelta|ManipulationCompleted)="[^"{}]*"\s?/g, to: '' },
                 { from: /\bSource="https?:\/\/[^"]+"/g, to: 'Source="avares://AvaloniaHost/Assets/placeholder.png"' },
                 { from: /\bCursor="SizeWE"/g, to: 'Cursor="SizeWestEast"' },
                 { from: /\bCursor="SizeNS"/g, to: 'Cursor="SizeNorthSouth"' }
