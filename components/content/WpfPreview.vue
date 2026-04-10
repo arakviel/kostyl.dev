@@ -147,10 +147,48 @@ const sendXamlToWasm = () => {
             // Remove XAML comments to simplify parsing
             finalXaml = finalXaml.replace(/<!--[\s\S]*?-->/g, '');
 
-            // Strip VisualStateManager and EventTriggers to avoid crashes
+            // CRITICAL: Strip <Window> / <UserControl> root wrappers.
+            // The Avalonia WASM previewer runs in single-view mode and cannot render a Window element.
+            // Error: "Browser doesn't support windowing platform."
+            // We extract the child content from within the Window/UserControl.
+            finalXaml = finalXaml.replace(
+                /^\s*<(Window|UserControl)\b[^>]*>([\s\S]*)<\/\1\s*>\s*$/i,
+                (_, tag, inner) => inner.trim()
+            );
+
+            // Strip WPF blocks unsupported in Avalonia XAML parser
             finalXaml = finalXaml.replace(/<VisualStateManager\.VisualStateGroups>[\s\S]*?<\/VisualStateManager\.VisualStateGroups>/gi, '');
             finalXaml = finalXaml.replace(/<EventTrigger[\s\S]*?<\/EventTrigger>/gi, '');
             finalXaml = finalXaml.replace(/<(ControlTemplate|DataTemplate)\.Triggers>[\s\S]*?<\/\1\.Triggers>/gi, '');
+
+            // Avalonia has no <Hyperlink> element — replace with ContentPresenter (inside ControlTemplate)
+            // or strip the wrapper and keep the inner content (outside ControlTemplate)
+            finalXaml = finalXaml.replace(/<Hyperlink[^>]*>([\s\S]*?)<\/Hyperlink>/gi, '$1');
+
+            // Strip WPF-only attributes that crash Avalonia's parser
+            finalXaml = finalXaml.replace(/\s?SnapsToDevicePixels="[^"]+"/gi, '');
+            finalXaml = finalXaml.replace(/\s?RecognizesAccessKey="[^"]+"/gi, '');
+            finalXaml = finalXaml.replace(/\s?UseLayoutRounding="[^"]+"/gi, '');
+            finalXaml = finalXaml.replace(/\s?TextOptions\.[a-zA-Z]+="[^"]+"/gi, '');
+            finalXaml = finalXaml.replace(/\s?RenderOptions\.[a-zA-Z]+="[^"]+"/gi, '');
+
+            // Fix invalid TemplateBinding in Setter Value (only valid inside ControlTemplate)
+            // Replace any {TemplateBinding X} that appears as a plain Setter Value with a fallback
+            finalXaml = finalXaml.replace(
+                /(<Setter\s[^>]*Property="[^"]+"\s*Value="\{TemplateBinding\s+([^}]+)\}")/gi,
+                (match, full, prop) => {
+                    // Map common TemplateBinding property names to sensible defaults
+                    const defaults = {
+                        'Foreground': 'Black', 'Background': 'Transparent',
+                        'BorderBrush': 'Gray',  'BorderThickness': '1',
+                        'Padding': '4',          'FontSize': '14',
+                        'Opacity': '1',          'Width': 'NaN',
+                        'Height': 'NaN',         'Margin': '0'
+                    };
+                    const fallback = defaults[prop.trim()] || 'Transparent';
+                    return full.replace(`{TemplateBinding ${prop.trim()}}`, fallback);
+                }
+            );
 
             // Convert WPF <Style> to Avalonia <Style Selector="...">
             // KEY INSIGHT from Avalonia docs (migration/wpf/styling.md):
@@ -256,6 +294,18 @@ const sendXamlToWasm = () => {
                 { from: /\bRenderOptions\.BitmapScalingMode="([^"]+)"/g, to: 'RenderOptions.BitmapInterpolationMode="$1"' },
                 { from: /\bTickPlacement="Both"/g, to: 'TickPlacement="Outside"' },
                 { from: /\bTextWrapping="WrapWithOverflow"/g, to: 'TextWrapping="Wrap"' },
+                // UniformGrid as ItemsPanel not supported in Avalonia — map to WrapPanel
+                // (Avalonia has UniformGridLayout but only for ItemsRepeater, not ListBox.ItemsPanel)
+                { from: /<UniformGrid\b([^>]*)\/>/g, to: '<WrapPanel$1/>' },
+                { from: /<UniformGrid\b([^>]*)>/g, to: '<WrapPanel$1>' },
+                { from: /<\/UniformGrid>/g, to: '</WrapPanel>' },
+                // Strip WPF-only ItemsControl props absent from Avalonia
+                { from: /\s?AlternationCount="\d+"/g, to: '' },
+                { from: /\s?AlternationIndex="\d+"/g, to: '' },
+                // GridView is WPF-only — remove view definition, keep ListView as ListBox
+                { from: /<ListView\.View>[\s\S]*?<\/ListView\.View>/gi, to: '' },
+                { from: /<ListView\b/g, to: '<ListBox' },
+                { from: /<\/ListView>/g, to: '</ListBox>' },
                 // Strip WPF event handlers — explicit list to avoid matching x:Key or other attrs
                 { from: /\b(Click|TextChanged|SelectionChanged|Checked|Unchecked|Opened|Closed|Scroll|PointerPressed|PointerReleased|PointerEntered|PointerExited|PointerMoved|MouseDoubleClick|MouseDown|MouseUp|MouseEnter|MouseLeave|MouseMove|MouseWheel|PreviewMouseDown|PreviewMouseUp|PreviewMouseMove|KeyDown|KeyUp|KeyPress|PreviewKeyDown|PreviewKeyUp|GotFocus|LostFocus|Loaded|Unloaded|SizeChanged|LayoutUpdated|IsVisibleChanged|DataContextChanged|ValueChanged|RangeChanged|ScrollChanged|DragOver|Drop|DragEnter|DragLeave|ManipulationStarted|ManipulationDelta|ManipulationCompleted)="[^"{}]*"\s?/g, to: '' },
                 { from: /\bSource="https?:\/\/[^"]+"/g, to: 'Source="avares://AvaloniaHost/Assets/placeholder.png"' },
@@ -275,9 +325,25 @@ const sendXamlToWasm = () => {
                 return `${prop}="${parseFloat(x)*100}%,${parseFloat(y)*100}%"`;
             });
 
-            // Wrap in Grid if styles were extracted
+            // Wrap extracted styles into <Grid.Styles> wrapper.
+            // ONLY wrap if finalXaml is not already a complete single root with own Styles.
+            // Guard against wrapping when the content is itself a top-level container like
+            // Grid/StackPanel/Border that already received the styles inline.
             if (stylesContent || triggerStyles) {
-                 finalXaml = `<Grid>\n<Grid.Styles>\n${stylesContent}\n${triggerStyles}</Grid.Styles>\n${finalXaml}\n</Grid>`;
+                // Check if the result already starts with a complete element so we can inject
+                // styles directly instead of double-wrapping
+                const rootMatch = finalXaml.trim().match(/^<([a-zA-Z0-9_]+)([^\/>]*)>/);
+                if (rootMatch) {
+                    const rootTag = rootMatch[1];
+                    const rootAttrs = rootMatch[2];
+                    const restOfContent = finalXaml.trim().slice(rootMatch[0].length, -(`</${rootTag}>`).length).trim();
+                    // Inject styles as first child of the existing root element
+                    const stylesBlock = `<${rootTag}.Styles>\n${stylesContent}\n${triggerStyles}</${rootTag}.Styles>`;
+                    finalXaml = `<${rootTag}${rootAttrs}>\n${stylesBlock}\n${restOfContent}\n</${rootTag}>`;
+                } else {
+                    // Fallback: wrap in Grid
+                    finalXaml = `<Grid>\n<Grid.Styles>\n${stylesContent}\n${triggerStyles}</Grid.Styles>\n${finalXaml}\n</Grid>`;
+                }
             }
         }
 
