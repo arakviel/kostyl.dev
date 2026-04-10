@@ -130,47 +130,138 @@ const sendXamlToWasm = () => {
     if (isWasmReady.value && iframeRef.value?.contentWindow) {
         let finalXaml = xamlCode.value.trim();
         
-        // Inject default Avalonia namespaces if missing, to allow rendering raw snippets without Window boilerplate
-        if (finalXaml && !finalXaml.includes('xmlns=')) {
-            finalXaml = finalXaml.replace(/<([a-zA-Z0-9_:]+)/, '<$1 xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"');
+        // 1. Translate WPF-specific static resources for Avalonia compatibility in preview
+        if (finalXaml) {
+            let stylesContent = '';
+            let triggerStyles = '';
+
+            const triggerMap = {
+                'IsMouseOver_True': ':pointerover',
+                'IsPressed_True': ':pressed',
+                'IsEnabled_False': ':disabled',
+                'IsChecked_True': ':checked',
+                'IsSelected_True': ':selected',
+                'IsFocused_True': ':focus'
+            };
+
+            // Remove XAML comments to simplify parsing
+            finalXaml = finalXaml.replace(/<!--[\s\S]*?-->/g, '');
+
+            // Strip VisualStateManager and EventTriggers to avoid crashes
+            finalXaml = finalXaml.replace(/<VisualStateManager\.VisualStateGroups>[\s\S]*?<\/VisualStateManager\.VisualStateGroups>/gi, '');
+            finalXaml = finalXaml.replace(/<EventTrigger[\s\S]*?<\/EventTrigger>/gi, '');
+            finalXaml = finalXaml.replace(/<(ControlTemplate|DataTemplate)\.Triggers>[\s\S]*?<\/\1\.Triggers>/gi, '');
+
+            // Rewrite WPF Style elements and extract Triggers
+            finalXaml = finalXaml.replace(/<Style([^>]*)>([\s\S]*?)<\/Style>/gi, (match, styleAttrs, innerContent) => {
+                let newAttrs = styleAttrs.replace(/\sBasedOn="[^"]+"/g, '');
+                let selector = '';
+
+                let targetTypeParam = newAttrs.match(/TargetType="(?:\{x:Type\s+)?([a-zA-Z0-9_:]+)\}?"/);
+                let keyParam = newAttrs.match(/x:Key="([^"]+)"/);
+
+                if (newAttrs.includes('Selector=')) {
+                    let selMatch = newAttrs.match(/Selector="([^"]+)"/);
+                    if (selMatch) selector = selMatch[1];
+                } else if (targetTypeParam) {
+                    let type = targetTypeParam[1];
+                    if (keyParam) {
+                        let key = keyParam[1];
+                        selector = key === 'BaseButton' ? type : `${type}.${key}`;
+                        newAttrs = newAttrs.replace(/\sx:Key="[^"]+"/, '').replace(/\sTargetType="[^"]+"/, '');
+                        newAttrs += ` Selector="${selector}"`;
+                    } else {
+                        selector = type;
+                        newAttrs = newAttrs.replace(/\sTargetType="[^"]+"/, '');
+                        newAttrs += ` Selector="${selector}"`;
+                    }
+                }
+
+                // Process <Style.Triggers>
+                let cleanedInner = innerContent.replace(/<Style\.Triggers>([\s\S]*?)<\/Style\.Triggers>/i, (tMatch, triggersContent) => {
+                    // Extract <Trigger>
+                    triggersContent.replace(/<Trigger\s+Property="([^"]+)"\s+Value="([^"]+)"[^>]*>([\s\S]*?)<\/Trigger>/gi, (trigMatch, prop, val, setters) => {
+                        let pseudoKey = `${prop}_${val}`;
+                        let pseudoClass = triggerMap[pseudoKey];
+                        if (!pseudoClass && prop === 'IsChecked' && val === 'False') pseudoClass = ':unchecked';
+                        
+                        if (pseudoClass && selector) {
+                            triggerStyles += `<Style Selector="${selector}${pseudoClass}">\n${setters}\n</Style>\n`;
+                        }
+                        return '';
+                    });
+                    
+                    return ''; // Strip Style.Triggers completely to avoid WASM crash
+                });
+
+                return `<Style${newAttrs}>${cleanedInner}</Style>`;
+            });
+
+            // Extract all <Style> elements
+            finalXaml = finalXaml.replace(/<Style[\s\S]*?<\/Style>/g, (match) => {
+                stylesContent += match + '\n';
+                return '';
+            });
+
+            // Clean up empty containers
+            finalXaml = finalXaml.replace(/<([a-zA-Z0-9_]+)\.(Resources|Styles)>\s*<\/\1\.\2>/g, '');
+            finalXaml = finalXaml.replace(/\sBasedOn="[^"]+"/g, '');
+            finalXaml = finalXaml.replace(/\bStyle="\{StaticResource\s+([^}]+)\}"/g, 'Classes="$1"');
+
+            // Refactored Simple Regex Replacements
+            const simpleReplacements = [
+                { from: /<PasswordBox\b/g, to: '<TextBox PasswordChar="*"' },
+                { from: /<\/PasswordBox>/g, to: '</TextBox>' },
+                { from: /\{x:Static SystemColors\.HighlightBrush\}/g, to: "Blue" },
+                { from: /\{x:Static SystemColors\.HighlightTextBrush\}/g, to: "White" },
+                { from: /\{x:Static SystemColors\.HotTrackBrush\}/g, to: "Blue" },
+                { from: /\{x:Static SystemColors\.WindowBrush\}/g, to: "White" },
+                { from: /\{x:Static SystemColors\.ActiveBorderBrush\}/g, to: "Gray" },
+                { from: /\{x:Static SystemColors\.WindowTextBrush\}/g, to: "Black" },
+                { from: /\{x:Static FlowDirection\.RightToLeft\}/g, to: "RightToLeft" },
+                { from: /\bToolTip="/g, to: 'ToolTip.Tip="' },
+                { from: /<([a-zA-Z0-9_]+)\.ToolTip\b([^>]*)>/g, to: '<ToolTip.Tip$2>' },
+                { from: /<\/([a-zA-Z0-9_]+)\.ToolTip\s*>/g, to: '</ToolTip.Tip>' },
+                { from: /<StatusBar\b/g, to: '<Border BorderBrush="#cbd5e1" BorderThickness="0,1,0,0"' },
+                { from: /<\/StatusBar>/g, to: '</Border>' },
+                { from: /<StatusBarItem\b/g, to: '<ContentControl' },
+                { from: /<\/StatusBarItem>/g, to: '</ContentControl>' },
+                { from: /\bVisibility="Collapsed"/g, to: 'IsVisible="False"' },
+                { from: /\bVisibility="Hidden"/g, to: 'IsHitTestVisible="False" Opacity="0"' },
+                { from: /\bVisibility="Visible"/g, to: 'IsVisible="True" Opacity="1"' },
+                { from: /<WrapPanel\b([^>]*)\bSpacing="([^"]+)"/g, to: '<WrapPanel$1ItemSpacing="$2"' },
+                { from: /\bScrollViewer\.(Vertical|Horizontal)ScrollBarVisibility/g, to: '$1ScrollBarVisibility' },
+                { from: /\b(Vertical|Horizontal)ScrollBarVisibility="([^"]+)"/g, to: 'ScrollViewer.$1ScrollBarVisibility="$2"' },
+                { from: /\bRenderOptions\.BitmapScalingMode="([^"]+)"/g, to: 'RenderOptions.BitmapInterpolationMode="$1"' },
+                { from: /\bTickPlacement="Both"/g, to: 'TickPlacement="Outside"' },
+                { from: /\bTextWrapping="WrapWithOverflow"/g, to: 'TextWrapping="Wrap"' },
+                { from: /\b(Click|TextChanged|SelectionChanged|Checked|Unchecked|Opened|Closed|Scroll|Pointer[a-zA-Z]*|Mouse[a-zA-Z]*|Key[a-zA-Z]*)="[^"{}]*"\s?/g, to: '' },
+                { from: /\bSource="https?:\/\/[^"]+"/g, to: 'Source="avares://AvaloniaHost/Assets/placeholder.png"' },
+                { from: /\bCursor="SizeWE"/g, to: 'Cursor="SizeWestEast"' },
+                { from: /\bCursor="SizeNS"/g, to: 'Cursor="SizeNorthSouth"' }
+            ];
+
+            simpleReplacements.forEach(r => {
+                finalXaml = finalXaml.replace(r.from, r.to);
+            });
+
+            // Special dynamic replacements
+            finalXaml = finalXaml.replace(/([Pp]adding|[Mm]argin|[Cc]orner[Rr]adius)="([^"]+)"/g, (m, prop, val) => {
+                return `${prop}="${val.replace(/,/g, ' ')}"`;
+            });
+            finalXaml = finalXaml.replace(/\b(StartPoint|EndPoint)="([0-9.-]+),([0-9.-]+)"/g, (m, prop, x, y) => {
+                return `${prop}="${parseFloat(x)*100}%,${parseFloat(y)*100}%"`;
+            });
+
+            // Wrap in Grid if styles were extracted
+            if (stylesContent || triggerStyles) {
+                 finalXaml = `<Grid>\n<Grid.Styles>\n${stylesContent}\n${triggerStyles}</Grid.Styles>\n${finalXaml}\n</Grid>`;
+            }
         }
 
-        // Translate WPF-specific static resources for Avalonia compatibility in preview
-        if (finalXaml) {
-            finalXaml = finalXaml
-                .replace(/<PasswordBox\b/g, '<TextBox PasswordChar="*"')
-                .replace(/<\/PasswordBox>/g, '</TextBox>')
-                .replace(/\{x:Static SystemColors\.HighlightBrush\}/g, "Blue")
-                .replace(/\{x:Static SystemColors\.HighlightTextBrush\}/g, "White")
-                .replace(/\{x:Static SystemColors\.HotTrackBrush\}/g, "Blue")
-                .replace(/\{x:Static SystemColors\.WindowBrush\}/g, "White")
-                .replace(/\{x:Static SystemColors\.ActiveBorderBrush\}/g, "Gray")
-                .replace(/\{x:Static SystemColors\.WindowTextBrush\}/g, "Black")
-                .replace(/\{x:Static FlowDirection\.RightToLeft\}/g, "RightToLeft")
-                .replace(/\bToolTip="/g, 'ToolTip.Tip="')
-                .replace(/<StatusBar\b/g, '<Border BorderBrush="#cbd5e1" BorderThickness="0,1,0,0"')
-                .replace(/<\/StatusBar>/g, '</Border>')
-                .replace(/<StatusBarItem\b/g, '<ContentControl')
-                .replace(/<\/StatusBarItem>/g, '</ContentControl>')
-                .replace(/\bVisibility="Collapsed"/g, 'IsVisible="False"')
-                .replace(/\bVisibility="Hidden"/g, 'IsHitTestVisible="False" Opacity="0"')
-                .replace(/\bVisibility="Visible"/g, 'IsVisible="True" Opacity="1"')
-                .replace(/<WrapPanel\b([^>]*)\bSpacing="([^"]+)"/g, '<WrapPanel$1ItemSpacing="$2"')
-                // First, strip any existing ScrollViewer. prefixes to avoid double prefixing
-                .replace(/\bScrollViewer\.(Vertical|Horizontal)ScrollBarVisibility/g, '$1ScrollBarVisibility')
-                // Then add them correctly
-                .replace(/\b(Vertical|Horizontal)ScrollBarVisibility="([^"]+)"/g, 'ScrollViewer.$1ScrollBarVisibility="$2"')
-                .replace(/\bRenderOptions\.BitmapScalingMode="([^"]+)"/g, 'RenderOptions.BitmapInterpolationMode="$1"')
-                .replace(/\bTickPlacement="Both"/g, 'TickPlacement="Outside"')
-                .replace(/<([a-zA-Z0-9_]+)\.ToolTip\b([^>]*)>/g, '<ToolTip.Tip$2>')
-                .replace(/<\/([a-zA-Z0-9_]+)\.ToolTip\s*>/g, '</ToolTip.Tip>')
-                .replace(/\b(Click|TextChanged|SelectionChanged|Checked|Unchecked|Opened|Closed|Scroll|Pointer[a-zA-Z]*|Key[a-zA-Z]*)="[^"{}]*"\s?/g, '')
-                .replace(/\bSource="https?:\/\/[^"]+"/g, 'Source="avares://AvaloniaHost/Assets/placeholder.png"')
-                .replace(/([Pp]adding|[Mm]argin|[Cc]orner[Rr]adius)="([^"]+)"/g, (m, prop, val) => {
-                    return `${prop}="${val.replace(/,/g, ' ')}"`;
-                })
-                .replace(/\bCursor="SizeWE"/g, 'Cursor="SizeWestEast"')
-                .replace(/\bCursor="SizeNS"/g, 'Cursor="SizeNorthSouth"');
+        // 2. Inject default Avalonia namespaces if missing, to allow rendering raw snippets without Window boilerplate
+        if (finalXaml && !finalXaml.includes('xmlns=')) {
+            finalXaml = finalXaml.replace(/<([a-zA-Z0-9_:]+)/, '<$1 xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"');
         }
 
         iframeRef.value.contentWindow.postMessage({
