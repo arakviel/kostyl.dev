@@ -27,23 +27,15 @@ jobs:
                   version: latest
                   run_install: false
 
-            - name: Get pnpm store directory
-              shell: bash
-              run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-            - name: Setup pnpm cache
-              uses: actions/cache@v4
-              with:
-                  path: ${{ env.STORE_PATH }}
-                  key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-                  restore-keys: |
-                      ${{ runner.os }}-pnpm-store-
-
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
 
-            - name: Rebuild native addons for Linux
-              run: pnpm rebuild better-sqlite3
+            - name: Rebuild better-sqlite3 for Linux
+              run: |
+                  SQLITE_DIR=$(find node_modules/.pnpm -maxdepth 3 -name "better-sqlite3" -type d | grep "node_modules/better-sqlite3$" | head -1)
+                  echo "Found better-sqlite3 at: $SQLITE_DIR"
+                  cd "$SQLITE_DIR"
+                  npx node-gyp rebuild
 
             - name: Generate Static Site
               run: pnpm run generate
