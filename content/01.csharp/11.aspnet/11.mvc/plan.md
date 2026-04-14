@@ -33,7 +33,7 @@
 
 ---
 
-## Структура курсу (16 статей)
+## Структура курсу (17 статей)
 
 ### Блок 0: Архітектура (1 стаття)
 
@@ -103,7 +103,7 @@
 
 ---
 
-### Блок 4: Просунуті концепції (5 статей)
+### Блок 4: Просунуті концепції (6 статей)
 
 #### 11. `11.validation-advanced.md` — Валідація: IValidatableObject та FluentValidation
 
@@ -111,7 +111,7 @@
 
 ---
 
-#### 12. `12.htmx.md` — HTMX: HTML-driven інтерактивність без JavaScript фреймворків
+#### 12. `12.htmx.md` — HTMX: інтерактивність через HTML-атрибути
 
 **Унікальне (окрема детальна стаття):** Філософія «HTML over the wire». Всі core атрибути: `hx-get/post/put/delete`, `hx-target`, `hx-swap` (всі режими), `hx-trigger`, `hx-include`, `hx-indicator`, `hx-push-url`. Extensions. SSE з HTMX. `hx-boost`. Out-of-band swaps. Порівняння з Alpine.js та React. **Демо-проєкт:** «Живий» список задач без перезавантаження сторінки — чистим HTMX.
 
@@ -123,21 +123,27 @@
 
 ---
 
-#### 14. `14.file-upload.md` — Завантаження та обробка файлів
+#### 14. `14.htmx-project.md` — Практичний проєкт: Каталог товарів з HTMX
+
+**Унікальне:** Наскрізний проєкт від `dotnet new` до завершеного застосунку. Каталог товарів «ProductHub» що об'єднує всі знання зі статей 12–13: live-search з debounce, фільтрація по категоріям, infinite scroll, inline edit, модальне вікно створення товару, кошик з OOB swaps, toast-сповіщення, AntiForgery інтеграція. Покрокова побудова — кожен крок copy-paste.
+
+---
+
+#### 15. `15.file-upload.md` — Завантаження та обробка файлів
 
 **Унікальне:** `IFormFile`, `IFormFileCollection`. Валідація (MIME, розмір, розширення). Збереження (wwwroot vs поза webroot). Streaming. `FileResult`, `PhysicalFileResult`. **Демо-проєкт:** `UserProfileController` — аватар, галерея, download protected файлів.
 
 ---
 
-#### 15. `15.globalization-localization.md` — Глобалізація та Локалізація MVC
+#### 16. `16.globalization-localization.md` — Глобалізація та Локалізація MVC
 
 **Унікальне:** `IStringLocalizer<T>`, `IHtmlLocalizer<T>`, `IViewLocalizer`. Ресурсні файли `.resx`. `RequestLocalizationMiddleware`. Culture через URL, cookie, Accept-Language. **Демо-проєкт:** uk-UA / en-US / pl-PL перемикач у навбарі, локалізовані помилки валідації.
 
 ---
 
-#### 16. `16.mvc-project.md` — Підсумковий проєкт: Блог-платформа
+#### 17. `17.mvc-project.md` — Підсумковий проєкт: Блог-платформа
 
-**Унікальне:** Наскрізний проєкт що поєднує **всі 15 попередніх статей**. MultiArea: PublicArea (читання, HTMX коментарі) + AdminArea (управління). Кожен крок будується на попередньому: Controllers → Routing → Model Binding → Views → Filters → Areas → View Components → Templates → Validation → HTMX → File Upload → Localization.
+**Унікальне:** Наскрізний проєкт що поєднує **всі 16 попередніх статей**. MultiArea: PublicArea (читання, HTMX коментарі) + AdminArea (управління). Кожен крок будується на попередньому: Controllers → Routing → Model Binding → Views → Filters → Areas → View Components → Templates → Validation → HTMX → HTMX Project → File Upload → Localization.
 
 ---
 
@@ -165,10 +171,12 @@
 12. HTMX (технологія)
       ↓
 13. HTMX у MVC (інтеграція)
-14. File Upload
-15. Globalization/Localization
       ↓
-16. Підсумковий проєкт
+14. HTMX Project (каталог товарів)
+15. File Upload
+16. Globalization/Localization
+      ↓
+17. Підсумковий проєкт
 ```
 
 ---
