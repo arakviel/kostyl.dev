@@ -35,10 +35,12 @@ import { useRoute } from 'nuxt/app'
     const extractedData = computed(() => {
         const defaultSlot = slots.default?.() || []
         let htmlSnippet = '',
-            cssSnippet = ''
+            cssSnippet = '',
+            jsSnippet = ''
         
         const hVnodes = []
         const cVnodes = []
+        const jVnodes = []
 
         const findCodes = (vnodes) => {
             for (const vnode of vnodes) {
@@ -51,6 +53,9 @@ import { useRoute } from 'nuxt/app'
                     } else if (lang === 'css') {
                         cssSnippet = vnode.props.code
                         cVnodes.push(vnode)
+                    } else if (lang === 'javascript' || lang === 'js') {
+                        jsSnippet = vnode.props.code
+                        jVnodes.push(vnode)
                     }
                 }
                 
@@ -72,15 +77,19 @@ import { useRoute } from 'nuxt/app'
         return {
             htmlCode: htmlSnippet.trim(),
             cssCode: cssSnippet.trim(),
+            jsCode: jsSnippet.trim(),
             htmlVnodes: hVnodes,
-            cssVnodes: cVnodes
+            cssVnodes: cVnodes,
+            jsVnodes: jVnodes
         }
     })
 
     const htmlCode = computed(() => extractedData.value.htmlCode)
     const cssCode = computed(() => extractedData.value.cssCode)
+    const jsCode = computed(() => extractedData.value.jsCode)
     const htmlVnodes = computed(() => extractedData.value.htmlVnodes)
     const cssVnodes = computed(() => extractedData.value.cssVnodes)
+    const jsVnodes = computed(() => extractedData.value.jsVnodes)
 
     onMounted(() => {
         // Initial height check
@@ -145,6 +154,7 @@ import { useRoute } from 'nuxt/app'
   </head>
   <body>
     ${htmlCode.value}
+    ${jsCode.value ? `<script>${jsCode.value}<\/script>` : ''}
   </body>
 </html>
 `,
@@ -159,7 +169,11 @@ import { useRoute } from 'nuxt/app'
     }
 
     const copyCode = () => {
-        const code = activeTab.value === 'html' ? htmlCode.value : cssCode.value
+        let code = ''
+        if (activeTab.value === 'html') code = htmlCode.value
+        else if (activeTab.value === 'css') code = cssCode.value
+        else if (activeTab.value === 'js') code = jsCode.value
+
         if (navigator.clipboard) {
             navigator.clipboard.writeText(code)
         }
@@ -243,6 +257,27 @@ import { useRoute } from 'nuxt/app'
                             <span class="truncate">styles.css</span>
                         </div>
                     </button>
+
+                    <!-- JS Tab -->
+                    <button
+                        v-if="jsCode"
+                        @click="activeTab = 'js'"
+                        :class="[
+                            'relative pl-3 pr-1.5 py-1.5 rounded-t-lg text-[11px] font-sans flex items-center justify-between gap-2 border-x border-t min-w-[100px] transition-all -ml-px',
+                            activeTab === 'js'
+                                ? 'bg-white dark:bg-[#202124] text-gray-700 dark:text-gray-200 border-gray-300/40 dark:border-transparent z-10'
+                                : 'bg-transparent text-gray-500 dark:text-gray-400 border-transparent hover:bg-black/5 dark:hover:bg-white/5'
+                        ]"
+                    >
+                        <div class="flex items-center gap-2 overflow-hidden">
+                            <div class="w-3.5 h-3.5 flex-shrink-0 text-yellow-500">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                                </svg>
+                            </div>
+                            <span class="truncate">script.js</span>
+                        </div>
+                    </button>
                 </div>
             </div>
 
@@ -260,7 +295,7 @@ import { useRoute } from 'nuxt/app'
                     class="flex-grow bg-[#f1f3f4] dark:bg-[#2d2e32] rounded-full px-4 py-1 text-[11.5px] text-gray-500 dark:text-gray-300 font-sans truncate flex items-center gap-2 border border-transparent"
                 >
                     <span class="text-[10px] opacity-50">🔒</span>
-                    <span class="truncate">localhost:3000{{ activeTab !== 'preview' ? '/' + (activeTab === 'html' ? 'index.html' : 'styles.css') : '' }}</span>
+                    <span class="truncate">localhost:3000{{ activeTab !== 'preview' ? '/' + (activeTab === 'html' ? 'index.html' : (activeTab === 'css' ? 'styles.css' : 'script.js')) : '' }}</span>
                 </div>
                 
                 <!-- Copy Button (visible only in code tabs) -->
@@ -312,6 +347,13 @@ import { useRoute } from 'nuxt/app'
                 class="px-6 code-tab-content animate-in fade-in duration-300 overflow-auto max-h-[600px] bg-[#1e1e1e]"
             >
                 <VNodeRenderer :vnodes="cssVnodes" />
+            </div>
+
+            <div 
+                v-show="activeTab === 'js'" 
+                class="px-6 code-tab-content animate-in fade-in duration-300 overflow-auto max-h-[600px] bg-[#1e1e1e]"
+            >
+                <VNodeRenderer :vnodes="jsVnodes" />
             </div>
         </div>
 
