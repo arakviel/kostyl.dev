@@ -109,12 +109,27 @@ watch(() => props.block, renderFormula)
   margin: 1.5rem 0;
   padding: 1.25rem;
   border-radius: 0.5rem;
-  background: var(--color-gray-50, rgba(249, 250, 251, 0.02));
-  border: 1px solid var(--color-gray-200, rgba(229, 231, 235, 0.1));
   display: flex;
   justify-content: center;
   align-items: center;
   transition: all 0.2s ease;
+
+  /* Theme variables - Light Mode Default */
+  --math-bg: #f9fafb;
+  --math-border: #e5e7eb;
+  --math-text: #111827;
+  --math-text-muted: #6b7280;
+
+  background: var(--math-bg) !important;
+  border: 1px solid var(--math-border) !important;
+}
+
+/* Dark Mode Overrides */
+:is(.dark *) .math-formula-wrapper {
+  --math-bg: #1c1c1c;
+  --math-border: rgba(255, 255, 255, 0.08);
+  --math-text: #f3f4f6;
+  --math-text-muted: #9ca3af;
 }
 
 .math-formula-wrapper.loading {
@@ -122,7 +137,7 @@ watch(() => props.block, renderFormula)
 }
 
 .math-formula-loading {
-  color: var(--color-gray-400, #9ca3af);
+  color: var(--math-text-muted);
   font-size: 0.875rem;
 }
 
@@ -130,7 +145,7 @@ watch(() => props.block, renderFormula)
   overflow-x: auto;
   width: 100%;
   text-align: center;
-  color: var(--typography-body-color, inherit);
+  color: var(--math-text) !important;
 }
 
 :deep(.katex) {
