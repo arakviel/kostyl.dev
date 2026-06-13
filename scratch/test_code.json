@@ -1,0 +1,15 @@
+[
+  {
+    "Question Text": "Який результат роботи наступної програми?\n```cpp\n#include <iostream>\nint main() {\n    std::cout << \"Hello from Silicon!\\n\";\n    return 0;\n}\n```",
+    "Question Type": "Multiple Choice",
+    "Option 1": "Виведе 'Hello from Silicon!'",
+    "Option 2": "Помилка компіляції",
+    "Option 3": "Нічого не виведе",
+    "Option 4": "Виведе сміття з пам'яті",
+    "Option 5": "",
+    "Correct Answer": "1",
+    "Time in seconds": "30",
+    "Image Link": "",
+    "Answer explanation": "Програма є повністю валідною і виводить рядок 'Hello from Silicon!' на стандартний вивід."
+  }
+]

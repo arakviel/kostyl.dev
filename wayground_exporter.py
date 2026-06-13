@@ -4,6 +4,80 @@ import json
 import os
 import sys
 import re
+import subprocess
+
+def process_code_blocks(data):
+    # regex to find code blocks: ```lang\ncode\n```
+    code_block_pattern = re.compile(r'```(\w*)\n([\s\S]*?)\n```')
+    
+    for item in data:
+        if not isinstance(item, dict):
+            continue
+            
+        q_text = item.get("Question Text", "")
+        if not q_text:
+            continue
+            
+        match = code_block_pattern.search(q_text)
+        if match:
+            lang = match.group(1)
+            code_content = match.group(2)
+            
+            print(f"🔍 Знайдено блок коду ({lang if lang else 'plain'}) в питанні: '{q_text[:30]}...'")
+            
+            # 1. Створити тимчасовий файл для коду
+            ext = lang if lang else "txt"
+            temp_code_file = f"temp_code_{os.getpid()}.{ext}"
+            temp_img_file = f"temp_code_{os.getpid()}.png"
+            
+            try:
+                with open(temp_code_file, "w", encoding="utf-8") as f:
+                    f.write(code_content)
+                
+                # 2. Запустити silicon
+                silicon_cmd = [
+                    "silicon", 
+                    "--no-window-controls", 
+                    "--theme", "Visual Studio Dark+",
+                    "--no-round-corner",
+                    "--pad-horiz", "0",
+                    "--pad-vert", "0",
+                    "-o", temp_img_file, 
+                    temp_code_file
+                ]
+                if lang:
+                    silicon_cmd.extend(["-l", lang])
+                
+                print(f"🎨 Рендеринг зображення коду за допомогою silicon...")
+                subprocess.run(silicon_cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                
+                # 3. Залити на catbox.moe
+                print(f"🚀 Завантаження зображення на catbox.moe...")
+                upload_cmd = [
+                    "curl", "-s", "-F", "reqtype=fileupload",
+                    "-F", f"fileToUpload=@{temp_img_file}",
+                    "https://catbox.moe/user/api.php"
+                ]
+                result = subprocess.run(upload_cmd, capture_output=True, text=True, check=True)
+                image_url = result.stdout.strip()
+                
+                if image_url.startswith("https://"):
+                    print(f"🔗 Зображення завантажено: {image_url}")
+                    item["Image Link"] = image_url
+                    # Видаляємо блок коду з тексту запитання, щоб він не дублювався
+                    item["Question Text"] = code_block_pattern.sub("", q_text).strip()
+                else:
+                    print(f"⚠️ Помилка завантаження: {result.stdout}")
+            
+            except Exception as e:
+                print(f"⚠️ Не вдалося обробити блок коду: {e}")
+            
+            finally:
+                # Очистити тимчасові файли
+                if os.path.exists(temp_code_file):
+                    os.remove(temp_code_file)
+                if os.path.exists(temp_img_file):
+                    os.remove(temp_img_file)
 
 def convert_json_to_xlsx(json_path, xlsx_path):
     columns = [
@@ -27,6 +101,8 @@ def convert_json_to_xlsx(json_path, xlsx_path):
         if not isinstance(data, list):
             print(f"❌ Помилка: {json_path} не містить масиву питань.")
             return
+            
+        process_code_blocks(data)
             
         df = pd.DataFrame(data, columns=columns)
         
