@@ -1,17 +1,45 @@
 <template>
-  <div class="math-formula-wrapper" :class="{ 'block-mode': block, 'loading': loading }">
-    <div v-if="loading" class="math-formula-loading">
-      <span>Завантаження формули...</span>
-    </div>
-    <div v-show="!loading" ref="mathContainer" class="math-formula-content"></div>
-    <div ref="source" style="display: none">
+  <!-- Block Mode -->
+  <div
+    v-if="isBlock"
+    class="math-formula-wrapper block-mode"
+    :class="{ 'loading': loading }"
+  >
+    <span v-if="loading" class="math-formula-loading">
+      <span>Завантаження...</span>
+    </span>
+    <div
+      v-show="!loading"
+      ref="blockContainer"
+      class="math-formula-content"
+    />
+    <div ref="blockSource" style="display: none">
       <slot />
     </div>
   </div>
+
+  <!-- Inline Mode -->
+  <span
+    v-else
+    class="math-formula-wrapper"
+    :class="{ 'loading': loading }"
+  >
+    <span v-if="loading" class="math-formula-loading">
+      <span>Завантаження...</span>
+    </span>
+    <span
+      v-show="!loading"
+      ref="inlineContainer"
+      class="math-formula-content"
+    />
+    <span ref="inlineSource" style="display: none">
+      <slot />
+    </span>
+  </span>
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick, watch } from 'vue'
+import { ref, onMounted, nextTick, watch, computed } from 'vue'
 
 const props = defineProps({
   tex: {
@@ -21,11 +49,21 @@ const props = defineProps({
   block: {
     type: Boolean,
     default: true
+  },
+  inline: {
+    type: Boolean,
+    default: false
   }
 })
 
-const mathContainer = ref(null)
-const source = ref(null)
+const isBlock = computed(() => {
+  return props.block && !props.inline
+})
+
+const blockContainer = ref(null)
+const blockSource = ref(null)
+const inlineContainer = ref(null)
+const inlineSource = ref(null)
 const loading = ref(true)
 
 const loadKatex = () => {
@@ -76,21 +114,26 @@ const renderFormula = async () => {
     const katex = await loadKatex()
     let formulaText = props.tex
 
-    if (!formulaText && source.value) {
-      formulaText = extractTextWithNewlines(source.value).trim()
+    const sourceEl = isBlock.value ? blockSource.value : inlineSource.value
+    const containerEl = isBlock.value ? blockContainer.value : inlineContainer.value
+
+    if (!formulaText && sourceEl) {
+      formulaText = extractTextWithNewlines(sourceEl).trim()
     }
 
-    if (formulaText) {
-      katex.render(formulaText, mathContainer.value, {
-        displayMode: props.block,
+    if (formulaText && containerEl) {
+      katex.render(formulaText, containerEl, {
+        displayMode: isBlock.value,
         throwOnError: false
       })
     }
     loading.value = false
   } catch (err) {
     console.error('KaTeX rendering failed:', err)
-    if (mathContainer.value) {
-      mathContainer.value.textContent = props.tex || (source.value ? source.value.textContent : '')
+    const containerEl = isBlock.value ? blockContainer.value : inlineContainer.value
+    const sourceEl = isBlock.value ? blockSource.value : inlineSource.value
+    if (containerEl) {
+      containerEl.textContent = props.tex || (sourceEl ? sourceEl.textContent : '')
     }
     loading.value = false
   }
@@ -101,27 +144,16 @@ onMounted(() => {
 })
 
 watch(() => props.tex, renderFormula)
-watch(() => props.block, renderFormula)
+watch(isBlock, renderFormula)
 </script>
 
 <style scoped>
 .math-formula-wrapper {
-  margin: 1.5rem 0;
-  padding: 1.25rem;
-  border-radius: 0.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.2s ease;
-
   /* Theme variables - Light Mode Default */
   --math-bg: #f9fafb;
   --math-border: #e5e7eb;
   --math-text: #111827;
   --math-text-muted: #6b7280;
-
-  background: var(--math-bg) !important;
-  border: 1px solid var(--math-border) !important;
 }
 
 /* Dark Mode Overrides */
@@ -132,7 +164,27 @@ watch(() => props.block, renderFormula)
   --math-text-muted: #9ca3af;
 }
 
-.math-formula-wrapper.loading {
+.math-formula-wrapper.block-mode {
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease;
+  background: var(--math-bg) !important;
+  border: 1px solid var(--math-border) !important;
+}
+
+.math-formula-wrapper:not(.block-mode) {
+  display: inline-block;
+  margin: 0 0.125rem;
+  padding: 0;
+  background: transparent !important;
+  border: none !important;
+}
+
+.math-formula-wrapper.block-mode.loading {
   min-height: 60px;
 }
 
@@ -142,13 +194,16 @@ watch(() => props.block, renderFormula)
 }
 
 .math-formula-content {
-  overflow-x: auto;
-  width: 100%;
-  text-align: center;
   color: var(--math-text) !important;
 }
 
-:deep(.katex) {
+.math-formula-wrapper.block-mode .math-formula-content {
+  overflow-x: auto;
+  width: 100%;
+  text-align: center;
+}
+
+.math-formula-wrapper.block-mode :deep(.katex) {
   font-size: 1.2rem;
 }
 </style>
