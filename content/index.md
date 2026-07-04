@@ -65,7 +65,7 @@ kostyl.dev
 Оркестрація та масштабування контейнерів, робота з Pods, Deployments, Services та self-healing.
 ::
 
-::card{title="Python" to="/python" icon="i-devicon-python"}
+::card{title="Python" to="/python/modules-packages-venv" icon="i-devicon-python"}
 Програмування на Python від азів до складних скриптів та автоматизації (В розробці).
 ::
 

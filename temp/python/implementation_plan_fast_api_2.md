@@ -678,12 +678,12 @@ content/05.python/
   - Рівень 1: Визначити моделі User, Post, Comment з relationships. CRUD через Session.
   - Рівень 2: Оптимізувати N+1 запит через eager loading. Порівняти SQL-запити через `echo=True`.
   - Рівень 3: Реалізувати async session з `create_async_engine` та інтегрувати в FastAPI через DI.
-- **Практика (Додатковий проект):** 🏗️ На ходу визначиться (самодостатня практична робота від А до Я).
-- **Практика (TaskForge):** 🏗️
-  - Створити `models/` з SQLAlchemy моделями: `User`, `Project`, `ProjectMember`, `Task`, `Comment`
-  - Налаштувати `core/database.py` з async engine та session factory (PostgreSQL)
-  - Створити `Depends(get_async_session)` для інжекції сесії
-  - Замінити in-memory сховище на реальну БД
+- **Практика (Додатковий проект):** ✅ Створено повністю працездатний самодостатній скрипт `main.py` (від А до Я) на базі асинхронного SQLite (`aiosqlite`) з повним життєвим циклом CRUD, eager-loading оптимізацією N+1 та `terminal-preview` виводу.
+- **Практика (TaskForge):** ✅
+  - Створено `models/` з SQLAlchemy моделями: `User`, `Project`, `ProjectMember`, `Task`, `Comment`
+  - Налаштовано `core/database.py` з async engine та session factory (PostgreSQL)
+  - Створено `Depends(get_async_session)` для інжекції сесії
+  - Замінено in-memory сховище на реальну БД у роутерах
   - **Git commit:** `feat: add PostgreSQL with SQLAlchemy 2.0 async models`
 
 ---
