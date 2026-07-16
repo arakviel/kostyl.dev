@@ -121,12 +121,12 @@ def render_code_to_image(code_text, lang, output_path):
     try:
         with open(temp_file, "w", encoding="utf-8") as f:
             f.write(code_text)
-        cmd = [
-            "silicon", "--no-window-controls",
-            "--theme", "Visual Studio Dark+",
-            "--no-round-corner",
-            "--pad-horiz", "0", "--pad-vert", "0",
-        ]
+            cmd = [
+                "silicon", "--no-window-controls",
+                "--theme", "Visual Studio Dark+",
+                "--no-round-corner",
+                "--pad-horiz", "0", "--pad-vert", "0",
+            ]
         if lang:
             cmd.extend(["-l", lang])
         cmd += [temp_file, "-o", output_path]
