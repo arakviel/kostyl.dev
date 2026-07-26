@@ -6,7 +6,7 @@
 > **Оформлення:** `DOCUS_COMPONENTS.md` + лише PlantUML  
 > **Контент:** `content/15.react-native/`  
 > **Код Nomad (окремий репо):** [https://github.com/arakviel/nomad](https://github.com/arakviel/nomad)  
-> **Матеріали курсу:** `content/15.react-native/` (kostyl.dev)  
+> **Матеріали:** `content/15.react-native/` (kostyl.dev)  
 > **Коміти Nomad:** лише в репо Nomad; **один коміт на статтю**; у тілі `Material: content/15.react-native/<файл-статті>.md`  
 > **Не** тримати [Nomad](https://github.com/arakviel/nomad) у monorepo kostyl.dev  
 > **Еталон глибини розжовування:** `content/07.tools/02.kubernetes/04.pods-and-containers.md` (але тон — спокійніший і простіший, без «лекторського пафосу»)
@@ -20,7 +20,12 @@
 | Основний шлях | Expo (SDK, Expo Router, EAS) — у статтях **розшифровувати** при першій появі |
 | Другий шлях | React Native CLI / bare — окремий обов’язковий модуль |
 | Обсяг | 34 статті, 9 модулів |
-| Наскрізний проєкт | Nomad — щоденник подорожей |
+| Наскрізний проєкт | **Nomad** — щоденник подорожей (UA UI) |
+| **Де лежить код Nomad** | **Окремий** публічний репо [github.com/arakviel/nomad](https://github.com/arakviel/nomad). Локально: напр. `~/Work/nomad`. **Не** `kostyl.dev/projects/nomad` |
+| **Де лежать матеріали** | monorepo **kostyl.dev** → `content/15.react-native/` (лише markdown) |
+| **Коміти Nomad** | **Тільки** в репо Nomad. **Один коміт на одну статтю** (не мікрокоміти «docs/fix»). У тілі: `Material: content/15.react-native/<файл>.md` |
+| **Коміти kostyl.dev** | Лише зміни markdown-матеріалів; **без** коду застосунку Nomad |
+| **Посилання в статтях** | Повний tip «Код Nomad / clone / Material» — **лише** в статті, де проєкт **вперше** ініціалізують (зараз `04.expo-setup-and-tooling.md`). В інших статтях — лише короткі посилання в контексті Nomad-кроку, без повторюваного intro-tip |
 | State | RTK + RTK Query (основний); Zustand + TanStack Query (окрема стаття) |
 | Стилі | StyleSheet + Flexbox |
 | Навігація | Expo Router |
@@ -30,7 +35,7 @@
 
 ---
 
-## 2. Філософія курсу
+## 2. Філософія матеріалів
 
 Читач уже вміє React у браузері. React Native — це **інше середовище**: інтерфейс описується знайомими ідеями React, але на екрані телефону малюються **вбудовані елементи операційної системи**, а не HTML-сторінка.
 
@@ -40,12 +45,12 @@
 4. **Два шари практики** — міні-проєкт на тему статті + крок у спільному застосунку Nomad.  
 5. **Читабельність важливіша за щільність** — краще довше й зрозуміло, ніж коротко й «для тих, хто вже в темі».
 
-### Expo vs React Native CLI (у курсі)
+### Expo vs React Native CLI (у цих матеріалах)
 
 | | Expo | React Native CLI (bare) |
 | - | ---- | ----------------------- |
 | Суть | Набір інструментів і готових модулів **поверх** React Native (швидший старт) | «Класичний» проєкт React Native з папками нативних проєктів iOS/Android |
-| У курсі | Основний шлях Nomad (модулі 0–7) | Обов’язковий модуль 8 |
+| Тут | Основний шлях Nomad (модулі 0–7) | Обов’язковий модуль 8 |
 | Мета | Реальні фічі й публікація в магазинах додатків | Розуміння нативного проєкту, старих кодових баз, генерації нативних файлів |
 
 Це **один** React Native, два способи з ним працювати — не два різні фреймворки. У матеріалах **не** кидати слова Expo/CLI/bare/prebuild без пояснення в моменті.
@@ -54,7 +59,7 @@
 
 ## 3. Стиль написання матеріалів (обов’язково)
 
-Цей розділ — **жорстке правило** для всіх статей курсу. Саме через його порушення перший матеріал виглядав «для своїх».
+Цей розділ — **жорстке правило** для всіх статей. Саме через його порушення перший матеріал виглядав «для своїх».
 
 ### 3.1. Книжковий, людяний тон
 
@@ -64,9 +69,15 @@
 - Можна (і варто) короткі життєві сцени: «ви відкрили застосунок у метро без інтернету», «бізнес просить іконку на телефоні».  
 - Звертання: «ви» / «ми разом розглянемо» — природно, без сюсюкання і без менторського зверхнього тону.
 
+### 3.1.1. Технічна лексика — без «казкових» перекладів
+
+- **Не** перекладати індустріальні терміни буквальними або побутовими метафорами, якщо в коді й спільноті кажуть по-англійськи (або усталеним гібридом). Краще **theme**, **children**, **main/cross axis**, **hardcode**, **prop drilling**, ніж «художній» український замінник, який звучить дивно в техтексті.  
+- Аналогії (будинок, метро, склад) — **рідко**, коротко, і лише щоб пояснити ідею; не робити їх наскрізною лексикою статті.  
+- Українською — повні речення й пояснення; **імена понять** — як у RN / React / дизайн-системах, з коротким розкриттям при першій появі.
+
 ### 3.2. Кожне нове поняття — пояснити одразу
 
-**Заборонено** вводити термін, абревіатуру чи «професійне» слово так, ніби воно вже відоме, якщо його **ще не було** розкрито в цій або попередніх статтях курсу.
+**Заборонено** вводити термін, абревіатуру чи «професійне» слово так, ніби воно вже відоме, якщо його **ще не було** розкрито в цій або попередніх статтях.
 
 При першій появі обов’язково:
 
@@ -117,7 +128,7 @@
 1. **Why before How** — спочатку задача/біль, потім інструмент.  
 2. **Text First / No Silent Code** — код не «німий»: після лістингу розбір.  
 3. **Scaffolding** — нове виростає зі старого.  
-4. **Візуалізація** — PlantUML, коли є процес, архітектура, порівняння.  
+4. **Візуалізація** — **обов’язкові** ілюстрації (§3.6.3) + PlantUML, коли є процес / архітектура / порівняння.  
 5. **Містки web → mobile** — явні, розписані, не одним рядком таблиці без коментаря.  
 6. **Два шари практики** — міні-проєкт + Nomad.  
 
@@ -140,27 +151,75 @@
 | `::accordion` | FAQ у кінці |
 | `::code-tree` / `::code-group` / `::code-collapse` | структура файлів, варіанти команд |
 | `::plant-uml` | **єдиний** тип діаграм (без Mermaid) |
-| `::react-native-preview` | живий UI у рамці телефону (react-native-web); див. §3.6.2 |
+| `::react-native-preview` | UI-демо у рамці телефону (react-native-web); див. §3.6.2 |
 
 Компоненти **не замінюють** розжований текст: спочатку пояснення словами, компонент — щоб структурувати й підсвітити. Не fortсувати компонент, якщо він не додає ясності.
 
-### 3.6.2. `::react-native-preview` (курс RN)
+### 3.6.2. `::react-native-preview`
 
-Живий прев’юер core UI через **react-native-web** (iframe + phone chrome). Деталі API: `DOCUS_COMPONENTS.md` → `::react-native-preview`. Host: `tools/rn-preview` → `public/rn-preview/` (`pnpm build:rn-preview`).
+Демо core UI через **react-native-web** (iframe + phone chrome). Деталі API: `DOCUS_COMPONENTS.md` → `::react-native-preview`. Host: `tools/rn-preview` → `public/rn-preview/` (`pnpm build:rn-preview`).
 
 **UI блоку:** три режими **Split / Code / Preview**; у Split — drag-resizer, дефолт ~65% код / 35% телефон. На мобільному Split — колонка.
 
-**Обмеження сніпету:** лише `react` + `react-native` (без `@/…`, `expo-*`, Router). Код у прев’ю — **самодостатній** TSX (`export default`); у [Nomad](https://github.com/arakviel/nomad) — той самий UI через tokens / `@/shared`.
+**Обмеження сніпету:** лише `react` + `react-native` (без `@/…`, `expo-*`, Router). Код у демо — **самодостатній** TSX (`export default`); у [Nomad](https://github.com/arakviel/nomad) — той самий UI через tokens / `@/shared`.
 
 **Де ставити:**
 
 | Контекст | Правило |
 | -------- | ------- |
-| **Теорія / API примітивів** | Багато коротких прев’ю поруч із поясненням (layout, Text, Image, Pressable…). |
+| **Теорія / API примітивів** | Короткі демо поруч із поясненням (layout, Text, Image, Pressable…). |
 | **Props playground** | Інтерактивні чіпи: різні значення props → одразу видно вплив на вигляд (обов’язково для core API: View style, Text lines/style, Image resizeMode/blur, Pressable feedback, ScrollView style vs contentContainerStyle). |
-| **Міні-проєкт і Nomad** | Спочатку **повний покроковий** текст + звичайні лістинги коду (кроки, анатомія, перевірка, коміт). **`::react-native-preview` — лише в кінці** розділу («Живе прев’ю»), не замість і не перед кроками. |
+| **Міні-проєкт і Nomad** | Спочатку **повний покроковий** текст + звичайні лістинги (кроки, анатомія, перевірка, коміт). **`::react-native-preview` — лише в кінці** розділу, не замість і не перед кроками. |
 
-**Технічне (багато прев’ю на сторінці):** host і батько спілкуються з **`id` інстансу** (query iframe + `postMessage`); інакше ready від одного iframe «краде» handshake в інших → «Waiting for code…».
+**Технічне (багато демо на сторінці):** host і батько спілкуються з **`id` інстансу** (query iframe + `postMessage`); інакше ready від одного iframe «краде» handshake в інших → «Waiting for code…».
+
+### 3.6.3. Зображення / діаграми (обов’язково для кожної статті)
+
+Кожна стаття курсу React Native **має** містити ілюстрації до ключових ідей — не лише «стіна тексту» + код. Еталон: `09.lists-and-virtualization.md` + `public/images/react-native/lists-and-virtualization/`.
+
+#### Авто-полиця (шлях)
+
+Папка для файлів визначається шляхом до `.md` **без числових префіксів**:
+
+| Markdown | Полиця |
+| -------- | ------ |
+| `content/15.react-native/09.lists-and-virtualization.md` | `public/images/react-native/lists-and-virtualization/` |
+| `content/15.react-native/01.why-react-native.md` | `public/images/react-native/why-react-native/` |
+| `content/07.tools/02.kubernetes/01.why.md` | `public/images/tools/kubernetes/why/` |
+
+Файли: `01.svg`, `02.svg`, … (або `.png`) **у порядку появи** в статті.  
+Пріоритет формату: **SVG** (схеми з підписами) > PNG > WebP. Мін. ширина ~800–1200 px.
+
+#### Що малювати (орієнтир 3–5 на статтю)
+
+| Тип | Коли | Як робити |
+| --- | ---- | --------- |
+| Порівняння (було/стало, A vs B, web vs mobile) | є таблиця або «дві школи» | **SVG-схема** з UA-підписами |
+| Архітектура / потік / осі layout | процес, шари, main/cross axis | SVG **або** PlantUML (+ SVG зверху, якщо допомагає) |
+| UX-жест / shell екрана | sticky CTA, pull-to-refresh, phone chrome | SVG «телефон + зони» |
+| Атмосфера / метафора | відкриття статті, життєва сцена | Imagine (`image_gen`) **без** дрібного тексту на картинці |
+
+**Точний текст, підписи, стрілки, числа** — **не** покладатися на image model (плутає літери). Будувати **SVG/HTML кодом** (або PlantUML).  
+Image model — для фото/атмосфери без обов’язкових написів.
+
+#### Вставка в markdown
+
+```markdown
+![короткий alt українською](/images/react-native/<slug>/01.svg){.diagram-img}
+```
+
+- Ставити **після** абзацу/заголовка розділу, який ілюструє (не замість пояснення).  
+- Для **технічної** схеми: SVG + (де вже є або доречно) **`::plant-uml`** одразу під нею — редагованість і a11y.  
+- PlantUML: завжди `skinparam backgroundColor #ffffff`.  
+- **Не** дублювати один файл двічі в різних місцях «для краси».
+
+#### Workflow автора / агента (кожна нова стаття)
+
+1. Написати теорію; відмітити 3–5 «важких» ідей, які **виграють** від картинки.  
+2. Створити полицю `public/images/react-native/<slug>/`.  
+3. Згенерувати `01…N.svg` (код) і/або атмосферний PNG.  
+4. Вставити `![…](…){.diagram-img}` у відповідні розділи **в порядку 01, 02, …**.  
+5. Пройти чеклист: усі файли існують, alt змістовний, нумерація без дірок.
 
 ### 3.7. Чеклист автора перед здачею статті
 
@@ -169,7 +228,9 @@
 - [ ] Чи не виглядає абзац як список ключових слів для Google, а не як пояснення?  
 - [ ] Чи є хоча б одна **аналогія** або життєвий приклад на кожну важку ідею?  
 - [ ] Чи тон спокійний і людяний, без пафосу?  
-- [ ] Чи складні теми, які «ще рано», або прибрані, або пояснені на рівні «достатньо для цього місця»?
+- [ ] Чи складні теми, які «ще рано», або прибрані, або пояснені на рівні «достатньо для цього місця»?  
+- [ ] Чи є **3–5 ілюстрацій** (§3.6.3) у `public/images/react-native/<slug>/` з коректними `![…](…){.diagram-img}`?  
+- [ ] Чи технічні схеми — SVG/PlantUML з читабельним текстом, а не «згенерований» напис image model?
 
 ---
 
@@ -207,14 +268,31 @@ description: Що опанує читач (простими словами)
   Код **лишається в статті повністю**, але **не розгорнутий** за замовчуванням, щоб не захарастити читання.  
   Короткі команди (`bash`, 1–5 рядків) і фрагменти «змініть ось це» — **можна** лишати відкритими.  
 - Якщо проєкт без коду (як decision matrix) — повний шаблон документа і критерії «готово».  
-- Живе `::react-native-preview` (якщо доречно) — **після** кроків і критерію «готово», не всередині покрокового розбору; код прев’ю **не** ховати в collapsible (інакше зламається рендер).
+- `::react-native-preview` (якщо доречно) — **після** кроків і критерію «готово», не всередині покрокового розбору; код демо **не** ховати в collapsible (інакше зламається рендер).
 ### Частина 3. Наскрізний проєкт «Nomad»
 
-- Навіщо ця фіча **користувачу Nomad** (одними абзацами).  
-- Конкретні кроки й файли.  
-- Git commit.  
-- Ранні статті (орієнтація) — підготовка brief/stories, без примусу писати production-код.  
-- Живе прев’ю результату (якщо є) — **в кінці** Nomad-розділу, після кроків і коміту.
+**Один стиль для кожної статті з кодом (04+):**
+
+1. **Навіщо користувачу** — 1 абзац / короткий список.  
+2. **Нитка проєкту** — два підблоки:
+   - **Уже є** (що лишається з попередніх статей — **нічого не «губити»**: тема, shell, картки тощо);
+   - **Додаємо в цій статті** (delta).  
+3. **Повний знімок проєкту** — `::code-tree` з **усіма** файлами застосунку **на момент цієї статті**, і **з повним кодом** у кожному блоці (не коментарі «// tokens…», не «лише нові папки»).  
+   - `package-lock.json` **не** класти (генерується `npm install`).  
+   - **`README.md` не класти** в `::code-tree`: у ньому майже завжди є вкладені ` ``` `, які **ламають** markdown-огорожі code-tree (у дереві з’являються «1, 2, 3…» замість імен файлів).  
+   - У вмісті будь-якого файлу **не** повинно лишатися сирих ` ``` ` — інакше fence закриється раніше часу.  
+   - Шлях: `git show <commit-статті>:path` або робоче дерево після коміту статті.  
+4. **Перевірка** — 3–5 пунктів «що побачити на екрані».  
+5. **Коміт** — повідомлення + `Material: …` (у публічному репо коміт уже є → `git pull`).  
+6. **`::react-native-preview`** (якщо є) — **в кінці** Nomad-розділу; прев’ю **продовжує** UX попередніх статей (напр. чіпи теми з 08 не зникають у 09).
+
+**Заборонено в Nomad-секції:**
+
+- «допишіть самі» / «розширте mock» без повного файлу;  
+- показувати лише фрагмент структури;  
+- замінювати home «з нуля» так, що зникає фіча минулої статті (theme chips, sticky CTA, mock-картки…).  
+
+Ранні статті 01–03 — орієнтація / brief, без обов’язкового code-tree.
 
 ### Частина 4. Практичні завдання
 
@@ -235,7 +313,13 @@ description: Що опанує читач (простими словами)
 ## 5. Наскрізний проєкт: Nomad
 
 **Nomad** — мобільний щоденник подорожей (поїздки, місця, фото, офлайн, auth, карта, нагадування, deep links).  
-UI — українською. Проєкт: клон [https://github.com/arakviel/nomad](https://github.com/arakviel/nomad) (наприклад `~/Work/nomad`).
+UI — українською.
+
+| | |
+| - | - |
+| **Репозиторій** | [https://github.com/arakviel/nomad](https://github.com/arakviel/nomad) (public) |
+| **Локальний шлях (приклад)** | `~/Work/nomad` або `/Users/…/Work/nomad` |
+| **Не класти** | у `kostyl.dev/projects/nomad` — **видалено / заборонено** |
 
 | Тема RN | Як покриває Nomad |
 | ------- | ----------------- |
@@ -246,6 +330,38 @@ UI — українською. Проєкт: клон [https://github.com/arakvi
 | Offline | записи без мережі + sync |
 | Push | локальні нагадування |
 | Auth | сесія, protected routes |
+
+### 5.1. Workflow автора / агента (обов’язково)
+
+Так треба робити **кожен** матеріал, де є крок Nomad:
+
+1. **Стаття** пишеться/оновлюється в `kostyl.dev/content/15.react-native/<NN.slug>.md`.  
+2. **Код** змінюється **напряму** в клоні репо Nomad (не копія всередині monorepo).  
+3. У статті: теорія → міні-проєкт → розділ Nomad (кроки + лістинги; повні файли можна в `::collapsible`) → на початку статті — **посилання на репо**.  
+4. Коли фіча статті в Nomad **готова й узгоджена зі статтею** — **один** коміт у репо Nomad:
+
+```bash
+cd /path/to/nomad
+git add -A
+git commit -m "$(cat <<'EOF'
+feat: короткий опис зміни для цієї статті
+
+Material: content/15.react-native/<NN.slug>.md
+EOF
+)"
+git push
+```
+
+5. У **kostyl.dev** комітити (за потреби) лише markdown / план — **окремо**, без файлів застосунку.  
+6. **Не** дробити Nomad на «fix: typo», «docs: expand sticky» тощо — правки по тій самій статті **дописують** у той самий логічний коміт (amend **лише** якщо коміт ще не push / за домовленістю з автором), інакше — один наступний коміт уже для **наступної** статті.
+
+**Заборонено:** комітити код Nomad у monorepo kostyl.dev; тримати другу «істинну» копію в `projects/`.
+
+### 5.2. Що бачить читач
+
+- Клон репо + `npm install` + `npx expo start`.  
+- `git log` у Nomad ≈ прогрес матеріалів (кожен коміт = стаття).  
+- Статті на kostyl.dev пояснюють *навіщо* і *як*; репо — *робочий* код.
 
 ### Доменна модель
 
@@ -299,18 +415,30 @@ Place "1" -- "0..*" MediaItem
 
 ::
 
-### Еволюція (git commits)
+### Еволюція (git commits у репо Nomad)
 
-| Статті | Commit |
-| ------ | ------ |
-| 04–05 | `feat: init expo app, structure, UA UI` |
-| 06–10 | `feat: UI, lists, forms` |
-| 11–13 | `feat: navigation, deep links` |
-| 14–18 | `feat: api, rtk, auth` (+ demo alt state поза основним деревом) |
-| 19–22 | `feat: offline, camera, maps` |
-| 23–26 | `feat: gestures, motion, notifications, a11y` |
-| 27–30 | `feat: perf, tests, eas, store meta` |
-| 31–34 | bare sandbox + native + OTA; `release: nomad demo-ready v1` |
+**Правило:** **1 стаття → 1 коміт** у [github.com/arakviel/nomad](https://github.com/arakviel/nomad) (не зливати 04–05 в один «пакет», якщо це дві статті).
+
+| Статті | Приклад subject (орієнтир) |
+| ------ | -------------------------- |
+| 04 | `feat: init expo app with typescript` |
+| 05 | `feat: design tokens and base UI primitives` |
+| 06 | `feat: mock trip cards with core RN components` |
+| 07 | `feat: trips list shell layout with sticky CTA` |
+| 08 | `feat: light/dark theme with semantic color tokens` |
+| 09–10 | lists / forms — окремі коміти |
+| 11–13 | navigation / modals / deep links |
+| 14–18 | api, rtk, auth (+ alt state — окремо, не ламати main tree) |
+| 19–22 | offline, camera, maps |
+| 23–26 | gestures, reanimated, notifications, a11y |
+| 27–30 | perf, tests, eas, store meta |
+| 31–34 | bare sandbox + native + OTA; фінал `release: nomad demo-ready v1` |
+
+У кожному коміті в **тілі** обов’язково:
+
+```text
+Material: content/15.react-native/<файл-статті>.md
+```
 
 ---
 
@@ -422,7 +550,7 @@ PWA / RN / Flutter / native; обмеження RN; постановка Nomad.
 **Docus:** note, tip, warning, caution, steps, tabs, field-group, card-group, accordion, plant-uml.
 
 #### 03. `03.expo-vs-cli-landscape.md`
-**Expo vs React Native CLI:** SDK, Expo Go, EAS, prebuild; bare `ios/`/`android/`; trade-offs; маршрут курсу.  
+**Expo vs React Native CLI:** SDK, Expo Go, EAS, prebuild; bare `ios/`/`android/`; trade-offs; порядок вивчення.  
 **Міні-проєкт:** decision-doc «який шлях для застосунку X» (3 кейси).  
 **Nomad:** —.
 
@@ -437,7 +565,7 @@ create-expo-app, Expo Go vs dev build, Metro, `app.config.ts`, lint.
 
 #### 05. `05.project-structure-and-conventions.md`
 Feature folders, tokens, `Screen` / `AppText` / `Button`, platform extensions.  
-**Прев’ю:** Screen / AppText / Button / home / візитка — живі приклади примітивів (самодостатній TSX).  
+**Демо:** Screen / AppText / Button / home / візитка — приклади примітивів (самодостатній TSX).  
 **Міні-проєкт:** «Картка візитки» — міні-app з design tokens і 2 екранами-заглушками.  
 **Nomad:** `feat: design tokens and base UI primitives` (UA UI).
 
@@ -447,9 +575,9 @@ Feature folders, tokens, `Screen` / `AppText` / `Button`, platform extensions.
 
 #### 06. `06.core-components.md`
 View, Text, Image, Pressable, ScrollView, SafeArea, Platform.  
-**Прев’ю:** багато демо + **props playground** (як props змінюють вигляд).  
+**Демо:** багато коротких прикладів + **props playground** (як props змінюють вигляд).  
 **Міні-проєкт:** «Картка товару» — кроки + лістинги; `::react-native-preview` **в кінці**.  
-**Nomad:** mock UI картки поїздки — покроковий розбір файлів; прев’ю стрічки **в кінці** розділу.
+**Nomad:** mock UI картки поїздки — покроковий розбір файлів; демо стрічки **в кінці** розділу.
 
 #### 07. `07.flexbox-and-layout.md`
 Column default, align/justify, gap, keyboard avoiding, safe areas.  
@@ -457,9 +585,10 @@ Column default, align/justify, gap, keyboard avoiding, safe areas.
 **Nomad:** сітка/структура списку поїздок.
 
 #### 08. `08.stylesheet-and-theming.md`
-StyleSheet, dark mode, semantic tokens.  
-**Міні-проєкт:** «Тема світла/темна» — один екран, перемикач appearance.  
-**Nomad:** light/dark + tokens.
+StyleSheet (create, масиви, absoluteFill, hairlineWidth); семантичні color-токени; `useColorScheme` / Appearance; ThemeProvider (system | light | dark); StatusBar.  
+**Послідовність у статті:** стилі → токени → системна схема → дві палітри → Context → StatusBar → міні-проєкт → Nomad.  
+**Міні-проєкт:** «Theme Lab» — один екран (картка профілю + перемикач light/dark).  
+**Nomad:** `feat: light/dark theme with semantic color tokens`.
 
 #### 09. `09.lists-and-virtualization.md`
 FlatList, SectionList, FlashList, refresh, pagination UI, empty/error.  
@@ -637,7 +766,7 @@ EAS Update, CI (lint/test/Maestro), feature-sliced, release checklist.
 
 ```text
 content/15.react-native/
-├── index.md                                      # огляд курсу, пререквізити, pin версій, card-group навігація
+├── index.md                                      # огляд, пререквізити, pin версій, card-group навігація
 ├── 01.why-react-native.md                        # навіщо RN, порівняння стеків
 ├── 02.react-native-architecture.md               # runtime: threads, bridge/JSI, Metro, Hermes
 ├── 03.expo-vs-cli-landscape.md                   # Expo vs React Native CLI
@@ -673,12 +802,11 @@ content/15.react-native/
 ├── 33.native-modules-and-expo-modules.md         # native modules, Expo Modules API
 └── 34.ota-ci-and-capstone.md                     # OTA, CI/CD, architecture, capstone
 
-# Навчальні застосунки в monorepo (референс курсу):
-projects/hello-expo/                               # міні-проєкт статті 04 (за бажанням)
-projects/business-card/                            # міні-проєкт статті 05 (за бажанням)
-nomad/  # окремий репозиторій github.com/arakviel/nomad
-# (раніше) projects/nomad/ — видалено з monorepo;                                     # наскрізний Expo-застосунок (UA UI)
-projects/nomad-bare/                               # sandbox для React Native CLI (модуль 8)
+# Навчальні застосунки (поза monorepo kostyl.dev, крім опційних міні-проєктів):
+# https://github.com/arakviel/nomad          — наскрізний Expo-застосунок Nomad (ОБОВʼЯЗКОВО окремий репо)
+# ~/Work/hello-expo/                        — міні-проєкт статті 04 (за бажанням, локально)
+# ~/Work/business-card/                     — міні-проєкт статті 05 (за бажанням, локально)
+# ~/Work/nomad-bare/                        — sandbox React Native CLI (модуль 8; окремо від Nomad)
 
 temp/react-native-learning-plan.md                # цей план
 ```
@@ -692,9 +820,16 @@ temp/react-native-learning-plan.md                # цей план
 - Перед модулем — актуальна документація (Expo, RN CLI, Router, RTK, Maestro тощо).  
 - Глибина розжовування як у `04.pods-and-containers.md`; тон — людяніший і простіший, ніж «лекція з кафедри».  
 - `prompt.md` — як загальна методика Why→How / No Silent Code, **але** пріоритет читабельності з §3 цього плану, якщо є конфлікт «стисни / без води».  
-- Чекліст статті: ситуація → теорія з поясненими термінами → PlantUML (де треба) → міні-проєкт А→Я → Nomad → 3 рівні вправ → немає німого коду → iOS/Android де впливає → пройдений чеклист §3.7.  
-- **Референс Nomad:** зміни в [https://github.com/arakviel/nomad](https://github.com/arakviel/nomad) **разом** зі статтею; **один** `git commit` у репо Nomad на матеріал; у тілі `Material: content/15.react-native/<стаття>.md`. У kostyl.dev комітити лише markdown курсу (без коду застосунку).
-
+- Чекліст статті: ситуація → теорія з поясненими термінами → **ілюстрації §3.6.3** + PlantUML (де треба) → міні-проєкт А→Я → Nomad (повний code-tree) → 3 рівні вправ → немає німого коду → iOS/Android де впливає → пройдений чеклист §3.7.  
+- **Репозиторій Nomad (жорстко):**  
+  - код **лише** в [https://github.com/arakviel/nomad](https://github.com/arakviel/nomad);  
+  - змінювати **напряму** клон (напр. `/Users/…/Work/nomad`);  
+  - **1 стаття = 1 коміт** у Nomad + `Material: …` у тілі;  
+  - у kostyl.dev — **не** комітити застосунок; лише `content/15.react-native/…`;  
+  - у статті на початку — посилання на репо.  
+- **Не** дробити одну статтю на купу дрібних комітів у Nomad (fix/docs/chore для тієї ж фічі).  
+- Повні лістинги міні-проєкту / великих файлів Nomad — у `::collapsible` (код лишається, за замовчуванням згорнутий).  
+- `::code-tree` — лише fenced-блоки з шляхом у `[path]`, не ASCII-дерево.
 ---
 
 ## 11. Критерії готовності v1

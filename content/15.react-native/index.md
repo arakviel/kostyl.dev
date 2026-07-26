@@ -52,4 +52,8 @@ View, Text, Image, Pressable, ScrollView, Safe Area, Platform — mock-карт�
 StyleSheet, семантичні токени, light/dark, useColorScheme — ThemeProvider у Nomad.
 ::
 
+::card{title="9. Списки та віртуалізація" to="/react-native/lists-and-virtualization" icon="i-lucide-list"}
+FlatList, SectionList, FlashList, pull-to-refresh, empty/error — стрічки поїздок і місць у Nomad.
+::
+
 ::

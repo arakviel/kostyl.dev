@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img">
+  <rect width="1200" height="560" fill="#F8FAFC"/>
+  <text x="600" y="44" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="26" font-weight="700" fill="#0F172A">Pressable: етапи дотику</text>
+  <text x="600" y="74" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" fill="#64748B">pressed → стиль зворотного зв’язку; onPress — дія</text>
+  <rect x="100" y="140" width="300" height="300" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="100" y="140" width="8" height="300" rx="4" fill="#94A3B8"/>
+  <text x="124" y="176" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">rest</text>
+  <text x="124" y="208" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">звичайний вигляд</text>
+  <rect x="450" y="140" width="300" height="300" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="450" y="140" width="8" height="300" rx="4" fill="#2563EB"/>
+  <text x="474" y="176" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">pressed</text>
+  <text x="474" y="208" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">opacity / колір</text>
+  <text x="474" y="230" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">style={({pressed})=>…}</text>
+  <rect x="800" y="140" width="300" height="300" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="800" y="140" width="8" height="300" rx="4" fill="#16A34A"/>
+  <text x="824" y="176" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">onPress</text>
+  <text x="824" y="208" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">відпустили палець</text>
+  <text x="824" y="230" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">бізнес-дія</text>
+
+</svg>

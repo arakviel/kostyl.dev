@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img">
+  <rect width="1200" height="560" fill="#F8FAFC"/>
+  <text x="600" y="44" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="26" font-weight="700" fill="#0F172A">За замовчуванням — колонка</text>
+  <text x="600" y="74" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" fill="#64748B">Web flex часто row; RN View — column</text>
+  <rect x="100" y="120" width="450" height="360" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="100" y="120" width="8" height="360" rx="4" fill="#64748B"/>
+  <text x="124" y="156" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">Web (часто)</text>
+  <text x="124" y="188" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">flex-direction: row</text>
+  <text x="124" y="210" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">блок → зліва направо</text>
+  <rect x="650" y="120" width="450" height="360" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="650" y="120" width="8" height="360" rx="4" fill="#2563EB"/>
+  <text x="674" y="156" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">React Native</text>
+  <text x="674" y="188" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">flexDirection: column</text>
+  <text x="674" y="210" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">екран зверху вниз</text>
+
+</svg>

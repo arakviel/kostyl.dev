@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img">
+  <rect width="1200" height="560" fill="#F8FAFC"/>
+  <text x="600" y="44" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="26" font-weight="700" fill="#0F172A">Ланцюжок інструментів</text>
+  <text x="600" y="74" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" fill="#64748B">Node → Expo CLI → Metro → Expo Go / симулятор</text>
+  <rect x="40" y="140" width="220" height="280" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="40" y="140" width="8" height="280" rx="4" fill="#2563EB"/>
+  <text x="64" y="176" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">Node.js</text>
+  <text x="64" y="208" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">npm / pnpm</text>
+  <text x="64" y="230" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">версія LTS</text>
+  <rect x="300" y="140" width="220" height="280" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="300" y="140" width="8" height="280" rx="4" fill="#7C3AED"/>
+  <text x="324" y="176" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">Expo</text>
+  <text x="324" y="208" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">create-expo-app</text>
+  <text x="324" y="230" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">expo start</text>
+  <rect x="560" y="140" width="220" height="280" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="560" y="140" width="8" height="280" rx="4" fill="#0EA5E9"/>
+  <text x="584" y="176" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">Metro</text>
+  <text x="584" y="208" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">JS-бандл</text>
+  <text x="584" y="230" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Fast Refresh</text>
+  <rect x="820" y="140" width="300" height="280" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="820" y="140" width="8" height="280" rx="4" fill="#16A34A"/>
+  <text x="844" y="176" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">Пристрій</text>
+  <text x="844" y="208" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Expo Go</text>
+  <text x="844" y="230" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">iOS Sim / Emulator</text>
+
+</svg>

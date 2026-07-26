@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img">
+  <rect width="1200" height="560" fill="#F8FAFC"/>
+  <text x="600" y="44" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="26" font-weight="700" fill="#0F172A">Metro: збирач під час розробки</text>
+  <text x="600" y="74" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" fill="#64748B">Змінили файл → Metro перепакував JS → телефон підхопив (часто Fast Refresh)</text>
+  <rect x="100" y="120" width="320" height="340" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="100" y="120" width="8" height="340" rx="4" fill="#2563EB"/>
+  <text x="124" y="156" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">1. Файли .tsx</text>
+  <text x="124" y="188" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Ваш редактор</text>
+  <text x="124" y="210" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Зберегли зміну</text>
+  <text x="124" y="232" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">TypeScript</text>
+  <rect x="440" y="120" width="320" height="340" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="440" y="120" width="8" height="340" rx="4" fill="#7C3AED"/>
+  <text x="464" y="156" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">2. Metro</text>
+  <text x="464" y="188" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Бандл JS</text>
+  <text x="464" y="210" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Source maps</text>
+  <text x="464" y="232" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Fast Refresh</text>
+  <rect x="780" y="120" width="320" height="340" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="780" y="120" width="8" height="340" rx="4" fill="#16A34A"/>
+  <text x="804" y="156" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">3. Пристрій</text>
+  <text x="804" y="188" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Expo Go / sim</text>
+  <text x="804" y="210" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Hermes виконує</text>
+  <text x="804" y="232" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Екран оновився</text>
+
+</svg>

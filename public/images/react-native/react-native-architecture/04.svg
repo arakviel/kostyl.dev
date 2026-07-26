@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img">
+  <rect width="1200" height="560" fill="#F8FAFC"/>
+  <text x="600" y="44" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="26" font-weight="700" fill="#0F172A">Dev vs production</text>
+  <text x="600" y="74" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" fill="#64748B">Розробка зручна для ітерацій; у stores — зібраний пакет</text>
+  <rect x="100" y="120" width="480" height="340" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="100" y="120" width="8" height="340" rx="4" fill="#2563EB"/>
+  <text x="124" y="156" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">Розробка</text>
+  <text x="124" y="188" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Metro на комп’ютері</text>
+  <text x="124" y="210" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Швидкі правки</text>
+  <text x="124" y="232" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Логи, debugger</text>
+  <text x="124" y="254" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Часто Expo Go</text>
+  <rect x="620" y="120" width="480" height="340" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="620" y="120" width="8" height="340" rx="4" fill="#0F172A"/>
+  <text x="644" y="156" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">У користувача</text>
+  <text x="644" y="188" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">JS у збірці / OTA</text>
+  <text x="644" y="210" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Оптимізований бандл</text>
+  <text x="644" y="232" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Немає вашого Metro</text>
+  <text x="644" y="254" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Stores / EAS</text>
+
+</svg>

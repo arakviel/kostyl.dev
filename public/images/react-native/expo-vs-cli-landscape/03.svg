@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img">
+  <rect width="1200" height="560" fill="#F8FAFC"/>
+  <text x="600" y="44" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="26" font-weight="700" fill="#0F172A">Один RN — два способи вести репо</text>
+  <text x="600" y="74" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" fill="#64748B">prebuild може згенерувати нативні проєкти з managed-конфігу</text>
+  <rect x="150" y="140" width="400" height="300" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="150" y="140" width="8" height="300" rx="4" fill="#16A34A"/>
+  <text x="174" y="176" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">Managed / Expo</text>
+  <text x="174" y="208" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">app.json + JS</text>
+  <text x="174" y="230" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Немає (або generated) ios/</text>
+  <text x="174" y="252" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">npx expo start</text>
+  <rect x="650" y="140" width="400" height="300" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="650" y="140" width="8" height="300" rx="4" fill="#0F172A"/>
+  <text x="674" y="176" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">Bare / CLI</text>
+  <text x="674" y="208" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">ios/ + android/ у git</text>
+  <text x="674" y="230" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">pod install / gradle</text>
+  <text x="674" y="252" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Більше контролю</text>
+
+</svg>

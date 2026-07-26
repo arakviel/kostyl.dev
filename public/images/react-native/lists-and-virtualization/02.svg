@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">Віртуалізація: вікно в масиві data</title>
+  <desc id="desc">Схема: масив data, вікно видимих елементів і рух при скролі</desc>
+  <rect width="1200" height="560" fill="#F8FAFC"/>
+  <text x="600" y="48" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="28" font-weight="700" fill="#0F172A">Віртуалізація простими словами</text>
+  <text x="600" y="82" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="16" fill="#64748B">data[] зберігає все · UI малює лише вікно біля екрана</text>
+
+  <!-- data array strip -->
+  <text x="80" y="140" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="15" font-weight="600" fill="#475569">data (JS-масив)</text>
+  <g font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" text-anchor="middle">
+    <!-- items 0-11 as cells -->
+    <rect x="80" y="155" width="70" height="44" rx="8" fill="#E2E8F0"/><text x="115" y="182" fill="#64748B">0</text>
+    <rect x="158" y="155" width="70" height="44" rx="8" fill="#E2E8F0"/><text x="193" y="182" fill="#64748B">1</text>
+    <rect x="236" y="155" width="70" height="44" rx="8" fill="#BFDBFE" stroke="#2563EB" stroke-width="2"/><text x="271" y="182" fill="#1D4ED8" font-weight="700">2</text>
+    <rect x="314" y="155" width="70" height="44" rx="8" fill="#3B82F6"/><text x="349" y="182" fill="#FFFFFF" font-weight="700">3</text>
+    <rect x="392" y="155" width="70" height="44" rx="8" fill="#3B82F6"/><text x="427" y="182" fill="#FFFFFF" font-weight="700">4</text>
+    <rect x="470" y="155" width="70" height="44" rx="8" fill="#3B82F6"/><text x="505" y="182" fill="#FFFFFF" font-weight="700">5</text>
+    <rect x="548" y="155" width="70" height="44" rx="8" fill="#BFDBFE" stroke="#2563EB" stroke-width="2"/><text x="583" y="182" fill="#1D4ED8" font-weight="700">6</text>
+    <rect x="626" y="155" width="70" height="44" rx="8" fill="#E2E8F0"/><text x="661" y="182" fill="#64748B">7</text>
+    <rect x="704" y="155" width="70" height="44" rx="8" fill="#E2E8F0"/><text x="739" y="182" fill="#64748B">8</text>
+    <rect x="782" y="155" width="70" height="44" rx="8" fill="#E2E8F0"/><text x="817" y="182" fill="#64748B">9</text>
+    <rect x="860" y="155" width="70" height="44" rx="8" fill="#E2E8F0"/><text x="895" y="182" fill="#64748B">…</text>
+    <rect x="938" y="155" width="90" height="44" rx="8" fill="#E2E8F0"/><text x="983" y="182" fill="#64748B">199</text>
+  </g>
+
+  <!-- bracket for window -->
+  <path d="M236 210 L236 225 L548 225 L548 210" fill="none" stroke="#2563EB" stroke-width="2"/>
+  <text x="392" y="250" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#2563EB">вікно (window) · змонтовані рядки</text>
+  <text x="392" y="272" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" fill="#64748B">2 і 6 — буфер · 3–5 — на екрані</text>
+
+  <!-- Arrow scroll -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#0F172A"/>
+    </marker>
+  </defs>
+  <line x1="700" y1="240" x2="860" y2="240" stroke="#0F172A" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="780" y="230" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" fill="#0F172A">скрол униз</text>
+
+  <!-- Three cards: concepts -->
+  <g font-family="system-ui, -apple-system, Segoe UI, sans-serif">
+    <rect x="80" y="320" width="320" height="180" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <rect x="80" y="320" width="8" height="180" rx="4" fill="#2563EB"/>
+    <text x="110" y="360" font-size="18" font-weight="700" fill="#0F172A">1. data</text>
+    <text x="110" y="390" font-size="14" fill="#475569">Усі елементи списку</text>
+    <text x="110" y="412" font-size="14" fill="#475569">в JavaScript-масиві.</text>
+    <text x="110" y="434" font-size="14" fill="#475569">Це ще не UI-компоненти.</text>
+
+    <rect x="440" y="320" width="320" height="180" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <rect x="440" y="320" width="8" height="180" rx="4" fill="#16A34A"/>
+    <text x="470" y="360" font-size="18" font-weight="700" fill="#0F172A">2. Вікно</text>
+    <text x="470" y="390" font-size="14" fill="#475569">Лише кілька рядків стають</text>
+    <text x="470" y="412" font-size="14" fill="#475569">React-елементами + native</text>
+    <text x="470" y="434" font-size="14" fill="#475569">view (видимі + буфер).</text>
+
+    <rect x="800" y="320" width="320" height="180" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <rect x="800" y="320" width="8" height="180" rx="4" fill="#7C3AED"/>
+    <text x="830" y="360" font-size="18" font-weight="700" fill="#0F172A">3. Recycle</text>
+    <text x="830" y="390" font-size="14" fill="#475569">FlashList перевикористовує</text>
+    <text x="830" y="412" font-size="14" fill="#475569">рядки: нові props замість</text>
+    <text x="830" y="434" font-size="14" fill="#475569">повного unmount/mount.</text>
+  </g>
+</svg>

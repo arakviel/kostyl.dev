@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img">
+  <rect width="1200" height="560" fill="#F8FAFC"/>
+  <text x="600" y="44" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="26" font-weight="700" fill="#0F172A">Місток HTML → React Native</text>
+  <text x="600" y="74" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" fill="#64748B">Різні ролі — різні компоненти (не div на все)</text>
+  <rect x="60" y="120" width="260" height="340" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="60" y="120" width="8" height="340" rx="4" fill="#2563EB"/>
+  <text x="84" y="156" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">div</text>
+  <text x="84" y="188" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">→ View</text>
+  <text x="84" y="210" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">контейнер layout</text>
+  <rect x="340" y="120" width="260" height="340" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="340" y="120" width="8" height="340" rx="4" fill="#16A34A"/>
+  <text x="364" y="156" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">p / span</text>
+  <text x="364" y="188" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">→ Text</text>
+  <text x="364" y="210" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">лише рядки UI</text>
+  <rect x="620" y="120" width="260" height="340" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="620" y="120" width="8" height="340" rx="4" fill="#0EA5E9"/>
+  <text x="644" y="156" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">img</text>
+  <text x="644" y="188" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">→ Image</text>
+  <text x="644" y="210" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">розміри обов’язкові</text>
+  <rect x="900" y="120" width="240" height="340" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="900" y="120" width="8" height="340" rx="4" fill="#7C3AED"/>
+  <text x="924" y="156" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">button</text>
+  <text x="924" y="188" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">→ Pressable</text>
+  <text x="924" y="210" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">onPress, не onClick</text>
+
+</svg>

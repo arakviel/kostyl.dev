@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img">
+  <rect width="1200" height="560" fill="#F8FAFC"/>
+  <text x="600" y="44" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="26" font-weight="700" fill="#0F172A">preference → scheme → colors</text>
+  <text x="600" y="74" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" fill="#64748B">system | light | dark → фактична схема → палітра</text>
+  <rect x="80" y="160" width="240" height="100" rx="12" fill="#FFFFFF" stroke="#E2E8F0"/><text x="200" y="220" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#0F172A">preference</text>  <path d="M330 210 L390 210" stroke="#0F172A" stroke-width="2"/>  <rect x="400" y="160" width="240" height="100" rx="12" fill="#EEF2FF" stroke="#C7D2FE"/><text x="520" y="220" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#3730A3">scheme</text>  <path d="M650 210 L710 210" stroke="#0F172A" stroke-width="2"/>  <rect x="720" y="160" width="400" height="100" rx="12" fill="#DCFCE7" stroke="#86EFAC"/><text x="920" y="220" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#166534">colors.surface / text…</text>  <rect x="200" y="320" width="800" height="160" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="200" y="320" width="8" height="160" rx="4" fill="#7C3AED"/>
+  <text x="224" y="356" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">ThemeProvider</text>
+  <text x="224" y="388" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Context тримає preference + resolved colors.</text>
+  <text x="224" y="410" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">useTheme() — лише всередині Provider.</text>
+
+</svg>

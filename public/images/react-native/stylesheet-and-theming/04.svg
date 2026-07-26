@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img">
+  <rect width="1200" height="560" fill="#F8FAFC"/>
+  <text x="600" y="44" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="26" font-weight="700" fill="#0F172A">Чіпи теми на home (Nomad)</text>
+  <text x="600" y="74" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" fill="#64748B">Система / Світла / Темна — sticky в шапці</text>
+  <rect x="200" y="100" width="260" height="400" rx="24" fill="#0F172A"/>
+  <rect x="210" y="118" width="240" height="364" rx="12" fill="#F1F5F9"/>
+  <rect x="220" y="130" width="220" height="90" rx="8" fill="#FFFFFF" stroke="#E2E8F0"/>  <text x="235" y="160" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" font-weight="800" fill="#0F172A">Мандрівник</text>  <rect x="235" y="175" width="55" height="22" rx="6" fill="#2563EB"/>  <rect x="298" y="175" width="50" height="22" rx="6" fill="#F1F5F9" stroke="#E2E8F0"/>  <rect x="356" y="175" width="50" height="22" rx="6" fill="#F1F5F9" stroke="#E2E8F0"/>  <rect x="220" y="240" width="220" height="200" rx="8" fill="#F1F5F9"/>  <text x="330" y="340" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="12" fill="#64748B">стрічка поїздок</text>  <rect x="520" y="140" width="580" height="300" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="520" y="140" width="8" height="300" rx="4" fill="#2563EB"/>
+  <text x="544" y="176" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">Нитка</text>
+  <text x="544" y="208" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Чіпи теми лишаються в наступних статтях.</text>
+  <text x="544" y="230" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Не ховати їх у скрол-header списку.</text>
+  <text x="544" y="252" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">StatusBar під scheme.</text>
+
+</svg>

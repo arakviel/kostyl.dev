@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img">
+  <rect width="1200" height="560" fill="#F8FAFC"/>
+  <text x="600" y="44" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="26" font-weight="700" fill="#0F172A">Design tokens — словник вигляду</text>
+  <text x="600" y="74" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" fill="#64748B">Числа й ролі (spacing, radius, colors) в одному місці</text>
+  <rect x="100" y="140" width="320" height="300" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="100" y="140" width="8" height="300" rx="4" fill="#2563EB"/>
+  <text x="124" y="176" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">space</text>
+  <text x="124" y="208" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">xs 4 · sm 8</text>
+  <text x="124" y="230" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">md 16 · lg 24</text>
+  <rect x="440" y="140" width="320" height="300" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="440" y="140" width="8" height="300" rx="4" fill="#0EA5E9"/>
+  <text x="464" y="176" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">radius / fontSize</text>
+  <text x="464" y="208" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">sm md lg</text>
+  <text x="464" y="230" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">узгодженість UI</text>
+  <rect x="780" y="140" width="320" height="300" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="780" y="140" width="8" height="300" rx="4" fill="#16A34A"/>
+  <text x="804" y="176" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">colors (ролі)</text>
+  <text x="804" y="208" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">surface, text</text>
+  <text x="804" y="230" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">primary, border</text>
+
+</svg>

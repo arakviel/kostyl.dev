@@ -1,9 +1,29 @@
 export default defineNuxtConfig({
   extends: ['docus'],
 
+  // Explicit: Docus/OG Image need useSiteConfig(); pnpm may not auto-register transitive module.
+  modules: ['nuxt-site-config'],
+
   devtools: {
     enabled: true,
   },
+
+  // Не сканувати/стежити за референс-додатками та службовими каталогами.
+  // Інакше Vite/chokidar відкриває десятки тисяч файлів у projects/**/node_modules
+  // і на macOS падає з EMFILE: too many open files, watch.
+  // Не додавати сюди загальний '**/node_modules/**' — ламає шари модулів Nuxt.
+  ignore: [
+    'projects/**',
+    'temp/**',
+    'tests/**',
+    'scripts/**',
+    'screenshoter/**',
+    'tools/**',
+    // host source only; built assets live in public/rn-preview
+    'tools/rn-preview/**',
+    'answer_images/**',
+    '**/.git/**',
+  ],
 
   app: {
     baseURL: '/',
@@ -13,8 +33,12 @@ export default defineNuxtConfig({
     },
   },
 
+  // nuxt-site-config / Docus SEO (useSiteConfig)
   site: {
     name: 'kostyl.dev',
+    url: 'https://kostyl.dev',
+    description: 'Навчальні матеріали з програмування',
+    defaultLocale: 'uk',
   },
 
   nitro: {
@@ -105,6 +129,22 @@ export default defineNuxtConfig({
   vite: {
     server: {
       allowedHosts: ['865fb62d150c.ngrok-free.app'],
+      watch: {
+        // Подвійний захист: не вішати fs.watch на RN-проєкти та їхні node_modules
+        ignored: [
+          '**/node_modules/**',
+          '**/projects/**',
+          '**/temp/**',
+          '**/tests/**',
+          '**/scripts/**',
+          '**/screenshoter/**',
+          '**/tools/**',
+          '**/.git/**',
+          '**/.nuxt/**',
+          '**/.output/**',
+          '**/dist/**',
+        ],
+      },
     },
     build: {
       rollupOptions: {

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+  <title id="title">ScrollView + map проти FlatList</title>
+  <desc id="desc">Порівняння: зліва всі 200 карток у пам'яті, справа лише вікно видимих рядків</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#EEF2FF"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0F172A" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="640" fill="url(#bg)"/>
+  <text x="600" y="48" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="28" font-weight="700" fill="#0F172A">Чому довгий список гальмує</text>
+  <text x="600" y="82" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="16" fill="#64748B">ScrollView + map створює все одразу · FlatList тримає лише «вікно»</text>
+
+  <!-- Left panel -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="120" width="500" height="460" rx="20" fill="#FFFFFF" stroke="#E2E8F0"/>
+  </g>
+  <text x="310" y="158" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="20" font-weight="700" fill="#DC2626">ScrollView + map</text>
+  <text x="310" y="184" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="14" fill="#64748B">200 карток у пам'яті одразу</text>
+
+  <!-- Phone frame left -->
+  <rect x="200" y="210" width="220" height="320" rx="24" fill="#0F172A"/>
+  <rect x="210" y="230" width="200" height="280" rx="12" fill="#F1F5F9"/>
+  <!-- Visible area -->
+  <rect x="218" y="238" width="184" height="72" rx="8" fill="#2563EB" opacity="0.9"/>
+  <rect x="218" y="318" width="184" height="72" rx="8" fill="#3B82F6" opacity="0.75"/>
+  <!-- Offscreen stack -->
+  <rect x="218" y="398" width="184" height="28" rx="6" fill="#94A3B8" opacity="0.55"/>
+  <rect x="218" y="432" width="184" height="28" rx="6" fill="#94A3B8" opacity="0.4"/>
+  <rect x="218" y="466" width="184" height="28" rx="6" fill="#94A3B8" opacity="0.28"/>
+  <text x="310" y="545" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" fill="#F8FAFC">… ще 195 за екраном</text>
+  <text x="310" y="555" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" fill="#FCA5A5"></text>
+
+  <rect x="90" y="520" width="440" height="40" rx="10" fill="#FEF2F2" stroke="#FECACA"/>
+  <text x="310" y="545" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#B91C1C">CPU · RAM · ривки скролу</text>
+
+  <!-- Right panel -->
+  <g filter="url(#shadow)">
+    <rect x="640" y="120" width="500" height="460" rx="20" fill="#FFFFFF" stroke="#E2E8F0"/>
+  </g>
+  <text x="890" y="158" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="20" font-weight="700" fill="#16A34A">FlatList / FlashList</text>
+  <text x="890" y="184" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="14" fill="#64748B">Лише видиме + буфер</text>
+
+  <rect x="780" y="210" width="220" height="320" rx="24" fill="#0F172A"/>
+  <rect x="790" y="230" width="200" height="280" rx="12" fill="#F1F5F9"/>
+  <!-- Buffer top -->
+  <rect x="798" y="238" width="184" height="28" rx="6" fill="#A7F3D0" stroke="#34D399" stroke-dasharray="4 3"/>
+  <text x="890" y="257" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11" fill="#065F46">буфер</text>
+  <!-- Visible -->
+  <rect x="798" y="274" width="184" height="72" rx="8" fill="#16A34A"/>
+  <rect x="798" y="354" width="184" height="72" rx="8" fill="#22C55E"/>
+  <!-- Buffer bottom -->
+  <rect x="798" y="434" width="184" height="28" rx="6" fill="#A7F3D0" stroke="#34D399" stroke-dasharray="4 3"/>
+  <text x="890" y="453" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="11" fill="#065F46">буфер</text>
+  <!-- Rest only in JS array -->
+  <text x="890" y="500" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="12" fill="#CBD5E1">решта — лише data[]</text>
+
+  <rect x="670" y="520" width="440" height="40" rx="10" fill="#F0FDF4" stroke="#BBF7D0"/>
+  <text x="890" y="545" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="14" font-weight="600" fill="#15803D">Плавний скрол · менше пам'яті</text>
+</svg>

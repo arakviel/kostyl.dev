@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img">
+  <rect width="1200" height="560" fill="#F8FAFC"/>
+  <text x="600" y="44" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="26" font-weight="700" fill="#0F172A">View — вкладеність як картка</text>
+  <text x="600" y="74" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" fill="#64748B">Екран → картка → рядок шапки</text>
+  <rect x="120" y="110" width="240" height="380" rx="24" fill="#0F172A"/>
+  <rect x="130" y="128" width="220" height="344" rx="12" fill="#F1F5F9"/>
+  <rect x="140" y="150" width="200" height="300" rx="12" fill="#FFFFFF" stroke="#E2E8F0"/>  <rect x="155" y="165" width="170" height="40" rx="8" fill="#DBEAFE"/>  <text x="240" y="190" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="12" fill="#1D4ED8">header row</text>  <rect x="155" y="220" width="170" height="80" rx="8" fill="#F1F5F9"/>  <text x="240" y="265" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="12" fill="#64748B">body</text>  <rect x="420" y="140" width="680" height="320" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="420" y="140" width="8" height="320" rx="4" fill="#2563EB"/>
+  <text x="444" y="176" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">Правило</text>
+  <text x="444" y="208" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Текст не кладіть «голим» у View — лише в Text.</text>
+  <text x="444" y="230" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Layout = вкладені View + Flexbox.</text>
+  <text x="444" y="252" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Картка = View + border/radius + children.</text>
+
+</svg>

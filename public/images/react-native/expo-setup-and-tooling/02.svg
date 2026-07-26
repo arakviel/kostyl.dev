@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img">
+  <rect width="1200" height="560" fill="#F8FAFC"/>
+  <text x="600" y="44" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="26" font-weight="700" fill="#0F172A">Цикл розробки</text>
+  <text x="600" y="74" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" fill="#64748B">Зберегли файл → екран оновився на телефоні</text>
+  <rect x="100" y="160" width="200" height="90" rx="12" fill="#FFFFFF" stroke="#E2E8F0"/><text x="200" y="215" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#0F172A">Редактор</text>  <path d="M310 205 L370 205" stroke="#0F172A" stroke-width="2"/>  <rect x="380" y="160" width="200" height="90" rx="12" fill="#EEF2FF" stroke="#C7D2FE"/><text x="480" y="215" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#3730A3">Metro</text>  <path d="M590 205 L650 205" stroke="#0F172A" stroke-width="2"/>  <rect x="660" y="160" width="200" height="90" rx="12" fill="#DCFCE7" stroke="#86EFAC"/><text x="760" y="215" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#166534">Телефон</text>  <path d="M870 205 L930 205" stroke="#0F172A" stroke-width="2"/>  <rect x="940" y="160" width="180" height="90" rx="12" fill="#FFFFFF" stroke="#E2E8F0"/><text x="1030" y="215" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#0F172A">UI</text>  <rect x="250" y="300" width="700" height="180" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="250" y="300" width="8" height="180" rx="4" fill="#2563EB"/>
+  <text x="274" y="336" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">Порада</text>
+  <text x="274" y="368" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Тримайте Expo Go тієї ж major SDK, що package.json.</text>
+  <text x="274" y="390" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">QR з терміналу — найшвидший шлях на фізичний телефон.</text>
+
+</svg>

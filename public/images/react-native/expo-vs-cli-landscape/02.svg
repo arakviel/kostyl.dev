@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img">
+  <rect width="1200" height="560" fill="#F8FAFC"/>
+  <text x="600" y="44" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="26" font-weight="700" fill="#0F172A">Коли який шлях</text>
+  <text x="600" y="74" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" fill="#64748B">Курс: спочатку Expo; bare — обов’язковий модуль пізніше</text>
+  <rect x="80" y="120" width="500" height="360" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="80" y="120" width="8" height="360" rx="4" fill="#2563EB"/>
+  <text x="104" y="156" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">Обирайте Expo, якщо…</text>
+  <text x="104" y="188" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Швидкий MVP / навчання</text>
+  <text x="104" y="210" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Стандартні модулі SDK</text>
+  <text x="104" y="232" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">EAS у stores</text>
+  <text x="104" y="254" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Мало custom native</text>
+  <rect x="620" y="120" width="500" height="360" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="620" y="120" width="8" height="360" rx="4" fill="#64748B"/>
+  <text x="644" y="156" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">Потрібен bare / deep native, якщо…</text>
+  <text x="644" y="188" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Складний SDK банку</text>
+  <text x="644" y="210" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Старий ios/android tree</text>
+  <text x="644" y="232" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Жорсткі native deps</text>
+  <text x="644" y="254" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">Розуміння prebuild</text>
+
+</svg>

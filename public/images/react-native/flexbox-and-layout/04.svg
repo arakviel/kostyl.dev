@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img">
+  <rect width="1200" height="560" fill="#F8FAFC"/>
+  <text x="600" y="44" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="26" font-weight="700" fill="#0F172A">gap замість margin-на-кожному</text>
+  <text x="600" y="74" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" fill="#64748B">Однаковий проміжок між children</text>
+  <rect x="200" y="160" width="800" height="280" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>  <rect x="240" y="220" width="160" height="80" rx="10" fill="#DBEAFE"/>  <rect x="440" y="220" width="160" height="80" rx="10" fill="#DBEAFE"/>  <rect x="640" y="220" width="160" height="80" rx="10" fill="#DBEAFE"/>  <text x="600" y="360" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="16" fill="#475569">flexDirection: row · gap: 16</text>  <text x="600" y="400" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#64748B">не marginRight на кожній «крім останньої»</text>
+</svg>

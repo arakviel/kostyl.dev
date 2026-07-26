@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Pull-to-refresh і пагінація списку</title>
+  <desc id="desc">Два жести: потягнути вниз для оновлення і долистати до кінця для наступної сторінки</desc>
+  <rect width="1200" height="520" fill="#F8FAFC"/>
+  <text x="600" y="48" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="28" font-weight="700" fill="#0F172A">Жести списку на телефоні</text>
+  <text x="600" y="80" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="16" fill="#64748B">RefreshControl · onEndReached</text>
+
+  <!-- Left: pull to refresh -->
+  <rect x="80" y="120" width="480" height="340" rx="20" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="320" y="160" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="20" font-weight="700" fill="#2563EB">Pull-to-refresh</text>
+  <text x="320" y="188" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="14" fill="#64748B">Потягнути список униз → оновити data</text>
+
+  <!-- mini phone -->
+  <rect x="200" y="210" width="160" height="210" rx="20" fill="#0F172A"/>
+  <rect x="210" y="228" width="140" height="174" rx="10" fill="#F1F5F9"/>
+  <!-- spinner -->
+  <circle cx="280" cy="255" r="14" fill="none" stroke="#2563EB" stroke-width="3" stroke-dasharray="20 12"/>
+  <rect x="222" y="285" width="116" height="28" rx="6" fill="#E2E8F0"/>
+  <rect x="222" y="321" width="116" height="28" rx="6" fill="#E2E8F0"/>
+  <rect x="222" y="357" width="116" height="28" rx="6" fill="#E2E8F0"/>
+  <!-- hand arrow down -->
+  <path d="M380 250 L380 330" stroke="#0F172A" stroke-width="3" fill="none" marker-end="url(#a1)"/>
+  <defs>
+    <marker id="a1" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#0F172A"/>
+    </marker>
+  </defs>
+  <text x="400" y="295" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" fill="#0F172A">жест</text>
+  <text x="400" y="314" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" fill="#0F172A">униз</text>
+
+  <text x="320" y="440" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" fill="#475569">refreshing + onRefresh · mock 800 ms</text>
+
+  <!-- Right: pagination -->
+  <rect x="640" y="120" width="480" height="340" rx="20" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="880" y="160" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="20" font-weight="700" fill="#7C3AED">Пагінація UI</text>
+  <text x="880" y="188" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="14" fill="#64748B">Біля кінця списку → підвантажити ще</text>
+
+  <rect x="760" y="210" width="160" height="210" rx="20" fill="#0F172A"/>
+  <rect x="770" y="228" width="140" height="174" rx="10" fill="#F1F5F9"/>
+  <rect x="782" y="240" width="116" height="28" rx="6" fill="#E2E8F0"/>
+  <rect x="782" y="276" width="116" height="28" rx="6" fill="#E2E8F0"/>
+  <rect x="782" y="312" width="116" height="28" rx="6" fill="#E2E8F0"/>
+  <!-- footer loading -->
+  <rect x="782" y="352" width="116" height="36" rx="6" fill="#EDE9FE" stroke="#A78BFA"/>
+  <circle cx="830" cy="370" r="8" fill="none" stroke="#7C3AED" stroke-width="2" stroke-dasharray="10 6"/>
+  <text x="860" y="374" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="10" fill="#5B21B6">…</text>
+
+  <path d="M940 280 L940 360" stroke="#0F172A" stroke-width="3" fill="none" marker-end="url(#a1)"/>
+  <text x="960" y="320" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" fill="#0F172A">до</text>
+  <text x="960" y="338" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" fill="#0F172A">кінця</text>
+
+  <text x="880" y="440" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, sans-serif" font-size="13" fill="#475569">onEndReached · ListFooterComponent</text>
+</svg>

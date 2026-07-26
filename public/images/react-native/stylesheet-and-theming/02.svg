@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img">
+  <rect width="1200" height="560" fill="#F8FAFC"/>
+  <text x="600" y="44" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="26" font-weight="700" fill="#0F172A">Семантичні токени</text>
+  <text x="600" y="74" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="15" fill="#64748B">surface — не «білий», а роль «поверхня картки»</text>
+  <rect x="80" y="140" width="340" height="300" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="80" y="140" width="8" height="300" rx="4" fill="#F8FAFC"/>
+  <text x="104" y="176" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">light</text>
+  <text x="104" y="208" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">surface #FFF</text>
+  <text x="104" y="230" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">text #0F172A</text>
+  <text x="104" y="252" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">background #F8FAFC</text>
+  <rect x="440" y="140" width="340" height="300" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="440" y="140" width="8" height="300" rx="4" fill="#1C1C1E"/>
+  <text x="464" y="176" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">dark</text>
+  <text x="464" y="208" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">surface #1C1C1E</text>
+  <text x="464" y="230" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">text #F5F5F7</text>
+  <text x="464" y="252" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">background #000</text>
+  <rect x="800" y="140" width="320" height="300" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="800" y="140" width="8" height="300" rx="4" fill="#2563EB"/>
+  <text x="824" y="176" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0F172A">Компонент</text>
+  <text x="824" y="208" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">colors.surface</text>
+  <text x="824" y="230" font-family="system-ui,-apple-system,Segoe UI,sans-serif" font-size="14" fill="#475569">не hardcode #fff</text>
+
+</svg>

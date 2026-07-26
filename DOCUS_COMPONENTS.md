@@ -754,6 +754,83 @@ d = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2 + (z_2-z_1)^2}
 
 ---
 
+### ::react-native-preview
+
+Живий прев’юер **React Native** у браузері через **react-native-web** (iframe + phone chrome). Для курсу `content/15.react-native/`: показує, як виглядатимуть `View` / `Text` / `Pressable` / `StyleSheet` «умовно на телефоні».
+
+**Синтаксис:**
+
+````markdown
+::react-native-preview{title="View + Text" device="iphone" height="420"}
+
+```tsx
+import { View, Text, StyleSheet } from 'react-native';
+
+export default function App() {
+  return (
+    <View style={styles.box}>
+      <Text style={styles.title}>Привіт, RN</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  box: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 24 },
+  title: { fontSize: 22, fontWeight: '700' },
+});
+```
+
+::
+````
+
+**Атрибути:**
+
+| Атрибут    | Тип    | За замовчуванням | Опис                                                                 |
+| ---------- | ------ | ---------------- | -------------------------------------------------------------------- |
+| `title`    | string | `React Native`   | Підпис у шапці                                                       |
+| `device`   | string | `iphone`         | Рамка: `iphone` \| `android` \| `plain`                              |
+| `height`   | number | `640`            | Висота екрана всередині рамки (px); body підганяється під телефон без скролу |
+| `filename` | string | `App.tsx`        | Ім’я вкладки з кодом                                                 |
+| `theme`    | string | *(site)*         | `light` / `dark` всередині прев’ю; якщо не задано — тема сайту       |
+
+**Layout:**
+
+- **Split** (дефолт) — код зліва, телефон справа; **перетягуваний** роздільник (desktop `lg+`).
+- **Code** — лише код на всю ширину.
+- **Preview** — лише телефон на всю ширину.
+- Дефолт ширший телефон (~390px); у split код ~65% / прев’ю ~35% (можна посунути resizer).
+- На вузьких екранах (`< lg`) у Split — колонка (код зверху); resizer лише на desktop.
+- **Copy** / **Reload** у шапці.
+
+**Вимоги до коду в слоті:**
+
+- Мова блоку: `tsx`, `jsx`, `ts`, `js` (пріоритет: tsx/jsx → ts → js).
+- Компонент: `export default` **або** PascalCase-функція (`App`, `Example`, `Demo` або перша `function Foo` / `const Foo =`) — host сам додасть default export.
+- Дозволені імпорти: `react`, `react-native`, `react-dom`, `react/jsx-runtime`.
+- Інші пакети (`expo-*`, navigation тощо) **не** підключені — лише core RN API через web.
+
+> [!IMPORTANT]
+> Це **не** симулятор iOS/Android. Рендер іде через `react-native-web` у DOM. Layout і core-компоненти близькі до нативу; тіні, шрифти, native modules можуть відрізнятися.
+
+**Тема (light / dark):**
+
+- Автоматично слідує темі сайту (або `theme="light"|"dark"`).
+- У host `Appearance` / `useColorScheme()` **форсяться** темою сайту (не OS `prefers-color-scheme`).
+- `Text` без явного `color` отримує читабельний колір під тему.
+- Для явної адаптації в сніпеті: `const scheme = useColorScheme()`.
+
+**Технічне обслуговування (rebuild host):**
+
+```bash
+pnpm build:rn-preview
+# або
+cd tools/rn-preview && pnpm install && pnpm build
+```
+
+Артефакти: `public/rn-preview/` (як `public/avalonia/` для WPF). Деталі — `tools/rn-preview/README.md`.
+
+---
+
 ### ::wpf-preview
 
 Найпотужніший компонент системи — живий превьюер **Avalonia UI (XAML)**, що працює на WebAssembly. Дозволяє показувати не тільки інтерфейс, а й C# логіку та результати виконання в реальному часі.
@@ -1012,11 +1089,12 @@ to: /link
 | `mermaid`          | custom | Mermaid діаграми                   |
 | `plant-uml`        | custom | PlantUML діаграми                  |
 | **Освітні**        |        |                                    |
-| `terminal-preview` | block  | CLI/Terminal macOS вікно           |
-| `html-preview`     | block  | Браузерне вікно macOS Chrome       |
-| `debugger-view`    | block  | Стан змінних (IDE style)           |
-| `memory-view`      | block  | Hex Dump / Memory visualizer       |
-| `mermaid`          | custom | Mermaid діаграми                   |
+| `terminal-preview`     | block  | CLI/Terminal macOS вікно                    |
+| `html-preview`         | block  | Браузерне вікно macOS Chrome                |
+| `react-native-preview` | block  | Phone frame + react-native-web (iframe)     |
+| `debugger-view`        | block  | Стан змінних (IDE style)                    |
+| `memory-view`          | block  | Hex Dump / Memory visualizer                |
+| `mermaid`              | custom | Mermaid діаграми                            |
 
 ---
 
