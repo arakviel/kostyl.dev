@@ -5,8 +5,10 @@
 > **Стиль тексту:** книжковий, людяний, максимально розжований — див. [§3](#3-стиль-написання-матеріалів-обовʼязково)  
 > **Оформлення:** `DOCUS_COMPONENTS.md` + лише PlantUML  
 > **Контент:** `content/15.react-native/`  
-> **Код (референс у monorepo):** `projects/nomad` (Expo), `projects/nomad-bare` (CLI sandbox); матеріали — `content/15.react-native/`  
-> **Коміти Nomad:** з кореня kostyl.dev; у тілі обов’язково `Material: content/15.react-native/<файл-статті>.md`  
+> **Код Nomad (окремий репо):** [https://github.com/arakviel/nomad](https://github.com/arakviel/nomad)  
+> **Матеріали курсу:** `content/15.react-native/` (kostyl.dev)  
+> **Коміти Nomad:** лише в репо Nomad; **один коміт на статтю**; у тілі `Material: content/15.react-native/<файл-статті>.md`  
+> **Не** тримати [Nomad](https://github.com/arakviel/nomad) у monorepo kostyl.dev  
 > **Еталон глибини розжовування:** `content/07.tools/02.kubernetes/04.pods-and-containers.md` (але тон — спокійніший і простіший, без «лекторського пафосу»)
 
 ---
@@ -148,7 +150,7 @@
 
 **UI блоку:** три режими **Split / Code / Preview**; у Split — drag-resizer, дефолт ~65% код / 35% телефон. На мобільному Split — колонка.
 
-**Обмеження сніпету:** лише `react` + `react-native` (без `@/…`, `expo-*`, Router). Код у прев’ю — **самодостатній** TSX (`export default`); у `projects/nomad` — той самий UI через tokens / `@/shared`.
+**Обмеження сніпету:** лише `react` + `react-native` (без `@/…`, `expo-*`, Router). Код у прев’ю — **самодостатній** TSX (`export default`); у [Nomad](https://github.com/arakviel/nomad) — той самий UI через tokens / `@/shared`.
 
 **Де ставити:**
 
@@ -233,7 +235,7 @@ description: Що опанує читач (простими словами)
 ## 5. Наскрізний проєкт: Nomad
 
 **Nomad** — мобільний щоденник подорожей (поїздки, місця, фото, офлайн, auth, карта, нагадування, deep links).  
-UI — українською. Проєкт на диску студента: `projects/nomad`.
+UI — українською. Проєкт: клон [https://github.com/arakviel/nomad](https://github.com/arakviel/nomad) (наприклад `~/Work/nomad`).
 
 | Тема RN | Як покриває Nomad |
 | ------- | ----------------- |
@@ -674,7 +676,8 @@ content/15.react-native/
 # Навчальні застосунки в monorepo (референс курсу):
 projects/hello-expo/                               # міні-проєкт статті 04 (за бажанням)
 projects/business-card/                            # міні-проєкт статті 05 (за бажанням)
-projects/nomad/                                    # наскрізний Expo-застосунок (UA UI)
+nomad/  # окремий репозиторій github.com/arakviel/nomad
+# (раніше) projects/nomad/ — видалено з monorepo;                                     # наскрізний Expo-застосунок (UA UI)
 projects/nomad-bare/                               # sandbox для React Native CLI (модуль 8)
 
 temp/react-native-learning-plan.md                # цей план
@@ -690,7 +693,7 @@ temp/react-native-learning-plan.md                # цей план
 - Глибина розжовування як у `04.pods-and-containers.md`; тон — людяніший і простіший, ніж «лекція з кафедри».  
 - `prompt.md` — як загальна методика Why→How / No Silent Code, **але** пріоритет читабельності з §3 цього плану, якщо є конфлікт «стисни / без води».  
 - Чекліст статті: ситуація → теорія з поясненими термінами → PlantUML (де треба) → міні-проєкт А→Я → Nomad → 3 рівні вправ → немає німого коду → iOS/Android де впливає → пройдений чеклист §3.7.  
-- **Референс Nomad:** зміни в `projects/nomad` роблять **разом** зі статтею; `git commit` з кореня monorepo; у тілі коміту рядок `Material: content/15.react-native/<стаття>.md`.
+- **Референс Nomad:** зміни в [https://github.com/arakviel/nomad](https://github.com/arakviel/nomad) **разом** зі статтею; **один** `git commit` у репо Nomad на матеріал; у тілі `Material: content/15.react-native/<стаття>.md`. У kostyl.dev комітити лише markdown курсу (без коду застосунку).
 
 ---
 
