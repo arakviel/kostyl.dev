@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Ланцюг валідації RHF + Zod</title>
+  <desc id="desc">Submit → handleSubmit → zodResolver → schema → errors або onValid</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#EEF2FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="620" fill="url(#bg)"/>
+  <text x="600" y="48" text-anchor="middle" font-family="system-ui, sans-serif" font-size="28" font-weight="700" fill="#0F172A">Валідація: React Hook Form + Zod</text>
+  <text x="600" y="82" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" fill="#64748B">RHF тримає стан форми · Zod описує правила · resolver звʼязує їх</text>
+
+  <!-- Steps row -->
+  <rect x="40" y="130" width="200" height="100" rx="14" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="140" y="175" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#0F172A">1. Submit</text>
+  <text x="140" y="200" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#64748B">кнопка / return</text>
+
+  <text x="255" y="185" font-family="system-ui, sans-serif" font-size="22" fill="#94A3B8">→</text>
+
+  <rect x="280" y="130" width="200" height="100" rx="14" fill="#EFF6FF" stroke="#93C5FD"/>
+  <text x="380" y="175" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#1D4ED8">2. handleSubmit</text>
+  <text x="380" y="200" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#64748B">RHF збирає values</text>
+
+  <text x="495" y="185" font-family="system-ui, sans-serif" font-size="22" fill="#94A3B8">→</text>
+
+  <rect x="520" y="130" width="200" height="100" rx="14" fill="#FEF3C7" stroke="#FCD34D"/>
+  <text x="620" y="175" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#B45309">3. zodResolver</text>
+  <text x="620" y="200" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#64748B">schema.safeParse</text>
+
+  <text x="735" y="185" font-family="system-ui, sans-serif" font-size="22" fill="#94A3B8">→</text>
+
+  <rect x="760" y="130" width="180" height="100" rx="14" fill="#F0FDF4" stroke="#86EFAC"/>
+  <text x="850" y="175" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#15803D">OK</text>
+  <text x="850" y="200" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#64748B">onValid(data)</text>
+
+  <rect x="960" y="130" width="180" height="100" rx="14" fill="#FEF2F2" stroke="#FECACA"/>
+  <text x="1050" y="175" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#B91C1C">Fail</text>
+  <text x="1050" y="200" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#64748B">errors.field</text>
+
+  <!-- Detail boxes -->
+  <rect x="60" y="280" width="340" height="280" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="230" y="320" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="#0F172A">React Hook Form</text>
+  <text x="90" y="360" font-family="system-ui, sans-serif" font-size="14" fill="#475569">• useForm / control</text>
+  <text x="90" y="390" font-family="system-ui, sans-serif" font-size="14" fill="#475569">• Controller → TextInput</text>
+  <text x="90" y="420" font-family="system-ui, sans-serif" font-size="14" fill="#475569">• formState.errors</text>
+  <text x="90" y="450" font-family="system-ui, sans-serif" font-size="14" fill="#475569">• mode: onSubmit / onChange</text>
+  <text x="90" y="490" font-family="system-ui, sans-serif" font-size="13" fill="#94A3B8">Менше ререндерів, ніж useState</text>
+  <text x="90" y="515" font-family="system-ui, sans-serif" font-size="13" fill="#94A3B8">на кожне поле вручну</text>
+
+  <rect x="430" y="280" width="340" height="280" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="600" y="320" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="#0F172A">Zod schema</text>
+  <text x="460" y="360" font-family="system-ui, sans-serif" font-size="14" fill="#475569">• z.string().min(2)…</text>
+  <text x="460" y="390" font-family="system-ui, sans-serif" font-size="14" fill="#475569">• z.date() + refine</text>
+  <text x="460" y="420" font-family="system-ui, sans-serif" font-size="14" fill="#475569">• повідомлення UA</text>
+  <text x="460" y="450" font-family="system-ui, sans-serif" font-size="14" fill="#475569">• z.infer → TypeScript типи</text>
+  <text x="460" y="490" font-family="system-ui, sans-serif" font-size="13" fill="#94A3B8">Один опис правил = runtime</text>
+  <text x="460" y="515" font-family="system-ui, sans-serif" font-size="13" fill="#94A3B8">+ типи без дублювання</text>
+
+  <rect x="800" y="280" width="340" height="280" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="970" y="320" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="#0F172A">Що бачить юзер</text>
+  <text x="830" y="360" font-family="system-ui, sans-serif" font-size="14" fill="#475569">• червоний текст під полем</text>
+  <text x="830" y="390" font-family="system-ui, sans-serif" font-size="14" fill="#475569">• рамка danger</text>
+  <text x="830" y="420" font-family="system-ui, sans-serif" font-size="14" fill="#475569">• submit не викликає API</text>
+  <text x="830" y="450" font-family="system-ui, sans-serif" font-size="14" fill="#475569">• після fix — reValidate</text>
+  <text x="830" y="490" font-family="system-ui, sans-serif" font-size="13" fill="#94A3B8">Клієнтська валідація ≠</text>
+  <text x="830" y="515" font-family="system-ui, sans-serif" font-size="13" fill="#94A3B8">захист на сервері</text>
+</svg>

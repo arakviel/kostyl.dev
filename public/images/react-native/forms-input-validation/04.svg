@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" role="img" aria-labelledby="title desc">
+  <title id="title">Анатомія поля форми</title>
+  <desc id="desc">Label, TextInput, error, hint — шари UI поля на екрані телефону</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#EEF2FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="640" fill="url(#bg)"/>
+  <text x="600" y="48" text-anchor="middle" font-family="system-ui, sans-serif" font-size="28" font-weight="700" fill="#0F172A">Анатомія поля форми</text>
+  <text x="600" y="82" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" fill="#64748B">TextField = label + TextInput + error/hint — не «голий» TextInput</text>
+
+  <!-- Phone -->
+  <rect x="120" y="120" width="320" height="460" rx="28" fill="#0F172A"/>
+  <rect x="136" y="140" width="288" height="420" rx="18" fill="#F8FAFC"/>
+  <text x="280" y="175" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#0F172A">Нова поїздка</text>
+
+  <!-- Field good -->
+  <text x="156" y="215" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#64748B">НАЗВА</text>
+  <rect x="156" y="225" width="248" height="44" rx="10" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="172" y="252" font-family="system-ui, sans-serif" font-size="14" fill="#0F172A">Карпати на вихідні</text>
+
+  <!-- Field error -->
+  <text x="156" y="305" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#64748B">ОПИС</text>
+  <rect x="156" y="315" width="248" height="72" rx="10" fill="#FFFFFF" stroke="#DC2626" stroke-width="2"/>
+  <text x="172" y="345" font-family="system-ui, sans-serif" font-size="13" fill="#94A3B8">коротко…</text>
+  <text x="156" y="410" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#DC2626">Опис — щонайменше 10 символів</text>
+
+  <rect x="156" y="440" width="248" height="44" rx="10" fill="#2563EB"/>
+  <text x="280" y="467" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF">Створити</text>
+
+  <!-- Callouts right -->
+  <rect x="520" y="140" width="600" height="100" rx="14" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="550" y="180" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#2563EB">1. Label</text>
+  <text x="550" y="210" font-family="system-ui, sans-serif" font-size="14" fill="#475569">Що вводити. Не покладайтесь лише на placeholder — він зникає.</text>
+
+  <rect x="520" y="260" width="600" height="100" rx="14" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="550" y="300" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#2563EB">2. TextInput / DateField</text>
+  <text x="550" y="330" font-family="system-ui, sans-serif" font-size="14" fill="#475569">value, onChangeText, keyboardType, returnKeyType, secureTextEntry…</text>
+
+  <rect x="520" y="380" width="600" height="100" rx="14" fill="#FEF2F2" stroke="#FECACA"/>
+  <text x="550" y="420" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#B91C1C">3. Error message</text>
+  <text x="550" y="450" font-family="system-ui, sans-serif" font-size="14" fill="#475569">З Zod / RHF — людською мовою, поруч із полем, не Alert.</text>
+
+  <rect x="520" y="500" width="600" height="80" rx="14" fill="#F0FDF4" stroke="#BBF7D0"/>
+  <text x="550" y="535" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#15803D">4. Hint (опційно)</text>
+  <text x="550" y="560" font-family="system-ui, sans-serif" font-size="14" fill="#475569">Підказка, коли помилки ще немає («Мінімум 10 символів»).</text>
+</svg>

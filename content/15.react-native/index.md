@@ -56,4 +56,20 @@ StyleSheet, семантичні токени, light/dark, useColorScheme — Th
 FlatList, SectionList, FlashList, pull-to-refresh, empty/error — стрічки поїздок і місць у Nomad.
 ::
 
+::card{title="10. Форми та валідація" to="/react-native/forms-input-validation" icon="i-lucide-text-cursor-input"}
+TextInput, Switch, Checkbox, Slider, Picker, Pressable, date picker, RHF + Zod — форма поїздки в Nomad.
+::
+
+::card{title="11. Основи Expo Router" to="/react-native/expo-router-basics" icon="i-lucide-route"}
+app/, layout, Tabs і Stack, Link і useRouter, назад, typed routes — оболонка навігації Nomad.
+::
+
+::card{title="12. Вкладені навігатори й модалки" to="/react-native/nested-navigators-and-modals" icon="i-lucide-layers"}
+Stack у Tabs, presentation modal, auth-групи, guard на back — деталі поїздки в Nomad.
+::
+
+::card{title="13. Deep linking і params" to="/react-native/deep-linking-and-params" icon="i-lucide-link"}
+Параметри маршруту, scheme, universal links, cold start — deep link на поїздку в Nomad.
+::
+
 ::

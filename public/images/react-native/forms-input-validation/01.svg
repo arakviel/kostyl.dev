@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Карта контролів форми</title>
+  <desc id="desc">Вісім типів елементів форми: текст, кнопка, перемикач, галочка, повзунок, список, дата</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#EEF2FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="720" fill="url(#bg)"/>
+  <text x="600" y="48" text-anchor="middle" font-family="system-ui, sans-serif" font-size="28" font-weight="700" fill="#0F172A">Елементи форми на телефоні</text>
+  <text x="600" y="82" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" fill="#64748B">Не лише TextInput — різні типи відповідей користувача</text>
+
+  <!-- Row 1 -->
+  <rect x="40" y="120" width="260" height="160" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="170" y="160" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#2563EB">TextInput</text>
+  <rect x="70" y="180" width="200" height="36" rx="8" fill="#F1F5F9" stroke="#94A3B8"/>
+  <text x="170" y="245" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#64748B">вільний текст</text>
+
+  <rect x="320" y="120" width="260" height="160" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="450" y="160" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#2563EB">Pressable / Button</text>
+  <rect x="380" y="185" width="140" height="40" rx="10" fill="#2563EB"/>
+  <text x="450" y="210" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#fff">Дія</text>
+  <text x="450" y="255" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#64748B">submit, скасувати</text>
+
+  <rect x="600" y="120" width="260" height="160" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="730" y="160" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#2563EB">Switch</text>
+  <rect x="680" y="195" width="70" height="36" rx="18" fill="#2563EB"/>
+  <circle cx="730" cy="213" r="14" fill="#fff"/>
+  <text x="730" y="260" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#64748B">так / ні (один)</text>
+
+  <rect x="880" y="120" width="280" height="160" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="1020" y="160" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#2563EB">Checkbox</text>
+  <rect x="990" y="190" width="32" height="32" rx="6" fill="#2563EB"/>
+  <text x="1006" y="212" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="#fff">✓</text>
+  <text x="1020" y="255" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#64748B">галочка / згода</text>
+
+  <!-- Row 2 -->
+  <rect x="40" y="310" width="260" height="160" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="170" y="350" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#2563EB">Slider</text>
+  <line x1="70" y1="395" x2="270" y2="395" stroke="#CBD5E1" stroke-width="6" stroke-linecap="round"/>
+  <line x1="70" y1="395" x2="180" y2="395" stroke="#2563EB" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="180" cy="395" r="12" fill="#2563EB"/>
+  <text x="170" y="440" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#64748B">число з діапазону</text>
+
+  <rect x="320" y="310" width="260" height="160" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="450" y="350" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#2563EB">Picker</text>
+  <rect x="360" y="375" width="180" height="40" rx="8" fill="#F1F5F9" stroke="#94A3B8"/>
+  <text x="450" y="400" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#0F172A">Карпати ▾</text>
+  <text x="450" y="440" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#64748B">один з списку</text>
+
+  <rect x="600" y="310" width="260" height="160" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="730" y="350" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#2563EB">Date picker</text>
+  <rect x="660" y="375" width="140" height="40" rx="8" fill="#F1F5F9" stroke="#94A3B8"/>
+  <text x="730" y="400" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#0F172A">12.03.2026</text>
+  <text x="730" y="440" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#64748B">системна дата</text>
+
+  <rect x="880" y="310" width="280" height="160" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="1020" y="350" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#2563EB">+ RHF / Zod</text>
+  <text x="1020" y="400" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#475569">стан · правила</text>
+  <text x="1020" y="430" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#475569">помилки · submit</text>
+
+  <rect x="40" y="510" width="1120" height="160" rx="16" fill="#EFF6FF" stroke="#93C5FD"/>
+  <text x="600" y="555" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="#1D4ED8">Як обирати контроль</text>
+  <text x="600" y="595" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" fill="#334155">Вільний текст → TextInput · фіксований список → Picker · так/ні → Switch або Checkbox</text>
+  <text x="600" y="625" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" fill="#334155">Діапазон чисел → Slider · дата → DateTimePicker · дія → Pressable / Button</text>
+  <text x="600" y="655" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#64748B">Клавіатура стосується переважно TextInput; інші контроли її не відкривають</text>
+</svg>

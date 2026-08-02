@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Stack і Tabs</title>
+  <desc id="desc">Порівняння стопки екранів і нижніх вкладок</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#F0FDF4"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="520" fill="url(#bg)"/>
+  <text x="600" y="44" text-anchor="middle" font-family="system-ui,sans-serif" font-size="26" font-weight="700" fill="#0F172A">Два базові навігатори</text>
+
+  <rect x="60" y="90" width="500" height="380" rx="16" fill="#fff" stroke="#E2E8F0"/>
+  <text x="310" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="20" font-weight="700" fill="#2563EB">Stack (стопка)</text>
+  <text x="310" y="160" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#64748B">push / back · історія екранів</text>
+  <rect x="160" y="200" width="300" height="180" rx="12" fill="#DBEAFE" stroke="#93C5FD"/>
+  <text x="310" y="250" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#1E40AF">екран 3 (зверху)</text>
+  <rect x="175" y="270" width="270" height="40" rx="6" fill="#93C5FD"/>
+  <text x="310" y="295" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1E3A8A">екран 2 під ним</text>
+  <rect x="190" y="320" width="240" height="30" rx="6" fill="#BFDBFE"/>
+  <text x="310" y="340" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1E3A8A">екран 1 (корінь)</text>
+  <text x="310" y="420" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#64748B">«Назад» знімає верхній</text>
+  <text x="310" y="445" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#64748B">create-trip поверх tabs</text>
+
+  <rect x="640" y="90" width="500" height="380" rx="16" fill="#fff" stroke="#E2E8F0"/>
+  <text x="890" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="20" font-weight="700" fill="#16A34A">Tabs (вкладки)</text>
+  <text x="890" y="160" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#64748B">паралельні розділи · bar знизу</text>
+  <rect x="720" y="190" width="340" height="200" rx="16" fill="#F1F5F9" stroke="#CBD5E1"/>
+  <rect x="740" y="210" width="300" height="120" rx="8" fill="#DCFCE7" stroke="#86EFAC"/>
+  <text x="890" y="275" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#166534">активна вкладка</text>
+  <rect x="740" y="345" width="90" height="28" rx="6" fill="#16A34A"/>
+  <rect x="845" y="345" width="90" height="28" rx="6" fill="#E2E8F0"/>
+  <rect x="950" y="345" width="90" height="28" rx="6" fill="#E2E8F0"/>
+  <text x="890" y="420" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#64748B">Поїздки · Місця · Ще</text>
+  <text x="890" y="445" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#64748B">перемикання без «стопки»</text>
+</svg>

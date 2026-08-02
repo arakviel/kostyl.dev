@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">Контрольований TextInput</title>
+  <desc id="desc">Потік: користувач друкує → onChangeText → state → value prop назад у TextInput</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#F0FDF4"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#2563EB"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="560" fill="url(#bg)"/>
+  <text x="600" y="48" text-anchor="middle" font-family="system-ui, sans-serif" font-size="28" font-weight="700" fill="#0F172A">Контрольоване поле</text>
+  <text x="600" y="82" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" fill="#64748B">value + onChangeText — React «тримає» текст, а не лише нативний OS</text>
+
+  <!-- Box 1 User -->
+  <rect x="80" y="160" width="220" height="140" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="190" y="210" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="#0F172A">Користувач</text>
+  <text x="190" y="245" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#64748B">друкує «Київ»</text>
+  <text x="190" y="270" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94A3B8">soft keyboard</text>
+
+  <line x1="300" y1="230" x2="380" y2="230" stroke="#2563EB" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- Box 2 onChangeText -->
+  <rect x="390" y="160" width="220" height="140" rx="16" fill="#EFF6FF" stroke="#93C5FD"/>
+  <text x="500" y="210" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="#1D4ED8">onChangeText</text>
+  <text x="500" y="245" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#64748B">setState / RHF</text>
+  <text x="500" y="270" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94A3B8">field.onChange</text>
+
+  <line x1="610" y1="230" x2="690" y2="230" stroke="#2563EB" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- Box 3 State -->
+  <rect x="700" y="160" width="220" height="140" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="810" y="210" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="#0F172A">State</text>
+  <text x="810" y="245" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#64748B">title = «Київ»</text>
+  <text x="810" y="270" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" fill="#94A3B8">джерело правди</text>
+
+  <line x1="810" y1="300" x2="810" y2="360" stroke="#16A34A" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="810" y1="370" x2="190" y2="370" stroke="#16A34A" stroke-width="3"/>
+  <line x1="190" y1="370" x2="190" y2="310" stroke="#16A34A" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <!-- Box 4 TextInput value -->
+  <rect x="80" y="400" width="1040" height="100" rx="16" fill="#F0FDF4" stroke="#86EFAC"/>
+  <text x="600" y="445" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="#15803D">value=&#123;title&#125; → TextInput показує те саме, що в state</text>
+  <text x="600" y="475" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#64748B">Без value поле «живе само» (uncontrolled) — важче валідувати й синхронізувати</text>
+</svg>

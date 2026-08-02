@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="480" viewBox="0 0 1200 480" role="img" aria-labelledby="title desc">
+  <title id="title">Custom scheme відкриває застосунок</title>
+  <desc id="desc">Safari або інший застосунок відкриває nomad://trips/3 і система передає URL у Nomad</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#EEF2FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="480" fill="url(#bg)"/>
+  <text x="600" y="40" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#0F172A">Custom URL scheme</text>
+
+  <rect x="40" y="90" width="280" height="320" rx="16" fill="#fff" stroke="#E2E8F0"/>
+  <text x="180" y="140" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#2563EB">Зовні</text>
+  <text x="180" y="200" text-anchor="middle" font-family="ui-monospace,monospace" font-size="13" fill="#0F172A">nomad://trips/3</text>
+  <text x="180" y="250" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#64748B">Safari · Notes · QR</text>
+  <text x="180" y="290" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#64748B">інший застосунок</text>
+
+  <text x="380" y="250" font-size="28" fill="#94A3B8">→</text>
+
+  <rect x="420" y="90" width="280" height="320" rx="16" fill="#fff" stroke="#E2E8F0"/>
+  <text x="560" y="140" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#B45309">ОС</text>
+  <text x="560" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#475569">scheme = nomad</text>
+  <text x="560" y="250" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#475569">знаходить застосунок</text>
+  <text x="560" y="290" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#475569">передає URL</text>
+
+  <text x="760" y="250" font-size="28" fill="#94A3B8">→</text>
+
+  <rect x="800" y="90" width="360" height="320" rx="16" fill="#fff" stroke="#BBF7D0"/>
+  <text x="980" y="140" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#15803D">Nomad + Expo Router</text>
+  <text x="980" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#475569">path → /trips/3</text>
+  <text x="980" y="250" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#475569">[id].tsx · id=3</text>
+  <text x="980" y="290" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#475569">екран деталей</text>
+</svg>

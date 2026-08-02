@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">Link і router.push</title>
+  <desc id="desc">Два способи перейти: декларативний Link і імперативний router</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#FFF7ED"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="420" fill="url(#bg)"/>
+  <text x="600" y="44" text-anchor="middle" font-family="system-ui,sans-serif" font-size="24" font-weight="700" fill="#0F172A">Два способи перейти на екран</text>
+
+  <rect x="60" y="90" width="500" height="280" rx="16" fill="#fff" stroke="#E2E8F0"/>
+  <text x="310" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#2563EB">Link (декларативно)</text>
+  <text x="100" y="180" font-family="ui-monospace,monospace" font-size="14" fill="#0F172A">&lt;Link href="/create-trip"&gt;</text>
+  <text x="100" y="220" font-family="system-ui,sans-serif" font-size="14" fill="#475569">Як &lt;a href&gt; на вебі:</text>
+  <text x="100" y="250" font-family="system-ui,sans-serif" font-size="14" fill="#475569">маршрут видно в JSX</text>
+  <text x="100" y="290" font-family="system-ui,sans-serif" font-size="14" fill="#475569">asChild — свій Pressable</text>
+  <text x="100" y="330" font-family="system-ui,sans-serif" font-size="13" fill="#94A3B8">Зручно для меню й карток</text>
+
+  <rect x="640" y="90" width="500" height="280" rx="16" fill="#fff" stroke="#E2E8F0"/>
+  <text x="890" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#C2410C">router (імперативно)</text>
+  <text x="680" y="180" font-family="ui-monospace,monospace" font-size="14" fill="#0F172A">router.push('/create-trip')</text>
+  <text x="680" y="220" font-family="system-ui,sans-serif" font-size="14" fill="#475569">Після події: submit, onPress,</text>
+  <text x="680" y="250" font-family="system-ui,sans-serif" font-size="14" fill="#475569">успіх форми → router.back()</text>
+  <text x="680" y="290" font-family="system-ui,sans-serif" font-size="14" fill="#475569">replace — без «назад» на старе</text>
+  <text x="680" y="330" font-family="system-ui,sans-serif" font-size="13" fill="#94A3B8">Зручно в колбеках логіки</text>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">Файл → маршрут</title>
+  <desc id="desc">Як файли в app/ стають адресами екранів у застосунку</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#EEF2FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="560" fill="url(#bg)"/>
+  <text x="600" y="48" text-anchor="middle" font-family="system-ui,sans-serif" font-size="26" font-weight="700" fill="#0F172A">File-based routing: файл → екран</text>
+  <text x="600" y="80" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" fill="#64748B">Структура теки app/ задає, куди можна «перейти»</text>
+
+  <rect x="60" y="120" width="480" height="380" rx="16" fill="#fff" stroke="#E2E8F0"/>
+  <text x="300" y="160" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#2563EB">На диску</text>
+  <text x="100" y="210" font-family="ui-monospace,monospace" font-size="15" fill="#0F172A">app/</text>
+  <text x="120" y="245" font-family="ui-monospace,monospace" font-size="14" fill="#334155">_layout.tsx</text>
+  <text x="120" y="280" font-family="ui-monospace,monospace" font-size="14" fill="#334155">(tabs)/</text>
+  <text x="140" y="315" font-family="ui-monospace,monospace" font-size="14" fill="#334155">index.tsx</text>
+  <text x="140" y="350" font-family="ui-monospace,monospace" font-size="14" fill="#334155">places.tsx</text>
+  <text x="140" y="385" font-family="ui-monospace,monospace" font-size="14" fill="#334155">about.tsx</text>
+  <text x="120" y="420" font-family="ui-monospace,monospace" font-size="14" fill="#334155">create-trip.tsx</text>
+  <text x="120" y="455" font-family="ui-monospace,monospace" font-size="13" fill="#94A3B8">_layout у групі — Tabs</text>
+
+  <text x="580" y="300" font-family="system-ui,sans-serif" font-size="36" fill="#94A3B8">→</text>
+
+  <rect x="660" y="120" width="480" height="380" rx="16" fill="#fff" stroke="#E2E8F0"/>
+  <text x="900" y="160" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#16A34A">У застосунку</text>
+  <text x="700" y="220" font-family="ui-monospace,monospace" font-size="15" fill="#0F172A">/  (вкладка Поїздки)</text>
+  <text x="700" y="265" font-family="ui-monospace,monospace" font-size="15" fill="#0F172A">/places</text>
+  <text x="700" y="310" font-family="ui-monospace,monospace" font-size="15" fill="#0F172A">/about</text>
+  <text x="700" y="355" font-family="ui-monospace,monospace" font-size="15" fill="#0F172A">/create-trip</text>
+  <text x="700" y="420" font-family="system-ui,sans-serif" font-size="13" fill="#64748B">(tabs) у URL не видно —</text>
+  <text x="700" y="445" font-family="system-ui,sans-serif" font-size="13" fill="#64748B">лише організація файлів</text>
+</svg>

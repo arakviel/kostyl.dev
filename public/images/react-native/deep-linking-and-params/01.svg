@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Динамічний сегмент і query</title>
+  <desc id="desc">Порівняння /trips/3 і /trips/3?tab=places у шляху маршруту</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#EEF2FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="520" fill="url(#bg)"/>
+  <text x="600" y="42" text-anchor="middle" font-family="system-ui,sans-serif" font-size="24" font-weight="700" fill="#0F172A">Два види параметрів у шляху</text>
+
+  <rect x="50" y="90" width="520" height="380" rx="16" fill="#fff" stroke="#E2E8F0"/>
+  <text x="310" y="135" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#2563EB">Динамічний сегмент</text>
+  <text x="310" y="175" text-anchor="middle" font-family="ui-monospace,monospace" font-size="16" fill="#0F172A">/trips/3</text>
+  <text x="90" y="230" font-family="system-ui,sans-serif" font-size="14" fill="#475569">Файл: app/.../trips/[id].tsx</text>
+  <text x="90" y="270" font-family="system-ui,sans-serif" font-size="14" fill="#475569">Параметр id = "3"</text>
+  <text x="90" y="320" font-family="system-ui,sans-serif" font-size="14" fill="#475569">Частина «адреси» екрана:</text>
+  <text x="90" y="350" font-family="system-ui,sans-serif" font-size="14" fill="#475569">яка саме поїздка</text>
+  <text x="90" y="410" font-family="system-ui,sans-serif" font-size="13" fill="#94A3B8">Обов’язковий для цього маршруту</text>
+
+  <rect x="630" y="90" width="520" height="380" rx="16" fill="#fff" stroke="#E2E8F0"/>
+  <text x="890" y="135" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#16A34A">Query (пошукові)</text>
+  <text x="890" y="175" text-anchor="middle" font-family="ui-monospace,monospace" font-size="15" fill="#0F172A">/trips/3?tab=places</text>
+  <text x="670" y="230" font-family="system-ui,sans-serif" font-size="14" fill="#475569">Після ? — пари ключ=значення</text>
+  <text x="670" y="270" font-family="system-ui,sans-serif" font-size="14" fill="#475569">tab = "places"</text>
+  <text x="670" y="320" font-family="system-ui,sans-serif" font-size="14" fill="#475569">Не змінює «який файл»,</text>
+  <text x="670" y="350" font-family="system-ui,sans-serif" font-size="14" fill="#475569">а уточнює стан екрана</text>
+  <text x="670" y="410" font-family="system-ui,sans-serif" font-size="13" fill="#94A3B8">Часто опційні</text>
+</svg>

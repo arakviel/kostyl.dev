@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="480" viewBox="0 0 1200 480" role="img" aria-labelledby="title desc">
+  <title id="title">Nomad навігація</title>
+  <desc id="desc">Вкладки Поїздки Місця Ще та Stack create-trip</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#EEF2FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="480" fill="url(#bg)"/>
+  <text x="600" y="40" text-anchor="middle" font-family="system-ui,sans-serif" font-size="24" font-weight="700" fill="#0F172A">Nomad: tabs + create-trip</text>
+
+  <rect x="80" y="80" width="280" height="360" rx="24" fill="#0F172A"/>
+  <rect x="95" y="100" width="250" height="300" rx="12" fill="#F8FAFC"/>
+  <text x="220" y="140" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#0F172A">Поїздки</text>
+  <rect x="110" y="160" width="220" height="50" rx="8" fill="#DBEAFE"/>
+  <rect x="110" y="220" width="220" height="50" rx="8" fill="#E2E8F0"/>
+  <rect x="110" y="300" width="220" height="36" rx="8" fill="#2563EB"/>
+  <text x="220" y="323" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#fff">Нова поїздка</text>
+  <rect x="110" y="350" width="60" height="22" rx="4" fill="#2563EB"/>
+  <rect x="180" y="350" width="60" height="22" rx="4" fill="#CBD5E1"/>
+  <rect x="250" y="350" width="60" height="22" rx="4" fill="#CBD5E1"/>
+
+  <text x="420" y="240" font-family="system-ui,sans-serif" font-size="28" fill="#94A3B8">→</text>
+
+  <rect x="480" y="80" width="280" height="360" rx="24" fill="#0F172A"/>
+  <rect x="495" y="100" width="250" height="300" rx="12" fill="#F8FAFC"/>
+  <text x="620" y="135" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#2563EB">← Назад</text>
+  <text x="620" y="165" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#0F172A">Нова поїздка</text>
+  <rect x="515" y="190" width="210" height="28" rx="6" fill="#E2E8F0"/>
+  <rect x="515" y="230" width="210" height="28" rx="6" fill="#E2E8F0"/>
+  <rect x="515" y="280" width="210" height="40" rx="8" fill="#2563EB"/>
+  <text x="620" y="305" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#fff">Створити</text>
+  <text x="620" y="380" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#64748B">Stack поверх tabs</text>
+
+  <text x="820" y="240" font-family="system-ui,sans-serif" font-size="28" fill="#94A3B8">→</text>
+
+  <rect x="880" y="80" width="280" height="360" rx="24" fill="#0F172A"/>
+  <rect x="895" y="100" width="250" height="300" rx="12" fill="#F8FAFC"/>
+  <text x="1020" y="140" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#0F172A">Поїздки</text>
+  <rect x="910" y="160" width="220" height="50" rx="8" fill="#BBF7D0" stroke="#16A34A"/>
+  <text x="1020" y="190" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#166534">★ нова зверху</text>
+  <rect x="910" y="220" width="220" height="50" rx="8" fill="#E2E8F0"/>
+  <rect x="910" y="350" width="60" height="22" rx="4" fill="#2563EB"/>
+  <rect x="980" y="350" width="60" height="22" rx="4" fill="#CBD5E1"/>
+  <rect x="1050" y="350" width="60" height="22" rx="4" fill="#CBD5E1"/>
+  <text x="1020" y="400" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#64748B">router.back()</text>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="480" viewBox="0 0 1200 480" role="img" aria-labelledby="title desc">
+  <title id="title">HTTPS universal link vs custom scheme</title>
+  <desc id="desc">https посилання відкриває app якщо встановлений інакше сайт</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#F0FDF4"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="480" fill="url(#bg)"/>
+  <text x="600" y="40" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#0F172A">https-посилання vs custom scheme</text>
+
+  <rect x="50" y="90" width="520" height="340" rx="16" fill="#fff" stroke="#E2E8F0"/>
+  <text x="310" y="135" text-anchor="middle" font-family="system-ui,sans-serif" font-size="17" font-weight="700" fill="#2563EB">Universal / App Link</text>
+  <text x="310" y="180" text-anchor="middle" font-family="ui-monospace,monospace" font-size="13" fill="#0F172A">https://app.example/trips/3</text>
+  <text x="90" y="230" font-family="system-ui,sans-serif" font-size="14" fill="#475569">• виглядає як звичайний веб</text>
+  <text x="90" y="265" font-family="system-ui,sans-serif" font-size="14" fill="#475569">• app установлено → застосунок</text>
+  <text x="90" y="300" font-family="system-ui,sans-serif" font-size="14" fill="#475569">• немає app → сайт</text>
+  <text x="90" y="350" font-family="system-ui,sans-serif" font-size="13" fill="#94A3B8">потрібні домен + AASA / assetlinks</text>
+
+  <rect x="630" y="90" width="520" height="340" rx="16" fill="#fff" stroke="#E2E8F0"/>
+  <text x="890" y="135" text-anchor="middle" font-family="system-ui,sans-serif" font-size="17" font-weight="700" fill="#C2410C">Custom scheme</text>
+  <text x="890" y="180" text-anchor="middle" font-family="ui-monospace,monospace" font-size="13" fill="#0F172A">nomad://trips/3</text>
+  <text x="670" y="230" font-family="system-ui,sans-serif" font-size="14" fill="#475569">• швидко для dev і in-app</text>
+  <text x="670" y="265" font-family="system-ui,sans-serif" font-size="14" fill="#475569">• без app — «не відкрилось»</text>
+  <text x="670" y="300" font-family="system-ui,sans-serif" font-size="14" fill="#475569">• не https, інший UX у месенджерах</text>
+  <text x="670" y="350" font-family="system-ui,sans-serif" font-size="13" fill="#94A3B8">достатньо scheme у app.json</text>
+</svg>

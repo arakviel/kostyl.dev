@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400" viewBox="0 0 1200 400" role="img" aria-labelledby="title desc">
+  <title id="title">Guard на back</title>
+  <desc id="desc">Запобігання випадковому закриттю форми з незбереженими даними</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#FFF7ED"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bg)"/>
+  <text x="600" y="40" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#0F172A">Guard на «назад» (незбережені зміни)</text>
+
+  <rect x="100" y="90" width="420" height="260" rx="16" fill="#fff" stroke="#E2E8F0"/>
+  <text x="310" y="140" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#0F172A">1. Користувач тисне «назад»</text>
+  <text x="310" y="190" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#64748B">жест · header · Android back</text>
+  <text x="310" y="240" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#475569">форма брудна (dirty)</text>
+  <text x="310" y="300" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#94A3B8">usePreventRemove / beforeRemove</text>
+
+  <text x="580" y="220" font-family="system-ui,sans-serif" font-size="32" fill="#94A3B8">→</text>
+
+  <rect x="680" y="90" width="420" height="260" rx="16" fill="#FEF3C7" stroke="#FCD34D"/>
+  <text x="890" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#B45309">2. Діалог</text>
+  <text x="890" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#78350F">«Вийти без збереження?»</text>
+  <rect x="760" y="240" width="120" height="40" rx="8" fill="#E2E8F0"/>
+  <text x="820" y="265" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#0F172A">Лишитись</text>
+  <rect x="900" y="240" width="120" height="40" rx="8" fill="#DC2626"/>
+  <text x="960" y="265" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#fff">Вийти</text>
+</svg>

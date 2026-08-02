@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Потік створення поїздки в Nomad</title>
+  <desc id="desc">Home CTA → create-trip form → validate → addTrip → back to list with new card</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#EEF2FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="520" fill="url(#bg)"/>
+  <text x="600" y="48" text-anchor="middle" font-family="system-ui, sans-serif" font-size="26" font-weight="700" fill="#0F172A">Nomad: «Нова поїздка»</text>
+  <text x="600" y="80" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" fill="#64748B">Список → форма → валідація → addTrip → знову список</text>
+
+  <!-- Step 1 -->
+  <rect x="40" y="130" width="240" height="280" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="160" y="170" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#2563EB">1. Home</text>
+  <rect x="70" y="190" width="180" height="40" rx="8" fill="#E2E8F0"/>
+  <rect x="70" y="245" width="180" height="40" rx="8" fill="#E2E8F0"/>
+  <rect x="70" y="320" width="180" height="44" rx="10" fill="#2563EB"/>
+  <text x="160" y="348" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">Нова поїздка</text>
+  <text x="160" y="385" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#64748B">router.push</text>
+
+  <text x="300" y="270" font-family="system-ui, sans-serif" font-size="28" fill="#94A3B8">→</text>
+
+  <!-- Step 2 -->
+  <rect x="330" y="130" width="240" height="280" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="450" y="170" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#2563EB">2. Форма</text>
+  <rect x="360" y="195" width="180" height="28" rx="6" fill="#F1F5F9" stroke="#CBD5E1"/>
+  <rect x="360" y="235" width="180" height="28" rx="6" fill="#F1F5F9" stroke="#CBD5E1"/>
+  <rect x="360" y="275" width="180" height="28" rx="6" fill="#F1F5F9" stroke="#CBD5E1"/>
+  <rect x="360" y="330" width="180" height="36" rx="8" fill="#2563EB"/>
+  <text x="450" y="353" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#FFFFFF">Створити</text>
+  <text x="450" y="385" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#64748B">RHF + Zod</text>
+
+  <text x="590" y="270" font-family="system-ui, sans-serif" font-size="28" fill="#94A3B8">→</text>
+
+  <!-- Step 3 -->
+  <rect x="620" y="130" width="240" height="280" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="740" y="170" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#B45309">3. Валідація</text>
+  <rect x="650" y="200" width="180" height="70" rx="10" fill="#FEF2F2" stroke="#FECACA"/>
+  <text x="740" y="230" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#B91C1C">errors.title</text>
+  <text x="740" y="250" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#B91C1C">errors.endDate</text>
+  <rect x="650" y="290" width="180" height="70" rx="10" fill="#F0FDF4" stroke="#BBF7D0"/>
+  <text x="740" y="320" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#15803D">OK → Trip object</text>
+  <text x="740" y="340" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#15803D">addTrip(trip)</text>
+  <text x="740" y="385" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#64748B">TripsProvider</text>
+
+  <text x="880" y="270" font-family="system-ui, sans-serif" font-size="28" fill="#94A3B8">→</text>
+
+  <!-- Step 4 -->
+  <rect x="910" y="130" width="240" height="280" rx="16" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="1030" y="170" text-anchor="middle" font-family="system-ui, sans-serif" font-size="15" font-weight="700" fill="#16A34A">4. Список</text>
+  <rect x="940" y="195" width="180" height="50" rx="8" fill="#DBEAFE" stroke="#93C5FD"/>
+  <text x="1030" y="225" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#1D4ED8">★ нова картка</text>
+  <rect x="940" y="260" width="180" height="40" rx="8" fill="#E2E8F0"/>
+  <rect x="940" y="315" width="180" height="40" rx="8" fill="#E2E8F0"/>
+  <text x="1030" y="385" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#64748B">router.back()</text>
+
+  <text x="600" y="470" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" fill="#64748B">Стан поїздок спільний через Context (до RTK у модулі 4)</text>
+</svg>

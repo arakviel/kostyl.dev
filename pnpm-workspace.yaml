@@ -1,0 +1,9 @@
+# pnpm v11+: налаштування workspace і builds — тут, не в package.json → "pnpm".
+# allowBuilds замінює onlyBuiltDependencies / neverBuiltDependencies.
+# true = дозволити install/postinstall скрипти пакета (нативні бінарники тощо).
+allowBuilds:
+  '@parcel/watcher': true
+  better-sqlite3: true
+  esbuild: true
+  sharp: true
+  vue-demi: true

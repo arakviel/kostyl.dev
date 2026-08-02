@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">Групи auth</title>
+  <desc id="desc">Групи маршрутів для гостя і для авторизованого користувача</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#FEF2F2"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="420" fill="url(#bg)"/>
+  <text x="600" y="40" text-anchor="middle" font-family="system-ui,sans-serif" font-size="24" font-weight="700" fill="#0F172A">Групи (auth) і (app)</text>
+  <text x="600" y="70" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#64748B">Різні «світи» маршрутів; хто куди — залежить від сесії</text>
+
+  <rect x="80" y="110" width="480" height="250" rx="16" fill="#fff" stroke="#FECACA"/>
+  <text x="320" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#B91C1C">(auth)</text>
+  <text x="320" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#475569">login · register</text>
+  <text x="320" y="240" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#64748B">без нижніх вкладок</text>
+  <text x="320" y="290" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#94A3B8">гість / розлогінений</text>
+
+  <text x="600" y="230" font-family="system-ui,sans-serif" font-size="28" fill="#94A3B8">⟷</text>
+
+  <rect x="640" y="110" width="480" height="250" rx="16" fill="#fff" stroke="#BBF7D0"/>
+  <text x="880" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#15803D">(tabs) / (app)</text>
+  <text x="880" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#475569">стрічка · місця · профіль</text>
+  <text x="880" y="240" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#64748B">повний застосунок</text>
+  <text x="880" y="290" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#94A3B8">після успішного входу</text>
+</svg>
