@@ -28,11 +28,6 @@ pre.shiki .line::before {
     z-index: 1; /* Номер рядка поверх виділення */
 }
 
-/* Виправлення для виділення тексту - не виділяти номери рядків */
-pre.shiki .line::before::selection {
-    background: transparent;
-}
-
 /* Стилі виділення для коду */
 pre.shiki .line::selection,
 pre.shiki .line *::selection {

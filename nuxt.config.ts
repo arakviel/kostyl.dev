@@ -146,19 +146,7 @@ export default defineNuxtConfig({
         ],
       },
     },
-    build: {
-      rollupOptions: {
-        output: {
-          manualChunks(id) {
-            if (id.includes('node_modules')) {
-              if (id.includes('mermaid')) return 'vendor-mermaid'
-              if (id.includes('docus') || id.includes('nuxt')) return 'vendor-nuxt'
-              if (id.includes('shiki') || id.includes('highlight')) return 'vendor-code'
-              return 'vendor'
-            }
-          },
-        },
-      },
-    },
+    // manualChunks через rollupOptions ламає CSS chunk refs у Vite 8/Rolldown
+    // (entry-styles-1.mjs-!~{...}~.js не резолвиться під час Nitro prerender).
   },
 })
