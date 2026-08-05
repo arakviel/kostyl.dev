@@ -72,4 +72,8 @@ Stack у Tabs, presentation modal, auth-групи, guard на back — дета
 Параметри маршруту, scheme, universal links, cold start — deep link на поїздку в Nomad.
 ::
 
+::card{title="14. Мережа та lifecycle" to="/react-native/networking-and-app-lifecycle" icon="i-lucide-wifi"}
+fetch/axios, AppError, NetInfo, AppState — список поїздок з API та offline-банер у Nomad.
+::
+
 ::
