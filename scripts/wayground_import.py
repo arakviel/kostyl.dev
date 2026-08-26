@@ -46,7 +46,8 @@ QUESTION_THEME = {
 # Auth (shared з wayground_add_images.py)
 # ---------------------------------------------------------------------------
 
-def load_credentials() -> tuple[str, str]:
+def load_credentials() -> tuple[str, str, str]:
+    """Повертає (email, password, sid)."""
     for env_dir in [Path(__file__).parent, Path.cwd()]:
         env_file = env_dir / ".env"
         if env_file.exists():
@@ -56,10 +57,32 @@ def load_credentials() -> tuple[str, str]:
                     key, _, val = line.partition("=")
                     os.environ.setdefault(key.strip(), val.strip().strip('"').strip("'"))
             break
-    return os.environ.get("WAYGROUND_EMAIL", ""), os.environ.get("WAYGROUND_PASSWORD", "")
+    return (
+        os.environ.get("WAYGROUND_EMAIL", ""),
+        os.environ.get("WAYGROUND_PASSWORD", ""),
+        os.environ.get("WAYGROUND_SID", ""),
+    )
 
 
-def login(email: str, password: str) -> requests.Session:
+def login(email: str, password: str, sid: str = "") -> requests.Session:
+    """
+    Якщо є збережений WAYGROUND_SID — використовуємо його напряму (без login-запиту).
+    Це необхідно, бо Wayground вмикає 2FA/OTP, і автоматичний login через API не повертає _sid.
+    """
+    session = requests.Session()
+    session.headers.update({
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Origin": "https://wayground.com",
+        "Content-Type": "application/json",
+    })
+
+    if sid:
+        print("[~] Використовуємо збережений WAYGROUND_SID...")
+        for domain in ["wayground.com", ".wayground.com", "quizizz.com", ".quizizz.com"]:
+            session.cookies.set("_sid", sid, domain=domain)
+        print("[✓] Сесія встановлена через SID")
+        return session
+
     print(f"[~] Авторизація як {email}...")
     resp = requests.post(
         "https://wayground.com/_authserver/public/public/v1/auth/login/local",
@@ -74,20 +97,19 @@ def login(email: str, password: str) -> requests.Session:
     if resp.status_code != 200 or not resp.json().get("success"):
         raise RuntimeError(f"Помилка авторизації. HTTP {resp.status_code}: {resp.text[:200]}")
 
-    sid = resp.cookies.get("_sid")
+    cookie_sid = resp.cookies.get("_sid")
     quizizz_uid = resp.cookies.get("quizizz_uid")
-    if not sid:
-        raise RuntimeError("_sid cookie не знайдено у відповіді login")
+    if not cookie_sid:
+        raise RuntimeError(
+            "_sid cookie не знайдено у відповіді login.\n"
+            "Ймовірно, увімкнено 2FA. Отримайте _sid з браузера після ручного входу "
+            "та збережіть у scripts/.env як WAYGROUND_SID=<значення>"
+        )
 
-    session = requests.Session()
-    session.cookies.set("_sid", sid, domain="wayground.com")
+    for domain in ["wayground.com", ".wayground.com", "quizizz.com", ".quizizz.com"]:
+        session.cookies.set("_sid", cookie_sid, domain=domain)
     if quizizz_uid:
         session.cookies.set("quizizz_uid", quizizz_uid, domain="wayground.com")
-    session.headers.update({
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36",
-        "Origin": "https://wayground.com",
-        "Content-Type": "application/json",
-    })
 
     user = resp.json().get("data", {}).get("user", {})
     name = f"{user.get('firstName', '')} {user.get('lastName', '')}".strip()
@@ -495,10 +517,11 @@ Credentials — з .env або змінних середовища:
     quiz_name = args.name or xlsx_path.stem
 
     # Credentials
-    env_email, env_password = load_credentials()
+    env_email, env_password, env_sid = load_credentials()
     email = args.email or env_email
     password = args.password or env_password
-    if not email or not password:
+    sid = env_sid
+    if not sid and (not email or not password):
         print("[X] Credentials не знайдено. Створи .env або передай --email / --password")
         sys.exit(1)
 
@@ -509,7 +532,7 @@ Credentials — з .env або змінних середовища:
 
     try:
         # Auth
-        session = login(email, password)
+        session = login(email, password, sid=sid)
         print()
 
         # 1. Upload + parse xlsx

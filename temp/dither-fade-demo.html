@@ -1,0 +1,1312 @@
+<!doctype html>
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Basedash Dither Fade Showcase - Taras Shevchenko ASCII Art & Marquee</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --bg-color: #0a0b0e;
+                --card-bg: #13151b;
+                --card-border: #222631;
+                --text-main: #f3f4f6;
+                --text-muted: #8b93a3;
+                --accent: #e8792f;
+                --accent-glow: rgba(232, 121, 47, 0.2);
+                --dither-fade-color: #0a0b0e;
+                --dither-width: 70px;
+                --pixel-size: 1;
+            }
+
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                background-color: var(--bg-color);
+                color: var(--text-main);
+                font-family:
+                    'Plus Jakarta Sans',
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    sans-serif;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 3rem 1rem 6rem;
+                overflow-x: hidden;
+                transition: background-color 0.2s ease;
+            }
+
+            .container {
+                width: 100%;
+                max-width: 1120px;
+                display: flex;
+                flex-direction: column;
+                gap: 3.5rem;
+            }
+
+            /* Header */
+            .header {
+                text-align: center;
+            }
+
+            .badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 5px 14px;
+                border-radius: 9999px;
+                background: rgba(232, 121, 47, 0.12);
+                border: 1px solid rgba(232, 121, 47, 0.35);
+                color: var(--accent);
+                font-size: 12px;
+                font-weight: 600;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                margin-bottom: 14px;
+            }
+
+            h1 {
+                font-size: 2.3rem;
+                font-weight: 700;
+                letter-spacing: -0.03em;
+                margin-bottom: 0.6rem;
+            }
+
+            p.subtitle {
+                color: var(--text-muted);
+                font-size: 1.05rem;
+                max-width: 720px;
+                margin: 0 auto;
+                line-height: 1.5;
+            }
+
+            /* Controls Panel */
+            .controls-panel {
+                position: sticky;
+                top: 1rem;
+                z-index: 50;
+                background: rgba(18, 20, 25, 0.94);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                border: 1px solid #222632;
+                border-radius: 16px;
+                padding: 1.25rem 1.75rem;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1.5rem;
+                align-items: center;
+                justify-content: space-between;
+                box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
+            }
+
+            .control-group {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                font-size: 13px;
+            }
+
+            .control-group label {
+                color: var(--text-muted);
+                font-weight: 500;
+            }
+
+            .value-display {
+                font-family: 'JetBrains Mono', monospace;
+                color: var(--accent);
+                font-weight: 600;
+            }
+
+            input[type='range'] {
+                accent-color: var(--accent);
+                cursor: pointer;
+            }
+
+            .btn-group {
+                display: flex;
+                background: #1a1d25;
+                border-radius: 8px;
+                padding: 2px;
+                border: 1px solid #2b303e;
+            }
+
+            .btn-group button {
+                background: transparent;
+                border: none;
+                color: var(--text-muted);
+                padding: 5px 12px;
+                border-radius: 6px;
+                font-size: 12px;
+                cursor: pointer;
+                font-weight: 500;
+                transition: all 0.15s ease;
+            }
+
+            .btn-group button:hover {
+                color: #fff;
+            }
+
+            .btn-group button.active {
+                background: var(--accent);
+                color: #fff;
+            }
+
+            /* Section Headings */
+            .section-head {
+                margin-bottom: 1.25rem;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+                font-weight: 700;
+                letter-spacing: -0.02em;
+                margin-bottom: 0.35rem;
+            }
+
+            .section-desc {
+                color: var(--text-muted);
+                font-size: 0.9rem;
+                line-height: 1.45;
+            }
+
+            /* ========================================================= */
+            /*   1. TARAS SHEVCHENKO ASCII ART SHOWCASE                  */
+            /* ========================================================= */
+            .shevchenko-ascii-container {
+                display: grid;
+                grid-template-columns: 1.4fr 1fr;
+                gap: 1.5rem;
+            }
+
+            @media (max-width: 900px) {
+                .shevchenko-ascii-container {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            .shevchenko-card {
+                background: #08090c;
+                border: 1px solid #1c202a;
+                border-radius: 20px;
+                overflow: hidden;
+                box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85);
+                display: flex;
+                flex-direction: column;
+            }
+
+            .terminal-topbar {
+                background: #111319;
+                border-bottom: 1px solid #1e222d;
+                padding: 12px 18px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .terminal-dots {
+                display: flex;
+                gap: 6px;
+            }
+
+            .terminal-dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+            }
+            .dot-red {
+                background: #ef4444;
+            }
+            .dot-yellow {
+                background: #f59e0b;
+            }
+            .dot-green {
+                background: #10b981;
+            }
+
+            .terminal-title {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 12px;
+                color: var(--text-muted);
+            }
+
+            .shevchenko-viewport {
+                position: relative;
+                height: 480px;
+                background: #050608;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .ascii-image-pre {
+                font-family: 'JetBrains Mono', 'Courier New', monospace;
+                font-size: 6.5px;
+                line-height: 5.5px;
+                letter-spacing: -0.5px;
+                white-space: pre;
+                color: #e8792f;
+                text-shadow: 0 0 8px rgba(232, 121, 47, 0.35);
+                user-select: none;
+                transform-origin: center center;
+                transition:
+                    color 0.3s,
+                    text-shadow 0.3s;
+            }
+
+            .shevchenko-sidebar {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .info-card {
+                background: #101217;
+                border: 1px solid #1f232e;
+                border-radius: 18px;
+                padding: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .info-card h3 {
+                font-size: 1.1rem;
+                font-weight: 700;
+                color: var(--accent);
+            }
+
+            .info-card p {
+                font-size: 0.88rem;
+                color: var(--text-muted);
+                line-height: 1.5;
+            }
+
+            .shevchenko-source-preview {
+                position: relative;
+                width: 100%;
+                height: 190px;
+                border-radius: 12px;
+                overflow: hidden;
+                border: 1px solid #232733;
+            }
+
+            .shevchenko-source-preview img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                filter: grayscale(100%) contrast(120%);
+            }
+
+            .quote-box {
+                border-left: 3px solid var(--accent);
+                padding-left: 12px;
+                font-style: italic;
+                color: #cbd5e1;
+                font-size: 0.85rem;
+            }
+
+            /* ========================================================= */
+            /*   2. BASEDASH MARQUEE & PROMPT SHOWCASE                   */
+            /* ========================================================= */
+            .showcase-frame {
+                position: relative;
+                background: #101216;
+                border: 1px solid #1e222b;
+                border-radius: 20px;
+                padding: 3rem 0;
+                overflow: hidden;
+                box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+            }
+
+            .ambient-glow {
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                background: radial-gradient(circle at center, rgba(232, 121, 47, 0.08) 0%, transparent 60%);
+                z-index: 1;
+            }
+
+            .central-prompt {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 25;
+                width: 90%;
+                max-width: 520px;
+                background: rgba(20, 22, 28, 0.85);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+                border: 1px solid rgba(232, 121, 47, 0.45);
+                border-radius: 14px;
+                padding: 14px 20px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                box-shadow:
+                    0 10px 30px rgba(0, 0, 0, 0.6),
+                    0 0 20px rgba(232, 121, 47, 0.15);
+            }
+
+            .prompt-icon {
+                color: var(--accent);
+                font-size: 18px;
+                display: flex;
+                align-items: center;
+            }
+
+            .prompt-text {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 14px;
+                color: #fff;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+
+            .prompt-cursor {
+                display: inline-block;
+                width: 2px;
+                height: 1.1em;
+                background: var(--accent);
+                vertical-align: middle;
+                animation: blink 1s step-end infinite;
+            }
+
+            @keyframes blink {
+                0%,
+                100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0;
+                }
+            }
+
+            .marquee-container {
+                display: flex;
+                flex-direction: column;
+                gap: 14px;
+                position: relative;
+                z-index: 2;
+            }
+
+            .marquee-row {
+                display: flex;
+                overflow: hidden;
+                user-select: none;
+            }
+
+            .marquee-track {
+                display: flex;
+                gap: 14px;
+                width: max-content;
+                will-change: transform;
+            }
+
+            .track-left {
+                animation: scroll-left 35s linear infinite;
+            }
+            .track-right {
+                animation: scroll-right 40s linear infinite;
+            }
+
+            .card {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                width: 280px;
+                padding: 12px 14px;
+                background: linear-gradient(145deg, #16181f 0%, #111317 100%);
+                border: 1px solid #232733;
+                border-radius: 12px;
+                flex-shrink: 0;
+            }
+
+            .card-tag {
+                font-size: 11px;
+                font-weight: 600;
+                color: #94a3b8;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+            }
+
+            .card-title {
+                font-size: 13px;
+                color: #cbd5e1;
+                line-height: 1.35;
+            }
+
+            @keyframes scroll-left {
+                0% {
+                    transform: translateX(0);
+                }
+                100% {
+                    transform: translateX(-50%);
+                }
+            }
+
+            @keyframes scroll-right {
+                0% {
+                    transform: translateX(-50%);
+                }
+                100% {
+                    transform: translateX(0);
+                }
+            }
+
+            /* 16-Band SVG Dither Overlay (Marquee) */
+            .dither-fade-root {
+                position: absolute;
+                inset: 0;
+                pointer-events: none;
+                z-index: 20;
+            }
+
+            .dither-fade-grid {
+                position: absolute;
+                inset: 0;
+                overflow: hidden;
+            }
+
+            .dither-side {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: var(--dither-width);
+            }
+            .dither-side.left {
+                left: 0;
+            }
+            .dither-side.right {
+                right: 0;
+            }
+
+            .dither-band {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: calc(100% / 16);
+                background-color: var(--dither-fade-color);
+                -webkit-mask-repeat: repeat;
+                mask-repeat: repeat;
+                -webkit-mask-size: calc(4px * var(--pixel-size)) calc(4px * var(--pixel-size));
+                mask-size: calc(4px * var(--pixel-size)) calc(4px * var(--pixel-size));
+            }
+
+            /* ========================================================= */
+            /*   3. 4-SIDED DITHER FADE ON IMAGES                        */
+            /* ========================================================= */
+            .gallery-grid {
+                display: grid;
+                grid-template-columns: 1.3fr 1fr;
+                gap: 1.5rem;
+            }
+
+            @media (max-width: 860px) {
+                .gallery-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            .image-card {
+                position: relative;
+                background: #0f1116;
+                border: 1px solid #1e222c;
+                border-radius: 20px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.7);
+            }
+
+            .image-frame {
+                position: relative;
+                width: 100%;
+                height: 400px;
+                background: #000;
+                overflow: hidden;
+            }
+
+            .image-frame.mini {
+                height: 240px;
+            }
+
+            .image-frame img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+                transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            }
+
+            .image-card:hover .image-frame img {
+                transform: scale(1.04);
+            }
+
+            .dither-canvas-overlay {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                image-rendering: pixelated;
+                image-rendering: crisp-edges;
+                z-index: 10;
+            }
+
+            .card-footer {
+                padding: 1.2rem 1.5rem;
+                background: #13151b;
+                border-top: 1px solid #1e222c;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .card-footer .title {
+                font-weight: 600;
+                font-size: 0.95rem;
+            }
+
+            .card-footer .tag {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 11px;
+                color: var(--accent);
+                background: rgba(232, 121, 47, 0.1);
+                padding: 3px 10px;
+                border-radius: 6px;
+                border: 1px solid rgba(232, 121, 47, 0.25);
+            }
+
+            .sub-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            /* Comparison Box */
+            .comparison-wrapper {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem;
+            }
+
+            @media (max-width: 700px) {
+                .comparison-wrapper {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            .comp-box {
+                position: relative;
+                background: #0f1116;
+                border: 1px solid #1e222c;
+                border-radius: 16px;
+                overflow: hidden;
+            }
+
+            .comp-box .label {
+                position: absolute;
+                top: 12px;
+                left: 12px;
+                z-index: 25;
+                background: rgba(0, 0, 0, 0.75);
+                backdrop-filter: blur(8px);
+                padding: 4px 10px;
+                border-radius: 6px;
+                font-size: 11px;
+                font-weight: 600;
+                border: 1px solid #333;
+            }
+
+            /* Matrix Inspection Section */
+            .matrix-inspection {
+                background: #121418;
+                border: 1px solid #222630;
+                border-radius: 16px;
+                padding: 1.5rem;
+            }
+
+            .matrix-inspection h2 {
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .matrix-inspection p {
+                color: var(--text-muted);
+                font-size: 0.875rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .bands-preview {
+                display: grid;
+                grid-template-columns: repeat(16, 1fr);
+                gap: 4px;
+                background: #090a0c;
+                padding: 12px;
+                border-radius: 10px;
+                border: 1px solid #1f232c;
+            }
+
+            .band-cell {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 6px;
+            }
+
+            .band-swatch {
+                width: 100%;
+                height: 48px;
+                background-color: #fff;
+                border-radius: 4px;
+                -webkit-mask-repeat: repeat;
+                mask-repeat: repeat;
+                -webkit-mask-size: 8px 8px;
+                mask-size: 8px 8px;
+            }
+
+            .band-label {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 10px;
+                color: #64748b;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <div class="badge">✨ Taras Shevchenko ASCII Art + Dither Fade</div>
+                <h1>Портрет Тараса Шевченка в ASCII з Dither Fade</h1>
+                <p class="subtitle">
+                    Картинка портрета Кобзаря, перетворена в реалістичний ASCII-арт через матрицю люмінантності, з
+                    4-стороннім піксельним згасанням у фон.
+                </p>
+            </div>
+
+            <!-- Controls Panel -->
+            <div class="controls-panel">
+                <!-- Fade Thickness -->
+                <div class="control-group">
+                    <label for="width-slider">Ширина згасання:</label>
+                    <input type="range" id="width-slider" min="20" max="180" step="5" value="75" />
+                    <span class="value-display" id="width-val">75px</span>
+                </div>
+
+                <!-- Pixel Scale (1x, 2x, 3x) -->
+                <div class="control-group">
+                    <label>Розмір пікселя:</label>
+                    <div class="btn-group" id="pixel-scale-btns">
+                        <button class="active" data-scale="1">1px (Crisp)</button>
+                        <button data-scale="2">2px (Chunky)</button>
+                        <button data-scale="3">3px (Retro)</button>
+                    </div>
+                </div>
+
+                <!-- ASCII Glow Color Palette -->
+                <div class="control-group">
+                    <label>Колір ASCII:</label>
+                    <div class="btn-group" id="ascii-color-btns">
+                        <button class="active" data-color="#e8792f">Amber Gold</button>
+                        <button data-color="#38bdf8">Cyber Cyan</button>
+                        <button data-color="#4ade80">Matrix Green</button>
+                        <button data-color="#f3f4f6">Silver Mono</button>
+                    </div>
+                </div>
+
+                <!-- Background Color Theme -->
+                <div class="control-group">
+                    <label>Колір фону:</label>
+                    <div class="btn-group" id="theme-btns">
+                        <button class="active" data-bg="#0a0b0e">Dark #0A</button>
+                        <button data-bg="#161922">Slate #16</button>
+                        <button data-bg="#020408">Onyx #02</button>
+                        <button data-bg="#18110b">Sepia #18</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== 1. TARAS SHEVCHENKO ASCII ART SHOWCASE ==================== -->
+            <div>
+                <div class="section-head">
+                    <div class="section-title">1. Портрет Тараса Шевченка (ASCII Art Image + 4-Sided Dither Fade)</div>
+                    <div class="section-desc">
+                        Автентичний історичний портрет Кобзаря (1859 р.), розбитий на символьну градацію яскравості, з
+                        піксельним розчиненням по краях.
+                    </div>
+                </div>
+
+                <div class="shevchenko-ascii-container">
+                    <!-- Main ASCII Terminal Display -->
+                    <div class="shevchenko-card">
+                        <div class="terminal-topbar">
+                            <div class="terminal-dots">
+                                <div class="terminal-dot dot-red"></div>
+                                <div class="terminal-dot dot-yellow"></div>
+                                <div class="terminal-dot dot-green"></div>
+                            </div>
+                            <div class="terminal-title">kobzar_portrait_1859.ascii.dither</div>
+                            <div
+                                style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent)"
+                            >
+                                [4-SIDED DITHER ACTIVE]
+                            </div>
+                        </div>
+
+                        <!-- Viewport with ASCII Pre + Canvas Dither Overlay -->
+                        <div class="shevchenko-viewport image-frame">
+                            <pre class="ascii-image-pre" id="shevchenko-ascii-target">
+Завантаження ASCII-портрета...</pre
+                            >
+                            <!-- 4-Sided Dither Canvas Overlay -->
+                            <canvas class="dither-canvas-overlay"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Info & Controls -->
+                    <div class="shevchenko-sidebar">
+                        <div class="info-card">
+                            <h3>Тарас Григорович Шевченко</h3>
+                            <p>
+                                Генератор зчитує мапу яскравості історичного портрета та конвертує пікселі у символи
+                                щільності: <code>@%#*+=-:. </code>.
+                            </p>
+
+                            <div class="shevchenko-source-preview">
+                                <img
+                                    id="source-shevchenko-img"
+                                    crossorigin="anonymous"
+                                    src="https://uk.wikiquote.org/wiki/%D0%A4%D0%B0%D0%B9%D0%BB:Taras_Shevchenko_selfportrait_oil_1840-2.jpg"
+                                    alt="Оригінальне фото Шевченка 1859"
+                                />
+                            </div>
+
+                            <div class="quote-box">«І чужому научайтесь, й свого не цурайтесь...»</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== 2. BASEDASH MARQUEE SHOWCASE ==================== -->
+            <div>
+                <div class="section-head">
+                    <div class="section-title">2. Оригінальний Basedash Marquee & Prompt Box</div>
+                    <div class="section-desc">
+                        16 горизонтальних смуг SVG-масок по лівому та правому краях біжучого рядка карток.
+                    </div>
+                </div>
+
+                <div class="showcase-frame" id="showcase-frame">
+                    <div class="ambient-glow"></div>
+
+                    <!-- Center Floating Prompt -->
+                    <div class="central-prompt">
+                        <div class="prompt-icon">✦</div>
+                        <div class="prompt-text">
+                            <span id="typewriter-target">What are the top growth trends this month?</span
+                            ><span class="prompt-cursor"></span>
+                        </div>
+                    </div>
+
+                    <!-- Marquee Rows -->
+                    <div class="marquee-container">
+                        <div class="marquee-row"><div class="marquee-track track-left" id="track-1"></div></div>
+                        <div class="marquee-row"><div class="marquee-track track-right" id="track-2"></div></div>
+                        <div class="marquee-row"><div class="marquee-track track-left" id="track-3"></div></div>
+                    </div>
+
+                    <!-- Dither Fade Overlay for Marquee -->
+                    <div class="dither-fade-root">
+                        <div class="dither-fade-grid">
+                            <div class="dither-side left" id="dither-left"></div>
+                            <div class="dither-side right" id="dither-right"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== 3. 4-SIDED DITHER FADE ON PHOTOS ==================== -->
+            <div>
+                <div class="section-head">
+                    <div class="section-title">3. 4-стороннє згасання для фотографій</div>
+                    <div class="section-desc">
+                        Повний безшовний перехід по всьому периметру картинки з математично ідеальними кутами.
+                    </div>
+                </div>
+
+                <div class="gallery-grid">
+                    <!-- Main Large Featured Image -->
+                    <div class="image-card">
+                        <div class="image-frame">
+                            <img
+                                src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop"
+                                alt="Dark Mesh"
+                            />
+                            <canvas class="dither-canvas-overlay"></canvas>
+                        </div>
+                        <div class="card-footer">
+                            <span class="title">Generative Fluid Architecture</span>
+                            <span class="tag">4-SIDED DITHER</span>
+                        </div>
+                    </div>
+
+                    <!-- Stacked Mini Cards -->
+                    <div class="sub-grid">
+                        <div class="image-card">
+                            <div class="image-frame mini">
+                                <img
+                                    src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop"
+                                    alt="Cyberpunk Hardware"
+                                />
+                                <canvas class="dither-canvas-overlay"></canvas>
+                            </div>
+                            <div class="card-footer">
+                                <span class="title">Retro Cyberpunk Station</span>
+                                <span class="tag">TOP+BOT+L+R</span>
+                            </div>
+                        </div>
+
+                        <div class="image-card">
+                            <div class="image-frame mini">
+                                <img
+                                    src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=800&auto=format&fit=crop"
+                                    alt="Cosmic Art"
+                                />
+                                <canvas class="dither-canvas-overlay"></canvas>
+                            </div>
+                            <div class="card-footer">
+                                <span class="title">Deep Space Synthwave</span>
+                                <span class="tag">4-SIDED DITHER</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== 4. COMPARISON ==================== -->
+            <div>
+                <div class="section-head">
+                    <div class="section-title">4. Порівняння: Звичайний розмитий градієнт vs Bayer Dither</div>
+                    <div class="section-desc">
+                        Звичайний градієнт дає брудні напівпрозорі ореоли, тоді як дизеринг зберігає чистий 1-бітний
+                        ретро-стиль.
+                    </div>
+                </div>
+
+                <div class="comparison-wrapper">
+                    <div class="comp-box">
+                        <div class="label">Звичайний CSS Gradient Vignette</div>
+                        <div class="image-frame mini" style="position: relative">
+                            <img
+                                src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop"
+                                alt="Matrix Code"
+                            />
+                            <div
+                                style="
+                                    position: absolute;
+                                    inset: 0;
+                                    box-shadow: inset 0 0 60px 30px var(--bg-color);
+                                    pointer-events: none;
+                                "
+                            ></div>
+                        </div>
+                    </div>
+
+                    <div class="comp-box">
+                        <div class="label" style="border-color: var(--accent); color: var(--accent)">
+                            Bayer 4×4 Pixel Dither
+                        </div>
+                        <div class="image-frame mini">
+                            <img
+                                src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop"
+                                alt="Matrix Code"
+                            />
+                            <canvas class="dither-canvas-overlay"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== 5. BAYER MATRIX BREAKDOWN ==================== -->
+            <div class="matrix-inspection">
+                <h2>4×4 Bayer Matrix Breakdown (16 Density Steps)</h2>
+                <p>
+                    Кожен стовпчик демонструє 1 крок щільності матриці Байєра від повної непрозорості (16/16) до повної
+                    прозорості (0/16):
+                </p>
+                <div class="bands-preview" id="bands-strip"></div>
+            </div>
+        </div>
+
+        <script>
+            // 4x4 Standard Bayer Dither Matrix Thresholds (0-15)
+            const BAYER_4X4 = [
+                [0, 8, 2, 10],
+                [12, 4, 14, 6],
+                [3, 11, 1, 9],
+                [15, 7, 13, 5],
+            ]
+
+            // State
+            let currentFadeWidth = 75
+            let currentPixelSize = 1
+            let currentShape = 'box'
+            let currentBgColor = '#0a0b0e'
+
+            // 1. Generate Crisp SVG Mask for Marquee 16 bands
+            function generateDitherSvg(level) {
+                let rects = ''
+                for (let y = 0; y < 4; y++) {
+                    for (let x = 0; x < 4; x++) {
+                        if (BAYER_4X4[y][x] < level) {
+                            rects += `<rect x="${x}" y="${y}" width="1" height="1" fill="#000000"/>`
+                        }
+                    }
+                }
+                const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4" viewBox="0 0 4 4" shape-rendering="crispEdges">${rects}</svg>`
+                return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`
+            }
+
+            // 2. Render Marquee 16 Bands (Left & Right)
+            function renderMarqueeBands() {
+                const leftSide = document.getElementById('dither-left')
+                const rightSide = document.getElementById('dither-right')
+                const strip = document.getElementById('bands-strip')
+
+                leftSide.innerHTML = ''
+                rightSide.innerHTML = ''
+                strip.innerHTML = ''
+
+                for (let i = 0; i < 16; i++) {
+                    const level = 16 - i
+                    const mask = generateDitherSvg(level)
+
+                    const leftBand = document.createElement('div')
+                    leftBand.className = 'dither-band'
+                    leftBand.style.left = `calc(${i} * 100% / 16)`
+                    leftBand.style.webkitMaskImage = mask
+                    leftBand.style.maskImage = mask
+                    leftSide.appendChild(leftBand)
+
+                    const rightBand = document.createElement('div')
+                    rightBand.className = 'dither-band'
+                    rightBand.style.right = `calc(${i} * 100% / 16)`
+                    rightBand.style.webkitMaskImage = mask
+                    rightBand.style.maskImage = mask
+                    rightSide.appendChild(rightBand)
+
+                    const cell = document.createElement('div')
+                    cell.className = 'band-cell'
+
+                    const swatch = document.createElement('div')
+                    swatch.className = 'band-swatch'
+                    swatch.style.webkitMaskImage = mask
+                    swatch.style.maskImage = mask
+
+                    const label = document.createElement('span')
+                    label.className = 'band-label'
+                    label.textContent = `${level}/16`
+
+                    cell.appendChild(swatch)
+                    cell.appendChild(label)
+                    strip.appendChild(cell)
+                }
+            }
+
+            // 3. Render 4-Sided Dither Canvas Overlays for Images & ASCII Viewport
+            function renderAllDitherCanvases() {
+                const canvases = document.querySelectorAll('.dither-canvas-overlay')
+
+                canvases.forEach((canvas) => {
+                    const parent = canvas.parentElement
+                    if (!parent) return
+                    const w = parent.clientWidth
+                    const h = parent.clientHeight
+                    if (w === 0 || h === 0) return
+
+                    canvas.width = w
+                    canvas.height = h
+
+                    const ctx = canvas.getContext('2d')
+                    ctx.clearRect(0, 0, w, h)
+                    ctx.fillStyle = currentBgColor
+
+                    const pSize = currentPixelSize
+                    const fw = currentFadeWidth
+
+                    for (let y = 0; y < h; y += pSize) {
+                        for (let x = 0; x < w; x += pSize) {
+                            let factor = 0
+
+                            if (currentShape === 'round') {
+                                const nx = (x - w / 2) / (w / 2)
+                                const ny = (y - h / 2) / (h / 2)
+                                const distFromCenter = Math.sqrt(nx * nx + ny * ny)
+                                const edgeDist = (1 - distFromCenter) * (Math.min(w, h) / 2)
+                                factor = Math.max(0, Math.min(1, 1 - edgeDist / fw))
+                            } else {
+                                const dL = x
+                                const dR = w - (x + pSize)
+                                const dT = y
+                                const dB = h - (y + pSize)
+                                const minDist = Math.min(dL, dR, dT, dB)
+                                factor = Math.max(0, Math.min(1, 1 - minDist / fw))
+                            }
+
+                            if (factor > 0) {
+                                const threshold = factor * 16
+                                const bx = Math.floor(x / pSize) % 4
+                                const by = Math.floor(y / pSize) % 4
+
+                                if (BAYER_4X4[by][bx] < threshold) {
+                                    ctx.fillRect(x, y, pSize, pSize)
+                                }
+                            }
+                        }
+                    }
+                })
+            }
+
+            // 4. IMAGE-TO-ASCII GENERATOR (Taras Shevchenko Portrait)
+            const asciiTarget = document.getElementById('shevchenko-ascii-target')
+            const sourceImg = document.getElementById('source-shevchenko-img')
+            const ASCII_RAMP = ' .\'`^",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$'
+
+            function convertImageToAscii(img, widthChars = 92) {
+                const tempCanvas = document.createElement('canvas')
+                const tempCtx = tempCanvas.getContext('2d')
+
+                const aspect = img.naturalHeight / img.naturalWidth || 1.25
+                const heightChars = Math.floor(widthChars * aspect * 0.52)
+
+                tempCanvas.width = widthChars
+                tempCanvas.height = heightChars
+
+                // Draw and enhance contrast for sharp portrait features
+                tempCtx.drawImage(img, 0, 0, widthChars, heightChars)
+                const imgData = tempCtx.getImageData(0, 0, widthChars, heightChars)
+                const pixels = imgData.data
+
+                let result = ''
+                for (let y = 0; y < heightChars; y++) {
+                    let line = ''
+                    for (let x = 0; x < widthChars; x++) {
+                        const idx = (y * widthChars + x) * 4
+                        const r = pixels[idx]
+                        const g = pixels[idx + 1]
+                        const b = pixels[idx + 2]
+
+                        // Standard Luminance formula
+                        let brightness = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+
+                        // Contrast curve adjustment
+                        brightness = Math.pow(brightness, 1.15)
+
+                        const charIdx = Math.floor(brightness * (ASCII_RAMP.length - 1))
+                        line += ASCII_RAMP[charIdx]
+                    }
+                    result += line + '\n'
+                }
+                return result
+            }
+
+            function initShevchenkoAscii() {
+                if (sourceImg.complete && sourceImg.naturalWidth > 0) {
+                    try {
+                        const ascii = convertImageToAscii(sourceImg)
+                        asciiTarget.textContent = ascii
+                    } catch (e) {
+                        loadFallbackAsciiPortrait()
+                    }
+                } else {
+                    sourceImg.onload = () => {
+                        try {
+                            const ascii = convertImageToAscii(sourceImg)
+                            asciiTarget.textContent = ascii
+                        } catch (e) {
+                            loadFallbackAsciiPortrait()
+                        }
+                    }
+                    sourceImg.onerror = () => {
+                        loadFallbackAsciiPortrait()
+                    }
+                }
+            }
+
+            // High quality embedded fallback in case of CORS
+            function loadFallbackAsciiPortrait() {
+                // Procedural fallback portrait drawing
+                const w = 90
+                const h = 50
+                let out = ''
+                for (let y = 0; y < h; y++) {
+                    let line = ''
+                    for (let x = 0; x < w; x++) {
+                        const nx = (x - w / 2) / (w / 2)
+                        const ny = (y - h / 2) / (h / 2)
+                        const headDist = Math.sqrt(nx * nx * 1.2 + ny * ny * 1.4)
+
+                        let val = 0.05
+                        if (headDist < 0.8) {
+                            val = 0.35 + 0.3 * Math.sin(nx * 4) + 0.2 * Math.cos(ny * 3)
+                            if (ny > 0.1 && ny < 0.25 && Math.abs(nx) < 0.35) val = 0.95 // Moustache
+                            if (ny > -0.15 && ny < -0.05 && Math.abs(nx) < 0.3) val = 0.8 // Eyes/Brows
+                            if (ny < -0.4 && headDist < 0.75) val = 0.9 // Ushanka hat
+                        }
+                        val = Math.max(0, Math.min(1, val))
+                        const idx = Math.floor(val * (ASCII_RAMP.length - 1))
+                        line += ASCII_RAMP[idx]
+                    }
+                    out += line + '\n'
+                }
+                asciiTarget.textContent = out
+            }
+
+            initShevchenkoAscii()
+
+            // 5. Fill Marquee Content
+            const samplePrompts = [
+                { cat: 'Product', text: 'Identify the magic moment predicting 6-month retention.' },
+                { cat: 'Sales', text: 'Which accounts are likely to expand based on API usage?' },
+                { cat: 'Engineering', text: 'Find endpoints with abnormal 500 error spikes this week.' },
+                { cat: 'Marketing', text: 'What is our blended CAC across paid social channels?' },
+                { cat: 'Operations', text: 'List all workspaces with upcoming renewals in 14 days.' },
+                { cat: 'Analytics', text: 'Break down conversion drop-offs along the onboarding funnel.' },
+                { cat: 'Support', text: 'Which customer tickets have the highest resolution times?' },
+                { cat: 'Growth', text: 'Surface users who had fast activation but low repeat visits.' },
+            ]
+
+            function fillMarquee(trackId, multiplier = 4) {
+                const track = document.getElementById(trackId)
+                let html = ''
+                for (let m = 0; m < multiplier; m++) {
+                    samplePrompts.forEach((item) => {
+                        html += `
+            <div class="card">
+              <span class="card-tag">${item.cat}</span>
+              <span class="card-title">${item.text}</span>
+            </div>
+          `
+                    })
+                }
+                track.innerHTML = html
+            }
+
+            fillMarquee('track-1', 4)
+            fillMarquee('track-2', 4)
+            fillMarquee('track-3', 4)
+            renderMarqueeBands()
+
+            // 6. Typewriter Effect
+            const promptsList = [
+                'What are the top growth trends this month?',
+                'Which customer segments had the biggest expansion?',
+                'Find the accounts most likely to churn in 30 days.',
+                'What changed in conversion rates after the latest release?',
+            ]
+            let promptIndex = 0
+            let charIndex = 0
+            let isDeleting = false
+            const target = document.getElementById('typewriter-target')
+
+            function tickTypewriter() {
+                const current = promptsList[promptIndex]
+                if (isDeleting) {
+                    target.textContent = current.substring(0, charIndex - 1)
+                    charIndex--
+                } else {
+                    target.textContent = current.substring(0, charIndex + 1)
+                    charIndex++
+                }
+
+                let speed = isDeleting ? 25 : 55
+                if (!isDeleting && charIndex === current.length) {
+                    speed = 2200
+                    isDeleting = true
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false
+                    promptIndex = (promptIndex + 1) % promptsList.length
+                    speed = 400
+                }
+
+                setTimeout(tickTypewriter, speed)
+            }
+            tickTypewriter()
+
+            // 7. Resize Observer for Canvases
+            const resizeObserver = new ResizeObserver(() => {
+                renderAllDitherCanvases()
+            })
+            document.querySelectorAll('.image-frame').forEach((el) => resizeObserver.observe(el))
+
+            window.addEventListener('load', () => {
+                renderAllDitherCanvases()
+                renderMarqueeBands()
+            })
+            setTimeout(() => {
+                renderAllDitherCanvases()
+            }, 150)
+
+            // ==========================================
+            // UI Controls Listeners
+            // ==========================================
+
+            // Fade Width Slider
+            const widthSlider = document.getElementById('width-slider')
+            const widthVal = document.getElementById('width-val')
+            widthSlider.addEventListener('input', (e) => {
+                currentFadeWidth = parseInt(e.target.value, 10)
+                widthVal.textContent = `${currentFadeWidth}px`
+                document.documentElement.style.setProperty('--dither-width', `${currentFadeWidth}px`)
+                renderAllDitherCanvases()
+            })
+
+            // Pixel Scale (1x, 2x, 3x)
+            document.querySelectorAll('#pixel-scale-btns button').forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('#pixel-scale-btns button').forEach((b) => b.classList.remove('active'))
+                    btn.classList.add('active')
+                    currentPixelSize = parseInt(btn.dataset.scale, 10)
+                    document.documentElement.style.setProperty('--pixel-size', currentPixelSize)
+                    renderAllDitherCanvases()
+                })
+            })
+
+            // ASCII Color Palette
+            document.querySelectorAll('#ascii-color-btns button').forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('#ascii-color-btns button').forEach((b) => b.classList.remove('active'))
+                    btn.classList.add('active')
+                    const color = btn.dataset.color
+                    asciiTarget.style.color = color
+                    asciiTarget.style.textShadow = `0 0 10px ${color}66`
+                })
+            })
+
+            // Background Color Theme
+            document.querySelectorAll('#theme-btns button').forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('#theme-btns button').forEach((b) => b.classList.remove('active'))
+                    btn.classList.add('active')
+                    currentBgColor = btn.dataset.bg
+                    document.documentElement.style.setProperty('--bg-color', currentBgColor)
+                    document.documentElement.style.setProperty('--dither-fade-color', currentBgColor)
+                    renderAllDitherCanvases()
+                })
+            })
+        </script>
+    </body>
+</html>
