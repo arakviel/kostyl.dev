@@ -21,6 +21,18 @@ kostyl.dev
 Розробка сучасних веб-інтерфейсів та високопродуктивних API за допомогою ASP.NET Core та Minimal APIs.
 ::
 
+::card{title="React Native" to="/react-native/version2/why-react-native" icon="i-simple-icons-react"}
+Кросплатформна мобільна розробка під iOS та Android: Expo, навігація, Reanimated, RTK Query та нативні модулі.
+::
+
+::card{title="Розробка вебзастосувань" to="/web-development/network-architecture-and-protocols/web-evolution-client-server" icon="i-simple-icons-nestjs"}
+Клієнт-серверна розробка: мережеві протоколи (OSI, TCP/IP), TypeScript, Node.js, NestJS та TypeORM.
+::
+
+::card{title="Клієнт-серверна архітектура (Go)" to="/client-server-architecture/client-server-architecture-and-go" icon="i-simple-icons-go"}
+Побудова розподілених систем, сокети, Netpoller, модель пам'яті, багатопотоковість та горутини в Go.
+::
+
 ::card{title="Java" to="/java/data-mapper-part1" icon="i-devicon-java"}
 Вивчення екосистеми Java, об'єктно-орієнтоване програмування та архітектурні патерни.
 ::
@@ -39,6 +51,10 @@ kostyl.dev
 
 ::card{title="Tailwind CSS" to="/tailwind/tailwind-intro-philosophy" icon="i-simple-icons-tailwindcss"}
 Сучасний utility-first CSS фреймворк для швидкої верстки та створення унікальних інтерфейсів.
+::
+
+::card{title="AWS Cloud" to="/aws/introduction-to-cloud" icon="i-simple-icons-amazonaws"}
+Хмарна інфраструктура: IAM, EC2, ECS, Lambda, S3, RDS, DynamoDB, Bedrock та бессерверна архітектура.
 ::
 
 ::card{title="Бази даних" to="/databases/intro/introduction-to-databases" icon="i-simple-icons-microsoftsqlserver"}
@@ -63,6 +79,14 @@ kostyl.dev
 
 ::card{title="Kubernetes" to="/tools/kubernetes/" icon="i-simple-icons-kubernetes"}
 Оркестрація та масштабування контейнерів, робота з Pods, Deployments, Services та self-healing.
+::
+
+::card{title="Штучний інтелект & LLM" to="/ai-development/foundations/what-is-llm" icon="i-lucide-bot"}
+Основи генеративного ШІ, великі мовні моделі (LLM), RAG, Prompt Engineering та агентні системи.
+::
+
+::card{title="AI & Data Science (Python)" to="/ai-python/intro-to-ai" icon="i-simple-icons-jupyter"}
+Аналіз даних, наукові обчислення з NumPy, Pandas, Jupyter Notebooks та основи машинного навчання.
 ::
 
 ::card{title="Python" to="/python/modules-packages-venv" icon="i-devicon-python"}
