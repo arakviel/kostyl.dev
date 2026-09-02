@@ -113,3 +113,11 @@ span.highlight {
 button[aria-label='Copy code to clipboard'] {
     z-index: 1;
 }
+
+/* ---- Кастомізація кольорів для print (built-in) ---- */
+/* print за замовчуванням має сіруватий колір — робимо його темнішим */
+pre.shiki .s8Opu,
+code.shiki .s8Opu {
+    --shiki-light: #18181b !important;
+    --shiki-dark: #f8f8f2 !important;
+}
