@@ -1,2 +1,21 @@
 title: Клієнт-серверна архітектура
 icon: i-lucide-network
+navigation:
+  - 01.client-server-architecture-and-go
+  - 02.type-system-and-memory-model
+  - 03.interfaces-and-concurrency-model
+  - 04.tcp-socket-programming
+  - 05.udp-datagram-transmission
+  - 06.tls-cryptographic-channel-protection
+  - 07.dns-smtp-application-protocols
+  - 08.http-protocol-and-web-server
+  - 09.rest-api-design-and-chi-routing
+  - 10.layered-architecture-and-middleware-pipelines
+  - 11.gin-framework-architecture-and-routing
+  - 12.data-validation-security-and-documentation-in-gin
+  - 13.relational-databases-and-orm
+  - 14.streaming-data-and-websockets
+  - 15.grpc-inter-service-communication
+  - 16.asynchronous-message-exchange-and-queue-protocols
+  - 17.streaming-media-protocols-and-webrtc
+  - 18.monitoring-security-and-containerization
