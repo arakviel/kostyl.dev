@@ -1,2 +1,3 @@
-title: Фреймворк NestJS. Контролери та маршрутизація
-icon: i-devicon-nestjs
+title: 'Тема 7. Фреймворк NestJS. Контролери та маршрутизація'
+navigation:
+  icon: 'i-lucide-route'

@@ -1,2 +1,3 @@
-title: Валідація даних та конвеєр обробки запитів у NestJS
-icon: i-lucide-shield-check
+title: 'Тема 9. Валідація даних та конвеєр обробки запитів у NestJS'
+navigation:
+  icon: 'i-lucide-filter'
