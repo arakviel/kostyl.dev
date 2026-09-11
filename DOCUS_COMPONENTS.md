@@ -890,6 +890,175 @@ dotnet publish tools/AvaloniaHost/AvaloniaHost.Browser/AvaloniaHost.Browser.cspr
 
 ---
 
+### ::jupyter-notebook та ::jupyter-cell
+
+Набір компонентів для автентичного відтворення інтерфейсу **Jupyter Notebook / JupyterLab**. Дозволяє демонструвати виконання скриптів (Python, Julia, R тощо), відображати промпти введення/виведення (`In [n]:` / `Out [n]:`), таблиці (Pandas DataFrame), помилки виконання (Traceback) та графіки.
+
+> [!TIP]
+> Компоненти можна комбінувати:
+> 1. **Повноцінний блокнот**: `::jupyter-notebook` як віконний контейнер + один або кілька `::jupyter-cell` всередині.
+> 2. **Швидкий одиночний запис**: передати код і `#output` безпосередньо в `::jupyter-notebook` (автоматично обгортається в клітинку).
+> 3. **Ізольована клітинка**: використання `::jupyter-cell` окремо будь-де в тексті без шапки блокнота.
+
+#### Синтаксис повного блокнота (Multi-cell Notebook):
+
+````markdown
+::jupyter-notebook{title="data_analysis.ipynb" kernel="Python 3.11 (ipykernel)"}
+
+::jupyter-cell{type="markdown"}
+### 1. Підготовка даних
+Завантажимо бібліотеки та створимо демонстраційний датасет:
+::
+
+::jupyter-cell{executionCount="1" executionTime="0.12s"}
+```python
+import pandas as pd
+
+df = pd.DataFrame({
+    'name': ['Alice', 'Bob', 'Charlie'],
+    'score': [95, 88, 72]
+})
+df
+```
+
+#output
+|   | name    | score |
+|---|---------|-------|
+| 0 | Alice   | 95    |
+| 1 | Bob     | 88    |
+| 2 | Charlie | 72    |
+::
+
+::jupyter-cell{executionCount="2" outputType="stdout"}
+```python
+print(f"Кількість записів: {len(df)}")
+```
+
+#output
+Кількість записів: 3
+::
+
+::jupyter-cell{executionCount="3" status="error"}
+```python
+df['invalid_column'].mean()
+```
+
+#output
+KeyError: 'invalid_column'
+::
+
+::
+````
+
+#### Синтаксис швидкого одиночного блокнота (Single-cell Shorthand):
+
+````markdown
+::jupyter-notebook{title="quick_calc.ipynb" executionCount="1"}
+
+```python
+import math
+math.sqrt(144)
+```
+
+#output
+12.0
+::
+````
+
+#### Синтаксис ізольованої клітинки (Standalone Cell):
+
+````markdown
+::jupyter-cell{executionCount="42" active="true"}
+
+```python
+result = [x**2 for x in range(5)]
+print(result)
+```
+
+#output
+[0, 1, 4, 9, 16]
+::
+````
+
+#### Атрибути `::jupyter-notebook` (Контейнер блокнота):
+
+| Атрибут | Тип | За замовчуванням | Опис |
+| --- | --- | --- | --- |
+| `title` | string | `notebook.ipynb` | Назва файлу блокнота у заголовку вікна |
+| `kernel` | string | `Python 3 (ipykernel)` | Назва підключеного ядра (наприклад, `Python 3.12`, `Julia`, `R`) |
+| `kernelStatus` | string | `idle` | Стан ядра: `idle` (спокій) або `busy` / `running` (зайняте, з пульсацією) |
+| `status` | string | `""` | Скорочений аліас для `kernelStatus` |
+| `trusted` | boolean | `true` | Відображення бейджа безпеки «Trusted» зі щитом |
+| `checkpoint` | string | `Autosaved` | Текст стану збереження біля назви блокнота |
+| `showToolbar` | boolean | `true` | Відображення тулбара (кнопки Run, Stop, Restart, Add Cell) |
+| `showButtons` | boolean | `true` | Відображення кнопок вікна macOS у лівому кутку |
+| `executionCount` | number \| string | `1` | Номер клітинки при використанні одиночного швидкого запису |
+| `output` | string | `""` | Текст виводу при одиночному швидкому записі |
+| `outputType` | string | `execute_result` | Тип виводу при одиночному записі (`execute_result`, `stdout`, `error`) |
+| `active` | boolean | `false` | Активна підсвітка клітинки при одиночному записі |
+
+#### Атрибути `::jupyter-cell` (Окрема клітинка):
+
+| Атрибут | Тип | За замовчуванням | Опис |
+| --- | --- | --- | --- |
+| `type` | string | `code` | Тип клітинки: `code` (код), `markdown` (форматований текст) або `raw` |
+| `executionCount` | number \| string | `null` | Порядковий номер виконання для `In [n]:` та `Out [n]:` (наприклад `1`, `2`) |
+| `count` | number \| string | `null` | Скорочений аліас для `executionCount` |
+| `status` | string | `idle` | Стан виконання: `idle`, `running` (показує пульсуючий `In [*]:`), `success`, `error` |
+| `outputType` | string | `execute_result` | Тип виводу: `execute_result` (з `Out [n]:`), `stdout` (чистий потік), `stderr`, `error` |
+| `output` | string | `""` | Рядковий вивід (альтернатива іменованому слоту `#output`) |
+| `executionTime` | string | `""` | Час виконання скрипту (наприклад, `0.34s`), відображається бейджем |
+| `active` | boolean | `false` | Виділення клітинки фірмовою синьою смужкою фокусу зліва |
+| `showPrompt` | boolean | `true` | Відображати лівий промпт `In [n]:` для коду |
+| `showOutPrompt` | boolean | `true` | Відображати лівий промпт `Out [n]:` для блоку результатів |
+| `collapsed` | boolean | `false` | Приховати блок результатів клітинки |
+
+#### Робота зі слотами:
+- **Основний слот (`default`)**: сюди поміщається блок коду у стандартному Markdown-синтаксисі ```` ```python ... ``` ````. Він отримує повне підсвічування синтаксису (Shiki) та акуратно адаптується до розміру клітинки без зайвих вкладених рамок.
+- **Іменований слот `#output`**: сюди поміщається результат роботи програми. Може містити:
+  - Простий текст або логи.
+  - Таблиці Markdown (`| col1 | col2 |`), які автоматично стилізуються під Pandas DataFrame із чергуванням фону рядків та чіткими межами як у світлій, так і в темній темах.
+  - Зображення/векторні графіки SVG (`![Графік](/images/chart.png)` або `<svg ...>`), що автоматично центруються та адаптуються під ширину екрана.
+  - Повідомлення про помилки з червоним бейджем Traceback.
+
+#### Вкладення в інші компоненти (Акордеони, Картки тощо):
+
+Коли `::jupyter-notebook` використовується всередині інших контейнерних компонентів Docus/MDC (наприклад, `::accordion` / `::accordion-item` або `::card-group` / `::card`), **обов'язково використовуйте ієрархію двокрапок (colon levels)** для зовнішніх контейнерів:
+
+```markdown
+::::accordion
+
+:::accordion-item{label="Приклад у розгорнутому блоці"}
+
+Пояснювальний текст перед блокнотом:
+
+::jupyter-notebook{title="nested_demo.ipynb"}
+
+::jupyter-cell{executionCount="1" output="Всередині акордеона"}
+
+```python
+print("Всередині акордеона")
+```
+
+::
+
+::
+
+Текст після блокнота безпосередньо в акордеоні.
+:::
+
+::::
+```
+
+> [!TIP]
+> **Чому це важливо:**
+> 1. **Ієрархія двокрапок**: Парсер MDC зіставляє закриваючий тег `::` за кількістю двокрапок. Якщо і акордеон, і блокнот, і комірка мають по 2 двокрапки (`::`), закриваючий тег комірки або блокнота може передчасно закрити `accordion-item`.
+> 2. **Слоти виводу у вкладених контейнерах**: Всередині акордеонів рекомендується передавати вивід через проп `output="..."`, наприклад `::jupyter-cell{output="20"}` або `::jupyter-cell{output="| col1 | col2 |\n|---|---|\n| val1 | val2 |"}` замість директиви `#output`. Це запобігає «поглинанню» наступних пунктів акордеона слотом парсера MDC. `JupyterCell` автоматично парсить таблиці з пропу `output` та рендерить їх у вигляді адаптивних HTML-таблиць.
+>
+> Компонент `JupyterNotebook.vue` автоматично адаптується під вкладення: при знаходженні всередині акордеона чи картки зовнішні відступи автоматично зменшуються з `my-8` (32px) до компактних `1rem` (16px), а тіні стають м'якшими для збереження гармонійного вигляду.
+
+---
+
 ## Code Block Features (MDC Magic)
 
 ### Line Numbers

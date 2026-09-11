@@ -5,8 +5,8 @@ import os
 import tempfile
 
 def extract_plantuml(content):
-    # Regex to find ::plant-uml blocks
-    pattern = re.compile(r'::plant-uml\s+```plantuml\s+(.*?)```\s+::', re.DOTALL)
+    # Regex to find ::plant-uml blocks with or without attributes like {alt="..."}
+    pattern = re.compile(r'::plant-uml(?:\{[^}]*\})?\s+```plantuml\s+(.*?)```\s+::', re.DOTALL)
     return pattern.findall(content)
 
 def validate_plantuml(code):

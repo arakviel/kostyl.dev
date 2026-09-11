@@ -39,7 +39,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, nextTick, watch, computed } from 'vue'
+import { ref, onMounted, nextTick, watch, computed, useAttrs } from 'vue'
+
+const attrs = useAttrs()
 
 const props = defineProps({
   tex: {
@@ -57,7 +59,8 @@ const props = defineProps({
 })
 
 const isBlock = computed(() => {
-  return props.block && !props.inline
+  const hasInline = props.inline || attrs.inline !== undefined || attrs[':inline'] !== undefined
+  return props.block && !hasInline
 })
 
 const blockContainer = ref(null)
@@ -67,6 +70,7 @@ const inlineSource = ref(null)
 const loading = ref(true)
 
 const loadKatex = () => {
+  if (typeof window === 'undefined') return Promise.reject()
   if (window.katex) {
     return Promise.resolve(window.katex)
   }
@@ -80,20 +84,29 @@ const loadKatex = () => {
     document.head.appendChild(link)
   }
 
-  // Inject KaTeX JS
-  return new Promise((resolve, reject) => {
-    const existingScript = document.getElementById('katex-js')
-    if (existingScript) {
+  const existingScript = document.getElementById('katex-js')
+  if (existingScript) {
+    if (window.katex) return Promise.resolve(window.katex)
+    return new Promise((resolve, reject) => {
       existingScript.addEventListener('load', () => resolve(window.katex))
       existingScript.addEventListener('error', reject)
-    } else {
-      const script = document.createElement('script')
-      script.id = 'katex-js'
-      script.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js'
-      script.onload = () => resolve(window.katex)
-      script.onerror = reject
-      document.head.appendChild(script)
-    }
+      const timer = setInterval(() => {
+        if (window.katex) {
+          clearInterval(timer)
+          resolve(window.katex)
+        }
+      }, 20)
+    })
+  }
+
+  // Inject KaTeX JS
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script')
+    script.id = 'katex-js'
+    script.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js'
+    script.onload = () => resolve(window.katex)
+    script.onerror = reject
+    document.head.appendChild(script)
   })
 }
 
