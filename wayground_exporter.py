@@ -238,6 +238,7 @@ def convert_json_to_xlsx(json_path, xlsx_path):
         process_code_blocks(data)
             
         df = pd.DataFrame(data, columns=columns)
+        df = df.astype(object)
         
         # Пост-процесинг для нормалізації даних, якщо AI згенерував їх неточно
         for index, row in df.iterrows():
