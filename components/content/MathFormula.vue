@@ -134,6 +134,12 @@ const renderFormula = async () => {
       formulaText = extractTextWithNewlines(sourceEl).trim()
     }
 
+    if (formulaText) {
+      // Normalize accidental double backslashes before LaTeX commands (e.g. \\bar, \\mu, \\frac, \\text, \\%)
+      // while preserving LaTeX line breaks (\\ followed by whitespace, newline, &, etc.)
+      formulaText = formulaText.replace(/\\\\([a-zA-Z%]+)/g, '\\$1')
+    }
+
     if (formulaText && containerEl) {
       katex.render(formulaText, containerEl, {
         displayMode: isBlock.value,
