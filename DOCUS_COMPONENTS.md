@@ -252,25 +252,65 @@ public class UserService { }
 
 ## Accordion (Акордеон)
 
-Інтерактивний компонент для FAQ, деталей, що розгортаються.
+Інтерактивний компонент для FAQ, завдань, розв'язків та прихованих блоків, що розгортаються.
+
+> ⚠️ **КРИТИЧНО: ІЄРАРХІЯ ДВОКРАПОК (COLON LEVELS)**
+> Завжди використовуйте **4 двокрапки** для контейнера `::::accordion` та **3 двокрапки** для елементів `:::accordion-item`.
+> 
+> Якщо всередині `accordion-item` використовуються вкладені MDC-компоненти з двома двокрапками `::` (`::terminal-preview`, `::jupyter-notebook`, `::note`, `::tip`, `::warning`, `::code-group` тощо), парсер MDC зіставляє закриваючий тег за кількістю двокрапок.
+> 
+> Якщо і акордеон, і елементи, і вкладені компоненти мають по 2 двокрапки (`::`), закриваючий `::` вкладеного компонента передчасно закриє `accordion-item` або весь `accordion`, зламавши рендеринг сторінки!
+
+### Базовий синтаксис
 
 ```markdown
-::accordion
-::accordion-item{label="Що таке Docus?" icon="i-lucide-circle-help"}
+::::accordion
+
+:::accordion-item{label="Що таке Docus?" icon="i-lucide-circle-help"}
 Docus — це тема документації для Nuxt, побудована на Nuxt UI Pro.
-::
-::accordion-item{label="Як почати?" icon="i-lucide-circle-help"}
+:::
+
+:::accordion-item{label="Як почати?" icon="i-lucide-circle-help"}
 Створіть папку `content/` і почніть писати Markdown файли.
-::
-::
+:::
+
+::::
 ```
 
-**Атрибути ::accordion-item:**
+### Синтаксис із вкладеними компонентами
 
-| Атрибут | Тип    | Опис               |
-| ------- | ------ | ------------------ |
-| `label` | string | Заголовок елемента |
-| `icon`  | string | Іконка (iconify)   |
+```markdown
+::::accordion
+
+:::accordion-item{label="📋 Завдання" icon="i-lucide-clipboard-list"}
+Напишіть програму та перевірте результат її виконання.
+:::
+
+:::accordion-item{label="✅ Розв'язок" icon="i-lucide-check-circle"}
+```cpp
+#include <iostream>
+
+int main() {
+    std::cout << "Hello, World!\n";
+    return 0;
+}
+```
+
+::terminal-preview{title="./program"}
+<div class="line">Hello, World!</div>
+::
+
+:::
+
+::::
+```
+
+**Атрибути :::accordion-item:**
+
+| Атрибут | Тип    | Опис                                  |
+| ------- | ------ | ------------------------------------- |
+| `label` | string | Заголовок елемента                    |
+| `icon`  | string | Іконка (iconify, напр. `i-lucide-...`) |
 
 ---
 
