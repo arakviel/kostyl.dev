@@ -85,7 +85,7 @@ kostyl.dev
 Основи генеративного ШІ, великі мовні моделі (LLM), RAG, Prompt Engineering та агентні системи.
 ::
 
-::card{title="AI & Data Science (Python)" to="/ai-python/intro-to-ai" icon="i-simple-icons-jupyter"}
+::card{title="AI & Data Science (Python)" to="/ai-python/intro-to-ai/intro-to-ai" icon="i-simple-icons-jupyter"}
 Аналіз даних, наукові обчислення з NumPy, Pandas, Jupyter Notebooks та основи машинного навчання.
 ::
 

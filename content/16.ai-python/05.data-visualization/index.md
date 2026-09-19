@@ -45,8 +45,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Генеруємо 1000 вимірювань температури (30 днів по 24 години + шум)
+rng = np.random.default_rng(seed=42)
 hours = np.arange(1000)
-temperature = 20 + 5 * np.sin(hours * 2 * np.pi / 24) + np.random.normal(0, 1, 1000)
+temperature = 20 + 5 * np.sin(hours * 2 * np.pi / 24) + rng.normal(0, 1, 1000)
 
 fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
 
