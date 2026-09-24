@@ -135,9 +135,12 @@ const renderFormula = async () => {
     }
 
     if (formulaText) {
-      // Normalize accidental double backslashes before LaTeX commands (e.g. \\bar, \\mu, \\frac, \\text, \\%)
+      // Auto-escape bare % (e.g. when Markdown slot strips backslash \% -> %, which KaTeX treats as a comment)
+      formulaText = formulaText.replace(/(^|[^\\])%/g, '$1\\%')
+
+      // Normalize accidental double backslashes before LaTeX commands (e.g. \\bar, \\mu, \\frac, \\text, \\%, \\,, \\{, \\})
       // while preserving LaTeX line breaks (\\ followed by whitespace, newline, &, etc.)
-      formulaText = formulaText.replace(/\\\\([a-zA-Z%]+)/g, '\\$1')
+      formulaText = formulaText.replace(/\\\\([a-zA-Z%]+|[,;!{}])/g, '\\$1')
     }
 
     if (formulaText && containerEl) {
