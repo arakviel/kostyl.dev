@@ -483,6 +483,31 @@ onMounted(() => {
 }
 
 /* Pandas DataFrame & HTML Table styling inside Output & Markdown */
+.jupyter-output-clean {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+}
+
+.jupyter-output-clean :deep(p) {
+  margin: 0 !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  line-height: 1.45 !important;
+}
+
+.jupyter-output-clean :deep(pre),
+.jupyter-output-clean :deep(code) {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: inherit !important;
+  white-space: pre-wrap !important;
+  line-height: 1.45 !important;
+}
+
 .jupyter-output-clean :deep(> div),
 .jupyter-output-clean :deep(.relative.my-5),
 .jupyter-output-clean :deep([class*='my-']),

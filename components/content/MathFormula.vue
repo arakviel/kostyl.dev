@@ -116,6 +116,12 @@ const extractTextWithNewlines = (element) => {
   // Видаляємо зайві кнопки Docus
   const buttons = clone.querySelectorAll('button, .iconify')
   buttons.forEach((b) => b.remove())
+
+  // Відновлюємо підкреслення, які markdown перетворив на <em> / <i>
+  clone.querySelectorAll('em, i').forEach((em) => {
+    em.replaceWith('_' + em.textContent + '_')
+  })
+
   return clone.textContent || ''
 }
 
@@ -141,6 +147,9 @@ const renderFormula = async () => {
       // Normalize accidental double backslashes before LaTeX commands (e.g. \\bar, \\mu, \\frac, \\text, \\%, \\,, \\{, \\})
       // while preserving LaTeX line breaks (\\ followed by whitespace, newline, &, etc.)
       formulaText = formulaText.replace(/\\\\([a-zA-Z%]+|[,;!{}])/g, '\\$1')
+
+      // Normalize \text followed by single uppercase letter without braces (e.g. \textM -> \text{M})
+      formulaText = formulaText.replace(/\\text([A-Z])(?![a-zA-Z{])/g, '\\text{$1}')
     }
 
     if (formulaText && containerEl) {
