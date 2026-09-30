@@ -716,21 +716,62 @@ User "1" -- "*" Order : places
 
 ### ::debugger-view
 
-Візуалізація стану програми (змінних, регістрів) у стилі дебаг-панелі сучасних IDE (Xcode, VS Code).
+Візуалізація стану програми (змінних, стек-фреймів, регістрів) у стилі дебаг-панелі сучасних IDE (Xcode, VS Code, CLion).
 
-**Синтаксис:**
+Підтримує **три способи** використання: рекомендовану Markdown-таблицю в слоті (найстабільніший варіант без проблем з екрануванням лапок), дочірні компоненти `::debugger-var`, або інлайн-атрибут `:variables`.
+
+**1. Рекомендований синтаксис (Markdown-таблиця у слоті):**
+
+> [!TIP]
+> Це найбільш надійний та читабельний спосіб. Він не потребує JSON-екранування лапок, природно підтримує апострофи в заголовках (`Стан об'єкта`), відступи для вкладених полів та відмінно форматується у будь-якому редакторі.
 
 ```markdown
-::debugger-view{title="Local Variables" :variables='[{"name": "pAddress", "type": "uintptr_t", "value": "0x00007FF7BFEFF5A0"}, {"name": "status", "type": "char", "value": "K"}]'}
+::debugger-view{title="Local Variables"}
+| Name | Type | Value |
+| :--- | :--- | :---- |
+| student | Student | {...} |
+|   Person | Person | {...} |
+|     name | std::string | "Іван Сидоренко" |
+|     age | int | 20 |
+|   studentId | std::string | "CS-2024-0517" |
 ::
 ```
 
-**Атрибути:**
+**2. Декларативний синтаксис (`::debugger-var`):**
 
-| Атрибут     | Тип    | Опис                                                  |
-| ----------- | ------ | ----------------------------------------------------- |
-| `title`     | string | Заголовок секції (наприклад, "Registers" або "Watch") |
-| `variables` | array  | Список об'єктів `{name, type, value}`                 |
+```markdown
+::debugger-view{title="Local Variables"}
+:debugger-var{name="pAddress" type="uintptr_t" value="0x00007FF7BFEFF5A0"}
+:debugger-var{name="status" type="char" value="K" :highlight="true"}
+::
+```
+
+**3. Інлайн-синтаксис через атрибут `:variables` (або `variables`):**
+
+```markdown
+::debugger-view{title="Local Variables" :variables='[{"name": "pAddress", "type": "uintptr_t", "value": "0x00007FF7BFEFF5A0"}, {"name": "status", "type": "char", "value": "K"}]' :highlight="[1]"}
+::
+```
+
+**Атрибути `::debugger-view`:**
+
+| Атрибут     | Тип                      | Опис                                                                         |
+| ----------- | ------------------------ | ---------------------------------------------------------------------------- |
+| `title`     | string                   | Заголовок секції (default: `"Locals"`)                                       |
+| `variables` | array \| string          | Список об'єктів `{name, type, value}` (якщо не використовується слот/таблиця)|
+| `highlight` | array \| string \| number| Індекси рядків або назви змінних для підсвічування (н-д: `[0]`, `[0, 2]`)     |
+| `status`    | string                   | Текст статусу у футері (default: `"Running"`)                                |
+| `process`   | string \| number         | Номер процесу у футері (default: `"12842"`)                                  |
+
+**Атрибути `::debugger-var`:**
+
+| Атрибут     | Тип                      | Опис                                                                         |
+| ----------- | ------------------------ | ---------------------------------------------------------------------------- |
+| `name`      | string                   | Назва змінної (пробіли на початку зберігаються для відображення ієрархії)   |
+| `type`      | string                   | Тип змінної (н-д: `int`, `std::string`, `Student`)                           |
+| `value`     | string \| number \| bool | Значення змінної                                                             |
+| `highlight` | boolean                  | Чи підсвічувати рядок (акцентний індикатор зміненого значення)               |
+
 
 ---
 
@@ -1302,6 +1343,7 @@ to: /link
 | `html-preview`         | block  | Браузерне вікно macOS Chrome                |
 | `react-native-preview` | block  | Phone frame + react-native-web (iframe)     |
 | `debugger-view`        | block  | Стан змінних (IDE style)                    |
+| `debugger-var`         | nested | Рядок змінної для `debugger-view`           |
 | `memory-view`          | block  | Hex Dump / Memory visualizer                |
 | `mermaid`              | custom | Mermaid діаграми                            |
 
