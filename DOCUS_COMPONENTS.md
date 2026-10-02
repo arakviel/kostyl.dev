@@ -908,7 +908,168 @@ pnpm build:rn-preview
 cd tools/rn-preview && pnpm install && pnpm build
 ```
 
-Артефакти: `public/rn-preview/` (як `public/avalonia/` для WPF). Деталі — `tools/rn-preview/README.md`.
+---
+
+### ::react-project-preview
+
+Повнофункціональна багатофайлова інтерактивна пісочниця **React** (Multi-file React Sandbox). Розроблена спеціально для курсів React + TypeScript. Дозволяє демонструвати структуру проєкту з розгалуженим деревом каталогів (VS Code style), вкладками файлів над редактором та живим ізольованим виконанням React 19 у правій панелі з підтримкою **Tailwind CSS v4**.
+
+**Синтаксис:**
+
+````markdown
+::react-project-preview{title="Картка користувача" entry="src/App.tsx" :height="540"}
+
+```tsx [src/App.tsx]
+import { useState } from 'react';
+import { UserCard } from './components/UserCard';
+import './styles.css';
+
+export default function App() {
+  const [role, setRole] = useState('Frontend Developer');
+
+  return (
+    <div className="app-container">
+      <header className="app-header">
+        <h1>Команда проєкту</h1>
+      </header>
+      <main className="card-grid">
+        <UserCard
+          name="Олександр"
+          role={role}
+          onPromote={() => setRole('Tech Lead 🚀')}
+        />
+      </main>
+    </div>
+  );
+}
+```
+
+```tsx [src/components/UserCard.tsx]
+interface UserCardProps {
+  name: string;
+  role: string;
+  onPromote: () => void;
+}
+
+export function UserCard({ name, role, onPromote }: UserCardProps) {
+  return (
+    <div className="user-card">
+      <div className="avatar">👤</div>
+      <div className="info">
+        <h3>{name}</h3>
+        <p className="role">{role}</p>
+      </div>
+      <button className="btn" onClick={onPromote}>
+        Підвищити
+      </button>
+    </div>
+  );
+}
+```
+
+```css [src/styles.css]
+.app-container {
+  padding: 24px;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #1e293b;
+}
+
+.app-header h1 {
+  font-size: 20px;
+  margin: 0 0 16px;
+}
+
+.user-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.avatar {
+  font-size: 28px;
+}
+
+.info h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.role {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.btn {
+  margin-left: auto;
+  padding: 6px 12px;
+  background: #0284c7;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+}
+```
+
+::
+````
+
+**Атрибути:**
+
+| Атрибут      | Тип               | За замовчуванням | Опис                                                                                     |
+| ------------ | ----------------- | ---------------- | ---------------------------------------------------------------------------------------- |
+| `title`      | string            | `React Project`  | Заголовок проєкту у верхній панелі вікна macOS                                           |
+| `entry`      | string            | `""`             | Вхідний файл для запуску (`src/App.tsx`). Якщо не вказано — шукає `App.tsx` / `index.tsx`|
+| `height`     | number \| string  | `560`            | Висота вікна компонента в пікселях (min: 420px)                                          |
+| `theme`      | string            | *(site)*         | Примусова тема: `light` \| `dark`. За замовчуванням слідує колірній темі сайту Docus     |
+| `tailwind`   | boolean           | `true`           | Чи підключати браузерний рушій Tailwind CSS v4 у прев’ю                                  |
+| `defaultTab` | string            | `""`             | Шлях до файлу, який буде активним у вкладках при першому відкритті                        |
+
+**Функціональність інтерфейсу:**
+
+1. **Дерево файлів проєкту (File Tree Sidebar):**
+   - Автоматично формує ієрархію директорій зі шляхів у дужках `[папка/підпапка/файл.ext]`.
+   - Іконки для типів файлів: `⚛` для React (`.tsx`, `.jsx`), `TS`/`JS` для скриптів, `#` для стилів (`.css`), `{}` для `.json`.
+   - Папки розгортаються і згортаються кліком.
+   - Кнопка згортання бічної панелі (`[<]`) для максимізації простору під редактор коду.
+2. **Вкладки файлів (Tabs Bar):**
+   - Горизонтальний рядок вкладок над областю коду.
+   - Повна синхронізація: вибір файлу в дереві активує таб і навпаки.
+3. **Підсвічування коду:**
+   - Відображає відрендерені Shiki VNodes безпосередньо з Nuxt Content, забезпечуючи ідентичність кольорів і шрифтів стилю документації.
+   - Кнопка **Копіювати** копіює вихідний код поточного активного файлу.
+4. **Спліттер (Drag Resizer):**
+   - Плавне перетягування межі між кодом та прев'ю мишею (Pointer Capture) у діапазоні 22%–78% ширини.
+   - Підтримка клавіш зі стрілками для мікроналаштування пропорцій.
+5. **Режими відображення:**
+   - **Split**: код і дерево зліва, результат справа (дефолт для десктопу).
+   - **Code**: розгортає редактор і дерево файлів на 100% ширини.
+   - **Preview**: розгортає живий результат на 100% ширини.
+6. **Адаптивний перегляд результату (Responsive Viewport):**
+   - Перемикач розміру екрана у верхній панелі прев’ю: **Full** (100%), **Tablet** (768px), **Mobile** (375px).
+   - Дозволяє перевіряти адаптивність верстки React-компонентів прямо в документі.
+7. **Кнопка перезавантаження (Reload):**
+   - Швидкий перезапуск інстансу пісочниці для скидання локального стану (`useState`) компонентів.
+
+**Вимоги до коду в слотах:**
+
+- **Визначення шляху файлу:** Вказуйте шлях у квадратних дужках заголовка блоку: ```` ```tsx [src/components/Button.tsx] ````. Також підтримується директива `// @filename: src/App.tsx` у першому рядку.
+- **Вхідний компонент:** Має містити `export default function App()` або експортувати функцію компонента за замовчуванням.
+- **Модульна система:** Підтримуються відносні імпорти між файлами: `import { Button } from './components/Button'`, `import data from './data.json'`, `import './styles.css'`.
+- **Вбудовані модулі:** Доступні `react`, `react-dom`, `react-dom/client`, `react/jsx-runtime`, `lucide-react`.
+- **Стилізація:** Усі файли `.css` автоматично інжектуються в стилі документа; класи Tailwind CSS v4 компілюються браузером на льоту.
+- **Обробка помилок:** Реалізовано перехоплення помилок синтаксису JSX/TSX та помилок часу виконання (React ErrorBoundary). Замість «білого екрана» відображається інформативна панель із зазначенням файлу та рядка помилки.
+
+**Технічні файли системи:**
+
+- Vue-компонент: [`components/content/ReactProjectPreview.vue`](file:///Users/arakviel/Work/kostyl.dev/components/content/ReactProjectPreview.vue)
+- Ізольований iframe-хост: [`public/react-preview/index.html`](file:///Users/arakviel/Work/kostyl.dev/public/react-preview/index.html)
 
 ---
 
@@ -1338,15 +1499,24 @@ to: /link
 | `warning`          | block  | Застереження                       |
 | `mermaid`          | custom | Mermaid діаграми                   |
 | `plant-uml`        | custom | PlantUML діаграми                  |
-| **Освітні**        |        |                                    |
+| **Освітні**        |        |                                            |
 | `terminal-preview`     | block  | CLI/Terminal macOS вікно                    |
 | `html-preview`         | block  | Браузерне вікно macOS Chrome                |
 | `react-native-preview` | block  | Phone frame + react-native-web (iframe)     |
+| `react-project-preview`| block  | Multi-file React sandbox (Tree + Preview)   |
 | `debugger-view`        | block  | Стан змінних (IDE style)                    |
 | `debugger-var`         | nested | Рядок змінної для `debugger-view`           |
 | `memory-view`          | block  | Hex Dump / Memory visualizer                |
+| `math-formula`         | block/inline | Рендеринг формул KaTeX LaTeX          |
+| `wpf-preview`          | block  | Avalonia UI (XAML) WASM прев’ю              |
+| `jupyter-notebook`     | block  | Jupyter Notebook вікно                      |
+| `jupyter-cell`         | nested/block | Окрема клітинка Jupyter Notebook      |
+| `docker-desktop`       | block  | Docker Desktop GUI емулятор                 |
+| `docker-list`          | nested | Таблиця контейнерів Docker Desktop          |
+| `docker-list-item`     | nested | Рядок контейнера Docker Desktop             |
+| `docker-settings`      | nested | Налаштування Docker Desktop                 |
 | `mermaid`              | custom | Mermaid діаграми                            |
 
 ---
 
-> **Останнє оновлення:** Травень 2026
+> **Останнє оновлення:** Жовтень 2026

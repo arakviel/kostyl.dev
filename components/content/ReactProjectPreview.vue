@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, useSlots, onMounted, onUnmounted, watch, nextTick } from 'vue'
+import { ref, computed, useSlots, onMounted, onUnmounted, watch, nextTick, h } from 'vue'
 import { useRoute } from 'nuxt/app'
 
 const props = defineProps({
@@ -158,6 +158,12 @@ const extractFilesFromVNodes = (vnodes) => {
                     }
                     counter++
                 }
+
+                if (vnode.props) {
+                    vnode.props.hideHeader = true
+                    vnode.props.copy = false
+                }
+
                 files.push({
                     filename,
                     language: lang || 'tsx',
@@ -384,6 +390,51 @@ const copyCode = async () => {
     }
 }
 
+// ─── Tabs & Quick Picker logic for handling many tabs ─────────────────────
+
+const tabsContainerRef = ref(null)
+const quickPickerRef = ref(null)
+const isQuickPickerOpen = ref(false)
+const quickPickerSearch = ref('')
+
+const onTabsWheel = (e) => {
+    if (!tabsContainerRef.value) return
+    if (e.deltaY) {
+        tabsContainerRef.value.scrollLeft += e.deltaY
+    }
+}
+
+const scrollActiveTabIntoView = () => {
+    nextTick(() => {
+        const el = tabsContainerRef.value?.querySelector('[data-active="true"]')
+        el?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' })
+    })
+}
+
+const toggleQuickPicker = () => {
+    isQuickPickerOpen.value = !isQuickPickerOpen.value
+    if (isQuickPickerOpen.value) {
+        quickPickerSearch.value = ''
+    }
+}
+
+const filteredFiles = computed(() => {
+    const q = quickPickerSearch.value.trim().toLowerCase()
+    if (!q) return extractedFiles.value
+    return extractedFiles.value.filter((f) => f.filename.toLowerCase().includes(q))
+})
+
+const selectFileFromPicker = (path) => {
+    selectFile(path)
+    isQuickPickerOpen.value = false
+}
+
+const onGlobalClick = (e) => {
+    if (isQuickPickerOpen.value && quickPickerRef.value && !quickPickerRef.value.contains(e.target)) {
+        isQuickPickerOpen.value = false
+    }
+}
+
 // ─── Resizer logic ────────────────────────────────────────────────────────
 
 const clampRatio = (r) => Math.min(0.78, Math.max(0.22, r))
@@ -477,15 +528,22 @@ onMounted(() => {
             }
         }
     }, 12000)
+
+    window.addEventListener('click', onGlobalClick)
 })
 
 onUnmounted(() => {
     window.removeEventListener('message', handleMessage)
+    window.removeEventListener('click', onGlobalClick)
     if (pingInterval) clearInterval(pingInterval)
     if (themeObserver) themeObserver.disconnect()
     if (mqlCleanup) mqlCleanup()
     if (lgMqlCleanup) lgMqlCleanup()
     if (copyTimer) clearTimeout(copyTimer)
+})
+
+watch(activeFilePath, () => {
+    scrollActiveTabIntoView()
 })
 
 watch(filesMap, () => {
@@ -510,6 +568,119 @@ const CodeVNodeRenderer = {
         return this.vnode
     },
 }
+
+const FileIcon = {
+    props: {
+        filename: { type: String, required: true },
+    },
+    setup(props) {
+        return () => {
+            const name = (props.filename || '').toLowerCase()
+            // React files (.tsx, .jsx)
+            if (name.endsWith('.tsx') || name.endsWith('.jsx')) {
+                return h(
+                    'svg',
+                    {
+                        class: 'w-3.5 h-3.5 text-[#0284c7] dark:text-[#38bdf8] shrink-0',
+                        viewBox: '-11.5 -10.23174 23 20.46348',
+                        fill: 'none',
+                        'aria-hidden': 'true',
+                    },
+                    [
+                        h('circle', { cx: '0', cy: '0', r: '2.05', fill: 'currentColor' }),
+                        h('g', { stroke: 'currentColor', 'stroke-width': '1' }, [
+                            h('ellipse', { rx: '11', ry: '4.2' }),
+                            h('ellipse', { rx: '11', ry: '4.2', transform: 'rotate(60)' }),
+                            h('ellipse', { rx: '11', ry: '4.2', transform: 'rotate(120)' }),
+                        ]),
+                    ],
+                )
+            }
+            // CSS / SCSS files
+            if (name.endsWith('.css') || name.endsWith('.scss')) {
+                return h(
+                    'svg',
+                    {
+                        class: 'w-3.5 h-3.5 text-sky-600 dark:text-sky-400 shrink-0',
+                        viewBox: '0 0 24 24',
+                        fill: 'none',
+                        stroke: 'currentColor',
+                        'stroke-width': '2.2',
+                        'stroke-linecap': 'round',
+                        'stroke-linejoin': 'round',
+                        'aria-hidden': 'true',
+                    },
+                    [
+                        h('line', { x1: '4', y1: '9', x2: '20', y2: '9' }),
+                        h('line', { x1: '4', y1: '15', x2: '20', y2: '15' }),
+                        h('line', { x1: '10', y1: '3', x2: '8', y2: '21' }),
+                        h('line', { x1: '16', y1: '3', x2: '14', y2: '21' }),
+                    ],
+                )
+            }
+            // JSON files
+            if (name.endsWith('.json')) {
+                return h(
+                    'svg',
+                    {
+                        class: 'w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0',
+                        viewBox: '0 0 24 24',
+                        fill: 'none',
+                        stroke: 'currentColor',
+                        'stroke-width': '2',
+                        'stroke-linecap': 'round',
+                        'stroke-linejoin': 'round',
+                        'aria-hidden': 'true',
+                    },
+                    [
+                        h('path', { d: 'M7 4a2 2 0 0 0-2 2v3a2 2 0 0 1-2 2 2 2 0 0 1 2 2v3a2 2 0 0 0 2 2' }),
+                        h('path', { d: 'M17 4a2 2 0 0 1 2 2v3a2 2 0 0 0 2 2 2 2 0 0 0-2 2v3a2 2 0 0 1-2 2' }),
+                    ],
+                )
+            }
+            // TypeScript files (.ts)
+            if (name.endsWith('.ts')) {
+                return h(
+                    'span',
+                    {
+                        class: 'w-3.5 h-3.5 rounded-[2px] bg-[#3178c6] text-white flex items-center justify-center font-bold text-[8px] shrink-0 leading-none select-none shadow-sm',
+                        'aria-hidden': 'true',
+                    },
+                    'TS',
+                )
+            }
+            // JavaScript files (.js, .mjs)
+            if (name.endsWith('.js') || name.endsWith('.mjs')) {
+                return h(
+                    'span',
+                    {
+                        class: 'w-3.5 h-3.5 rounded-[2px] bg-[#f7df1e] text-black flex items-center justify-center font-bold text-[8px] shrink-0 leading-none select-none shadow-sm',
+                        'aria-hidden': 'true',
+                    },
+                    'JS',
+                )
+            }
+            // Generic file fallback
+            return h(
+                'svg',
+                {
+                    class: 'w-3.5 h-3.5 text-gray-600 dark:text-gray-300 shrink-0',
+                    viewBox: '0 0 24 24',
+                    fill: 'none',
+                    stroke: 'currentColor',
+                    'stroke-width': '2',
+                    'stroke-linecap': 'round',
+                    'stroke-linejoin': 'round',
+                    'aria-hidden': 'true',
+                },
+                [
+                    h('path', { d: 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z' }),
+                    h('polyline', { points: '14 2 14 8 20 8' }),
+                ],
+            )
+        }
+    },
+}
 </script>
 
 <template>
@@ -531,7 +702,15 @@ const CodeVNodeRenderer = {
                     </div>
 
                     <div class="flex items-center gap-2 min-w-0">
-                        <span class="text-[#0284c7] dark:text-[#38bdf8] font-bold text-[11px] tracking-wide uppercase shrink-0">
+                        <span class="flex items-center gap-1.5 text-[#0284c7] dark:text-[#38bdf8] font-bold text-[11px] tracking-wide uppercase shrink-0">
+                            <svg class="w-4 h-4 shrink-0" viewBox="-11.5 -10.23174 23 20.46348" fill="none" aria-hidden="true">
+                                <circle cx="0" cy="0" r="2.05" fill="currentColor"/>
+                                <g stroke="currentColor" stroke-width="1">
+                                    <ellipse rx="11" ry="4.2"/>
+                                    <ellipse rx="11" ry="4.2" transform="rotate(60)"/>
+                                    <ellipse rx="11" ry="4.2" transform="rotate(120)"/>
+                                </g>
+                            </svg>
                             React
                         </span>
                         <span class="truncate text-[12px] font-semibold text-gray-800 dark:text-gray-200">
@@ -558,7 +737,7 @@ const CodeVNodeRenderer = {
                                 'flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium transition-colors',
                                 layoutMode === 'split'
                                     ? 'bg-white dark:bg-[#37373d] text-sky-600 dark:text-sky-400 shadow-sm'
-                                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200',
+                                    : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white',
                             ]"
                             @click="layoutMode = 'split'"
                         >
@@ -575,7 +754,7 @@ const CodeVNodeRenderer = {
                                 'flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium transition-colors',
                                 layoutMode === 'code'
                                     ? 'bg-white dark:bg-[#37373d] text-sky-600 dark:text-sky-400 shadow-sm'
-                                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200',
+                                    : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white',
                             ]"
                             @click="layoutMode = 'code'"
                         >
@@ -592,7 +771,7 @@ const CodeVNodeRenderer = {
                                 'flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium transition-colors',
                                 layoutMode === 'preview'
                                     ? 'bg-white dark:bg-[#37373d] text-sky-600 dark:text-sky-400 shadow-sm'
-                                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200',
+                                    : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white',
                             ]"
                             @click="layoutMode = 'preview'"
                         >
@@ -604,24 +783,11 @@ const CodeVNodeRenderer = {
                         </button>
                     </div>
 
-                    <!-- Copy Code Button -->
-                    <button
-                        type="button"
-                        class="flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium text-gray-600 dark:text-gray-300 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
-                        @click="copyCode"
-                    >
-                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                        </svg>
-                        <span>{{ copied ? 'Скопійовано' : 'Копіювати' }}</span>
-                    </button>
-
                     <!-- Reload Preview -->
                     <button
                         type="button"
                         title="Перезавантажити проєкт"
-                        class="p-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
+                        class="p-1.5 rounded-md hover:bg-black/10 dark:hover:bg-white/10 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
                         @click="reloadHost"
                     >
                         <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -666,13 +832,13 @@ const CodeVNodeRenderer = {
                 >
                     <!-- Sidebar Header -->
                     <div
-                        class="h-9 px-3 flex items-center justify-between border-b border-gray-200 dark:border-[#2b2b2b] text-[11px] font-semibold text-gray-500 dark:text-gray-400 tracking-wider uppercase"
+                        class="h-9 px-3 flex items-center justify-between border-b border-gray-200 dark:border-[#2b2b2b] text-[11px] font-semibold text-gray-600 dark:text-gray-400 tracking-wider uppercase"
                     >
                         <span>Файли проєкту</span>
                         <button
                             type="button"
                             title="Згорнути дерево"
-                            class="p-1 rounded hover:bg-black/5 dark:hover:bg-white/5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+                            class="p-1 rounded hover:bg-black/5 dark:hover:bg-white/5 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
                             @click="isTreeOpen = false"
                         >
                             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -687,20 +853,26 @@ const CodeVNodeRenderer = {
                             <!-- Directory Node -->
                             <div v-if="node.isDir" class="space-y-0.5">
                                 <div
-                                    class="flex items-center gap-1.5 px-2 py-1 rounded cursor-pointer text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5 transition-colors font-medium text-[11.5px]"
+                                    class="flex items-center gap-1.5 px-2 py-1 rounded cursor-pointer text-gray-800 dark:text-gray-200 hover:bg-black/5 dark:hover:bg-white/5 transition-colors font-medium text-[11.5px]"
                                     @click="toggleFolder(node.path)"
                                 >
                                     <svg
-                                        class="w-3 h-3 text-gray-400 transition-transform duration-150 shrink-0"
+                                        class="w-3 h-3 text-gray-600 dark:text-gray-300 transition-transform duration-150 shrink-0"
                                         :class="expandedFolders.has(node.path) ? 'rotate-90' : ''"
                                         viewBox="0 0 24 24"
                                         fill="none"
                                         stroke="currentColor"
                                         stroke-width="2.5"
+                                        aria-hidden="true"
                                     >
                                         <polyline points="9 18 15 12 9 6"></polyline>
                                     </svg>
-                                    <svg class="w-4 h-4 text-amber-500 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                                    <svg
+                                        class="w-4 h-4 text-amber-500 dark:text-amber-400 shrink-0"
+                                        viewBox="0 0 24 24"
+                                        fill="currentColor"
+                                        aria-hidden="true"
+                                    >
                                         <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z" />
                                     </svg>
                                     <span class="truncate">{{ node.name }}</span>
@@ -712,20 +884,26 @@ const CodeVNodeRenderer = {
                                         <!-- Subdirectory -->
                                         <div v-if="child.isDir" class="space-y-0.5">
                                             <div
-                                                class="flex items-center gap-1.5 px-2 py-1 rounded cursor-pointer text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5 transition-colors font-medium text-[11.5px]"
+                                                class="flex items-center gap-1.5 px-2 py-1 rounded cursor-pointer text-gray-800 dark:text-gray-200 hover:bg-black/5 dark:hover:bg-white/5 transition-colors font-medium text-[11.5px]"
                                                 @click="toggleFolder(child.path)"
                                             >
                                                 <svg
-                                                    class="w-3 h-3 text-gray-400 transition-transform duration-150 shrink-0"
+                                                    class="w-3 h-3 text-gray-600 dark:text-gray-300 transition-transform duration-150 shrink-0"
                                                     :class="expandedFolders.has(child.path) ? 'rotate-90' : ''"
                                                     viewBox="0 0 24 24"
                                                     fill="none"
                                                     stroke="currentColor"
                                                     stroke-width="2.5"
+                                                    aria-hidden="true"
                                                 >
                                                     <polyline points="9 18 15 12 9 6"></polyline>
                                                 </svg>
-                                                <svg class="w-3.5 h-3.5 text-amber-500 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                                                <svg
+                                                    class="w-3.5 h-3.5 text-amber-500 dark:text-amber-400 shrink-0"
+                                                    viewBox="0 0 24 24"
+                                                    fill="currentColor"
+                                                    aria-hidden="true"
+                                                >
                                                     <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z" />
                                                 </svg>
                                                 <span class="truncate">{{ child.name }}</span>
@@ -739,18 +917,11 @@ const CodeVNodeRenderer = {
                                                     :class="[
                                                         activeFilePath === subChild.path
                                                             ? 'bg-sky-500/10 text-sky-600 dark:text-sky-400 font-semibold'
-                                                            : 'text-gray-600 dark:text-gray-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-gray-200',
+                                                            : 'text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white',
                                                     ]"
                                                     @click="selectFile(subChild.path)"
                                                 >
-                                                    <!-- React icon -->
-                                                    <span v-if="subChild.name.endsWith('.tsx') || subChild.name.endsWith('.jsx')" class="text-sky-500 font-bold text-[11px] shrink-0">⚛</span>
-                                                    <!-- CSS icon -->
-                                                    <span v-else-if="subChild.name.endsWith('.css')" class="text-blue-500 font-bold text-[10px] shrink-0">#</span>
-                                                    <!-- JSON icon -->
-                                                    <span v-else-if="subChild.name.endsWith('.json')" class="text-amber-500 font-bold text-[10px] shrink-0">{}</span>
-                                                    <!-- TS icon -->
-                                                    <span v-else class="text-indigo-400 font-bold text-[10px] shrink-0">TS</span>
+                                                    <FileIcon :filename="subChild.name" />
                                                     <span class="truncate">{{ subChild.name }}</span>
                                                 </div>
                                             </div>
@@ -763,14 +934,11 @@ const CodeVNodeRenderer = {
                                             :class="[
                                                 activeFilePath === child.path
                                                     ? 'bg-sky-500/10 text-sky-600 dark:text-sky-400 font-semibold'
-                                                    : 'text-gray-600 dark:text-gray-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-gray-200',
+                                                    : 'text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white',
                                             ]"
                                             @click="selectFile(child.path)"
                                         >
-                                            <span v-if="child.name.endsWith('.tsx') || child.name.endsWith('.jsx')" class="text-sky-500 font-bold text-[11px] shrink-0">⚛</span>
-                                            <span v-else-if="child.name.endsWith('.css')" class="text-blue-500 font-bold text-[10px] shrink-0">#</span>
-                                            <span v-else-if="child.name.endsWith('.json')" class="text-amber-500 font-bold text-[10px] shrink-0">{}</span>
-                                            <span v-else class="text-indigo-400 font-bold text-[10px] shrink-0">TS</span>
+                                            <FileIcon :filename="child.name" />
                                             <span class="truncate">{{ child.name }}</span>
                                         </div>
                                     </template>
@@ -784,14 +952,11 @@ const CodeVNodeRenderer = {
                                 :class="[
                                     activeFilePath === node.path
                                         ? 'bg-sky-500/10 text-sky-600 dark:text-sky-400 font-semibold'
-                                        : 'text-gray-600 dark:text-gray-400 hover:bg-black/5 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-gray-200',
+                                        : 'text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white',
                                 ]"
                                 @click="selectFile(node.path)"
                             >
-                                <span v-if="node.name.endsWith('.tsx') || node.name.endsWith('.jsx')" class="text-sky-500 font-bold text-[11px] shrink-0">⚛</span>
-                                <span v-else-if="node.name.endsWith('.css')" class="text-blue-500 font-bold text-[10px] shrink-0">#</span>
-                                <span v-else-if="node.name.endsWith('.json')" class="text-amber-500 font-bold text-[10px] shrink-0">{}</span>
-                                <span v-else class="text-indigo-400 font-bold text-[10px] shrink-0">TS</span>
+                                <FileIcon :filename="node.name" />
                                 <span class="truncate">{{ node.name }}</span>
                             </div>
                         </template>
@@ -802,53 +967,178 @@ const CodeVNodeRenderer = {
                 <div class="flex-1 flex flex-col min-w-0 min-h-0 bg-white dark:bg-[#1e1e1e]">
                     <!-- Tabs Bar -->
                     <div
-                        class="h-9 flex items-center bg-[#f1f3f5] dark:bg-[#1e1e1e] border-b border-gray-200 dark:border-[#2b2b2b] px-1 gap-1 overflow-x-auto select-none custom-scrollbar shrink-0"
+                        class="h-9 flex items-center justify-between bg-[#f1f3f5] dark:bg-[#1e1e1e] border-b border-gray-200 dark:border-[#2b2b2b] px-1 select-none shrink-0 gap-1"
                     >
-                        <!-- Show File Tree Toggle (if collapsed) -->
-                        <button
-                            v-if="!isTreeOpen"
-                            type="button"
-                            title="Показати дерево файлів"
-                            class="p-1.5 rounded hover:bg-black/5 dark:hover:bg-white/5 text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors shrink-0"
-                            @click="isTreeOpen = true"
+                        <!-- File Tabs Scrollable Area (supports mouse wheel horizontal scroll) -->
+                        <div
+                            ref="tabsContainerRef"
+                            class="flex items-center gap-1 overflow-x-auto custom-scrollbar min-w-0 flex-1 h-full py-0.5"
+                            @wheel.passive="onTabsWheel"
                         >
-                            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z" />
-                            </svg>
-                        </button>
+                            <!-- Show File Tree Toggle (if collapsed) -->
+                            <button
+                                v-if="!isTreeOpen"
+                                type="button"
+                                title="Показати дерево файлів"
+                                class="p-1.5 rounded hover:bg-black/5 dark:hover:bg-white/5 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors shrink-0"
+                                @click="isTreeOpen = true"
+                            >
+                                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z" />
+                                </svg>
+                            </button>
 
-                        <!-- File Tabs -->
-                        <button
-                            v-for="file in extractedFiles"
-                            :key="file.filename"
-                            type="button"
-                            :class="[
-                                'group flex items-center gap-1.5 px-3 py-1.5 rounded-t text-[11.5px] font-medium transition-all shrink-0 border-b-2',
-                                activeFilePath === file.filename
-                                    ? 'bg-white dark:bg-[#1e1e1e] text-sky-600 dark:text-sky-400 border-sky-500 shadow-sm'
-                                    : 'bg-transparent text-gray-600 dark:text-gray-400 border-transparent hover:bg-black/5 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-gray-200',
-                            ]"
-                            @click="selectFile(file.filename)"
-                        >
-                            <span v-if="file.filename.endsWith('.tsx') || file.filename.endsWith('.jsx')" class="text-sky-500 font-bold text-[11px]">⚛</span>
-                            <span v-else-if="file.filename.endsWith('.css')" class="text-blue-500 font-bold text-[10px]">#</span>
-                            <span v-else-if="file.filename.endsWith('.json')" class="text-amber-500 font-bold text-[10px]">{}</span>
-                            <span v-else class="text-indigo-400 font-bold text-[10px]">TS</span>
-                            <span class="truncate max-w-[140px]">{{ file.filename.split('/').pop() }}</span>
-                        </button>
+                            <!-- File Tabs -->
+                            <button
+                                v-for="file in extractedFiles"
+                                :key="file.filename"
+                                type="button"
+                                :data-active="activeFilePath === file.filename ? 'true' : 'false'"
+                                :title="file.filename"
+                                :class="[
+                                    'group flex items-center gap-1.5 px-3 py-1.5 rounded-t text-[11.5px] font-medium transition-all shrink-0 border-b-2',
+                                    activeFilePath === file.filename
+                                        ? 'bg-white dark:bg-[#1e1e1e] text-sky-600 dark:text-sky-400 border-sky-500 shadow-sm'
+                                        : 'bg-transparent text-gray-700 dark:text-gray-300 border-transparent hover:bg-black/5 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white',
+                                ]"
+                                @click="selectFile(file.filename)"
+                            >
+                                <FileIcon :filename="file.filename" />
+                                <span class="truncate max-w-[140px]">{{ file.filename.split('/').pop() }}</span>
+                            </button>
+                        </div>
+
+                        <!-- Right Actions: Quick File Picker (for many tabs) + Copy Button -->
+                        <div class="flex items-center shrink-0 pr-1 pl-1 gap-1 border-l border-gray-200 dark:border-[#2b2b2b]">
+                            <!-- Quick File Picker Dropdown -->
+                            <div ref="quickPickerRef" class="relative flex items-center">
+                                <button
+                                    type="button"
+                                    title="Швидкий вибір файлу проєкту"
+                                    class="flex items-center gap-1 px-1.5 py-1 rounded text-[11px] font-medium transition-colors border"
+                                    :class="[
+                                        isQuickPickerOpen
+                                            ? 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/30'
+                                            : 'text-gray-700 dark:text-gray-300 border-transparent hover:bg-black/5 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white',
+                                    ]"
+                                    @click.stop="toggleQuickPicker"
+                                >
+                                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="8" y1="6" x2="21" y2="6"></line>
+                                        <line x1="8" y1="12" x2="21" y2="12"></line>
+                                        <line x1="8" y1="18" x2="21" y2="18"></line>
+                                        <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                                        <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                                        <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                                    </svg>
+                                    <span class="text-[10px] font-mono opacity-80">{{ extractedFiles.length }}</span>
+                                    <svg
+                                        class="w-3 h-3 transition-transform"
+                                        :class="isQuickPickerOpen ? 'rotate-180' : ''"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                    >
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </button>
+
+                                <!-- Dropdown Menu -->
+                                <div
+                                    v-if="isQuickPickerOpen"
+                                    class="absolute right-0 top-full mt-1.5 w-64 max-h-72 overflow-hidden bg-white dark:bg-[#252526] border border-gray-200 dark:border-white/10 rounded-lg shadow-2xl z-50 flex flex-col text-[12px]"
+                                    @click.stop
+                                >
+                                    <div v-if="extractedFiles.length > 4" class="p-1.5 border-b border-gray-200 dark:border-white/10">
+                                        <input
+                                            v-model="quickPickerSearch"
+                                            type="text"
+                                            placeholder="Пошук файлу..."
+                                            class="w-full px-2 py-1 text-[11.5px] rounded bg-gray-100 dark:bg-[#1e1e1e] text-gray-800 dark:text-gray-200 border border-transparent focus:border-sky-500 focus:outline-none"
+                                            autofocus
+                                        />
+                                    </div>
+                                    <div class="overflow-y-auto max-h-56 p-1 space-y-0.5 custom-scrollbar">
+                                        <button
+                                            v-for="file in filteredFiles"
+                                            :key="file.filename"
+                                            type="button"
+                                            class="w-full flex items-center justify-between gap-2 px-2 py-1.5 rounded text-left transition-colors text-[11.5px]"
+                                            :class="[
+                                                activeFilePath === file.filename
+                                                    ? 'bg-sky-500/10 text-sky-600 dark:text-sky-400 font-semibold'
+                                                    : 'text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white',
+                                            ]"
+                                            @click="selectFileFromPicker(file.filename)"
+                                        >
+                                            <div class="flex items-center gap-2 truncate min-w-0">
+                                                <FileIcon :filename="file.filename" />
+                                                <span class="truncate">{{ file.filename }}</span>
+                                            </div>
+                                            <svg
+                                                v-if="activeFilePath === file.filename"
+                                                class="w-3.5 h-3.5 text-sky-500 shrink-0"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="2.5"
+                                            >
+                                                <polyline points="20 6 9 17 4 12" />
+                                            </svg>
+                                        </button>
+                                        <div
+                                            v-if="!filteredFiles.length"
+                                            class="px-3 py-2 text-center text-[11px] text-gray-500 dark:text-gray-400"
+                                        >
+                                            Файлів не знайдено
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sticky Copy Code Button -->
+                            <button
+                                type="button"
+                                :title="copied ? 'Скопійовано!' : 'Копіювати вміст файлу'"
+                                class="flex items-center gap-1.5 px-2 py-1 rounded text-[11px] font-medium transition-all"
+                                :class="[
+                                    copied
+                                        ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold'
+                                        : 'text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5 hover:text-gray-900 dark:hover:text-white',
+                                ]"
+                                @click="copyCode"
+                            >
+                                <svg v-if="copied" class="w-3.5 h-3.5 text-emerald-500 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12" />
+                                </svg>
+                                <svg v-else class="w-3.5 h-3.5 shrink-0 text-gray-700 dark:text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                                <span class="hidden sm:inline">{{ copied ? 'Скопійовано' : 'Копіювати' }}</span>
+                            </button>
+                        </div>
                     </div>
 
-                    <!-- Active File Code Block -->
-                    <div class="flex-1 overflow-auto p-4 custom-scrollbar bg-white dark:bg-[#1e1e1e]">
+                    <!-- Code Files Container (v-show keeps all code blocks mounted stably) -->
+                    <div class="code-editor-body flex-1 overflow-auto p-4 custom-scrollbar bg-white dark:bg-[#1e1e1e]">
                         <ClientOnly>
-                            <CodeVNodeRenderer
-                                v-if="activeFileObj?.vnode"
-                                :vnode="activeFileObj.vnode"
-                            />
-                            <pre
-                                v-else-if="activeFileObj?.code"
-                                class="m-0 p-0 text-[12.5px] font-mono leading-relaxed text-gray-800 dark:text-gray-200 whitespace-pre-wrap break-words"
-                            >{{ activeFileObj.code }}</pre>
+                            <div
+                                v-for="file in extractedFiles"
+                                :key="file.filename"
+                                v-show="activeFilePath === file.filename"
+                                class="code-file-pane h-full"
+                            >
+                                <CodeVNodeRenderer
+                                    v-if="file.vnode"
+                                    :vnode="file.vnode"
+                                />
+                                <pre
+                                    v-else-if="file.code"
+                                    class="m-0 p-0 text-[12.5px] font-mono leading-relaxed text-gray-800 dark:text-gray-200 whitespace-pre-wrap break-words"
+                                >{{ file.code }}</pre>
+                            </div>
                         </ClientOnly>
                     </div>
                 </div>
@@ -920,7 +1210,7 @@ const CodeVNodeRenderer = {
                                 'p-1 rounded transition-colors',
                                 previewWidthMode === 'full'
                                     ? 'bg-white dark:bg-[#37373d] text-sky-600 dark:text-sky-400 shadow-sm'
-                                    : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-200',
+                                    : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white',
                             ]"
                             @click="previewWidthMode = 'full'"
                         >
@@ -937,7 +1227,7 @@ const CodeVNodeRenderer = {
                                 'p-1 rounded transition-colors',
                                 previewWidthMode === 'tablet'
                                     ? 'bg-white dark:bg-[#37373d] text-sky-600 dark:text-sky-400 shadow-sm'
-                                    : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-200',
+                                    : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white',
                             ]"
                             @click="previewWidthMode = 'tablet'"
                         >
@@ -953,7 +1243,7 @@ const CodeVNodeRenderer = {
                                 'p-1 rounded transition-colors',
                                 previewWidthMode === 'mobile'
                                     ? 'bg-white dark:bg-[#37373d] text-sky-600 dark:text-sky-400 shadow-sm'
-                                    : 'text-gray-500 hover:text-gray-800 dark:hover:text-gray-200',
+                                    : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white',
                             ]"
                             @click="previewWidthMode = 'mobile'"
                         >
@@ -1005,10 +1295,6 @@ const CodeVNodeRenderer = {
             </div>
         </div>
 
-        <!-- Hidden slot for MDC extraction -->
-        <div class="hidden">
-            <slot />
-        </div>
     </div>
 </template>
 
@@ -1029,8 +1315,25 @@ const CodeVNodeRenderer = {
     background: rgba(150, 150, 150, 0.45);
 }
 
-/* Ensure code blocks integrate cleanly with Docus */
-:deep(pre) {
+/* ─── Hide internal code headers & copy buttons (from Nuxt UI / Docus Pre) ─── */
+.code-editor-body :deep([class*="border-b-0"]),
+.code-editor-body :deep([class*="rounded-t-md"]),
+.code-editor-body :deep(div:has(> span[class*="filename"])),
+.code-editor-body :deep([class*="filename"]),
+.code-editor-body :deep(header),
+.code-editor-body :deep(button[class*="absolute"]),
+.code-editor-body :deep(button:has(svg)),
+.code-editor-body :deep(.copy-button) {
+    display: none !important;
+}
+
+/* Ensure pre has no duplicate margins or borders */
+.code-editor-body :deep([class*="my-5"]),
+.code-editor-body :deep([class*="group"]) {
+    margin: 0 !important;
+}
+
+.code-editor-body :deep(pre) {
     margin: 0 !important;
     border-radius: 0 !important;
     border: none !important;
@@ -1040,12 +1343,8 @@ const CodeVNodeRenderer = {
     line-height: 1.6 !important;
 }
 
-:deep(.code-block) {
+.code-editor-body :deep(.code-block) {
     margin: 0 !important;
     border: none !important;
-}
-
-:deep(.copy-button) {
-    display: none !important;
 }
 </style>
