@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React Project Preview Host</title>
+  <!-- Babel Standalone for in-browser JSX/TSX transformation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.4/babel.min.js"></script>
+  <!-- Tailwind CSS v4 in-browser compiler -->
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <!-- Import map for React 19 and common utilities -->
+  <script type="importmap">
+  {
+    "imports": {
+      "react": "https://esm.sh/react@19.3.0?bundle",
+      "react-dom": "https://esm.sh/react-dom@19.3.0?bundle",
+      "react-dom/client": "https://esm.sh/react-dom@19.3.0/client?bundle",
+      "react/jsx-runtime": "https://esm.sh/react@19.3.0/jsx-runtime?bundle",
+      "react/jsx-dev-runtime": "https://esm.sh/react@19.3.0/jsx-dev-runtime?bundle",
+      "lucide-react": "https://esm.sh/lucide-react@0.475.0?bundle"
+    }
+  }
+  </script>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    :root {
+      --preview-bg: #ffffff;
+      --preview-fg: #0f172a;
+      --preview-muted: #64748b;
+      --error-bg: #1c1917;
+      --error-fg: #fca5a5;
+    }
+    html.dark {
+      --preview-bg: #121316;
+      --preview-fg: #f1f5f9;
+      --preview-muted: #94a3b8;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      background: var(--preview-bg);
+      color: var(--preview-fg);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    #root {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    #error-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      padding: 16px;
+      overflow: auto;
+      background: var(--error-bg);
+      color: var(--error-fg);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12.5px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    #error-overlay.visible {
+      display: block;
+    }
+    #error-overlay .error-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #ef4444;
+      font-weight: 700;
+      font-size: 13.5px;
+      margin-bottom: 8px;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+    }
+    #error-overlay .file-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 4px;
+      font-size: 11px;
+      margin-bottom: 8px;
+      color: #fca5a5;
+    }
+    #boot-status {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: var(--preview-muted);
+      font-size: 13px;
+      gap: 10px;
+    }
+    .spinner {
+      width: 24px;
+      height: 24px;
+      border: 2px solid rgba(56, 189, 248, 0.2);
+      border-top-color: #38bdf8;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+  <style id="project-virtual-styles"></style>
+</head>
+<body>
+  <div id="root">
+    <div id="boot-status">
+      <div class="spinner"></div>
+      <div>Ініціалізація React оточення…</div>
+    </div>
+  </div>
+  <div id="error-overlay"></div>
+
+  <script type="module">
+    import React from 'react';
+    import * as ReactDOM from 'react-dom';
+    import * as ReactDOMClient from 'react-dom/client';
+    import * as ReactJSXRuntime from 'react/jsx-runtime';
+    import * as ReactJSXDevRuntime from 'react/jsx-dev-runtime';
+    import * as LucideReact from 'lucide-react';
+
+    // Wrap modules with standard CommonJS / ESM interop fields
+    const ReactModule = {
+      ...React,
+      default: React,
+      __esModule: true,
+    };
+    const ReactDomModule = {
+      ...ReactDOM,
+      default: ReactDOM,
+      __esModule: true,
+    };
+    const ReactDomClientModule = {
+      ...ReactDOMClient,
+      default: ReactDOMClient,
+      __esModule: true,
+    };
+    const ReactJSXRuntimeModule = {
+      ...ReactJSXRuntime,
+      default: ReactJSXRuntime,
+      __esModule: true,
+    };
+    const ReactJSXDevRuntimeModule = {
+      ...ReactJSXDevRuntime,
+      default: ReactJSXDevRuntime,
+      __esModule: true,
+    };
+    const LucideReactModule = {
+      ...LucideReact,
+      default: LucideReact,
+      __esModule: true,
+    };
+
+    window.React = React;
+    window.ReactDOM = ReactDOM;
+    window.ReactDOMClient = ReactDOMClient;
+
+    const pageInstanceId = new URLSearchParams(window.location.search).get('id') || undefined;
+    let lastInstanceId = pageInstanceId;
+    let reactRoot = null;
+    let runCounter = 0;
+    let currentTheme = 'light';
+    const moduleCache = new Map();
+
+    const errorEl = document.getElementById('error-overlay');
+    const styleTag = document.getElementById('project-virtual-styles');
+
+    function post(msg) {
+      parent.postMessage(
+        {
+          ...msg,
+          id: msg.id ?? lastInstanceId ?? pageInstanceId,
+        },
+        '*'
+      );
+    }
+
+    function showError(message, file = '') {
+      if (!errorEl) return;
+      errorEl.innerHTML = `
+        <div class="error-header">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          Помилка виконання React
+        </div>
+        ${file ? `<div class="file-badge">Файл: ${escapeHtml(file)}</div>` : ''}
+        <div>${escapeHtml(message)}</div>
+      `;
+      errorEl.classList.add('visible');
+    }
+
+    function clearError() {
+      if (!errorEl) return;
+      errorEl.classList.remove('visible');
+      errorEl.textContent = '';
+    }
+
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function applyDomTheme(theme) {
+      if (theme !== 'light' && theme !== 'dark') return;
+      currentTheme = theme;
+      const isDark = theme === 'dark';
+      document.documentElement.classList.toggle('dark', isDark);
+      document.documentElement.classList.toggle('light', !isDark);
+      document.documentElement.style.colorScheme = theme;
+    }
+
+    class ErrorBoundary extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { hasError: false, error: null };
+      }
+      static getDerivedStateFromError(error) {
+        return { hasError: true, error };
+      }
+      componentDidCatch(error, errorInfo) {
+        const msg = error?.message || String(error);
+        showError(msg + (errorInfo?.componentStack || ''));
+        post({ type: 'react-preview-error', message: msg });
+      }
+      render() {
+        if (this.state.hasError) return null;
+        return this.props.children;
+      }
+    }
+
+    // Path normalization: resolves relative paths like '../Button' against fromPath 'src/components/Card.tsx'
+    function normalizePath(fromPath, importPath, allFiles) {
+      if (!importPath.startsWith('.') && !importPath.startsWith('/')) {
+        return importPath; // External library
+      }
+
+      const fromSegments = fromPath.split('/').filter(Boolean);
+      fromSegments.pop(); // Remove filename to get directory
+      const importSegments = importPath.split('/').filter(Boolean);
+
+      const resolved = [...fromSegments];
+      for (const seg of importSegments) {
+        if (seg === '.') continue;
+        if (seg === '..') {
+          resolved.pop();
+        } else {
+          resolved.push(seg);
+        }
+      }
+      const clean = resolved.join('/');
+
+      // Check candidate extensions
+      const candidates = [
+        clean,
+        `${clean}.tsx`,
+        `${clean}.ts`,
+        `${clean}.jsx`,
+        `${clean}.js`,
+        `${clean}.css`,
+        `${clean}.json`,
+        `${clean}/index.tsx`,
+        `${clean}/index.ts`,
+        `${clean}/index.jsx`,
+        `${clean}/index.js`,
+      ];
+
+      for (const cand of candidates) {
+        if (cand in allFiles) return cand;
+      }
+
+      // Try matching by stripping leading 'src/' if present or adding 'src/'
+      for (const cand of candidates) {
+        if (cand.startsWith('src/')) {
+          const stripped = cand.replace(/^src\//, '');
+          if (stripped in allFiles) return stripped;
+        } else {
+          const prefixed = `src/${cand}`;
+          if (prefixed in allFiles) return prefixed;
+        }
+      }
+
+      return clean;
+    }
+
+    function transformCode(code, filename) {
+      let src = code.trim();
+      // Remove pure type imports/exports
+      src = src.replace(/^import\s+type\s+[\s\S]*?;?\s*$/gm, '');
+      src = src.replace(/^export\s+type\s+[\s\S]*?;?\s*$/gm, '');
+
+      if (!window.Babel) {
+        throw new Error('Babel Standalone не завантажився в preview.');
+      }
+
+      const result = window.Babel.transform(src, {
+        filename,
+        presets: [
+          ['typescript', { isTSX: true, allExtensions: true, onlyRemoveTypeImports: true }],
+          ['react', { runtime: 'automatic' }],
+        ],
+        plugins: ['transform-modules-commonjs'],
+        sourceType: 'module',
+        compact: false,
+      });
+
+      if (!result?.code) {
+        throw new Error(`Babel повернув порожній код для "${filename}"`);
+      }
+      return result.code;
+    }
+
+    function createRequire(files, currentFile) {
+      return function require(path) {
+        if (path === 'react') return ReactModule;
+        if (path === 'react-dom') return ReactDomModule;
+        if (path === 'react-dom/client') return ReactDomClientModule;
+        if (path === 'react/jsx-runtime') return ReactJSXRuntimeModule;
+        if (path === 'react/jsx-dev-runtime') return ReactJSXDevRuntimeModule;
+        if (path === 'lucide-react') return LucideReactModule;
+
+        const resolved = normalizePath(currentFile, path, files);
+        return getOrExecuteModule(resolved, files);
+      };
+    }
+
+    function getOrExecuteModule(filePath, files) {
+      if (moduleCache.has(filePath)) {
+        return moduleCache.get(filePath).exports;
+      }
+
+      const rawCode = files[filePath];
+      if (rawCode === undefined) {
+        throw new Error(`Неможливо підключити "${filePath}". Перевірте правильність шляху в імпорті.`);
+      }
+
+      // CSS files
+      if (filePath.endsWith('.css')) {
+        const mod = { exports: {}, default: {}, __esModule: true };
+        moduleCache.set(filePath, mod);
+        return mod.exports;
+      }
+
+      // JSON files
+      if (filePath.endsWith('.json')) {
+        try {
+          const parsed = JSON.parse(rawCode);
+          const mod = { exports: parsed, default: parsed, __esModule: true };
+          moduleCache.set(filePath, mod);
+          return mod.exports;
+        } catch (e) {
+          throw new Error(`Помилка синтаксису JSON у "${filePath}": ${e.message}`);
+        }
+      }
+
+      const transformed = transformCode(rawCode, filePath);
+      const mod = { exports: {} };
+      moduleCache.set(filePath, mod);
+
+      const localRequire = createRequire(files, filePath);
+      const runner = new Function(
+        'require',
+        'module',
+        'exports',
+        'React',
+        'console',
+        `"use strict";\n${transformed}\n;return module.exports;`
+      );
+
+      try {
+        const res = runner(localRequire, mod, mod.exports, ReactModule, console);
+        return res ?? mod.exports;
+      } catch (err) {
+        showError(err.message || String(err), filePath);
+        throw err;
+      }
+    }
+
+    function findEntryCandidate(files, specifiedEntry) {
+      if (specifiedEntry && files[specifiedEntry]) {
+        return specifiedEntry;
+      }
+      if (specifiedEntry) {
+        for (const ext of ['', '.tsx', '.jsx', '.ts', '.js']) {
+          if (files[specifiedEntry + ext]) return specifiedEntry + ext;
+        }
+      }
+
+      const standardNames = [
+        'src/App.tsx',
+        'src/App.jsx',
+        'App.tsx',
+        'App.jsx',
+        'src/index.tsx',
+        'src/index.jsx',
+        'index.tsx',
+        'index.jsx',
+        'src/main.tsx',
+        'src/main.jsx',
+      ];
+      for (const name of standardNames) {
+        if (files[name]) return name;
+      }
+
+      return Object.keys(files).find((f) => f.endsWith('.tsx') || f.endsWith('.jsx'));
+    }
+
+    function runProject(files, entry, theme) {
+      clearError();
+      moduleCache.clear();
+      applyDomTheme(theme);
+
+      // Inject combined CSS
+      let combinedCss = '';
+      for (const [name, code] of Object.entries(files)) {
+        if (name.endsWith('.css')) {
+          combinedCss += `/* ${name} */\n${code}\n\n`;
+        }
+      }
+      if (styleTag) {
+        styleTag.textContent = combinedCss;
+      }
+
+      const entryFile = findEntryCandidate(files, entry);
+      if (!entryFile) {
+        throw new Error(
+          'Не вдалося знайти вхідний компонент (App.tsx або index.tsx). Вкажіть entry="src/App.tsx".'
+        );
+      }
+
+      const entryExports = getOrExecuteModule(entryFile, files);
+      let Component =
+        entryExports?.default ??
+        entryExports?.App ??
+        entryExports?.Example ??
+        entryExports?.Demo;
+
+      if (!Component && typeof entryExports === 'function') {
+        Component = entryExports;
+      }
+
+      if (!Component && typeof entryExports === 'object') {
+        const firstExport = Object.values(entryExports).find(
+          (v) => typeof v === 'function' || (typeof v === 'object' && v !== null && '$$typeof' in v)
+        );
+        if (firstExport) Component = firstExport;
+      }
+
+      if (!Component) {
+        throw new Error(
+          `У файлі "${entryFile}" не знайдено React-компонента для рендеру.\n` +
+          'Додайте "export default function App() { ... }".'
+        );
+      }
+
+      const rootEl = document.getElementById('root');
+      if (!reactRoot) {
+        rootEl.innerHTML = '';
+        reactRoot = ReactDOMClient.createRoot(rootEl);
+      }
+
+      runCounter++;
+      reactRoot.render(
+        React.createElement(
+          ErrorBoundary,
+          { key: runCounter },
+          React.createElement(Component)
+        )
+      );
+
+      post({ type: 'react-preview-success' });
+    }
+
+    window.addEventListener('message', (event) => {
+      const data = event.data;
+      if (!data || typeof data !== 'object') return;
+      if (data.id && pageInstanceId && data.id !== pageInstanceId) return;
+
+      lastInstanceId = data.id || lastInstanceId;
+
+      switch (data.type) {
+        case 'ping':
+          post({ type: 'react-preview-pong', id: data.id });
+          break;
+        case 'set-theme':
+          applyDomTheme(data.theme);
+          break;
+        case 'run-project':
+          try {
+            runProject(data.files || {}, data.entry, data.theme);
+          } catch (err) {
+            showError(err.message || String(err), data.entry || '');
+            post({ type: 'react-preview-error', id: data.id, message: err.message || String(err) });
+          }
+          break;
+      }
+    });
+
+    window.addEventListener('error', (e) => {
+      const message = e.error?.message || e.message || 'Unknown runtime error';
+      showError(message);
+      post({ type: 'react-preview-error', id: lastInstanceId, message });
+    });
+
+    window.addEventListener('unhandledrejection', (e) => {
+      const message = e.reason?.message || String(e.reason);
+      showError(message);
+      post({ type: 'react-preview-error', id: lastInstanceId, message });
+    });
+
+    applyDomTheme('light');
+    post({ type: 'react-preview-ready' });
+    setTimeout(() => post({ type: 'react-preview-ready' }), 100);
+    setTimeout(() => post({ type: 'react-preview-ready' }), 500);
+  </script>
+</body>
+</html>
