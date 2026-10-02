@@ -132,6 +132,10 @@ def process_code_blocks(data):
     # regex to find code blocks: ```lang\ncode\n```
     code_block_pattern = re.compile(r'```(\w*)\n([\s\S]*?)\n```')
 
+    wg_session = _get_wayground_session()
+    if wg_session:
+        print("🔑 Wayground S3 сесія успішно активна")
+
     # Ініціалізуємо catbox-хеш для завантаження зображень питань
     catbox_hash = _get_catbox_userhash()
     if catbox_hash:
@@ -183,14 +187,21 @@ def process_code_blocks(data):
 
                 image_url = None
 
-                # Спроба 1: catbox.moe (постійне зберігання)
-                if catbox_hash:
+                # Спроба 1: Wayground S3 (надійне пряме завантаження)
+                if wg_session:
+                    print("🚀 Завантаження на Wayground S3...")
+                    image_url = _upload_to_wayground(wg_session, temp_img_file)
+                    if image_url:
+                        print(f"🔗 Зображення завантажено (Wayground): {image_url}")
+
+                # Спроба 2: catbox.moe (постійне зберігання)
+                if not image_url and catbox_hash:
                     print("🚀 Завантаження на catbox.moe...")
                     image_url = _upload_to_catbox(temp_img_file, catbox_hash)
                     if image_url:
                         print(f"🔗 Зображення завантажено (catbox): {image_url}")
 
-                # Спроба 2: litterbox fallback (72h)
+                # Спроба 3: litterbox fallback (72h)
                 if not image_url:
                     print("🚀 Fallback: завантаження на litterbox.catbox.moe...")
                     image_url = _upload_to_litterbox(temp_img_file)
