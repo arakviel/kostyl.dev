@@ -117,9 +117,10 @@ const extractTextWithNewlines = (element) => {
   const buttons = clone.querySelectorAll('button, .iconify')
   buttons.forEach((b) => b.remove())
 
-  // Відновлюємо підкреслення, які markdown перетворив на <em> / <i>
+  // Видаляємо теги <em> / <i>, які markdown додав до підкреслень у LaTeX
+  // Залишаємо лише текст, щоб не дублювати підкреслення
   clone.querySelectorAll('em, i').forEach((em) => {
-    em.replaceWith('_' + em.textContent + '_')
+    em.replaceWith(em.textContent)
   })
 
   return clone.textContent || ''
