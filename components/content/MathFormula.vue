@@ -151,6 +151,9 @@ const renderFormula = async () => {
 
       // Normalize \text followed by single uppercase letter without braces (e.g. \textM -> \text{M})
       formulaText = formulaText.replace(/\\text([A-Z])(?![a-zA-Z{])/g, '\\text{$1}')
+
+      // Unescape escaped underscores from Markdown: \_ -> _
+      formulaText = formulaText.replace(/\\_/g, '_')
     }
 
     if (formulaText && containerEl) {
