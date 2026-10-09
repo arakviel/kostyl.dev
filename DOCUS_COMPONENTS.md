@@ -917,7 +917,7 @@ cd tools/rn-preview && pnpm install && pnpm build
 **Синтаксис:**
 
 ````markdown
-::react-project-preview{title="Картка користувача" entry="src/App.tsx" :height="540"}
+::react-project-preview{title="Картка користувача" entry="src/App.tsx" :height="640"}
 
 ```tsx [src/App.tsx]
 import { useState } from 'react';
@@ -1026,7 +1026,7 @@ export function UserCard({ name, role, onPromote }: UserCardProps) {
 | ------------ | ----------------- | ---------------- | ---------------------------------------------------------------------------------------- |
 | `title`      | string            | `React Project`  | Заголовок проєкту у верхній панелі вікна macOS                                           |
 | `entry`      | string            | `""`             | Вхідний файл для запуску (`src/App.tsx`). Якщо не вказано — шукає `App.tsx` / `index.tsx`|
-| `height`     | number \| string  | `560`            | Висота вікна компонента в пікселях (min: 420px)                                          |
+| `height`     | number \| string  | `720`            | Висота вікна компонента в пікселях (min: 420px). Можна змінювати на будь-яке значення |
 | `theme`      | string            | *(site)*         | Примусова тема: `light` \| `dark`. За замовчуванням слідує колірній темі сайту Docus     |
 | `tailwind`   | boolean           | `true`           | Чи підключати браузерний рушій Tailwind CSS v4 у прев’ю                                  |
 | `defaultTab` | string            | `""`             | Шлях до файлу, який буде активним у вкладках при першому відкритті                        |

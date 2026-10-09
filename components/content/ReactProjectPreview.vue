@@ -8,7 +8,7 @@ const props = defineProps({
     /** Entry file path for preview */
     entry: { type: String, default: '' },
     /** Screen height (px) */
-    height: { type: [String, Number], default: 560 },
+    height: { type: [String, Number], default: 720 },
     /** Force light/dark inside preview; omit to follow site color mode */
     theme: {
         type: String,
@@ -36,7 +36,11 @@ const layoutMode = ref('split')
 /** Code panel share of split width (0.22 - 0.78). Default 55% code, 45% preview */
 const codeRatio = ref(0.55)
 const isDragging = ref(false)
+const isDraggingHeight = ref(false)
 const isLg = ref(false)
+
+/** Current height (can be resized by user) */
+const currentHeight = ref(0)
 
 /** Sidebar file tree open state */
 const isTreeOpen = ref(true)
@@ -97,9 +101,20 @@ const resolvedTheme = computed(() => {
 const isDark = computed(() => resolvedTheme.value === 'dark')
 
 const panelHeight = computed(() => {
+    // If user has resized, use current height
+    if (currentHeight.value > 0) return currentHeight.value
+    // Otherwise use prop or default
     const n = Number(props.height)
-    return Number.isFinite(n) && n > 0 ? Math.max(n, 420) : 560
+    return Number.isFinite(n) && n > 0 ? Math.max(n, 420) : 720
 })
+
+// Initialize currentHeight when component mounts
+watch(() => props.height, (newVal) => {
+    if (currentHeight.value === 0) {
+        const n = Number(newVal)
+        currentHeight.value = Number.isFinite(n) && n > 0 ? Math.max(n, 420) : 720
+    }
+}, { immediate: true })
 
 // ─── Extraction of code blocks from slots ─────────────────────────────────
 
@@ -475,6 +490,40 @@ const nudgeRatio = (delta) => {
     codeRatio.value = clampRatio(codeRatio.value + delta)
 }
 
+// ─── Height Resizer logic ─────────────────────────────────────────────────
+
+const onHeightResizerPointerDown = (e) => {
+    e.preventDefault()
+    isDraggingHeight.value = true
+    const target = e.currentTarget
+    target.setPointerCapture?.(e.pointerId)
+
+    const startY = e.clientY
+    const startHeight = currentHeight.value || panelHeight.value
+
+    const onMove = (ev) => {
+        const deltaY = ev.clientY - startY
+        const newHeight = Math.max(420, Math.min(1200, startHeight + deltaY))
+        currentHeight.value = newHeight
+    }
+
+    const onUp = (ev) => {
+        isDraggingHeight.value = false
+        try {
+            target.releasePointerCapture?.(ev.pointerId)
+        } catch {
+            /* ignore */
+        }
+        window.removeEventListener('pointermove', onMove)
+        window.removeEventListener('pointerup', onUp)
+        window.removeEventListener('pointercancel', onUp)
+    }
+
+    window.addEventListener('pointermove', onMove)
+    window.addEventListener('pointerup', onUp)
+    window.addEventListener('pointercancel', onUp)
+}
+
 // ─── Lifecycle hooks ──────────────────────────────────────────────────────
 
 onMounted(() => {
@@ -686,7 +735,7 @@ const FileIcon = {
 <template>
     <div
         class="my-8 rounded-xl shadow-2xl overflow-hidden bg-white dark:bg-[#1e1e1e] border border-gray-200 dark:border-white/10 flex flex-col not-prose font-sans text-[13px] transition-all"
-        :class="isDragging && 'select-none'"
+        :class="(isDragging || isDraggingHeight) && 'select-none'"
     >
         <!-- Top macOS Chrome Window Header -->
         <div
@@ -1292,6 +1341,18 @@ const FileIcon = {
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Height Resizer Bar -->
+        <div
+            class="h-2 cursor-row-resize bg-gradient-to-b from-transparent via-gray-300/50 to-transparent dark:via-gray-600/50 hover:via-sky-400/70 dark:hover:via-sky-500/70 transition-all group flex items-center justify-center select-none"
+            :class="isDraggingHeight && 'via-sky-400/70 dark:via-sky-500/70'"
+            @pointerdown="onHeightResizerPointerDown"
+            title="Перетягніть для зміни висоти"
+        >
+            <div class="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <span class="w-6 h-0.5 rounded-full bg-gray-400 dark:bg-gray-500 group-hover:bg-sky-500"></span>
             </div>
         </div>
 
