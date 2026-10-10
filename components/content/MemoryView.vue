@@ -38,15 +38,28 @@ const props = defineProps({
   }
 })
 
+// Safely resolve data array even if passed as JSON string or invalid format
+const parsedData = computed(() => {
+  let source = props.bytes || props.data
+  if (typeof source === 'string') {
+    try {
+      source = JSON.parse(source)
+    } catch {
+      return []
+    }
+  }
+  return Array.isArray(source) ? source : []
+})
+
 // Convert all data to hex strings and calculate rows
 const rows = computed(() => {
-  const sourceData = props.bytes || props.data
+  const sourceData = parsedData.value
   if (!sourceData || sourceData.length === 0) return []
 
   const bytesMapped = sourceData.map(b => {
     if (b === 'pad') return 'pad'
     if (typeof b === 'number') return b.toString(16).padStart(2, '0').toUpperCase()
-    const str = b.toString()
+    const str = String(b)
     if (str.startsWith('0x')) return str.substring(2).toUpperCase()
     return str.toUpperCase()
   })
@@ -75,7 +88,19 @@ const rows = computed(() => {
   return result
 })
 
-const isHighlighted = (index) => props.highlight.includes(index)
+const highlightList = computed(() => {
+  if (Array.isArray(props.highlight)) return props.highlight
+  if (typeof props.highlight === 'number') return [props.highlight]
+  if (typeof props.highlight === 'string') {
+    try {
+      const parsed = JSON.parse(props.highlight)
+      if (Array.isArray(parsed)) return parsed
+    } catch {}
+  }
+  return []
+})
+
+const isHighlighted = (index) => highlightList.value.includes(index)
 </script>
 
 <template>
@@ -174,7 +199,7 @@ const isHighlighted = (index) => props.highlight.includes(index)
     <!-- Footer -->
     <div class="px-4 py-1.5 border-t flex items-center justify-between opacity-40 select-none memory-header text-[9px] font-bold uppercase tracking-wider">
         <div class="flex items-center gap-1.5">
-            Offset: {{ data.length }} bytes
+            Offset: {{ parsedData.length }} bytes
         </div>
         <div class="font-mono">Big Endian</div>
     </div>
