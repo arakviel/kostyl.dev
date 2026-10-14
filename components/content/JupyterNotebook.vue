@@ -1,5 +1,7 @@
 <script setup>
-import { computed, provide } from 'vue'
+import { computed, provide, useSlots } from 'vue'
+
+const slots = useSlots()
 
 const props = defineProps({
   /**
@@ -57,6 +59,48 @@ const props = defineProps({
   showButtons: {
     type: Boolean,
     default: true
+  },
+  /**
+   * Execution counter number, e.g. 1, 2, or '*' (for single-cell notebook shorthand)
+   */
+  executionCount: {
+    type: [Number, String],
+    default: null
+  },
+  /**
+   * Shorthand alias for executionCount
+   */
+  count: {
+    type: [Number, String],
+    default: null
+  },
+  /**
+   * Execution time string, e.g. '0.18s'
+   */
+  executionTime: {
+    type: String,
+    default: ''
+  },
+  /**
+   * Type of output: 'execute_result' (default, Out[n]:), 'stdout', 'stderr', or 'error'
+   */
+  outputType: {
+    type: String,
+    default: 'execute_result'
+  },
+  /**
+   * String fallback for output if slot #output is not used
+   */
+  output: {
+    type: String,
+    default: ''
+  },
+  /**
+   * Cell execution status: 'idle', 'running', 'success', 'error'
+   */
+  cellStatus: {
+    type: String,
+    default: 'idle'
   }
 })
 
@@ -67,6 +111,16 @@ const resolvedKernelStatus = computed(() => {
 
 const isKernelBusy = computed(() => {
   return resolvedKernelStatus.value === 'busy' || resolvedKernelStatus.value === 'running'
+})
+
+const resolvedExecutionCount = computed(() => {
+  if (props.count !== null && props.count !== undefined) return props.count
+  if (props.executionCount !== null && props.executionCount !== undefined) return props.executionCount
+  return null
+})
+
+const isSingleCell = computed(() => {
+  return Boolean(slots.output || resolvedExecutionCount.value !== null || props.output)
 })
 
 provide('jupyterNotebook', {
@@ -174,7 +228,20 @@ provide('jupyterNotebook', {
 
     <!-- Notebook Cells Container / Canvas with authentic compact depth -->
     <div class="jupyter-canvas p-2.5 sm:p-3.5 bg-[#f3f4f6] dark:bg-[#0e0e11] space-y-2 sm:space-y-2.5">
-      <slot />
+      <JupyterCell
+        v-if="isSingleCell"
+        :execution-count="resolvedExecutionCount"
+        :execution-time="executionTime"
+        :status="cellStatus"
+        :output-type="outputType"
+        :output="output"
+      >
+        <slot />
+        <template #output v-if="$slots.output">
+          <slot name="output" />
+        </template>
+      </JupyterCell>
+      <slot v-else />
     </div>
   </div>
 </template>

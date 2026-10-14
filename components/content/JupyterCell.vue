@@ -517,6 +517,17 @@ onMounted(() => {
   margin-bottom: 0.25rem !important;
 }
 
+.jupyter-md-content :deep(.math-formula-wrapper.block-mode) {
+  margin: 0.5rem 0 !important;
+  padding: 0.25rem 0 !important;
+  min-height: auto !important;
+}
+
+.jupyter-md-content :deep(.math-formula-wrapper:not(.block-mode)) {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 .jupyter-output-clean :deep(table),
 .jupyter-md-content :deep(table) {
   width: auto !important;
