@@ -14,10 +14,17 @@ node_modules
 logs
 *.log
 
-# Misc
+# Misc / OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 .fleet
 .idea
+.vscode
 .eslintcache
 
 # Local env files
@@ -28,15 +35,19 @@ logs
 # npm pack
 *.tgz
 
-# Temp files
+# Temp & scratch files
 .tmp
 .profile
 *.0x
+*.tmp
+*.temp
+scratch/
 
-#VSC
+# VSC
 .history
 .wrangler
 .kilocode
+
 # .NET / C#
 bin/
 obj/
@@ -44,3 +55,38 @@ obj/
 *.suo
 *.userosscache
 *.sln.doccache
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+.pytest_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+
+# Rust / Cargo
+target
+target/
+**/target
+**/target/
+Cargo.lock
+**/Cargo.lock
+
+# fframes & Video rendering intermediate artifacts
+tools/videos/**/frames/
+tools/videos/**/out.*
+tools/videos/**/test_render/
+tools/videos/**/_frame_snapshots/
+tools/videos/**/strip.png
+tools/videos/**/onion.png
+
+# Microsoft Office temporary lock files
+~$*.xlsx
+~$*.docx
+~$*.pptx

@@ -117,6 +117,11 @@ const extractTextWithNewlines = (element) => {
   const buttons = clone.querySelectorAll('button, .iconify')
   buttons.forEach((b) => b.remove())
 
+  // Замінюємо <br> на \\ для збереження переносів рядків у LaTeX середовищах (cases, matrix тощо)
+  clone.querySelectorAll('br').forEach((br) => {
+    br.replaceWith(' \\\\ ')
+  })
+
   // Видаляємо теги <em> / <i>, які markdown додав до підкреслень у LaTeX
   // Залишаємо лише текст, щоб не дублювати підкреслення
   clone.querySelectorAll('em, i').forEach((em) => {
