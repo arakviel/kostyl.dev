@@ -71,20 +71,36 @@ htmlcov/
 .ipynb_checkpoints/
 
 # Rust / Cargo
-target
 target/
-**/target
 **/target/
 Cargo.lock
 **/Cargo.lock
 
+# ML Models, Checkpoints, Logs & Datasets
+*.pt
+*.pth
+*.pwf
+*.onnx
+*.safetensors
+*.bin
+*.ckpt
+*.h5
+*.hdf5
+runs/
+**/runs/
+wandb/
+**/wandb/
+lightning_logs/
+**/lightning_logs/
+
 # fframes & Video rendering intermediate artifacts
-tools/videos/**/frames/
-tools/videos/**/out.*
-tools/videos/**/test_render/
-tools/videos/**/_frame_snapshots/
-tools/videos/**/strip.png
-tools/videos/**/onion.png
+**/frames/
+**/out.*
+**/test_render/
+**/_frame_snapshots/
+**/strip.png
+**/onion.png
+tools/videos/**/public/
 
 # Microsoft Office temporary lock files
 ~$*.xlsx
