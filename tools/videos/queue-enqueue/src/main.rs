@@ -1,4 +1,4 @@
-use fframes::{EncoderOptions, RenderOptions, cli};
+use fframes::{EncoderOptions, RenderOptions, StaticMediaProvider, cli};
 use fframes_skia_renderer::{
     SkiaFFramesRenderer, SkiaPipelineConcurrencyPolicy, SkiaPipelineConfig,
     metal::SkiaMetalCtx,

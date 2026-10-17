@@ -342,16 +342,16 @@ onMounted(() => {
           <!-- Output Box -->
           <div 
             ref="outputBoxRef"
-            class="flex-1 min-w-0 rounded text-[12.5px] sm:text-[13px] overflow-x-auto"
+            class="jupyter-output-box flex-1 min-w-0 rounded text-[12.5px] sm:text-[13px] overflow-x-auto font-mono whitespace-pre-wrap break-words leading-snug"
             :class="[
               isError 
-                ? 'bg-red-50/80 dark:bg-red-950/20 border border-red-200 dark:border-red-900/40 text-red-900 dark:text-red-300 p-2 font-mono' 
+                ? 'bg-red-50/80 dark:bg-red-950/20 border border-red-200 dark:border-red-900/40 text-red-900 dark:text-red-300 p-2 jupyter-output-error' 
                 : 'py-0.5 px-2 text-gray-800 dark:text-gray-200 jupyter-output-clean'
             ]"
           >
             <!-- Error Badge if error -->
-            <div v-if="isError" class="flex items-center gap-2 mb-1.5 pb-1 border-b border-red-200 dark:border-red-900/40 text-red-700 dark:text-red-400 font-sans text-xs font-bold uppercase tracking-wider">
-              <UIcon name="i-heroicons-exclamation-triangle" class="w-3.5 h-3.5" />
+            <div v-if="isError" class="flex items-center gap-2 mb-1.5 pb-1 border-b border-red-200 dark:border-red-900/40 text-red-700 dark:text-red-400 font-sans text-xs font-bold uppercase tracking-wider whitespace-normal select-none">
+              <UIcon name="i-heroicons-exclamation-triangle" class="w-3.5 h-3.5 shrink-0" />
               Traceback / Помилка виконання
             </div>
 
@@ -483,11 +483,18 @@ onMounted(() => {
 }
 
 /* Pandas DataFrame & HTML Table styling inside Output & Markdown */
-.jupyter-output-clean {
+.jupyter-output-box,
+.jupyter-output-clean,
+.jupyter-output-error {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  line-height: 1.45 !important;
 }
 
-.jupyter-output-clean :deep(p) {
+.jupyter-output-box :deep(p),
+.jupyter-output-clean :deep(p),
+.jupyter-output-error :deep(p) {
   margin: 0 !important;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
   white-space: pre-wrap !important;
@@ -495,8 +502,12 @@ onMounted(() => {
   line-height: 1.45 !important;
 }
 
+.jupyter-output-box :deep(pre),
+.jupyter-output-box :deep(code),
 .jupyter-output-clean :deep(pre),
-.jupyter-output-clean :deep(code) {
+.jupyter-output-clean :deep(code),
+.jupyter-output-error :deep(pre),
+.jupyter-output-error :deep(code) {
   margin: 0 !important;
   padding: 0 !important;
   background: transparent !important;
@@ -528,6 +539,7 @@ onMounted(() => {
   padding: 0 !important;
 }
 
+.jupyter-output-box :deep(table),
 .jupyter-output-clean :deep(table),
 .jupyter-md-content :deep(table) {
   width: auto !important;
@@ -540,6 +552,7 @@ onMounted(() => {
   border: 1px solid #e5e7eb !important;
   background-color: #ffffff !important;
   color: #1f2937 !important;
+  white-space: normal !important;
 }
 
 .jupyter-output-clean :deep(thead),
@@ -547,6 +560,7 @@ onMounted(() => {
   background-color: #f9fafb !important;
 }
 
+.jupyter-output-box :deep(th),
 .jupyter-output-clean :deep(th),
 .jupyter-md-content :deep(th) {
   background-color: #f9fafb !important;
@@ -555,8 +569,10 @@ onMounted(() => {
   text-align: right !important;
   padding: 5px 12px !important;
   border: 1px solid #e5e7eb !important;
+  white-space: nowrap !important;
 }
 
+.jupyter-output-box :deep(td),
 .jupyter-output-clean :deep(td),
 .jupyter-md-content :deep(td) {
   padding: 4px 12px !important;
@@ -564,6 +580,7 @@ onMounted(() => {
   text-align: right !important;
   color: #374151 !important;
   background-color: #ffffff !important;
+  white-space: nowrap !important;
 }
 
 .jupyter-output-clean :deep(tbody tr:nth-child(even)),
@@ -581,6 +598,8 @@ onMounted(() => {
 }
 
 /* Dark Mode adaptation for DataFrame / Table */
+html.dark .jupyter-output-box :deep(table),
+.dark .jupyter-output-box :deep(table),
 html.dark .jupyter-output-clean :deep(table),
 .dark .jupyter-output-clean :deep(table),
 html.dark .jupyter-md-content :deep(table),
@@ -590,6 +609,8 @@ html.dark .jupyter-md-content :deep(table),
   color: #e4e4e7 !important;
 }
 
+html.dark .jupyter-output-box :deep(thead),
+.dark .jupyter-output-box :deep(thead),
 html.dark .jupyter-output-clean :deep(thead),
 .dark .jupyter-output-clean :deep(thead),
 html.dark .jupyter-md-content :deep(thead),
@@ -597,6 +618,8 @@ html.dark .jupyter-md-content :deep(thead),
   background-color: #18191d !important;
 }
 
+html.dark .jupyter-output-box :deep(th),
+.dark .jupyter-output-box :deep(th),
 html.dark .jupyter-output-clean :deep(th),
 .dark .jupyter-output-clean :deep(th),
 html.dark .jupyter-md-content :deep(th),
@@ -606,6 +629,8 @@ html.dark .jupyter-md-content :deep(th),
   border: 1px solid #27272a !important;
 }
 
+html.dark .jupyter-output-box :deep(td),
+.dark .jupyter-output-box :deep(td),
 html.dark .jupyter-output-clean :deep(td),
 .dark .jupyter-output-clean :deep(td),
 html.dark .jupyter-md-content :deep(td),
@@ -615,6 +640,10 @@ html.dark .jupyter-md-content :deep(td),
   background-color: #121316 !important;
 }
 
+html.dark .jupyter-output-box :deep(tbody tr:nth-child(even)),
+.dark .jupyter-output-box :deep(tbody tr:nth-child(even)),
+html.dark .jupyter-output-box :deep(tbody tr:nth-child(even) td),
+.dark .jupyter-output-box :deep(tbody tr:nth-child(even) td),
 html.dark .jupyter-output-clean :deep(tbody tr:nth-child(even)),
 .dark .jupyter-output-clean :deep(tbody tr:nth-child(even)),
 html.dark .jupyter-output-clean :deep(tbody tr:nth-child(even) td),
@@ -626,6 +655,10 @@ html.dark .jupyter-md-content :deep(tbody tr:nth-child(even) td),
   background-color: #18191e !important;
 }
 
+html.dark .jupyter-output-box :deep(tbody tr:hover),
+.dark .jupyter-output-box :deep(tbody tr:hover),
+html.dark .jupyter-output-box :deep(tbody tr:hover td),
+.dark .jupyter-output-box :deep(tbody tr:hover td),
 html.dark .jupyter-output-clean :deep(tbody tr:hover),
 .dark .jupyter-output-clean :deep(tbody tr:hover),
 html.dark .jupyter-output-clean :deep(tbody tr:hover td),
