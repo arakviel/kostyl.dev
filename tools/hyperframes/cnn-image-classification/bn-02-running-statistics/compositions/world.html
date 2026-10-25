@@ -1,0 +1,78 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .t { position: absolute; white-space: nowrap; opacity: 0; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 28px; }
+    svg { position: absolute; left: 0; top: 0; }
+  </style>
+  <div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <div id="ttl" class="t" style="left:160px;top:60px;font-size:38px;color:#8aa0bd;font-family:Inter,sans-serif">running_mean нейрона зі справжнім μ = 10 · батчі по 64</div>
+    <svg id="sv" width="1920" height="1080"></svg>
+    <div id="r1" class="t" style="left:1340px;top:240px;color:#22d3ee">train: μ_B з поточного батча</div>
+    <div id="r2" class="t" style="left:1340px;top:290px;color:#fb7185">передбачення: батча немає</div>
+    <div id="r3" class="t" style="left:1340px;top:340px;color:#fbbf24">→ накопичувати running_*</div>
+    <div id="fa" class="t" style="left:1340px;top:440px;color:#e8eef7">нове = 0.9 · старе</div>
+    <div id="fb" class="t" style="left:1340px;top:480px;color:#e8eef7">        + 0.1 · μ_B</div>
+    <div id="cb" class="t" style="left:1340px;top:580px;font-size:34px;color:#e8eef7">батч 0</div>
+    <div id="cm" class="t" style="left:1340px;top:640px;font-size:34px;color:#34d399">mean 0.000</div>
+    <div id="cv" class="t" style="left:1340px;top:700px;font-size:34px;color:#fbbf24">var  1.000</div>
+    <div id="e1" class="t" style="left:1340px;top:240px;color:#22d3ee">train: μ, σ² з батча</div>
+    <div id="e2" class="t" style="left:1340px;top:290px;color:#34d399">eval: running_mean, running_var</div>
+    <div id="e3" class="t" style="left:1340px;top:350px;color:#e8eef7">приклад окремо ≡ у батчі</div>
+    <div id="e3b" class="t" style="left:1340px;top:390px;color:#e8eef7">з 1000: True</div>
+    <div id="e4" class="t" style="left:1340px;top:460px;color:#fb7185">забули eval() → знову</div>
+    <div id="e4b" class="t" style="left:1340px;top:500px;color:#fb7185">рахує по тестовому батчу</div>
+  </div>
+  <script>
+    const RM = [[0.8741017580032349, 2.879526138305664], [1.9201043844223022, 4.902919292449951], [2.7847301959991455, 7.308395862579346], [3.639540195465088, 8.75929069519043], [4.213005542755127, 10.21086311340332], [4.6977434158325195, 11.606078147888184], [5.260931015014648, 14.010955810546875], [5.786133289337158, 15.028799057006836], [6.1568684577941895, 15.822186470031738], [6.476558208465576, 16.96597671508789], [6.796830654144287, 17.482929229736328], [7.156087875366211, 17.641799926757812], [7.3803277015686035, 18.44984245300293], [7.552771091461182, 19.143491744995117], [7.834099292755127, 19.48995590209961], [8.021166801452637, 20.638347625732422], [8.11474609375, 21.15732192993164], [8.338396072387695, 21.88314437866211], [8.500731468200684, 21.56767463684082], [8.633624076843262, 21.854339599609375], [8.755257606506348, 22.008455276489258], [8.928730010986328, 22.038496017456055], [9.114340782165527, 21.793014526367188], [9.12190055847168, 22.026912689208984], [9.1436185836792, 22.18045997619629], [9.20727252960205, 21.973121643066406], [9.198745727539062, 22.70442771911621], [9.172161102294922, 23.285030364990234], [9.385777473449707, 23.949810028076172], [9.36009693145752, 24.303869247436523], [9.440048217773438, 24.2847900390625], [9.432417869567871, 24.422428131103516], [9.52286434173584, 24.761768341064453], [9.624292373657227, 24.30082893371582], [9.798243522644043, 24.068387985229492], [9.813094139099121, 24.352880477905273], [9.784218788146973, 24.872276306152344], [9.771321296691895, 24.483108520507812], [9.780744552612305, 24.31975746154785], [9.845142364501953, 24.172134399414062], [9.809985160827637, 24.552263259887695], [9.754474639892578, 25.31815528869629], [9.757918357849121, 24.551143646240234], [9.773575782775879, 24.6013126373291], [9.853730201721191, 24.725215911865234], [9.862616539001465, 24.60235023498535], [9.938634872436523, 24.571802139282227], [9.95443058013916, 24.91971206665039], [9.980834007263184, 24.930538177490234], [9.939972877502441, 24.391557693481445], [9.952795028686523, 24.159656524658203], [10.027338027954102, 24.420799255371094], [10.006866455078125, 23.832828521728516], [10.027633666992188, 23.826763153076172], [10.06216049194336, 24.051910400390625], [9.95268440246582, 24.47100257873535], [10.01648998260498, 24.722379684448242], [9.852779388427734, 24.619768142700195], [9.714673042297363, 25.01841163635254], [9.70327091217041, 24.923904418945312], [9.853148460388184, 24.547012329101562], [9.886246681213379, 25.535009384155273], [9.936738014221191, 25.081565856933594], [10.011996269226074, 25.762592315673828], [9.94948673248291, 26.694114685058594], [9.949385643005371, 26.243610382080078], [10.000648498535156, 26.388547897338867], [10.03799057006836, 26.492610931396484], [9.985240936279297, 26.57520294189453], [10.121973991394043, 26.551403045654297], [10.10464096069336, 27.28448486328125], [10.140436172485352, 26.8491268157959], [10.170256614685059, 26.40355682373047], [10.111899375915527, 26.38001251220703], [10.043652534484863, 26.177356719970703], [9.948254585266113, 26.135608673095703], [9.917948722839355, 26.15215301513672], [9.88377857208252, 25.854127883911133], [9.880234718322754, 24.761268615722656], [9.879679679870605, 25.633230209350586], [9.930929183959961, 25.60003089904785], [10.026644706726074, 25.674518585205078], [10.023944854736328, 25.95640754699707], [10.059861183166504, 25.71741485595703], [10.085103988647461, 25.533390045166016], [10.103128433227539, 25.533954620361328], [10.070813179016113, 25.674198150634766], [10.144986152648926, 25.676389694213867], [10.088215827941895, 25.104795455932617], [10.161210060119629, 24.656063079833984], [10.203920364379883, 25.226734161376953], [10.171292304992676, 24.922901153564453], [10.084553718566895, 25.69620704650879], [10.064475059509277, 25.415115356445312], [10.008980751037598, 24.734790802001953], [10.066984176635742, 25.569583892822266], [10.066083908081055, 25.6439266204834], [10.029485702514648, 26.230606079101562], [10.066431999206543, 25.38695526123047], [10.002135276794434, 25.77829360961914]];
+    const NS = "http://www.w3.org/2000/svg", sv = document.getElementById("sv");
+    const XA = 160, XB = 1250, YB = 900, YT = 200;
+    const sx = (b) => XA + (b - 1) * (XB - XA) / 99, sy = (v) => YB - v / 11 * (YB - YT);
+    const el = (tag, a, par) => { const e = document.createElementNS(NS, tag); for (const k in a) e.setAttribute(k, a[k]); (par || sv).appendChild(e); return e; };
+    const grid = el("g", { id: "grid", opacity: 0 });
+    for (let v = 0; v <= 10; v += 2) { el("line", { x1: XA, x2: XB, y1: sy(v), y2: sy(v), stroke: v === 10 ? "#e8eef7" : "#1c2a42", "stroke-width": v === 10 ? 2 : 1, "stroke-dasharray": v === 10 ? "10 8" : "" }, grid); const t = el("text", { x: XA - 14, y: sy(v) + 9, "text-anchor": "end", fill: v === 10 ? "#e8eef7" : "#9fb2cf", "font-size": 28, "font-family": "JetBrains Mono" }, grid); t.textContent = v; }
+    [1, 25, 50, 75, 100].forEach((b) => { const t = el("text", { x: sx(b), y: YB + 44, "text-anchor": "middle", fill: "#9fb2cf", "font-size": 28, "font-family": "JetBrains Mono" }, grid); t.textContent = b; });
+    const xl = el("text", { x: (XA + XB) / 2, y: YB + 90, "text-anchor": "middle", fill: "#8aa0bd", "font-size": 28, "font-family": "Inter, sans-serif" }, grid); xl.textContent = "номер батча";
+    const tgt = el("text", { id: "tg", x: XA + 20, y: sy(10) - 14, fill: "#e8eef7", "font-size": 28, "font-family": "JetBrains Mono", opacity: 0 }); tgt.textContent = "справжнє μ = 10";
+    const line = el("polyline", { points: "", fill: "none", stroke: "#34d399", "stroke-width": 7, "stroke-linejoin": "round", "stroke-linecap": "round", });
+    const dot = el("circle", { id: "dot", cx: sx(1), cy: sy(RM[0][0]), r: 14, fill: "#34d399", opacity: 0 });
+    const lb1 = el("text", { id: "lb1", x: sx(1) + 24, y: sy(RM[0][0]) - 16, fill: "#34d399", "font-size": 32, "font-family": "JetBrains Mono", "font-weight": 700, opacity: 0 }); lb1.textContent = "0.874";
+    const lb2 = el("text", { id: "lb2", x: sx(100) - 10, y: sy(RM[99][0]) + 50, "text-anchor": "end", fill: "#34d399", "font-size": 32, "font-family": "JetBrains Mono", "font-weight": 700, opacity: 0 }); lb2.textContent = "10.002";
+    const P = { n: 0 };
+    const upd = () => {
+      const n = Math.max(0, Math.min(100, P.n)), k = Math.max(1, Math.round(n)), r = RM[k - 1];
+      line.setAttribute("points", n <= 1 ? "" : RM.slice(0, k).map((q, i) => sx(i + 1) + "," + sy(q[0])).join(" "));
+      dot.setAttribute("cx", sx(k)); dot.setAttribute("cy", sy(RM[k - 1][0]));
+      document.getElementById("cb").textContent = "батч " + (n < 0.5 ? 0 : k);
+      document.getElementById("cm").textContent = n < 0.5 ? "mean 0.000" : "mean " + r[0].toFixed(3);
+      document.getElementById("cv").textContent = n < 0.5 ? "var  1.000" : "var  " + (r[1] < 10 ? " " : "") + r[1].toFixed(3);
+    };
+    upd();
+    const tl = gsap.timeline({ paused: true });
+    const show = (s, at, d = 0.3) => tl.to(s, { opacity: 1, duration: d, ease: "power2.out" }, at);
+    const hide = (s, at, d = 0.3) => tl.to(s, { opacity: 0, duration: d, ease: "power2.in" }, at);
+    const pulse = (s, at, sc = 1.1) => tl.to(s, { scale: sc, transformOrigin: "left center", duration: 0.25, yoyo: true, repeat: 1 }, at);
+    show("#ttl", 0.5); show("#grid", 0.8, 0.6); show("#tg", 3.0);
+    // L1 0.4-11.0
+    show("#r1", 2.4); pulse("#r1", 4.0); show("#r2", 5.4); pulse("#r2", 6.8); show("#r3", 8.6); pulse("#r3", 9.8);
+    tl.to("#tg", { scale: 1.1, transformOrigin: "left center", duration: 0.3, yoyo: true, repeat: 1 }, 4.4);
+    // L2 11.4-24.4
+    show("#fa", 11.8); show("#fb", 12.2); pulse("#fa", 13.0, 1.06);
+    show("#cb", 13.0); show("#cm", 13.0); show("#cv", 13.0);
+    tl.to(P, { n: 1, duration: 0.8, ease: "none", onUpdate: upd }, 13.4);
+    show("#dot", 13.4, 0.2); show("#lb1", 14.0); pulse("#cm", 14.4, 1.12);
+    tl.to("#lb1", { scale: 1.15, transformOrigin: "left center", duration: 0.3, yoyo: true, repeat: 1 }, 16.0);
+    tl.to(P, { n: 100, duration: 7.4, ease: "power1.inOut", onUpdate: upd }, 16.6);
+    hide("#lb1", 17.5);
+    // L3 24.8-29.5
+    show("#lb2", 24.4); pulse("#cm", 25.0, 1.12); pulse("#cv", 26.2, 1.12);
+    tl.to("#dot", { r: 22, duration: 0.3, yoyo: true, repeat: 1 }, 25.5);
+    tl.to("#tg", { scale: 1.1, transformOrigin: "left center", duration: 0.3, yoyo: true, repeat: 1 }, 27.4);
+    // L4 29.9-42.1
+    ["#r1", "#r2", "#r3", "#fa", "#fb"].forEach((s) => hide(s, 30.0));
+    show("#e1", 30.8); show("#e2", 33.2); pulse("#e2", 34.4, 1.05);
+    show("#e3", 36.4); show("#e3b", 36.6); pulse("#e3", 38.0, 1.05);
+    show("#e4", 39.0); show("#e4b", 39.2); tl.to("#e4, #e4b", { x: 6, duration: 0.08, yoyo: true, repeat: 3 }, 40.2);
+    hide("#ttl", 42.3);
+    window.__timelines["world"] = tl;
+  </script>
+</template>

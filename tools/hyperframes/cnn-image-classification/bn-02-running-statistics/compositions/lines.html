@@ -1,0 +1,14 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: "Inter", sans-serif; color: #e8eef7; }
+    #claim { position: absolute; left: 0; width: 1920px; top: 50px; text-align: center; font-size: 66px; font-weight: 700; letter-spacing: -0.01em; opacity: 0; }
+  </style>
+  <div id="root" data-composition-id="lines" data-width="1920" data-height="1080">
+    <div id="claim" class="clip" data-start="42.3" data-duration="2.2">У eval() — тільки running_*</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#claim", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, 42.3);
+    window.__timelines["lines"] = tl;
+  </script>
+</template>

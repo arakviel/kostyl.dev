@@ -1,0 +1,72 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .t { position: absolute; white-space: nowrap; opacity: 0; font-family: "JetBrains Mono", monospace; font-weight: 700; }
+    svg { position: absolute; left: 0; top: 0; }
+  </style>
+  <div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <div id="ttl" class="t" style="left:160px;top:60px;font-size:40px;color:#8aa0bd;font-family:Inter,sans-serif">std активацій після кожного з 30 шарів · ReLU · лог. шкала</div>
+    <svg id="sv" width="1920" height="1080"></svg>
+    <div id="leg"></div>
+    <div id="k1" class="t" style="left:1330px;top:720px;font-size:40px;color:#e8eef7">k = n · Var(w)</div>
+    <div id="k2" class="t" style="left:1330px;top:790px;font-size:40px;color:#34d399">k = 1  ⇒ сигнал живий</div>
+    <div id="k3" class="t" style="left:1330px;top:860px;font-size:40px;color:#34d399">He: Var(w) = 2 / n</div>
+  </div>
+  <script>
+    const SIG = {"big": [9.413098335266113, 101.83262634277344, 1143.0174560546875, 12916.162109375, 143805.71875, 1583345.125, 17005546.0, 214892912.0, 2438746112.0, 27248529408.0, 308452818944.0, 3394964553728.0, 38584727896064.0, 429081761939456.0, 4990966746316800.0, 5.639685049155584e+16, 6.806820851107758e+17, 7.341395707951055e+18, 8.386186291280085e+19, 1.0006710563853555e+21, 1.1483830020823644e+22, 1.3453722061874045e+23, 1.597632296086511e+24, 1.6852236339015713e+25, 2.017612817529423e+26, 1.9997539711893425e+27, 2.1418323878437415e+28, 2.422843369496311e+29, 2.9807788801891633e+30, 3.7949835288224443e+31], "small": [0.0941309779882431, 0.010183262638747692, 0.0011430173180997372, 0.00012916160630993545, 1.438057006453164e-05, 1.5833448969715391e-06, 1.70055429293825e-07, 2.1489286794462714e-08, 2.438745649868679e-09, 2.7248522882494797e-10, 3.0845274251456445e-11, 3.394963563746467e-12, 3.858471701867483e-13, 4.290816156158825e-14, 4.990965035326462e-15, 5.63968300567306e-16, 6.806818306373131e-17, 7.341392545350019e-18, 8.386182456779515e-19, 1.000670630796544e-19, 1.1483824376668976e-20, 1.3453715019682448e-21, 1.5976313975123536e-22, 1.6852227258957497e-23, 2.0176117532224745e-24, 1.9997527804929825e-25, 2.141831159310516e-26, 2.4228418256405087e-27, 2.980776941626437e-28, 3.7949808580590866e-29], "default": [0.33603230118751526, 0.1427091360092163, 0.0613960400223732, 0.023481348529458046, 0.00946477148681879, 0.0038368015084415674, 0.0014669348020106554, 0.000551898789126426, 0.00021383997227530926, 8.63174136611633e-05, 3.30088623741176e-05, 1.256806899618823e-05, 5.534054707823088e-06, 2.1707642190449405e-06, 8.857813895701838e-07, 3.510949682095088e-07, 1.3021964662129903e-07, 4.701862721390171e-08, 1.929532267297418e-08, 8.484978053502346e-09, 3.5112102114709387e-09, 1.4806645909359872e-09, 5.564608773767077e-10, 2.2173601843533675e-10, 9.443192755531626e-11, 4.314068893784828e-11, 1.8367023180143605e-11, 7.840964856564714e-12, 3.129136273011257e-12, 1.185110494981989e-12], "xavier": [0.5883186459541321, 0.39778369665145874, 0.27905699610710144, 0.19708499312400818, 0.1371438205242157, 0.09437472373247147, 0.06335059553384781, 0.050033655017614365, 0.03548842668533325, 0.024782393127679825, 0.01753351278603077, 0.012061337009072304, 0.008567530661821365, 0.005954705644398928, 0.004328973591327667, 0.0030572793912142515, 0.0023062406107783318, 0.0015546010108664632, 0.0011099025141447783, 0.0008277356973849237, 0.0005937000969424844, 0.00043471320532262325, 0.00032263927278108895, 0.00021270512661430985, 0.00015916158736217767, 9.859548299573362e-05, 6.600030610570684e-05, 4.666226595873013e-05, 3.5879820643458515e-05, 2.8550282877404243e-05], "he": [0.8320081830024719, 0.7955673933029175, 0.7892923355102539, 0.7883399128913879, 0.775802493095398, 0.7549976706504822, 0.7167300581932068, 0.8005383610725403, 0.8030112981796265, 0.7930364012718201, 0.7934760451316833, 0.7719253897666931, 0.7754441499710083, 0.7622021436691284, 0.7836276888847351, 0.7826632857322693, 0.8349480628967285, 0.79595547914505, 0.8036549687385559, 0.847601056098938, 0.8597692251205444, 0.8902922868728638, 0.9344627261161804, 0.8712397813796997, 0.9219619631767273, 0.8076937794685364, 0.7646288871765137, 0.764514148235321, 0.8313520550727844, 0.9355351328849792]};
+    const NS = "http://www.w3.org/2000/svg";
+    const sv = document.getElementById("sv");
+    const X0 = 160, X1 = 1250, YB = 960, YT = 190, LO = -30, HI = 32;
+    const px = (i) => X0 + i * (X1 - X0) / 29;
+    const py = (v) => YB - (Math.log10(v) - LO) * (YB - YT) / (HI - LO);
+    const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); (parent || sv).appendChild(e); return e; };
+    const tl = gsap.timeline({ paused: true });
+    // axes
+    const grid = el("g", { id: "grid", opacity: 0 });
+    for (let p = -30; p <= 30; p += 10) {
+      const y = py(Math.pow(10, p));
+      el("line", { x1: X0, x2: X1, y1: y, y2: y, stroke: p === 0 ? "#e8eef7" : "#1c2a42", "stroke-width": p === 0 ? 2 : 1, "stroke-dasharray": p === 0 ? "10 8" : "" }, grid);
+      const t = el("text", { x: X0 - 14, y: y + 8, "text-anchor": "end", fill: p === 0 ? "#e8eef7" : "#9fb2cf", "font-size": 28, "font-family": "JetBrains Mono" }, grid); t.textContent = "10" + (p < 0 ? "−" : "") + Math.abs(p).toString().split("").map((c) => "⁰¹²³⁴⁵⁶⁷⁸⁹"[+c]).join("");
+    }
+    [1, 10, 20, 30].forEach((n) => { const t = el("text", { x: px(n - 1), y: YB + 40, "text-anchor": "middle", fill: "#9fb2cf", "font-size": 28, "font-family": "JetBrains Mono" }, grid); t.textContent = n; });
+    const xl = el("text", { x: (X0 + X1) / 2, y: YB + 78, "text-anchor": "middle", fill: "#8aa0bd", "font-size": 28, "font-family": "Inter, sans-serif" }, grid); xl.textContent = "номер шару";
+    const lab1 = el("text", { id: "in1", x: X0 + 420, y: py(1) - 18, fill: "#e8eef7", "font-size": 28, "font-family": "JetBrains Mono", opacity: 0 }); lab1.textContent = "вхід: 1";
+    const SCH = [["big", "#fb7185", "N(0; 1)"], ["small", "#fbbf24", "N(0; 0,01)"], ["default", "#94a3b8", "за замовчуванням"], ["xavier", "#22d3ee", "Xavier"], ["he", "#34d399", "He"]];
+    const fmt = (v) => { const e = v.toExponential(2).replace("e+", "e").replace("e-", "e−"); return v >= 0.01 && v < 100 ? v.toFixed(3).replace(/0+$/, "").replace(/\.$/, "") : e; };
+    SCH.forEach(([k, col, name], n) => {
+      const pts = SIG[k].map((v, i) => px(i) + "," + py(v)).join(" ");
+      el("polyline", { id: "p_" + k, points: pts, fill: "none", stroke: col, "stroke-width": 7, "stroke-linejoin": "round", "stroke-linecap": "round", pathLength: 1, "stroke-dasharray": 1, "stroke-dashoffset": 1, opacity: 0.55 });
+      const ex = SIG[k][29], ey = py(ex);
+      const dot = el("circle", { id: "d_" + k, cx: px(29), cy: ey, r: 12, fill: col, opacity: 0 });
+      const lg = document.createElement("div"); lg.id = "l_" + k; lg.className = "t"; lg.style.cssText = "left:1330px;top:" + (170 + n * 100) + "px;font-size:34px;color:" + col;
+      lg.innerHTML = name + '<br><span style="font-size:30px;color:#e8eef7">шар 30: ' + fmt(ex) + "</span>"; document.getElementById("leg").appendChild(lg);
+    });
+    // He checkpoints
+    [0, 9, 29].forEach((i) => { el("circle", { id: "hc" + i, cx: px(i), cy: py(SIG.he[i]), r: 13, fill: "#070b14", stroke: "#34d399", "stroke-width": 5, opacity: 0 }); const t = el("text", { id: "ht" + i, x: px(i), y: py(SIG.he[i]) - 26, "text-anchor": "middle", fill: "#34d399", "font-size": 30, "font-family": "JetBrains Mono", "font-weight": 700, opacity: 0 }); t.textContent = SIG.he[i].toFixed(2); });
+    const show = (s, at, d = 0.3) => tl.to(s, { opacity: 1, duration: d, ease: "power2.out" }, at);
+    const draw = (k, at, d) => { tl.to("#p_" + k, { opacity: 1, duration: d, ease: "none" }, at); tl.to("#p_" + k, { strokeDashoffset: 0, duration: d, ease: "power1.inOut" }, at); show("#d_" + k, at + d - 0.1, 0.2); show("#l_" + k, at + d - 0.1, 0.3); };
+    show("#ttl", 0.5); show("#grid", 0.8, 0.6); show("#in1", 3.0);
+    // L1 pulse on the unit line while the voice explains the setup
+    tl.to("#grid", { opacity: 1, duration: 0.1 }, 4);
+    // L2 10.6-23.4
+    draw("big", 11.2, 4.5);
+    tl.to("#p_big", { strokeWidth: 11, duration: 0.3, yoyo: true, repeat: 1 }, 16.2);
+    draw("small", 17.5, 4.5);
+    tl.to("#p_small", { strokeWidth: 11, duration: 0.3, yoyo: true, repeat: 1 }, 22.2);
+    // L3 23.8-36.1
+    draw("default", 24.4, 3.0); draw("xavier", 28.0, 3.0);
+    draw("he", 31.4, 3.8);
+    [[0, 32.6], [9, 33.8], [29, 35.0]].forEach(([i, at]) => { show("#hc" + i, at, 0.2); show("#ht" + i, at, 0.2); });
+    // L4 36.5-46.2
+    ["#p_big", "#p_small", "#p_default", "#p_xavier"].forEach((s) => tl.to(s, { opacity: 0.25, duration: 0.5 }, 37));
+    ["big","small","default","xavier"].forEach((k) => tl.to("#l_" + k + ", #d_" + k, { opacity: 0.25, duration: 0.5 }, 37));
+    show("#k1", 37.2); show("#k2", 41.0); show("#k3", 43.6);
+    tl.to("#p_he", { strokeWidth: 11, duration: 0.4, yoyo: true, repeat: 1 }, 38.5);
+    [5.5, 7.5, 9.3].forEach((t) => tl.to("#in1", { scale: 1.15, transformOrigin: "left center", duration: 0.3, yoyo: true, repeat: 1 }, t));
+    tl.to("#p_big", { strokeWidth: 11, duration: 0.3, yoyo: true, repeat: 1 }, 20.2);
+    tl.to("#p_small", { strokeWidth: 11, duration: 0.3, yoyo: true, repeat: 1 }, 14.5 + 0.0);
+    [39.3, 40.2].forEach((t) => tl.to("#k1", { scale: 1.08, transformOrigin: "left center", duration: 0.3, yoyo: true, repeat: 1 }, t));
+    tl.to("#ttl", { opacity: 0, duration: 0.3 }, 46.3);
+    window.__timelines["world"] = tl;
+  </script>
+</template>

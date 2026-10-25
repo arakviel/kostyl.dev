@@ -1,0 +1,70 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .t { position: absolute; white-space: nowrap; opacity: 0; font-family: "JetBrains Mono", monospace; font-weight: 700; }
+    svg { position: absolute; left: 0; top: 0; }
+  </style>
+  <div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <div id="ttl" class="t" style="left:120px;top:64px;font-size:40px;color:#8aa0bd;font-family:Inter,sans-serif">BatchNorm2d · тензор 8 × 4 × 5 × 5 · розподіл значень кожного каналу</div>
+    <svg id="sv" width="1920" height="1080"></svg>
+    <div id="st"></div>
+    <div id="cnt" class="t" style="left:1380px;top:580px;font-size:32px;color:#8aa0bd">8 · 25 = 200 значень</div>
+    <div id="f1" class="t" style="left:1380px;top:660px;font-size:32px;color:#e8eef7">x̂ = (x − μ) / √(σ² + ε)</div>
+    <div id="f2" class="t" style="left:1380px;top:740px;font-size:32px;color:#e8eef7">y = <span id="g" style="color:#fbbf24">γ</span> · x̂ + <span id="b" style="color:#fbbf24">β</span></div>
+    <div id="f3" class="t" style="left:1380px;top:820px;font-size:32px;color:#fbbf24">старт: γ = 1, β = 0</div>
+    <div id="f4" class="t" style="left:1380px;top:880px;font-size:32px;color:#fbbf24">навчаються разом з мережею</div>
+  </div>
+  <script>
+    const NS = "http://www.w3.org/2000/svg";
+    const sv = document.getElementById("sv");
+    const MU = [-0.0137, 1.1532, 2.6801, 2.8838], SD = [1.0515, 2.0690, 3.0342, 3.8302];
+    const COL = ["#22d3ee", "#34d399", "#fbbf24", "#fb7185"];
+    const XA = 160, XB = 1280, XMIN = -8, XMAX = 12;
+    const sx = (v) => XA + (v - XMIN) * (XB - XA) / (XMAX - XMIN);
+    const BASE = [340, 520, 700, 880], HS = 330;
+    const el = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); (parent || sv).appendChild(e); return e; };
+    const grid = el("g", { id: "grid", opacity: 0 });
+    for (let v = -8; v <= 12; v += 4) { el("line", { x1: sx(v), x2: sx(v), y1: 250, y2: 900, stroke: v === 0 ? "#e8eef7" : "#1c2a42", "stroke-width": v === 0 ? 2 : 1, "stroke-dasharray": v === 0 ? "10 8" : "" }, grid); const t = el("text", { x: sx(v), y: 944, "text-anchor": "middle", fill: v === 0 ? "#e8eef7" : "#9fb2cf", "font-size": 28, "font-family": "JetBrains Mono" }, grid); t.textContent = v; }
+    BASE.forEach((y, i) => { el("line", { x1: XA, x2: XB, y1: y, y2: y, stroke: "#1c2a42", "stroke-width": 1 }, grid); const t = el("text", { x: 70, y: y - 20, fill: COL[i], "font-size": 30, "font-family": "JetBrains Mono", "font-weight": 700 }, grid); t.textContent = "к" + (i + 1); });
+    const paths = [], fills = [];
+    COL.forEach((c, i) => { fills.push(el("path", { id: "fl" + i, fill: c, "fill-opacity": 0.16, stroke: "none", opacity: 0 })); paths.push(el("path", { id: "pa" + i, fill: "none", stroke: c, "stroke-width": 5, "stroke-linejoin": "round", opacity: 0 })); });
+    const S = { a: 0, b: 0 };   // a: mean removed (0..1), b: divided by std (0..1)
+    const cur = (i) => ({ m: MU[i] * (1 - S.a), s: SD[i] + (1 - SD[i]) * S.b });
+    const draw = () => paths.forEach((p, i) => {
+      const { m, s } = cur(i); let d = "", pts = [];
+      for (let k = 0; k <= 120; k++) { const v = XMIN + (XMAX - XMIN) * k / 120; const pdf = Math.exp(-0.5 * Math.pow((v - m) / s, 2)) / (s * Math.sqrt(2 * Math.PI)); pts.push([sx(v), BASE[i] - pdf * HS]); }
+      d = "M" + pts.map((q) => q[0].toFixed(1) + " " + q[1].toFixed(1)).join(" L");
+      p.setAttribute("d", d); fills[i].setAttribute("d", d + " L" + XB + " " + BASE[i] + " L" + XA + " " + BASE[i] + " Z");
+    });
+    draw();
+    const sT = (id, txt, i, col) => { const d = document.createElement("div"); d.id = id; d.className = "t"; d.style.cssText = "left:1380px;top:" + (240 + i * 80) + "px;font-size:32px;color:" + col; d.textContent = txt; document.getElementById("st").appendChild(d); };
+    const f = (v) => (v < 0 ? "−" : " ") + Math.abs(v).toFixed(3);
+    MU.forEach((m, i) => { sT("sb" + i, "к" + (i + 1) + "  μ " + f(m) + "  σ " + SD[i].toFixed(3), i, COL[i]); sT("sa" + i, "к" + (i + 1) + "  μ  0.000  σ 1.000", i, COL[i]); });
+    const tl = gsap.timeline({ paused: true });
+    const show = (s, at, d = 0.3) => tl.to(s, { opacity: 1, duration: d, ease: "power2.out" }, at);
+    const pulse = (s, at, sc = 1.08) => tl.to(s, { scale: sc, transformOrigin: "left center", duration: 0.25, yoyo: true, repeat: 1 }, at);
+    show("#ttl", 0.5); show("#grid", 0.8, 0.6);
+    // L1: the four channels appear one by one
+    [0, 1, 2, 3].forEach((i) => { const at = 1.8 + i * 1.6; tl.to("#pa" + i + ", #fl" + i, { opacity: 1, duration: 0.5 }, at); show("#sb" + i, at + 0.2); pulse("#sb" + i, at + 0.7); });
+    tl.to("#pa3", { strokeWidth: 9, duration: 0.3, yoyo: true, repeat: 1 }, 8.4);
+    // L2 10.1-18.6: one pair per channel over the whole batch and all positions
+    show("#cnt", 10.6);
+    [0, 1, 2, 3].forEach((i) => { const at = 13.6 + i * 1.2; tl.to("#pa" + i, { strokeWidth: 10, duration: 0.25, yoyo: true, repeat: 1 }, at); pulse("#sb" + i, at, 1.12); });
+    tl.to("#cnt", { opacity: 0.4, duration: 0.3 }, 18.6);
+    // L3 19.0-26.7: subtract the mean, then divide by std
+    show("#f1", 19.4);
+    tl.to(S, { a: 1, duration: 2.0, ease: "power2.inOut", onUpdate: draw }, 21.0);
+    tl.to(S, { b: 1, duration: 2.2, ease: "power2.inOut", onUpdate: draw }, 23.6);
+    tl.to(".t[id^=sb]", { opacity: 0, duration: 0.3 }, 25.9);
+    [0, 1, 2, 3].forEach((i) => show("#sa" + i, 26.0 + i * 0.1, 0.3));
+    tl.to("#grid", { opacity: 1, duration: 0.1 }, 20);
+    // L4 27.1-36.2: gamma and beta
+    show("#f2", 27.6); pulse("#g", 29.6, 1.3); pulse("#b", 31.0, 1.3); show("#f3", 32.4); show("#f4", 34.0);
+    [0, 1, 2, 3].forEach((i) => tl.to("#pa" + i, { strokeWidth: 9, duration: 0.3, yoyo: true, repeat: 1 }, 35.0 + i * 0.3));
+    [20.2, 21.4, 22.6, 23.0, 24.4, 25.2].forEach((t) => tl.to("#fl0, #fl1, #fl2, #fl3", { opacity: 0.75, duration: 0.3, yoyo: true, repeat: 1 }, t));
+    [28.4, 29.0, 30.2, 30.8, 31.8, 32.2].forEach((t, k) => tl.to("#fl" + (k % 4), { opacity: 0.6, duration: 0.3, yoyo: true, repeat: 1 }, t));
+    pulse("#f2", 28.2, 1.06);
+    tl.to("#ttl", { opacity: 0, duration: 0.3 }, 36.3);
+    window.__timelines["world"] = tl;
+  </script>
+</template>
