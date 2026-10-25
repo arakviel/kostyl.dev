@@ -1,0 +1,117 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .lab { position: absolute; font-weight: 700; color: #9fb2cf; white-space: nowrap; opacity: 0; }
+    .mono { font-family: "JetBrains Mono", monospace; }
+    .bx { position: absolute; top: 340px; height: 120px; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 38px; background: #0b1220; box-shadow: inset 0 0 0 4px var(--c); color: var(--c); opacity: 0; border-radius: 10px; }
+    .ln { position: absolute; background: var(--c); opacity: 0; }
+    .ah { position: absolute; width: 0; height: 0; opacity: 0; }
+    .dot { position: absolute; width: 30px; height: 30px; border-radius: 50%; opacity: 0; }
+    .cell { position: absolute; width: 200px; text-align: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 58px; opacity: 0; }
+    .rl { position: absolute; left: 200px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 40px; opacity: 0; white-space: nowrap; }
+  </style>
+  <div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <div id="ttl" class="lab" style="left:0;width:1920px;text-align:center;top:90px;font-size:48px">звичайний блок</div>
+    <div id="ttl2" class="lab" style="left:0;width:1920px;text-align:center;top:90px;font-size:48px;color:#34d399">залишковий блок</div>
+
+    <div id="bx" class="bx" style="left:100px;width:140px;--c:#22d3ee">x</div>
+    <div id="bc1" class="bx" style="left:330px;width:250px;--c:#8aa0bd">Conv + BN</div>
+    <div id="br1" class="bx" style="left:650px;width:170px;--c:#8aa0bd">ReLU</div>
+    <div id="bc2" class="bx" style="left:900px;width:250px;--c:#8aa0bd">Conv + BN</div>
+    <div id="bp" class="bx" style="left:1200px;top:355px;width:90px;height:90px;border-radius:50%;--c:#34d399;font-size:60px">+</div>
+    <div id="br2" class="bx" style="left:1350px;width:170px;--c:#8aa0bd">ReLU</div>
+    <div id="by" class="bx" style="left:1610px;width:140px;--c:#fbbf24">y</div>
+    <div id="arrows"></div>
+
+    <div id="sk1" class="ln" style="left:282px;top:260px;width:6px;height:0;--c:#34d399;opacity:1"></div>
+    <div id="sk2" class="ln" style="left:282px;top:260px;width:0;height:6px;--c:#34d399;opacity:1"></div>
+    <div id="sk3" class="ln" style="left:1242px;top:260px;width:6px;height:0;--c:#34d399;opacity:1"></div>
+    <div id="skh" class="ah" style="left:1230px;top:345px;border-left:18px solid transparent;border-right:18px solid transparent;border-top:24px solid #34d399"></div>
+    <div id="skl" class="lab" style="left:560px;top:190px;font-size:42px;color:#34d399">пропускне з'єднання (shortcut)</div>
+    <div id="dm" class="dot" style="left:272px;top:385px;background:#22d3ee"></div>
+    <div id="dg" class="dot" style="left:270px;top:245px;background:#34d399"></div>
+
+    <div id="rl0" class="rl" style="top:610px;color:#22d3ee">x</div>
+    <div id="rl1" class="rl" style="top:690px;color:#fbbf24">F(x)</div>
+    <div id="rl2" class="rl" style="top:770px;color:#e8eef7">x + F(x)</div>
+    <div id="rl3" class="rl" style="top:850px;color:#34d399">після ReLU</div>
+    <div id="vals"></div>
+    <div id="chk" class="lab mono" style="left:0;width:1920px;text-align:center;top:960px;font-size:40px;color:#34d399">вихід блоку дорівнює входу: True</div>
+  </div>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const mk = (parent, cls, css, text, id) => { const d = document.createElement("div"); d.className = cls; Object.assign(d.style, css); if (text !== undefined) d.textContent = text; if (id) d.id = id; parent.appendChild(d); return d; };
+    // arrows: [id, x0, x1, colour]; every arrow has a head at x1
+    const AR = [["a0", 240, 330], ["a1", 580, 650], ["a2", 820, 900], ["a3p", 1150, 1350], ["a3a", 1150, 1200], ["a3b", 1290, 1350], ["a4", 1520, 1610]];
+    AR.forEach(([id, x0, x1]) => {
+      mk($("arrows"), "ln", { left: x0 + "px", top: "397px", width: (x1 - x0 - 14) + "px", height: "6px", background: "#8aa0bd" }, undefined, id);
+      mk($("arrows"), "ah", { left: (x1 - 16) + "px", top: "389px", borderTop: "11px solid transparent", borderBottom: "11px solid transparent", borderLeft: "16px solid #8aa0bd" }, undefined, id + "h");
+    });
+    // value table: x = (2, 1, 3), F = (0.5, -1.5, -1)
+    const COL = [760, 1000, 1240];
+    const ROWS = [
+      ["x", ["2", "1", "3"], "#22d3ee", 590],
+      ["f", ["0,5", "−1,5", "−1"], "#fbbf24", 670],
+      ["s", ["2,5", "−0,5", "2"], "#e8eef7", 750],
+      ["r", ["2,5", "0", "2"], "#34d399", 830],
+    ];
+    ROWS.forEach(([k, vs, col, top]) => vs.forEach((v, i) => mk($("vals"), "cell", { left: COL[i] - 100 + "px", top: top + "px", color: col }, v, "v" + k + i)));
+    // the zero-F story: F = 0, x + F = x, ReLU = x
+    mk($("vals"), "cell", { left: COL[0] - 100 + "px", top: "670px", color: "#fbbf24" }, "0", "vf0z"); mk($("vals"), "cell", { left: COL[1] - 100 + "px", top: "670px", color: "#fbbf24" }, "0", "vf1z"); mk($("vals"), "cell", { left: COL[2] - 100 + "px", top: "670px", color: "#fbbf24" }, "0", "vf2z");
+    [["s", "2", "1", "3", "#e8eef7", 750], ["r", "2", "1", "3", "#34d399", 830]].forEach(([k, a, b, c, col, top]) => [a, b, c].forEach((v, i) => mk($("vals"), "cell", { left: COL[i] - 100 + "px", top: top + "px", color: col }, v, "v" + k + i + "z")));
+
+    const tl = gsap.timeline({ paused: true });
+    const show = (sel, at, d = 0.25) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, at);
+    const hide = (sel, at, d = 0.3) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+    const pulse = (sel, at, sc = 1.12) => { tl.to(sel, { scale: sc, duration: 0.15 }, at); tl.to(sel, { scale: 1, duration: 0.3 }, at + 0.15); };
+    const arr = (id, at) => { show("#" + id, at, 0.2); show("#" + id + "h", at, 0.2); };
+
+    pulse("#bx", 1.0, 1.15); pulse("#by", 2.0, 1.15);
+    // L1 0.4-8.1: plain block, one road through two convolutions
+    tl.set("#ttl, #bx, #by", { opacity: 1 }, 0);
+    show("#bc1", 3.4); arr("a0", 3.5); show("#br1", 3.9); arr("a1", 4.0); show("#bc2", 4.5); arr("a2", 4.6); show("#br2", 5.2); arr("a3p", 5.3); arr("a4", 5.8);
+    tl.set("#dm", { opacity: 1, x: 0 }, 6.2);
+    tl.to("#dm", { x: 1440, duration: 1.6, ease: "power1.inOut" }, 6.2);
+    tl.to("#dm", { opacity: 0, duration: 0.2 }, 7.8);
+    pulse("#bc1", 6.4, 1.08); pulse("#bc2", 6.9, 1.08); pulse("#by", 7.6, 1.15);
+    // L2 8.8-19.6: the green shortcut
+    hide("#ttl", 8.9); show("#ttl2", 9.2);
+    hide("#a3p", 10.0, 0.2); hide("#a3ph", 10.0, 0.2);
+    show("#bp", 10.2, 0.3); show("#a3a", 10.3, 0.2); show("#a3ah", 10.3, 0.2); show("#a3b", 10.3, 0.2); show("#a3bh", 10.3, 0.2);
+    tl.to("#sk1", { height: 140, duration: 0.5, ease: "power2.out" }, 10.8);
+    tl.to("#sk2", { width: 966, duration: 1.0, ease: "power2.inOut" }, 11.3);
+    tl.to("#sk3", { height: 95, duration: 0.4, ease: "power2.in" }, 12.3);
+    show("#skh", 12.6, 0.2);
+    show("#skl", 13.4); pulse("#skl", 15.0, 1.05);
+    tl.set("#dg", { opacity: 1, x: 0, y: 0 }, 16.2);
+    tl.to("#dg", { y: 0, duration: 0.01 }, 16.2);
+    tl.to("#dg", { x: 970, duration: 1.3, ease: "power1.inOut" }, 16.4);
+    tl.to("#dg", { y: 130, duration: 0.5, ease: "power2.in" }, 17.7);
+    tl.to("#dg", { opacity: 0, duration: 0.15 }, 18.2);
+    pulse("#bp", 18.2, 1.25);
+    // L3 20.2-36.6: add element by element
+    show("#rl0", 21.0); ["0", "1", "2"].forEach((i, k) => { show("#vx" + i, 21.8 + k * 0.6, 0.2); pulse("#vx" + i, 21.8 + k * 0.6, 1.2); });
+    pulse("#bx", 22.2, 1.15);
+    show("#rl1", 25.6); [["0", 26.5], ["1", 27.3], ["2", 28.2]].forEach(([i, at]) => { show("#vf" + i, at, 0.2); pulse("#vf" + i, at, 1.2); });
+    pulse("#bc2", 26.4, 1.1);
+    show("#rl2", 30.4); [["0", 31.0], ["1", 31.9], ["2", 32.9]].forEach(([i, at]) => { show("#vs" + i, at, 0.2); pulse("#vs" + i, at, 1.2); });
+    pulse("#bp", 31.0, 1.25);
+    show("#rl3", 34.2); [["0", 34.6], ["1", 35.2], ["2", 35.9]].forEach(([i, at]) => { show("#vr" + i, at, 0.2); pulse("#vr" + i, at, 1.2); });
+    tl.to("#vs1", { color: "#fb7185", duration: 0.3 }, 34.3);
+    pulse("#br2", 34.6, 1.1);
+    pulse("#vr0", 37.6, 1.15); pulse("#vr2", 38.4, 1.15); pulse("#bp", 39.2, 1.2);
+    // L4 37.3-51.5: F = 0 -> y = x
+    tl.to("#vf0, #vf1, #vf2", { opacity: 0, duration: 0.25 }, 40.2);
+    tl.to("#vf0z, #vf1z, #vf2z", { opacity: 1, duration: 0.25 }, 40.4);
+    pulse("#vf0z", 40.6, 1.25); pulse("#vf1z", 40.8, 1.25); pulse("#vf2z", 41.0, 1.25);
+    tl.to("#vs0, #vs1, #vs2", { opacity: 0, duration: 0.25 }, 42.9);
+    tl.to("#vs0z, #vs1z, #vs2z", { opacity: 1, duration: 0.25 }, 43.1);
+    tl.to("#vr0, #vr1, #vr2", { opacity: 0, duration: 0.25 }, 44.4);
+    tl.to("#vr0z, #vr1z, #vr2z", { opacity: 1, duration: 0.25 }, 44.6);
+    pulse("#vr0z", 45.0, 1.25); pulse("#vr1z", 45.3, 1.25); pulse("#vr2z", 45.6, 1.25);
+    pulse("#skl", 47.0, 1.08); pulse("#skl", 48.0, 1.08);
+    hide("#ttl2", 51.2, 0.3);
+    show("#chk", 49.4, 0.3); pulse("#chk", 50.2, 1.06);
+    window.__timelines["world"] = tl;
+  </script>
+</template>

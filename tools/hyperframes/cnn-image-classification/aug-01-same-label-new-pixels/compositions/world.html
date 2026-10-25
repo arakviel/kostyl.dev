@@ -1,0 +1,143 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .sc { position: absolute; inset: 0; }
+    .lab { position: absolute; font-weight: 700; color: #9fb2cf; white-space: nowrap; opacity: 0; }
+    .mono { font-family: "JetBrains Mono", monospace; }
+    .tile { position: absolute; width: 384px; height: 384px; top: 260px; opacity: 0; }
+    .tile img { position: absolute; inset: 0; width: 384px; height: 384px; image-rendering: pixelated; display: block; }
+    .frame { position: absolute; width: 384px; height: 384px; top: 260px; box-shadow: inset 0 0 0 6px var(--c); opacity: 0; }
+    .chip { position: absolute; top: 670px; width: 384px; text-align: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 44px; color: #e8eef7; opacity: 0; }
+    .cap { position: absolute; top: 750px; width: 480px; text-align: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 38px; opacity: 0; white-space: nowrap; }
+    .ng { position: absolute; display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 30px; color: #e8eef7; background: rgba(7,11,20,0.62); }
+    .dot { position: absolute; width: 36px; height: 36px; border-radius: 6px; opacity: 0; }
+    .bar { position: absolute; bottom: 220px; width: 150px; height: 0; }
+    .val { position: absolute; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 44px; opacity: 0; width: 150px; text-align: center; white-space: nowrap; }
+    .big { position: absolute; font-family: "JetBrains Mono", monospace; font-weight: 700; opacity: 0; white-space: nowrap; }
+  </style>
+  <div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+
+    <!-- scene 1: three views of one cat -->
+    <div id="sc1" class="sc">
+      <div id="t1" class="lab" style="left:150px;top:190px;font-size:40px;width:384px;text-align:center">оригінал</div>
+      <div id="t2" class="lab" style="left:768px;top:190px;font-size:40px;width:384px;text-align:center">відображення</div>
+      <div id="t3" class="lab" style="left:1386px;top:190px;font-size:40px;width:384px;text-align:center">зсув на кілька пікселів</div>
+      <div id="k1" class="tile" style="left:150px"><img src="assets/img/orig.png" alt=""><div id="ngrid" style="position:absolute;inset:0;opacity:0"></div></div>
+      <div id="k2" class="tile" style="left:768px"><img src="assets/img/flip.png" alt=""><img id="h2" src="assets/img/d_flip.png" alt="" style="opacity:0"></div>
+      <div id="k3" class="tile" style="left:1386px"><img src="assets/img/shift.png" alt=""><img id="h3" src="assets/img/d_shift.png" alt="" style="opacity:0"></div>
+      <div id="f1" class="frame" style="left:150px;--c:#22d3ee"></div>
+      <div id="f2" class="frame" style="left:768px;--c:#34d399"></div>
+      <div id="f3" class="frame" style="left:1386px;--c:#fbbf24"></div>
+      <div id="c1" class="chip" style="left:150px">мітка: кіт</div>
+      <div id="c2" class="chip" style="left:768px">мітка: кіт</div>
+      <div id="c3" class="chip" style="left:1386px">мітка: кіт</div>
+      <div id="n1" class="cap" style="left:102px;color:#22d3ee">3 × 32 × 32 = 3 072 числа</div>
+      <div id="n2" class="cap" style="left:720px;color:#34d399">змінилось 3 040 із 3 072</div>
+      <div id="n3" class="cap" style="left:1338px;color:#fbbf24">змінилось 3 026 із 3 072</div>
+    </div>
+
+    <!-- scene 2: 81 shifts, x2 mirror -->
+    <div id="sc2" class="sc" style="opacity:0">
+      <div id="gta" class="lab" style="left:240px;top:236px;font-size:40px">поле 4: вікно 32 у 40</div>
+      <div id="gtb" class="lab" style="left:820px;top:236px;font-size:40px">те саме, відображене</div>
+      <div id="gA"></div><div id="gB"></div>
+      <div id="s81" class="big" style="left:1350px;top:300px;font-size:150px;color:#22d3ee">81</div>
+      <div id="s81l" class="lab" style="left:1350px;top:470px;font-size:36px">зсувів, 9 × 9</div>
+      <div id="s2" class="big" style="left:1350px;top:540px;font-size:110px;color:#34d399">× 2</div>
+      <div id="s162" class="big" style="left:1350px;top:690px;font-size:150px;color:#fbbf24">162</div>
+      <div id="s162l" class="lab mono" style="left:1350px;top:870px;font-size:44px;color:#e8eef7">усі: мітка кіт</div>
+    </div>
+
+    <!-- scene 3: bars -->
+    <div id="sc3" class="sc" style="opacity:0">
+      <div style="position:absolute;left:230px;top:858px;width:1260px;height:4px;background:#2a3b57"></div>
+      <div id="lg1" class="lab" style="left:1560px;top:300px;font-size:40px;color:#22d3ee">навчання</div>
+      <div id="lg2" class="lab" style="left:1560px;top:360px;font-size:40px;color:#fbbf24">тест</div>
+      <div id="bA1" class="bar" style="left:300px;background:#22d3ee"></div>
+      <div id="bA2" class="bar" style="left:470px;background:#fbbf24"></div>
+      <div id="bB1" class="bar" style="left:960px;background:#22d3ee"></div>
+      <div id="bB2" class="bar" style="left:1130px;background:#fbbf24"></div>
+      <div id="vA1" class="val" style="left:300px;top:225px;color:#22d3ee">96,2%</div>
+      <div id="vA2" class="val" style="left:470px;top:368px;color:#fbbf24">72,3%</div>
+      <div id="vB1" class="val" style="left:960px;top:299px;color:#22d3ee">83,8%</div>
+      <div id="vB2" class="val" style="left:1130px;top:327px;color:#fbbf24">79,1%</div>
+      <div id="gnA" class="lab mono" style="left:240px;top:140px;font-size:40px;color:#fb7185">розрив 23,9 п. п.</div>
+      <div id="gnB" class="lab mono" style="left:900px;top:140px;font-size:40px;color:#34d399">розрив 4,6 п. п.</div>
+      <div id="xA" class="lab" style="left:290px;top:880px;font-size:38px;width:340px;text-align:center">без аугментації</div>
+      <div id="xB" class="lab" style="left:950px;top:880px;font-size:38px;width:340px;text-align:center">відображення + зсув</div>
+    </div>
+
+    <!-- scene 4: the bad one -->
+    <div id="sc4" class="sc" style="opacity:0">
+      <div id="u1" class="lab" style="left:380px;top:190px;font-size:40px;width:384px;text-align:center;color:#fb7185">догори дриґом</div>
+      <div id="u2" class="lab" style="left:1156px;top:190px;font-size:40px;width:384px;text-align:center;color:#34d399">так виглядає тест</div>
+      <div id="kd" class="tile" style="left:380px"><img src="assets/img/down.png" alt=""></div>
+      <div id="ko" class="tile" style="left:1156px"><img src="assets/img/orig2.png" alt=""></div>
+      <div id="fd" class="frame" style="left:380px;--c:#fb7185"></div>
+      <div id="fo" class="frame" style="left:1156px;--c:#34d399"></div>
+      <div id="xa" style="position:absolute;left:380px;top:260px;width:384px;height:384px;opacity:0">
+        <div style="position:absolute;left:30px;top:186px;width:324px;height:14px;background:#fb7185;transform:rotate(45deg);box-shadow:0 0 0 3px #070b14"></div>
+        <div style="position:absolute;left:30px;top:186px;width:324px;height:14px;background:#fb7185;transform:rotate(-45deg);box-shadow:0 0 0 3px #070b14"></div>
+      </div>
+      <div id="nd" class="chip" style="left:380px;color:#fb7185">так не можна</div>
+      <div id="no" class="chip" style="left:1156px;color:#34d399">коти на ногах</div>
+      <div id="cmp" class="lab mono" style="left:0;width:1920px;text-align:center;top:800px;font-size:38px;color:#22d3ee">Compose([RandomCrop(32, padding=4), RandomHorizontalFlip(), ToTensor()])</div>
+    </div>
+  </div>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const mk = (parent, cls, css, text, id) => { const d = document.createElement("div"); d.className = cls; Object.assign(d.style, css); if (text !== undefined) d.textContent = text; if (id) d.id = id; parent.appendChild(d); return d; };
+    // real red-channel values of the cat at pixels (rows, cols) in {2,7,13,18,24,29}
+    const R = [[68,55,108,73,126,64],[55,167,89,148,126,48],[63,158,68,123,155,135],[55,184,118,62,85,138],[78,83,88,87,110,109],[77,86,85,59,116,109]];
+    for (let r = 0; r < 6; r++) for (let c = 0; c < 6; c++) mk($("ngrid"), "ng", { left: c * 64 + "px", top: r * 64 + "px" }, R[r][c]);
+    // dots: 9 x 9 shifts
+    const D = 44;
+    for (let i = 0; i < 9; i++) for (let j = 0; j < 9; j++) {
+      mk($("gA"), "dot", { left: 240 + j * D + "px", top: 310 + i * D + "px", background: "#22d3ee" }, undefined, "da" + (i * 9 + j));
+      mk($("gB"), "dot", { left: 820 + j * D + "px", top: 310 + i * D + "px", background: "#34d399" }, undefined, "db" + (i * 9 + j));
+    }
+    const tl = gsap.timeline({ paused: true });
+    const show = (sel, at, d = 0.25) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, at);
+    const hide = (sel, at, d = 0.3) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+    const pulse = (sel, at, sc = 1.12) => { tl.to(sel, { scale: sc, duration: 0.15 }, at); tl.to(sel, { scale: 1, duration: 0.3 }, at + 0.15); };
+
+    // L1 0.4-8.1: the same cat, three views, one label
+    tl.set("#t1, #k1, #f1", { opacity: 1 }, 0); show("#c1", 1.4);
+    show("#t2", 3.0); show("#k2", 3.2, 0.4); show("#f2", 3.2, 0.4); show("#c2", 3.8);
+    show("#t3", 5.2); show("#k3", 5.4, 0.4); show("#f3", 5.4, 0.4); show("#c3", 6.0);
+    pulse("#c1", 7.0, 1.15); pulse("#c2", 7.2, 1.15); pulse("#c3", 7.4, 1.15);
+    // L2 8.8-24.7: the network sees numbers
+    tl.to("#k1 img", { opacity: 0.35, duration: 0.4 }, 9.0); show("#ngrid", 9.2, 0.4); show("#n1", 10.4);
+    pulse("#n1", 12.0, 1.06);
+    tl.to("#h2", { opacity: 1, duration: 0.5 }, 13.8); show("#n2", 15.0); pulse("#n2", 15.6, 1.06);
+    tl.to("#h3", { opacity: 1, duration: 0.5 }, 17.8); show("#n3", 19.0); pulse("#n3", 19.6, 1.06);
+    pulse("#c1", 23.0, 1.15); pulse("#c2", 23.2, 1.15); pulse("#c3", 23.4, 1.15);
+    // L3 25.4-37.5: 81 positions x 2
+    hide("#sc1", 24.7, 0.4); tl.to("#sc2", { opacity: 1, duration: 0.4 }, 25.0);
+    show("#gta", 25.4);
+    for (let k = 0; k < 81; k++) tl.to("#da" + k, { opacity: 1, duration: 0.12, ease: "power2.out" }, 25.9 + k * 0.055);
+    show("#s81", 30.4); show("#s81l", 30.8); pulse("#s81", 31.2, 1.08);
+    show("#gtb", 32.4); show("#s2", 32.5);
+    for (let k = 0; k < 81; k++) tl.to("#db" + k, { opacity: 1, duration: 0.1, ease: "power2.out" }, 32.7 + k * 0.02);
+    show("#s162", 35.3); pulse("#s162", 35.8, 1.1); show("#s162l", 36.0);
+    pulse("#s162l", 36.8, 1.05);
+    // L4 38.3-54.5: the memorising gap closes
+    hide("#sc2", 37.9, 0.4); tl.to("#sc3", { opacity: 1, duration: 0.4 }, 38.3);
+    show("#lg1", 38.8); show("#lg2", 39.2); show("#xA", 39.6);
+    const grow = (id, vid, pct, at) => { tl.to("#" + id, { height: pct * 6.0 + "px", duration: 0.9, ease: "power3.out" }, at); show("#" + vid, at + 0.8, 0.2); };
+    grow("bA1", "vA1", 96.2, 41.3);
+    grow("bA2", "vA2", 72.3, 45.4);
+    show("#gnA", 47.2); pulse("#gnA", 47.8, 1.06);
+    show("#xB", 48.6);
+    grow("bB1", "vB1", 83.8, 50.0);
+    grow("bB2", "vB2", 79.1, 52.0);
+    show("#gnB", 53.6); pulse("#gnB", 54.0, 1.06);
+    // L5 55.2-60.9: the bad augmentation
+    hide("#sc3", 55.0, 0.4); tl.to("#sc4", { opacity: 1, duration: 0.4 }, 55.3);
+    show("#u1", 55.5); show("#kd", 55.6, 0.4); show("#fd", 55.6, 0.4);
+    show("#xa", 56.4, 0.3); show("#nd", 56.8); pulse("#nd", 57.6, 1.08);
+    show("#u2", 58.5); show("#ko", 58.6, 0.4); show("#fo", 58.6, 0.4); show("#no", 59.2); pulse("#no", 60.0, 1.08);
+    show("#cmp", 60.4, 0.4);
+    window.__timelines["world"] = tl;
+  </script>
+</template>

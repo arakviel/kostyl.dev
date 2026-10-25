@@ -1,0 +1,55 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .mono { font-family: "JetBrains Mono", monospace; }
+    .t { position: absolute; width: 340px; text-align: center; font-weight: 700; opacity: 0; white-space: nowrap; }
+    .bar { position: absolute; bottom: 320px; width: 160px; height: 0; border-radius: 8px 8px 0 0; }
+    .lab { position: absolute; font-weight: 700; white-space: nowrap; opacity: 0; }
+  </style>
+  <div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <div style="position:absolute;left:150px;top:758px;width:1620px;height:4px;background:#2a3b57"></div>
+    <div id="cols"></div>
+    <div id="br1" class="lab" style="left:150px;width:1020px;text-align:center;top:110px;font-size:42px;color:#9fb2cf">без залишкових блоків: від 5 до 16 шарів</div>
+    <div id="br2" class="lab" style="left:1405px;width:340px;text-align:center;top:110px;font-size:42px;color:#34d399">з ними: 152</div>
+  </div>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const mk = (parent, cls, css, text, id) => { const d = document.createElement("div"); d.className = cls; Object.assign(d.style, css); if (text !== undefined) d.textContent = text; if (id) d.id = id; parent.appendChild(d); return d; };
+    // depth, params and top-5 error from the lesson (papers for the errors); bar height = depth * 3.0 px
+    const M = [
+      { y: "1998", n: "LeNet-5", d: 5, p: "61 706", e: null, c: "#22d3ee" },
+      { y: "2012", n: "AlexNet", d: 8, p: "61,1 млн", e: "15,3%", c: "#22d3ee" },
+      { y: "2014", n: "VGG-16", d: 16, p: "138,4 млн", e: "7,3%", c: "#22d3ee" },
+      { y: "2015", n: "ResNet-152", d: 152, p: "60,2 млн", e: "3,57%", c: "#34d399" },
+    ];
+    const XC = [330, 745, 1160, 1575];
+    M.forEach((m, i) => {
+      const L = XC[i] - 170, h = m.d * 3.0;
+      mk($("cols"), "bar", { left: XC[i] - 80 + "px", background: m.c }, undefined, "b" + i);
+      mk($("cols"), "t mono", { left: L + "px", top: 760 - h - 90 + "px", fontSize: "64px", color: m.c }, m.d, "d" + i);
+      mk($("cols"), "t", { left: L + "px", top: "780px", fontSize: "46px", color: "#9fb2cf" }, m.y, "y" + i);
+      mk($("cols"), "t", { left: L + "px", top: "840px", fontSize: "42px", color: "#e8eef7" }, m.n, "n" + i);
+      mk($("cols"), "t mono", { left: L + "px", top: "905px", fontSize: "38px", color: m.c }, m.p + " парам.", "p" + i);
+      if (m.e) mk($("cols"), "t mono", { left: L + "px", top: "965px", fontSize: "40px", color: "#fbbf24" }, "top-5: " + m.e, "e" + i);
+    });
+    mk($("cols"), "t mono", { left: XC[3] - 170 + "px", top: "1020px", fontSize: "32px", color: "#9fb2cf" }, "ансамбль мереж", "ens");
+    const tl = gsap.timeline({ paused: true });
+    const show = (sel, at, d = 0.25) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, at);
+    const pulse = (sel, at, sc = 1.12) => { tl.to(sel, { scale: sc, duration: 0.15 }, at); tl.to(sel, { scale: 1, duration: 0.3 }, at + 0.15); };
+    const grow = (i, at, d = 0.9) => tl.to("#b" + i, { height: M[i].d * 3.0, duration: d, ease: "power3.out" }, at);
+    // L1 0.4-7.3
+    tl.set("#y0", { opacity: 1 }, 0); pulse("#y0", 2.0, 1.1); show("#n0", 3.5); grow(0, 4.6, 0.5); show("#d0", 5.0); show("#p0", 6.2);
+    // L2 7.9-18.7
+    show("#y1", 8.0); show("#n1", 9.8); grow(1, 10.2, 0.6); show("#d1", 10.8); show("#p1", 12.4); pulse("#p1", 13.6, 1.08); show("#e1", 16.4); pulse("#e1", 17.0, 1.12);
+    // L3 19.4-25.8
+    show("#y2", 19.5); show("#n2", 21.0); grow(2, 21.3, 0.7); show("#d2", 22.0); show("#p2", 22.9); show("#e2", 24.2); pulse("#e2", 24.8, 1.12);
+    // L4 26.5-40.6
+    show("#y3", 26.6); show("#n3", 28.3); grow(3, 30.2, 1.6); show("#d3", 31.7); pulse("#d3", 32.4, 1.1);
+    show("#p3", 33.0); pulse("#p3", 33.8, 1.1); pulse("#p2", 34.4, 1.1); pulse("#p3", 35.0, 1.1);
+    show("#e3", 36.8); pulse("#e3", 37.4, 1.12); show("#ens", 38.6); pulse("#ens", 39.4, 1.08);
+    // L5 41.3-46.5
+    show("#br1", 41.8); pulse("#d0", 42.4, 1.15); pulse("#d1", 42.7, 1.15); pulse("#d2", 43.0, 1.15);
+    show("#br2", 43.8); pulse("#d3", 44.4, 1.12); pulse("#b3", 45.2, 1.02); tl.to("#br1, #br2", { opacity: 0, duration: 0.3 }, 46.3);
+    window.__timelines["world"] = tl;
+  </script>
+</template>

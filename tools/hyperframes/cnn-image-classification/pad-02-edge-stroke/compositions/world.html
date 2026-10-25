@@ -20,7 +20,7 @@
     <div id="map2" style="opacity:0"></div>
     <div id="ovc" class="ov" style="left:248px;top:300px;width:288px;height:432px;background:rgba(34,211,238,0.10);box-shadow:inset 0 0 0 3px rgba(34,211,238,0.5)"></div>
     <div id="ov0" class="ov" style="left:176px;top:300px;width:72px;height:432px;box-shadow:inset 0 0 0 5px #fb7185"></div>
-    <div id="note" class="lab mono" style="left:104px;top:780px;font-size:36px;color:#8aa0bd">центр ядра: лише стовпці 1–4</div>
+    <div id="note" class="lab mono" style="left:104px;top:780px;font-size:36px;color:#8aa0bd">центр ядра: лише стовпці 1–4 (з 0–5)</div>
     <div id="win"><div id="ctr"></div></div>
     <div id="mx0" class="mx" style="color:#fb7185">максимум: 0</div>
     <div id="mx3" class="mx" style="color:#34d399">максимум: 3</div>
@@ -53,57 +53,51 @@
     const show = (sel, at, d = 0.25) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, at);
     const hide = (sel, at, d = 0.25) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
     const put = (id, v, at) => { tl.set("#" + id, { opacity: 1, backgroundColor: cellCss(v).background }, at); tl.to("#" + id, { scale: 1.15, duration: 0.08 }, at); tl.to("#" + id, { scale: 1, duration: 0.2 }, at + 0.08); };
-    const winTo = (r, c, at, d) => tl.to("#win", { x: c * CS, y: r * CS, duration: d, ease: "power1.inOut" }, at);
-    gsap.set("#win", { x: 0, y: 0 });
+    // #win sits at grid cell (1,1) when x = y = 0; so its top-left grid cell (gr, gc) means x = (gc - 1) * CS, y = (gr - 1) * CS
+    const winAt = (gr, gc, at, d) => tl.to("#win", { x: (gc - 1) * CS, y: (gr - 1) * CS, duration: d, ease: "power1.inOut" }, at);
+    const pulse = (sel, at, sc = 1.2) => { tl.to(sel, { scale: sc, duration: 0.15 }, at); tl.to(sel, { scale: 1, duration: 0.3 }, at + 0.15); };
+    gsap.set("#win", { x: 0, y: 0 });   // input (0,0) = grid (1,1)
 
-    // hook 0-5: input, label, kernel
-    show("#ilab", 1.0); show("#olab", 2.4); show("#klab", 4.4);
-    // 5.2 window at input (0,0) = padded (1,1); 8.2-11.9 sweep over the 16 positions
-    gsap.set("#win", { x: CS, y: CS });
-    show("#win", 5.2);
+    // L1 0.4-9.9: the input with its stroke, then the kernel
+    show("#ilab", 1.0); show("#klab", 6.0);
+    ["#g11", "#g21", "#g31", "#g41", "#g51", "#g61"].forEach((id, k) => { tl.to(id, { boxShadow: "inset 0 0 0 6px #fbbf24", duration: 0.15 }, 2.4 + k * 0.25); tl.to(id, { boxShadow: "inset 0 0 0 2px rgba(255,255,255,0.07)", duration: 0.4 }, 2.7 + k * 0.25); });
+    show("#win", 9.2);
+    // L2 10.4-23.8: sweep over the 16 positions of the 4x4 map
     let n = 0;
     for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) {
-      const at = 8.2 + n * 0.22;
-      winTo(i + 1, j + 1, at, 0.18);
+      const at = 11.0 + n * 0.22;
+      winAt(i + 1, j + 1, at, 0.18);
       put("a" + i + j, val1(i, j), at + 0.12);
       n++;
     }
-    // 12.2 back to the corner; the centre can only stand over columns 1-4
-    winTo(1, 1, 12.2, 0.5);
-    show("#note", 12.8); show("#ovc", 13.2); show("#ov0", 14.0);
-    tl.to("#ctr", { scale: 1.5, duration: 0.2 }, 15.2); tl.to("#ctr", { scale: 1, duration: 0.3 }, 15.4);
-    // 18.35 "виходить мінус три"
-    tl.to("#a00", { scale: 1.25, duration: 0.15 }, 18.35); tl.to("#a00", { scale: 1, duration: 0.3 }, 18.5);
-    hide("#ovc", 19.0); hide("#note", 19.0);
-    // 20.8 maximum 0
-    show("#mx0", 20.8); hide("#ov0", 21.0);
-    tl.to("#g10, #g20, #g30, #g40, #g50, #g60", { opacity: 1, duration: 0.01 }, 0);
-    tl.to("#grid .c", { filter: "brightness(1.0)", duration: 0.01 }, 0);
-    ["#g11", "#g21", "#g31", "#g41", "#g51", "#g61"].forEach((id, k) => { tl.to(id, { boxShadow: "inset 0 0 0 6px #fbbf24", duration: 0.15 }, 22.6 + k * 0.1); tl.to(id, { boxShadow: "inset 0 0 0 2px rgba(255,255,255,0.07)", duration: 0.4 }, 22.9 + k * 0.1); });
-    tl.to("#map1", { filter: "brightness(1.6)", duration: 0.2 }, 24.0); tl.to("#map1", { filter: "brightness(1)", duration: 0.5 }, 24.3);
-    // 26.0 the frame of zeros
+    show("#olab", 14.0);
+    winAt(1, 1, 15.2, 0.5);
+    show("#note", 17.0); show("#ovc", 18.0); show("#ov0", 21.4);
+    pulse("#ctr", 22.4, 1.5);
+    // L3 24.2-32.2: every cell over the stroke gives -3, the maximum is 0
+    hide("#ovc", 24.4); hide("#note", 24.4);
+    [0, 1, 2, 3].forEach((i, k) => pulse("#a" + i + "0", 25.0 + k * 0.9, 1.25));
+    show("#mx0", 29.8); hide("#ov0", 30.0);
+    tl.to("#map1", { filter: "brightness(1.6)", duration: 0.2 }, 30.4); tl.to("#map1", { filter: "brightness(1)", duration: 0.5 }, 30.6);
+    // L4 32.6-40.8: the frame of zeros, the 6x6 map
     const ringIds = []; for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) if (r === 0 || c === 0 || r === 7 || c === 7) ringIds.push("#g" + r + c);
-    ringIds.forEach((id, k) => tl.to(id, { opacity: 1, duration: 0.2, ease: "power2.out" }, 26.0 + k * 0.04));
-    hide("#mx0", 26.4);
-    // 27.4 the bigger map takes over; the window starts from the padded corner
-    hide("#map1", 27.4); show("#map2", 27.6);
-    tl.to("#win", { x: 0, y: 0, duration: 0.5, ease: "power2.inOut" }, 27.6);
-    // column 0 slowly (the +3), then column 1, then the rest quickly
-    const order = [];
-    for (let j = 0; j < 6; j++) for (let i = 0; i < 6; i++) order.push([i, j]);
-    let t = 28.6;
-    order.forEach(([i, j]) => {
-      const step = j === 0 ? 0.35 : j === 1 ? 0.15 : 0.07;
-      winTo(i, j, t, Math.min(0.12, step));
-      put("b" + i + j, val2(i, j), t + Math.min(0.12, step) * 0.8);
-      t += step;
-    });
-    // 33.7 the window goes back over the stroke: its centre is above column 0 now
-    winTo(1, 0, 33.7, 0.6);
-    tl.to("#ctr", { scale: 1.5, duration: 0.2 }, 34.5); tl.to("#ctr", { scale: 1, duration: 0.3 }, 34.7);
-    // 33.9 maximum 3 in column 0
-    show("#mx3", 33.9); show("#hlm", 34.2);
-    tl.to("#hlm", { boxShadow: "inset 0 0 0 6px #fbbf24", duration: 0.2 }, 36.4); tl.to("#hlm", { boxShadow: "inset 0 0 0 6px #ffffff", duration: 0.5 }, 36.6);
+    ringIds.forEach((id, k) => tl.to(id, { opacity: 1, duration: 0.2, ease: "power2.out" }, 32.8 + k * 0.04));
+    hide("#mx0", 33.6);
+    hide("#map1", 36.0); show("#map2", 36.2);
+    tl.to("#win", { x: -CS, y: -CS, duration: 0.4, ease: "power2.inOut" }, 36.2);
+    // column 0 slowly, column 1 faster, the rest quickly; window top-left grid cell (i, j)
+    let t = 36.8;
+    for (let j = 0; j < 6; j++) for (let i = 0; i < 6; i++) {
+      const step = j === 0 ? 0.35 : j === 1 ? 0.15 : 0.07, d = Math.min(0.12, step);
+      winAt(i, j, t, d); put("b" + i + j, val2(i, j), t + d * 0.8); t += step;
+    }
+    // L5 41.2-50.5: the centre stands over the stroke -> +3
+    winAt(1, 0, 41.5, 0.6);
+    pulse("#ctr", 42.4, 1.5);
+    show("#mx3", 42.6); show("#hlm", 43.0);
+    tl.to("#hlm", { boxShadow: "inset 0 0 0 6px #fbbf24", duration: 0.2 }, 44.0); tl.to("#hlm", { boxShadow: "inset 0 0 0 6px #ffffff", duration: 0.5 }, 44.3);
+    pulse("#b00", 45.2, 1.3); pulse("#b50", 46.4, 1.3);
+    pulse("#b10", 47.8, 1.2); pulse("#b20", 48.6, 1.2); pulse("#b30", 49.4, 1.2);
     window.__timelines["world"] = tl;
   </script>
 </template>
