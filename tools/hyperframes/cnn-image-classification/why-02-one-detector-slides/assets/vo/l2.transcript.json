@@ -1,0 +1,48 @@
+{
+  "audio": "assets/vo/l2.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Покладемо",
+      "start": 0.1,
+      "end": 0.72,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "його",
+      "start": 0.76,
+      "end": 0.96,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "на",
+      "start": 1.02,
+      "end": 1.16,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "першу",
+      "start": 1.2,
+      "end": 1.5,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "ділянку",
+      "start": 1.54,
+      "end": 2,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "мінус",
+      "start": 2.26,
+      "end": 2.64,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "три",
+      "start": 2.68,
+      "end": 2.9,
+      "speaker": "speaker_0"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "audio": "assets/vo/l1.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Візьмемо",
+      "start": 0.22,
+      "end": 0.66,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "цифру",
+      "start": 0.78,
+      "end": 1.18,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "і",
+      "start": 1.5,
+      "end": 1.56,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "розгорнемо",
+      "start": 1.6,
+      "end": 2.3,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "її",
+      "start": 2.36,
+      "end": 2.6,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "в",
+      "start": 2.62,
+      "end": 2.64,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "один",
+      "start": 2.7,
+      "end": 2.92,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "рядок",
+      "start": 2.98,
+      "end": 3.36,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "із",
+      "start": 3.62,
+      "end": 3.74,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "семисот",
+      "start": 3.78,
+      "end": 4.26,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "вісімдесяти",
+      "start": 4.34,
+      "end": 5,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "чотирьох",
+      "start": 5.04,
+      "end": 5.4,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "чисел",
+      "start": 5.52,
+      "end": 5.86,
+      "speaker": "speaker_0"
+    }
+  ]
+}

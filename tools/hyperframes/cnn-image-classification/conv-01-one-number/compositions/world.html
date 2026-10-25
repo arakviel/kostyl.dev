@@ -1,0 +1,155 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .c { position: absolute; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 700; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.08); }
+    .lab { position: absolute; font-weight: 700; color: #8aa0bd; white-space: nowrap; opacity: 0; }
+    .grp { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; opacity: 0; }
+    .op { position: absolute; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 72px; color: #8aa0bd; opacity: 0; }
+    #win { position: absolute; left: 96px; top: 200px; width: 252px; height: 252px; box-shadow: inset 0 0 0 6px #22d3ee; background: rgba(34,211,238,0.12); opacity: 0; }
+    .expr { position: absolute; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 40px; white-space: nowrap; color: #e8eef7; }
+    .expr span { opacity: 0; }
+    .res { position: absolute; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 124px; line-height: 1; white-space: nowrap; opacity: 0; }
+    .hl { position: absolute; box-sizing: border-box; border: 6px solid #fb7185; opacity: 0; }
+    .hl.g { border-color: #34d399; }
+    .v { opacity: 0; }
+  </style>
+  <div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <div id="inp"></div>
+    <div id="win"></div>
+    <div id="olab" class="lab" style="left:96px;top:650px;font-size:38px">карта ознак O</div>
+    <div id="omap"></div>
+    <div id="ilab" class="lab" style="left:96px;top:140px;font-size:40px">вхід I</div>
+    <div id="plab" class="lab" style="left:640px;top:150px;font-size:40px">ділянка</div>
+    <div id="klab" class="lab" style="left:1010px;top:150px;font-size:40px">ядро K</div>
+    <div id="mlab" class="lab" style="left:1380px;top:150px;font-size:40px">добутки</div>
+    <div id="kmat"></div>
+    <div id="op1" class="op" style="left:962px;top:318px">×</div>
+    <div id="op2" class="op" style="left:1328px;top:318px">=</div>
+    <div id="g1" class="grp"></div>
+    <div id="g2" class="grp"></div>
+  </div>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const I = [[0,1,5,0,0],[0,0,5,1,0],[1,0,4,0,0],[0,0,5,0,1],[0,1,5,0,0]];
+    const K = [[-1,1,-1],[-1,1,-1],[-1,1,-1]];
+    const OUT = [[-14,12,-13],[-15,13,-14],[-14,13,-15]];
+    const ROSE = "#fb7185", EM = "#34d399", GR = "#8aa0bd";
+    const gray = (v) => { const t = v / 5; return "rgb(" + [Math.round(11 + 233 * t), Math.round(18 + 229 * t), Math.round(32 + 219 * t)].join(",") + ")"; };
+    const signCol = (v) => (v > 0 ? EM : v < 0 ? ROSE : GR);
+    const txt = (v) => (v > 0 ? "+" + v : v < 0 ? "−" + Math.abs(v) : "0");
+    const mk = (parent, cls, css, text, id) => { const d = document.createElement("div"); d.className = cls; Object.assign(d.style, css); if (text !== undefined) d.textContent = text; if (id) d.id = id; parent.appendChild(d); return d; };
+
+    // input 5x5 (cell 84)
+    const IX = 96, IY = 200, IC = 84;
+    for (let r = 0; r < 5; r++) for (let c = 0; c < 5; c++) {
+      const v = I[r][c];
+      mk($("inp"), "c", { left: IX + c * IC + "px", top: IY + r * IC + "px", width: IC + "px", height: IC + "px", background: gray(v), color: v >= 3 ? "#070b14" : "#aab9cf", fontSize: "36px" }, v);
+    }
+    // kernel (cell 100)
+    const KX = 1010, KY = 220, MC = 100;
+    for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) {
+      const v = K[r][c];
+      mk($("kmat"), "c", { left: KX + c * MC + "px", top: KY + r * MC + "px", width: MC + "px", height: MC + "px", background: v > 0 ? "rgba(52,211,153,0.22)" : "rgba(251,113,133,0.2)", color: signCol(v), fontSize: "44px" }, txt(v), "k" + r + c);
+    }
+    
+
+    // one position = patch + products + expression + result, drawn into its own group
+    const PX = 640, PY = 220, RX = 1380;
+    const build = (gid, i0, j0, ids) => {
+      const g = $(gid); const terms = [];
+      let sum = 0;
+      for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) {
+        const v = I[i0 + r][j0 + c], k = K[r][c], p = v * k; sum += p;
+        mk(g, "c", { left: PX + c * MC + "px", top: PY + r * MC + "px", width: MC + "px", height: MC + "px", background: gray(v), color: v >= 3 ? "#070b14" : "#aab9cf", fontSize: "44px" }, v, ids + "p" + r + c);
+        mk(g, "c", { left: RX + c * MC + "px", top: PY + r * MC + "px", width: MC + "px", height: MC + "px", background: "#0b1220", color: signCol(p), fontSize: "44px" }, txt(p), ids + "m" + r + c).style.color = signCol(p);
+        gsap.set("#" + ids + "m" + r + c, { opacity: 0 });
+        terms.push(p);
+      }
+      const e = mk(g, "expr", { left: PX + "px", top: "566px" }, undefined, ids + "e");
+      terms.forEach((t, n) => { const s = document.createElement("span"); s.id = ids + "t" + n; s.textContent = (n === 0 ? (t < 0 ? "−" + Math.abs(t) : String(t)) : (t < 0 ? " − " + Math.abs(t) : " + " + t)); e.appendChild(s); });
+      mk(g, "res", { left: "900px", top: "650px", color: sum < 0 ? ROSE : EM }, "= " + txt(sum), ids + "r");
+      return { sum, terms };
+    };
+    const A = build("g1", 0, 0, "a"), B = build("g2", 0, 1, "b");
+    // highlights for the patch columns
+    const hlc = (gid, id, col, cls) => mk($(gid), "hl" + (cls ? " g" : ""), { left: PX + col * MC + "px", top: PY + "px", width: MC + "px", height: 3 * MC + "px" }, undefined, id);
+    hlc("g1", "hlA", 2, false);
+    hlc("g2", "hlB", 1, true);
+    mk($("root"), "hl", { left: KX + 2 * MC + "px", top: KY + "px", width: MC + "px", height: 3 * MC + "px" }, undefined, "hlKA");
+    mk($("root"), "hl g", { left: KX + MC + "px", top: KY + "px", width: MC + "px", height: 3 * MC + "px" }, undefined, "hlKB");
+
+    // output map 3x3 (cell 72)
+    const OX = 96, OY = 700, OC = 72;
+    for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) {
+      const v = OUT[r][c];
+      mk($("omap"), "c", { left: OX + c * OC + "px", top: OY + r * OC + "px", width: OC + "px", height: OC + "px", background: "#0b1220", color: v > 0 ? EM : ROSE, fontSize: "30px" }, "", "o" + r + c);
+      const sp = document.createElement("span"); sp.id = "ov" + r + c; sp.textContent = (v > 0 ? "+" : "−") + Math.abs(v); sp.style.opacity = 0; $("o" + r + c).appendChild(sp);
+    }
+    mk($("omap"), "hl g", { left: OX + OC + "px", top: OY + "px", width: OC + "px", height: 3 * OC + "px" }, undefined, "hlO");
+
+    const tl = gsap.timeline({ paused: true });
+    const show = (sel, at, d = 0.25) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, at);
+    const hide = (sel, at, d = 0.25) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+    const pulse = (sel, at, col) => { tl.to(sel, { boxShadow: "inset 0 0 0 6px " + col, duration: 0.2 }, at); tl.to(sel, { boxShadow: "inset 0 0 0 2px rgba(255,255,255,0.08)", duration: 0.5 }, at + 0.35); };
+
+    // hook: input is on screen; the kernel is introduced; the window lands on (0,0)
+    gsap.set(["#ilab", "#klab", "#olab"], { opacity: 1 });
+    tl.to("#kmat", { scale: 1.04, duration: 0.2, ease: "power2.out", transformOrigin: "1160px 370px" }, 3.0);
+    tl.to("#kmat", { scale: 1, duration: 0.4 }, 3.2);
+    // 5.2 window on the corner
+    show("#win", 5.2);
+    // fill the pauses: window and kernel pulse while the voice places the kernel; the nine pixels are counted off
+    tl.to("#win", { boxShadow: "inset 0 0 0 6px #ffffff", duration: 0.2 }, 6.5);
+    tl.to("#win", { boxShadow: "inset 0 0 0 6px #22d3ee", duration: 0.5 }, 6.75);
+    for (let n = 0; n < 9; n++) { const r = Math.floor(n / 3), c = n % 3; pulse("#k" + r + c, 7.2 + n * 0.12, "#e8eef7"); }
+    tl.to("#win", { boxShadow: "inset 0 0 0 6px #ffffff", duration: 0.2 }, 8.4);
+    tl.to("#win", { boxShadow: "inset 0 0 0 6px #22d3ee", duration: 0.5 }, 8.65);
+    for (let n = 0; n < 9; n++) { const r = Math.floor(n / 3), c = n % 3; pulse("#ap" + r + c, 11.7 + n * 0.14, "#22d3ee"); }
+    for (let n = 0; n < 9; n++) { const r = Math.floor(n / 3), c = n % 3; pulse("#k" + r + c, 14.1 + n * 0.12, "#e8eef7"); }
+    // L2 9.2-13.4: the nine pixels leave the window
+    show("#g1", 10.3, 0.01);
+    ["a"].forEach(() => {
+      tl.fromTo("#g1", { x: -460, y: 40, scale: 0.9, transformOrigin: "640px 220px" }, { x: 0, y: 0, scale: 1, duration: 0.7, ease: "power3.out", immediateRender: false }, 10.3);
+    });
+    // patch cells only first; products, expression and result stay hidden inside the group
+    gsap.set(["#am00","#am01","#am02","#am10","#am11","#am12","#am20","#am21","#am22"], { opacity: 0 });
+    show("#plab", 10.8);
+    // L3 13.9-22.5: multiply
+    show("#op1", 15.4); show("#mlab", 15.8);
+    const prodAt = [18.5, 20.1, 21.0, 22.0, 22.15, 22.3, 22.45, 22.6, 22.75];
+    for (let n = 0; n < 9; n++) {
+      const r = Math.floor(n / 3), c = n % 3;
+      show("#am" + r + c, prodAt[n], 0.2);
+      if (n < 3) { pulse("#ap" + r + c, prodAt[n] - 0.1, "#fbbf24"); pulse("#k" + r + c, prodAt[n] - 0.1, "#fbbf24"); }
+    }
+    // L4 22.9-34.8: add them up
+    show("#op2", 24.2);
+    for (let n = 0; n < 9; n++) tl.to("#at" + n, { opacity: 1, duration: 0.15 }, 24.6 + n * 0.2);
+    show("#ar", 26.7, 0.3);
+    // the result goes into O[0,0]
+    tl.to("#ar", { x: -790, y: 90, scale: 0.3, opacity: 0, duration: 0.9, ease: "power3.inOut", transformOrigin: "0 0" }, 28.4);
+    tl.to("#ov00", { opacity: 1, duration: 0.3 }, 29.1);
+    // the stroke sits where the weight is -1
+    show("#hlA", 31.0); show("#hlKA", 31.0);
+    hide("#hlA", 33.6); hide("#hlKA", 33.6);
+    // L5 35.3-44.8: one pixel to the right
+    tl.to("#win", { x: IC, duration: 0.6, ease: "power2.inOut" }, 35.5);
+    hide("#g1", 36.4, 0.4);
+    show("#g2", 37.0, 0.01);
+    tl.fromTo("#g2", { x: -460, y: 40, scale: 0.9, transformOrigin: "640px 220px" }, { x: 0, y: 0, scale: 1, duration: 0.7, ease: "power3.out", immediateRender: false }, 37.0);
+    gsap.set(["#bm00","#bm01","#bm02","#bm10","#bm11","#bm12","#bm20","#bm21","#bm22"], { opacity: 0 });
+    for (let n = 0; n < 9; n++) { const r = Math.floor(n / 3), c = n % 3; show("#bm" + r + c, 38.0 + n * 0.1, 0.2); }
+    for (let n = 0; n < 9; n++) tl.to("#bt" + n, { opacity: 1, duration: 0.15 }, 39.2 + n * 0.17);
+    show("#hlB", 40.5); show("#hlKB", 40.5);
+    show("#br", 42.4, 0.3);
+    tl.to("#br", { x: -790, y: 90, scale: 0.3, opacity: 0, duration: 0.9, ease: "power3.inOut", transformOrigin: "0 0" }, 43.6);
+    tl.to("#ov01", { opacity: 1, duration: 0.3 }, 44.3);
+    hide("#hlB", 44.3); hide("#hlKB", 44.3);
+    // L6 45.3-54: different patches, different numbers
+    pulse("#o00", 46.8, ROSE); pulse("#o01", 47.4, EM);
+    const rest = [[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]];
+    rest.forEach(([r, c], n) => tl.to("#ov" + r + c, { opacity: 1, duration: 0.2 }, 51.4 + n * 0.22));
+    show("#hlO", 53.2);
+    window.__timelines["world"] = tl;
+  </script>
+</template>

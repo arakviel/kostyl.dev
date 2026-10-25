@@ -1,0 +1,30 @@
+{
+  "audio": "assets/vo/l1.wav",
+  "language": "ru",
+  "words": [
+    {
+      "text": "Ось",
+      "start": 0.22,
+      "end": 0.52,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "край",
+      "start": 0.56,
+      "end": 0.78,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "пелюстки",
+      "start": 0.9,
+      "end": 1.4,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "жоржини",
+      "start": 1.44,
+      "end": 1.94,
+      "speaker": "speaker_0"
+    }
+  ]
+}

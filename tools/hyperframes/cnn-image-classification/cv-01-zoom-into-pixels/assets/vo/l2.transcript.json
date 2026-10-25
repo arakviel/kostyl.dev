@@ -1,0 +1,78 @@
+{
+  "audio": "assets/vo/l2.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "А",
+      "start": 0.22,
+      "end": 0.36,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "ось",
+      "start": 0.44,
+      "end": 0.62,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "те,",
+      "start": 0.72,
+      "end": 0.86,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "що",
+      "start": 0.94,
+      "end": 1.06,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "бачить",
+      "start": 1.12,
+      "end": 1.46,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "програма.",
+      "start": 1.5,
+      "end": 2,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "Наближаємо",
+      "start": 2.44,
+      "end": 3.16,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "і",
+      "start": 3.38,
+      "end": 3.46,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "замість",
+      "start": 3.52,
+      "end": 3.86,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "штрихів",
+      "start": 3.9,
+      "end": 4.42,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "бачимо",
+      "start": 4.48,
+      "end": 4.9,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "числа",
+      "start": 4.96,
+      "end": 5.32,
+      "speaker": "speaker_0"
+    }
+  ]
+}

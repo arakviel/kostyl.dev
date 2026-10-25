@@ -1,0 +1,88 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .card { position: absolute; opacity: 0; }
+    .kc { position: absolute; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 700; background: #0b1220; box-shadow: inset 0 0 0 2px rgba(34,211,238,0.35); color: #22d3ee; }
+    .nm { position: absolute; font-weight: 700; font-size: 32px; color: #8aa0bd; white-space: nowrap; text-align: center; }
+    .lab { position: absolute; font-weight: 700; white-space: nowrap; opacity: 0; }
+    .mono { font-family: "JetBrains Mono", monospace; }
+    #photo { position: absolute; left: 1380px; top: 250px; width: 444px; height: 296px; object-fit: cover; opacity: 0; }
+    #q { position: absolute; left: 1380px; top: 250px; width: 444px; height: 296px; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 240px; color: #fbbf24; opacity: 0; text-shadow: 0 0 20px #070b14, 0 0 40px #070b14; }
+    #wall { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    #big { position: absolute; left: 600px; top: 330px; width: 720px; height: 420px; opacity: 0; }
+  </style>
+  <div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <div id="wall"></div>
+    <div id="row"></div>
+    <img id="photo" src="assets/flower.jpg" alt="" />
+    <div id="q">?</div>
+    <div id="cnt" class="lab mono" style="left:96px;top:590px;font-size:48px;color:#fbbf24">тисячі ядер — і яке з них?</div>
+    <div id="who" class="lab" style="left:96px;top:196px;font-size:44px;color:#8aa0bd">придумані людьми, кожне для своєї задачі</div>
+    <div id="big"></div>
+    <div id="nine" class="lab mono" style="left:0;top:200px;width:1920px;text-align:center;font-size:72px;color:#fbbf24">лише 9 чисел</div>
+  </div>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const mk = (parent, cls, css, text, id) => { const d = document.createElement("div"); d.className = cls; Object.assign(d.style, css); if (text !== undefined) d.textContent = text; if (id) d.id = id; parent.appendChild(d); return d; };
+    const T = (v) => (typeof v === "string" ? v : v > 0 ? "+" + v : v < 0 ? "−" + Math.abs(v) : "0");
+
+    // five classic kernels
+    const KS = [
+      ["Тотожність", ["0","0","0","0","1","0","0","0","0"]],
+      ["Розмиття", ["1/9","1/9","1/9","1/9","1/9","1/9","1/9","1/9","1/9"]],
+      ["Загострення", ["0","−1","0","−1","5","−1","0","−1","0"]],
+      ["Собель X", ["−1","0","1","−2","0","2","−1","0","1"]],
+      ["Собель Y", ["−1","−2","−1","0","0","0","1","2","1"]],
+    ];
+    const CELL = 70, GAP = 36, RX = 96, RY = 290;
+    KS.forEach(([name, vals], k) => {
+      const c = mk($("row"), "card", { left: RX + k * (3 * CELL + GAP) + "px", top: RY + "px", width: 3 * CELL + "px", height: 3 * CELL + 60 + "px" }, undefined, "kc" + k);
+      vals.forEach((v, n) => mk(c, "kc", { left: (n % 3) * CELL + "px", top: Math.floor(n / 3) * CELL + "px", width: CELL + "px", height: CELL + "px", fontSize: v.length > 2 ? "28px" : "34px" }, v));
+      mk(c, "nm", { left: "-20px", width: 3 * CELL + 40 + "px", top: 3 * CELL + 14 + "px", fontSize: "28px" }, name);
+    });
+    gsap.set("#kc0", { opacity: 1 });
+
+    // the wall of unknown kernels: deterministic pseudo-random 3x3 patterns
+    const rnd = (a) => () => { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+    const R = rnd(7); const wall = $("wall"); const WC = 14, WP = 56;
+    const wcards = [];
+    for (let r = 0; r < 6; r++) for (let c = 0; c < 30; c++) {
+      const d = mk(wall, "card", { left: 96 + c * WP + "px", top: 660 + r * WP + "px", width: 3 * WC + "px", height: 3 * WC + "px" });
+      for (let n = 0; n < 9; n++) { const v = R(); mk(d, "kc", { left: (n % 3) * WC + "px", top: Math.floor(n / 3) * WC + "px", width: WC + "px", height: WC + "px", boxShadow: "none", background: v > 0.66 ? "rgba(251,191,36," + (0.35 + v * 0.4) + ")" : v < 0.33 ? "rgba(34,211,238," + (0.2 + (1 - v) * 0.3) + ")" : "#0b1220" }); }
+      wcards.push(d);
+    }
+
+    // the one kernel in the middle: 9 weights, they start random and end as Sobel X
+    const BIG = 120; const bigCells = [];
+    for (let n = 0; n < 9; n++) bigCells.push(mk($("big"), "kc", { left: 180 + (n % 3) * BIG + "px", top: Math.floor(n / 3) * BIG + "px", width: BIG + "px", height: BIG + "px", fontSize: "44px", color: "#fbbf24", boxShadow: "inset 0 0 0 3px rgba(251,191,36,0.5)" }, "?"));
+    const W0 = [0.7, -0.3, 0.2, -0.9, 0.5, 0.1, -0.6, 0.8, -0.2], W1 = [-1, 0, 1, -2, 0, 2, -1, 0, 1];
+    const fmt = (v, done) => (done ? (v > 0 ? "+" + Math.round(v) : v < 0 ? "−" + Math.abs(Math.round(v)) : "0") : (v < 0 ? "−" : "+") + Math.abs(v).toFixed(1));
+    const P = { p: 0, shown: false };
+    const render = () => { bigCells.forEach((c, n) => { const v = W0[n] + (W1[n] - W0[n]) * P.p; c.textContent = P.shown ? fmt(v, P.p >= 0.999) : "?"; }); };
+    render();
+
+    const tl = gsap.timeline({ paused: true });
+    const show = (sel, at, d = 0.25) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, at);
+    const hide = (sel, at, d = 0.3) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+    // L1 0.4-7.7: the five classic kernels, made by people
+    for (let k = 1; k < 5; k++) show("#kc" + k, 0.7 + k * 0.6, 0.3);
+    show("#who", 3.9);
+    for (let k = 0; k < 5; k++) tl.to("#kc" + k, { scale: 1.08, duration: 0.18, ease: "power2.out", transformOrigin: "50% 50%" }, 4.6 + k * 0.5), tl.to("#kc" + k, { scale: 1, duration: 0.3 }, 4.78 + k * 0.5);
+    // L2 8.1-15.1: the flower and the question, then the wall of thousands
+    show("#photo", 8.2, 0.4); show("#q", 8.6, 0.3);
+    tl.to("#q", { scale: 1.12, duration: 0.2, ease: "power2.out" }, 9.6); tl.to("#q", { scale: 1, duration: 0.4 }, 9.8);
+    wcards.forEach((c, i) => tl.to(c, { opacity: 1, duration: 0.15 }, 10.9 + i * 0.011));
+    show("#cnt", 11.2);
+    tl.to("#wall", { filter: "brightness(1.5)", duration: 0.2 }, 13.2); tl.to("#wall", { filter: "brightness(1)", duration: 0.4 }, 13.4);
+    // L3 15.6: everything steps back, one kernel stays: nine numbers
+    hide("#row", 15.4); hide("#photo", 15.4); hide("#q", 15.4); hide("#cnt", 15.2); hide("#who", 15.2);
+    tl.to("#wall", { opacity: 0.12, duration: 0.6 }, 15.6);
+    show("#big", 15.7, 0.4); show("#nine", 16.6);
+    tl.set(P, { shown: true }, 15.9);
+    tl.to(P, { p: 0, duration: 0.01, onUpdate: render }, 15.9);
+    bigCells.forEach((c, n) => { tl.to(c, { boxShadow: "inset 0 0 0 5px #ffffff", duration: 0.12 }, 16.0 + n * 0.15); tl.to(c, { boxShadow: "inset 0 0 0 3px rgba(251,191,36,0.5)", duration: 0.3 }, 16.14 + n * 0.15); });
+    // L4 18.9: the weights learn: they drift to Sobel X
+    tl.to(P, { p: 1, duration: 2.4, ease: "power2.inOut", onUpdate: render }, 19.0);
+    window.__timelines["world"] = tl;
+  </script>
+</template>

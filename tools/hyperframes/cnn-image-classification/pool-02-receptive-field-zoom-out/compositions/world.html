@@ -1,0 +1,90 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+    #img { position: absolute; left: 96px; top: 300px; width: 504px; height: 504px; image-rendering: pixelated; box-shadow: 0 0 0 2px rgba(255,255,255,0.08); }
+    #rfs { position: absolute; left: 96px; top: 300px; width: 504px; height: 504px; overflow: visible; }
+    .lb { position: absolute; width: 190px; height: 92px; display: flex; align-items: center; justify-content: center; text-align: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 30px; line-height: 1.15; box-shadow: inset 0 0 0 3px rgba(255,255,255,0.12); background: #0b1220; opacity: 0.35; }
+    .pool { color: #fbbf24; }
+    .conv { color: #22d3ee; }
+    .fm { position: absolute; left: 740px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 42px; white-space: nowrap; opacity: 0; }
+    .fm b { color: #fbbf24; }
+    .lab { position: absolute; font-weight: 700; white-space: nowrap; opacity: 0; color: #8aa0bd; }
+    .bar { position: absolute; left: 740px; height: 46px; opacity: 0; transform-origin: 0 50%; }
+    .bt { position: absolute; left: 744px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; opacity: 0; white-space: nowrap; }
+  </style>
+  <div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <canvas id="img" width="28" height="28"></canvas>
+    <svg id="rfs" viewBox="0 0 504 504"><rect id="rf" x="216" y="216" width="54" height="54" fill="rgba(34,211,238,0.18)" stroke="#22d3ee" stroke-width="5" opacity="0"/></svg>
+    <div id="il" class="lab" style="left:96px;top:236px;font-size:40px">вхід 28 × 28</div>
+    <div id="rl" class="lab" style="left:96px;top:830px;font-size:46px;font-family:'JetBrains Mono',monospace;color:#22d3ee">поле зору: <span id="rv"></span></div>
+    <div id="boxes"></div>
+    <div id="fms"></div>
+    <div id="cl" class="lab" style="left:740px;top:736px;font-size:34px">скільки пікселів входу бачить одне число</div>
+    <div id="bars"></div>
+  </div>
+  <script>
+    const D = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 7, 7, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 13, 120, 137, 186, 254, 254, 136, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 53, 143, 179, 254, 254, 254, 255, 254, 254, 193, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 25, 50, 149, 175, 254, 254, 254, 254, 254, 254, 255, 254, 254, 108, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 96, 170, 254, 254, 254, 254, 254, 245, 183, 99, 99, 147, 252, 254, 196, 3, 0, 0, 0, 0, 0, 0, 0, 0, 4, 145, 162, 162, 219, 254, 254, 254, 246, 186, 93, 66, 0, 0, 0, 125, 246, 254, 119, 2, 0, 0, 0, 0, 0, 0, 0, 0, 87, 215, 254, 254, 254, 254, 204, 87, 68, 0, 0, 0, 0, 0, 46, 197, 254, 180, 47, 0, 0, 0, 0, 0, 0, 0, 0, 0, 168, 254, 156, 80, 80, 80, 28, 0, 0, 0, 0, 0, 0, 0, 126, 245, 255, 57, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 74, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 43, 200, 254, 91, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 156, 245, 205, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 124, 244, 254, 85, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 217, 254, 121, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 176, 254, 254, 61, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 161, 245, 215, 58, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 54, 246, 254, 185, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 124, 254, 254, 64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 52, 237, 254, 126, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 118, 254, 254, 119, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 118, 254, 254, 61, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 6, 6, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const $ = (id) => document.getElementById(id);
+    const mk = (parent, cls, css, html, id) => { const d = document.createElement("div"); d.className = cls; Object.assign(d.style, css); if (html !== undefined) d.innerHTML = html; if (id) d.id = id; parent.appendChild(d); return d; };
+    { const g = $("img").getContext("2d"), im = g.createImageData(28, 28);
+      D.forEach((v, i) => { const t = v / 255; im.data.set([Math.round(7 + 237 * t), Math.round(11 + 236 * t), Math.round(20 + 231 * t), 255], i * 4); });
+      g.putImageData(im, 0, 0); }
+    const IX = 96, IY = 300, CS = 18;
+    const RS = [3, 4, 8, 10, 18];
+    // the five layers, the stage they reach and the formula line for each
+    const LAY = [["Conv<br>3×3", "conv", "1 + (3 − 1)·1 = 3"], ["Pool<br>2×2", "pool", "3 + (2 − 1)·1 = 4"], ["Conv<br>3×3", "conv", "4 + (3 − 1)·2 = 8"], ["Pool<br>2×2", "pool", "8 + (2 − 1)·2 = 10"], ["Conv<br>3×3", "conv", "10 + (3 − 1)·4 = 18"]];
+    LAY.forEach(([t, cls, f], k) => {
+      mk($("boxes"), "lb " + cls, { left: 740 + k * 218 + "px", top: "250px" }, t, "lb" + k);
+      mk($("fms"), "fm", { top: 400 + k * 70 + "px" }, "r = " + f.replace(/= (\d+)$/, '= <b>$1</b>'), "fm" + k);
+      mk($("fms"), "fm", { top: 400 + k * 70 + "px", left: "1560px", color: cls === "pool" ? "#fbbf24" : "#22d3ee", fontSize: "36px" }, "+" + [2, 1, 4, 2, 8][k], "inc" + k);
+    });
+    // input window of the receptive field: centered at pixel (14, 14), r pixels wide
+    const rf = (r) => { const s = 14 - Math.floor(r / 2); return { x: s * CS, y: s * CS, w: r * CS }; };
+    const setRf = (r) => { const q = rf(r); gsap.set("#rf", { attr: { x: q.x, y: q.y, width: q.w, height: q.w } }); };
+    setRf(3);
+    // comparison bars at the end
+    mk($("bars"), "bt", { top: "800px", color: "#8aa0bd" }, "три Conv 3×3 підряд: 7", "bt0");
+    mk($("bars"), "bar", { top: "840px", width: 7 / 28 * 900 + "px", background: "#64748b" }, undefined, "bar0");
+    mk($("bars"), "bt", { top: "896px", color: "#22d3ee" }, "Conv·Pool·Conv·Pool·Conv: 18", "bt1");
+    mk($("bars"), "bar", { top: "936px", width: 18 / 28 * 900 + "px", background: "#22d3ee" }, undefined, "bar1");
+
+    const tl = gsap.timeline({ paused: true });
+    const show = (sel, at, d = 0.25) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, at);
+    const hide = (sel, at, d = 0.3) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+    const lit = (k, at) => { tl.to("#lb" + k, { opacity: 1, duration: 0.25 }, at); };
+    // L1 0.4-6: the stack and the one output number
+    show("#il", 0.8);
+    LAY.forEach((_, k) => show("#lb" + k, 1.0 + k * 0.25, 0.3));
+    tl.to("#lb4", { boxShadow: "inset 0 0 0 4px #34d399", duration: 0.3 }, 2.2);
+    show("#cl", 3.8);
+    // the receptive field is read backwards: the square appears at the input
+    const step = (k, at) => {
+      const q = rf(RS[k]);
+      if (k === 0) { tl.to("#rf", { opacity: 1, duration: 0.3 }, at); }
+      else tl.to("#rf", { attr: { x: q.x, y: q.y, width: q.w, height: q.w }, duration: 0.7, ease: "power3.inOut" }, at);
+      tl.to("#rv", { opacity: 1, duration: 0.01 }, at);
+      show("#fm" + k, at + 0.1, 0.3);
+      tl.to("#lb" + k, { boxShadow: "inset 0 0 0 4px #ffffff", duration: 0.25 }, at);
+      tl.to("#lb" + k, { boxShadow: "inset 0 0 0 3px rgba(255,255,255,0.12)", duration: 0.5 }, at + 0.5);
+    };
+    // text of the number is set through separate elements so seeks stay exact
+    RS.forEach((r, k) => mk($("rl"), "", { display: "inline-block", position: "absolute", left: "340px", top: "0", opacity: 0 }, r + " × " + r, "rv" + k));
+    show("#rl", 5.4);
+    step(0, 7.9); step(1, 10.9); step(2, 20.4); step(3, 24.0); step(4, 27.0);
+    RS.forEach((r, k) => { const at = [7.9, 10.9, 20.4, 24.0, 27.0][k]; show("#rv" + k, at + 0.2, 0.2); if (k < 4) hide("#rv" + k, [10.9, 20.4, 24.0, 27.0][k] + 0.1, 0.15); });
+    [7.9, 10.9, 20.4, 24.0, 27.0].forEach((at, k) => show("#inc" + k, at + 0.3, 0.25));
+    // 16.3-20.3 the conv after a pool adds twice as much as before: +2 becomes +4
+    tl.to("#lb1", { boxShadow: "inset 0 0 0 4px #fbbf24", duration: 0.25 }, 16.3); tl.to("#lb1", { boxShadow: "inset 0 0 0 3px rgba(255,255,255,0.12)", duration: 0.5 }, 16.8);
+    tl.to("#lb2", { boxShadow: "inset 0 0 0 4px #22d3ee", duration: 0.25 }, 17.9); tl.to("#lb2", { boxShadow: "inset 0 0 0 3px rgba(255,255,255,0.12)", duration: 0.6 }, 19.0);
+    tl.to("#inc2", { scale: 1.5, duration: 0.25, ease: "power2.out", transformOrigin: "0 50%" }, 18.6); tl.to("#inc2", { scale: 1, duration: 0.5 }, 19.4);
+    // the jump doubles after a pool: the next conv adds twice as much (12.7-17: j = 2)
+    tl.to("#fm1", { color: "#fbbf24", duration: 0.3 }, 12.7); tl.to("#fm1", { color: "#e8eef7", duration: 0.5 }, 15.6);
+    tl.to("#fm2", { scale: 1.06, duration: 0.2, transformOrigin: "0 50%" }, 18.2); tl.to("#fm2", { scale: 1, duration: 0.4 }, 18.4);
+    // L5: the whole digit is almost covered
+    tl.to("#rf", { attr: { fill: "rgba(34,211,238,0.30)" }, duration: 0.3 }, 29.7);
+    // L6: comparison
+    show("#bt0", 32.0); show("#bar0", 32.2); tl.fromTo("#bar0", { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power3.out", immediateRender: false }, 32.2);
+    show("#bt1", 35.6); show("#bar1", 35.8); tl.fromTo("#bar1", { scaleX: 0 }, { scaleX: 1, duration: 1.0, ease: "power3.out", immediateRender: false }, 35.8);
+    window.__timelines["world"] = tl;
+  </script>
+</template>

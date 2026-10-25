@@ -1,0 +1,120 @@
+{
+  "audio": "assets/vo/l4.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "А",
+      "start": 0.2,
+      "end": 0.28,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "тепер",
+      "start": 0.36,
+      "end": 0.68,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "фотографія",
+      "start": 0.72,
+      "end": 1.36,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "двісті",
+      "start": 1.9,
+      "end": 2.32,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "двадцять",
+      "start": 2.38,
+      "end": 2.74,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "чотири",
+      "start": 2.78,
+      "end": 3.18,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "на",
+      "start": 3.7,
+      "end": 3.78,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "двісті",
+      "start": 3.82,
+      "end": 4.12,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "двадцять",
+      "start": 4.18,
+      "end": 4.54,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "чотири,",
+      "start": 4.58,
+      "end": 4.96,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "три",
+      "start": 5.24,
+      "end": 5.36,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "канали,",
+      "start": 5.48,
+      "end": 5.96,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "сто",
+      "start": 6.4,
+      "end": 6.56,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "п'ятдесят",
+      "start": 6.6,
+      "end": 7.12,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "тисяч",
+      "start": 7.16,
+      "end": 7.42,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "п'ятсот",
+      "start": 7.52,
+      "end": 7.9,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "двадцять",
+      "start": 8,
+      "end": 8.44,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "вісім",
+      "start": 8.52,
+      "end": 8.88,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "чисел",
+      "start": 8.94,
+      "end": 9.32,
+      "speaker": "speaker_0"
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; }
+    #rot { position: absolute; inset: 0; transform-origin: 960px 540px; }
+    #fan { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    #flat { position: absolute; left: 0; top: 0; width: 560px; height: 560px; transform-origin: 0 0; }
+    .row { position: absolute; left: 0; top: 0; width: 560px; height: 20px; transform-origin: 0 0; image-rendering: pixelated; }
+    #stripwin { position: absolute; left: 346.5px; top: 240px; width: 27px; height: 720px; overflow: hidden; opacity: 0; }
+    #bar { position: absolute; left: 0; top: 0; width: 27px; height: 720px; image-rendering: pixelated; transform-origin: 50% 37.6%; }
+    #net, #n128, #n512 { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    #n512 { opacity: 0; } #n128 { opacity: 0; }
+    #wedge { position: absolute; left: 380px; top: 240px; width: 1110px; height: 720px; opacity: 0;
+             background: radial-gradient(ellipse at 50% 50%, rgba(30,170,200,0.7), rgba(30,170,200,0.3) 70%, rgba(30,170,200,0.18)); }
+    #sweepwin { position: absolute; left: 380px; top: 240px; width: 1110px; height: 720px; overflow: hidden; }
+    #sweepbar { position: absolute; left: 0; top: 0; width: 260px; height: 720px; opacity: 0; background: linear-gradient(90deg, rgba(94,234,212,0), rgba(94,234,212,0.2), rgba(94,234,212,0)); }
+    #photo { position: absolute; left: 86px; top: 250px; width: 220px; height: 220px; object-fit: cover; opacity: 0; }
+  </style>
+  <div data-hf-id="hf-1dtx" id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <canvas data-hf-id="hf-hbyv" id="net" width="1920" height="1080"></canvas>
+    <div data-hf-id="hf-nyzr" id="wedge"></div>
+    <div id="sweepwin"><div id="sweepbar"></div></div>
+    <canvas data-hf-id="hf-k5y9" id="n128" width="1920" height="1080"></canvas>
+    <canvas data-hf-id="hf-emgs" id="n512" width="1920" height="1080"></canvas>
+    <div data-hf-id="hf-bxr8" id="rot"><div data-hf-id="hf-3o88" id="flat"></div></div>
+    <canvas data-hf-id="hf-odwl" id="fan" width="1920" height="1080"></canvas>
+    <div data-hf-id="hf-bqdh" id="stripwin"><canvas data-hf-id="hf-1gy2" id="bar" width="1" height="784"></canvas></div>
+    <img data-hf-id="hf-tisi" id="photo" src="assets/flower.jpg" alt="" />
+  </div>
+  <script>
+    const D = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 7, 7, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 13, 120, 137, 186, 254, 254, 136, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 53, 143, 179, 254, 254, 254, 255, 254, 254, 193, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 25, 50, 149, 175, 254, 254, 254, 254, 254, 254, 255, 254, 254, 108, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 96, 170, 254, 254, 254, 254, 254, 245, 183, 99, 99, 147, 252, 254, 196, 3, 0, 0, 0, 0, 0, 0, 0, 0, 4, 145, 162, 162, 219, 254, 254, 254, 246, 186, 93, 66, 0, 0, 0, 125, 246, 254, 119, 2, 0, 0, 0, 0, 0, 0, 0, 0, 87, 215, 254, 254, 254, 254, 204, 87, 68, 0, 0, 0, 0, 0, 46, 197, 254, 180, 47, 0, 0, 0, 0, 0, 0, 0, 0, 0, 168, 254, 156, 80, 80, 80, 28, 0, 0, 0, 0, 0, 0, 0, 126, 245, 255, 57, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 74, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 43, 200, 254, 91, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 156, 245, 205, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 124, 244, 254, 85, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 217, 254, 121, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 176, 254, 254, 61, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 161, 245, 215, 58, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 54, 246, 254, 185, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 124, 254, 254, 64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 52, 237, 254, 126, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 118, 254, 254, 119, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 118, 254, 254, 61, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 6, 6, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const N = 28, CW = 20;
+    const shade = (v) => { const t = v / 255; return [Math.round(7 + 237 * t), Math.round(11 + 236 * t), Math.round(20 + 231 * t)]; };
+
+    // 28 rows of the digit
+    const flat = document.getElementById("flat");
+    const rows = [];
+    for (let i = 0; i < N; i++) {
+      const c = document.createElement("canvas");
+      c.width = N; c.height = 1; c.className = "row"; c.id = "row" + i;
+      const cx = c.getContext("2d"); const im = cx.createImageData(N, 1);
+      for (let j = 0; j < N; j++) im.data.set([...shade(D[i * N + j]), 255], j * 4);
+      cx.putImageData(im, 0, 0);
+      flat.appendChild(c); rows.push(c);
+      gsap.set(c, { x: 0, y: i * CW });
+    }
+    gsap.set(flat, { x: 300, y: 260, scaleX: 1, scaleY: 1 });
+
+    // the same 784 values as a 1-px-wide bar (replaces the rotated rows once they are in place)
+    { const b = document.getElementById("bar").getContext("2d"); const im = b.createImageData(1, 784);
+      D.forEach((v, k) => im.data.set([...shade(v), 255], k * 4)); b.putImageData(im, 0, 0); }
+
+    // network geometry
+    const X0 = 380, X1 = 1490, Y0 = 240, Y1 = 960;
+    const yIn = (i) => Y0 + ((i + 0.5) * (Y1 - Y0)) / 784;
+    const yNe = (j, n) => Y0 + ((j + 0.5) * (Y1 - Y0)) / n;
+    const drawNeurons = (id, n, r) => {
+      const g = document.getElementById(id).getContext("2d"); g.fillStyle = "#34d399";
+      for (let j = 0; j < n; j++) { g.beginPath(); g.arc(X1 + 6, yNe(j, n), r, 0, Math.PI * 2); g.fill(); }
+    };
+    drawNeurons("n128", 128, 2.3); drawNeurons("n512", 512, 0.65);
+
+    // 100 352 real lines, drawn incrementally as a function of time
+    const net = document.getElementById("net").getContext("2d");
+    net.lineWidth = 0.7; net.strokeStyle = "rgba(30,170,200,0.03)";
+    let drawn = 0;
+    const drawTo = (k) => {
+      if (k < drawn) { net.clearRect(0, 0, 1920, 1080); drawn = 0; }
+      for (let i = drawn; i < k; i++) {
+        net.beginPath();
+        const y0 = yIn(i);
+        for (let j = 0; j < 128; j++) { net.moveTo(X0, y0); net.lineTo(X1, yNe(j, 128)); }
+        net.stroke();
+      }
+      drawn = k;
+    };
+
+    const fan = document.getElementById("fan").getContext("2d");
+    fan.lineWidth = 1; fan.strokeStyle = "rgba(94,234,212,0.5)";
+    const drawFan = (k) => {
+      fan.clearRect(0, 0, 1920, 1080);
+      if (k <= 0 || k >= 784) return;
+      fan.beginPath();
+      for (let j = 0; j < 128; j++) { fan.moveTo(X0, yIn(k)); fan.lineTo(X1, yNe(j, 128)); }
+      fan.stroke();
+    };
+    const tl = gsap.timeline({ paused: true });
+    // 2.0-5.0 the rows peel off to the right into one long line, the group shrinks to fit it (1700 px)
+    const L = 15680, S1 = 1700 / L;
+    rows.forEach((r, i) =>
+      tl.to(r, { x: i * 560, y: 0, duration: 1.0, ease: "power3.inOut" }, 2.0 + i * 0.07));
+    tl.to("#flat", { x: 110, y: 540 - (20 * S1) / 2, scaleX: S1, scaleY: S1, duration: 2.3, ease: "power2.inOut" }, 2.0);
+    tl.to("#flat", { y: 540 - (20 * S1 * 8) / 2, scaleY: S1 * 8, duration: 0.7, ease: "power2.out" }, 4.3);
+    // 5.1-6.5 the line turns upright, shortens to 720 px and thickens into a 27 px bar, then slides left
+    tl.to("#rot", { rotation: 90, x: -600, y: 60, duration: 1.4, ease: "power2.inOut" }, 5.1);
+    tl.to("#flat", { x: 600, y: 540 - 13.5, scaleX: 720 / L, scaleY: 1.35, duration: 1.4, ease: "power2.inOut" }, 5.1);
+    tl.set("#stripwin", { opacity: 1 }, 6.5);
+    tl.set("#flat", { opacity: 0 }, 6.5);
+    // 7.0 neurons appear
+    tl.to("#n128", { opacity: 1, duration: 0.6, ease: "power2.out" }, 7.0);
+    // 7.8-15.0 the lines
+    const P = { u: 0 };
+    tl.to(P, { u: 1, duration: 7.2, ease: "power2.in", onUpdate: () => { const k = Math.round(784 * P.u); drawTo(k); drawFan(k); } }, 7.8);
+    // 15.2-17.7 a light pass across the finished set of lines: every one of them is a weight
+    tl.fromTo("#sweepbar", { x: -260, opacity: 1 }, { x: 1110, opacity: 1, duration: 2.5, ease: "power1.inOut" }, 15.2);
+    tl.set("#sweepbar", { opacity: 0 }, 17.75);
+    // 20.0 the photo
+    tl.to("#photo", { opacity: 1, duration: 0.2, ease: "power3.out" }, 20.0);
+    // 22.5-26.8 the strip grows 192x (150 528 / 784), the lines are too many to draw
+    tl.to("#bar", { scaleY: 192, duration: 4.3, ease: "power2.inOut" }, 22.5);
+    tl.to("#net", { opacity: 0, duration: 0.6, ease: "power2.inOut" }, 22.5);
+    tl.to("#wedge", { opacity: 1, duration: 1.2, ease: "power2.inOut" }, 22.8);
+    // 28.2 512 neurons
+    tl.to("#n128", { opacity: 0, duration: 0.6, ease: "power2.inOut" }, 28.2);
+    tl.to("#n512", { opacity: 1, duration: 0.6, ease: "power2.inOut" }, 28.2);
+
+    window.__timelines["world"] = tl;
+  </script>
+</template>

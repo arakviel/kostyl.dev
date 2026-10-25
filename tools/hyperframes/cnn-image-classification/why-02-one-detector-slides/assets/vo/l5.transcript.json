@@ -1,0 +1,78 @@
+{
+  "audio": "assets/vo/l5.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Посунемо",
+      "start": 0.1,
+      "end": 0.68,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "штрих,",
+      "start": 0.74,
+      "end": 1.08,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "пік",
+      "start": 1.38,
+      "end": 1.56,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "поїде",
+      "start": 1.62,
+      "end": 1.98,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "за",
+      "start": 2.04,
+      "end": 2.16,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "ним,",
+      "start": 2.22,
+      "end": 2.38,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "а",
+      "start": 2.64,
+      "end": 2.74,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "максимум",
+      "start": 2.8,
+      "end": 3.38,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "так",
+      "start": 3.44,
+      "end": 3.6,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "і",
+      "start": 3.62,
+      "end": 3.68,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "лишиться",
+      "start": 3.72,
+      "end": 4.18,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "трійкою",
+      "start": 4.24,
+      "end": 4.74,
+      "speaker": "speaker_0"
+    }
+  ]
+}

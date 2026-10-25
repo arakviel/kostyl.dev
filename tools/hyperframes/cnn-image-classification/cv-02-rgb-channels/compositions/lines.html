@@ -1,0 +1,54 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .t { position: absolute; opacity: 0; font-weight: 700; letter-spacing: -0.01em; }
+    .plate { position: absolute; opacity: 0; background: #070b14; padding: 20px 32px 20px 28px; border-left: 6px solid #22d3ee; }
+    .mono { font-family: "JetBrains Mono", monospace; }
+    #code { left: 96px; top: 880px; font-size: 38px; }
+    #shape { left: 0; width: 1920px; top: 870px; text-align: center; font-size: 88px; color: #e8eef7; }
+    .ch { width: 200px; text-align: center; top: 52px; font-size: 120px; font-weight: 900; line-height: 1; }
+    #lr { left: 340px; color: #f87171; }
+    #lg { left: 860px; color: #4ade80; }
+    #lb { left: 1380px; color: #60a5fa; }
+    #px { left: 520px; top: 860px; border-left-color: #fbbf24; font-size: 60px; font-weight: 700; display: flex; align-items: center; gap: 22px; white-space: nowrap; }
+    #px .lab { font-family: "Inter", sans-serif; font-size: 34px; color: #8aa0bd; font-weight: 700; }
+    #px .v { opacity: 0; }
+    #px .vr { color: #f87171; } #px .vg { color: #4ade80; } #px .vb { color: #60a5fa; }
+    #px .sw { width: 64px; height: 64px; background: rgb(229, 188, 132); opacity: 0; }
+    #claim { left: 96px; width: 1728px; top: 52px; font-size: 76px; text-align: center; }
+    #total { left: 0; width: 1920px; top: 880px; text-align: center; font-size: 72px; color: #22d3ee; }
+  </style>
+  <div data-hf-id="hf-u54n" id="root" data-composition-id="lines" data-width="1920" data-height="1080"
+       data-composition-variables='[{"id":"claim","type":"string","label":"Claim","default":"Колір — це три таблиці чисел"}]'>
+    <div data-hf-id="hf-vzab" id="code" class="plate mono clip" data-start="5.4" data-duration="2.8">photo[222:226, 444:448]</div>
+    <div data-hf-id="hf-kt15" id="shape" class="t mono clip" data-start="9.0" data-duration="4.4">(4, 4, 3)</div>
+    <div data-hf-id="hf-12b4" id="lr" class="t ch clip" data-start="10.8" data-duration="11.4">R</div>
+    <div data-hf-id="hf-chov" id="lg" class="t ch clip" data-start="11.45" data-duration="10.75">G</div>
+    <div data-hf-id="hf-g361" id="lb" class="t ch clip" data-start="11.95" data-duration="10.25">B</div>
+    <div data-hf-id="hf-99k3" id="px" class="plate mono clip" data-start="13.6" data-duration="8.6" data-layout-allow-overlap="true">
+      <span data-hf-id="hf-mlo1" class="lab">піксель (0, 0)</span>
+      <span data-hf-id="hf-cg7i">[</span><span data-hf-id="hf-ff9m" id="pvr" class="v vr">229</span><span data-hf-id="hf-jrlj">,</span><span data-hf-id="hf-y4zo" id="pvg" class="v vg">188</span><span data-hf-id="hf-00vr">,</span><span data-hf-id="hf-wjjn" id="pvb" class="v vb">132</span><span data-hf-id="hf-bnlg">]</span>
+      <span data-hf-id="hf-v7lp" class="sw" id="psw"></span>
+    </div>
+    <div data-hf-id="hf-cmhx" id="claim" class="t clip" data-start="24.0" data-duration="4.0" data-var-text="claim">Колір — це три таблиці чисел</div>
+    <div data-hf-id="hf-7qwu" id="total" class="t mono clip" data-start="23.4" data-duration="4.6">4 × 4 × 3 = 48 чисел</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const inn = (sel, at) =>
+      tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, at);
+    const out = (sel, at) =>
+      tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: 0.15, ease: "power3.in" }, at);
+    inn("#code", 5.4);  out("#code", 8.0);
+    inn("#shape", 9.0); out("#shape", 13.2);
+    inn("#lr", 10.8); inn("#lg", 11.45); inn("#lb", 11.95);
+    out("#lr", 22.0); out("#lg", 22.0); out("#lb", 22.0);
+    tl.fromTo("#px", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power3.out" }, 13.6);
+    inn("#pvr", 17.3); inn("#pvg", 19.1); inn("#pvb", 20.6);
+    tl.fromTo("#psw", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power3.out" }, 20.95);
+    tl.to("#px", { opacity: 0, duration: 0.2, ease: "power3.in" }, 22.0);
+    inn("#total", 23.4);
+    inn("#claim", 24.0);
+    window.__timelines["lines"] = tl;
+  </script>
+</template>

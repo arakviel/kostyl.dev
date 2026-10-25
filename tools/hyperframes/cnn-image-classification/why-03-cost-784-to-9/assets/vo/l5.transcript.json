@@ -1,0 +1,36 @@
+{
+  "audio": "assets/vo/l5.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Дев'ять",
+      "start": 0.2,
+      "end": 0.66,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "ваг",
+      "start": 0.72,
+      "end": 0.92,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "замість",
+      "start": 1.04,
+      "end": 1.38,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "п'ятисот",
+      "start": 1.42,
+      "end": 1.92,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "тисяч",
+      "start": 1.96,
+      "end": 2.3,
+      "speaker": "speaker_0"
+    }
+  ]
+}

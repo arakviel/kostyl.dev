@@ -1,0 +1,78 @@
+{
+  "audio": "assets/vo/l5.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Змінилося",
+      "start": 0.1,
+      "end": 0.7,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "триста",
+      "start": 0.74,
+      "end": 1.1,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "позицій",
+      "start": 1.14,
+      "end": 1.66,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "із",
+      "start": 1.96,
+      "end": 2.1,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "семисот",
+      "start": 2.14,
+      "end": 2.62,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "вісімдесяти",
+      "start": 2.66,
+      "end": 3.34,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "чотирьох.",
+      "start": 3.38,
+      "end": 3.84,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "Та",
+      "start": 4.7,
+      "end": 4.78,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "сама",
+      "start": 4.9,
+      "end": 5.16,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "цифра,",
+      "start": 5.24,
+      "end": 5.54,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "інший",
+      "start": 5.74,
+      "end": 6.02,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "вхід",
+      "start": 6.06,
+      "end": 6.34,
+      "speaker": "speaker_0"
+    }
+  ]
+}

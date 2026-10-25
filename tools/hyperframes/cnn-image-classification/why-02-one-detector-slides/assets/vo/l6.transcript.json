@@ -1,0 +1,60 @@
+{
+  "audio": "assets/vo/l6.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Один",
+      "start": 0.1,
+      "end": 0.34,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "детектор,",
+      "start": 0.4,
+      "end": 0.94,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "дев'ять",
+      "start": 1.16,
+      "end": 1.56,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "ваг",
+      "start": 1.62,
+      "end": 2.02,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "і",
+      "start": 2.08,
+      "end": 2.18,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "карта",
+      "start": 2.26,
+      "end": 2.58,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "знає",
+      "start": 2.64,
+      "end": 2.92,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "де",
+      "start": 2.96,
+      "end": 3.08,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "штрих",
+      "start": 3.14,
+      "end": 3.48,
+      "speaker": "speaker_0"
+    }
+  ]
+}

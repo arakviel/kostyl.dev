@@ -1,0 +1,114 @@
+{
+  "audio": "assets/vo/l3.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Але",
+      "start": 0.14,
+      "end": 0.4,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "кожному",
+      "start": 0.44,
+      "end": 0.86,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "потрібна",
+      "start": 0.9,
+      "end": 1.32,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "лише",
+      "start": 1.36,
+      "end": 1.64,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "своя",
+      "start": 1.7,
+      "end": 2,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "ділянка",
+      "start": 2.04,
+      "end": 2.52,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "—",
+      "start": 2.52,
+      "end": 2.52,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "дев'ять",
+      "start": 2.9,
+      "end": 3.28,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "пікселів.",
+      "start": 3.4,
+      "end": 3.92,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "Викидаємо",
+      "start": 4.3,
+      "end": 4.94,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "зайві",
+      "start": 5,
+      "end": 5.28,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "зв'язки,",
+      "start": 5.34,
+      "end": 5.8,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "і",
+      "start": 6.2,
+      "end": 6.26,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "лишається",
+      "start": 6.3,
+      "end": 6.94,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "шість",
+      "start": 7,
+      "end": 7.3,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "тисяч",
+      "start": 7.36,
+      "end": 7.7,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "вісімдесят",
+      "start": 7.74,
+      "end": 8.3,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "чотири",
+      "start": 8.36,
+      "end": 8.76,
+      "speaker": "speaker_0"
+    }
+  ]
+}

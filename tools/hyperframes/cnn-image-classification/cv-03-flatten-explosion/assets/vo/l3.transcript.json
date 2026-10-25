@@ -1,0 +1,90 @@
+{
+  "audio": "assets/vo/l3.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Це",
+      "start": 0.52,
+      "end": 0.64,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "сто",
+      "start": 0.7,
+      "end": 0.92,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "тисяч",
+      "start": 0.98,
+      "end": 1.38,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "триста",
+      "start": 1.42,
+      "end": 1.76,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "п'ятдесят",
+      "start": 1.8,
+      "end": 2.32,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "дві",
+      "start": 2.48,
+      "end": 2.62,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "лінії,",
+      "start": 2.68,
+      "end": 3.06,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "сто",
+      "start": 3.54,
+      "end": 3.68,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "тисяч",
+      "start": 3.78,
+      "end": 4.16,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "ваг",
+      "start": 4.22,
+      "end": 4.48,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "для",
+      "start": 4.56,
+      "end": 4.68,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "однієї",
+      "start": 4.72,
+      "end": 5.18,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "маленької",
+      "start": 5.22,
+      "end": 5.72,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "цифри",
+      "start": 5.82,
+      "end": 6.16,
+      "speaker": "speaker_0"
+    }
+  ]
+}

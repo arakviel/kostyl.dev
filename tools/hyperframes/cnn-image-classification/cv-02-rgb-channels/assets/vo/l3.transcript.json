@@ -1,0 +1,78 @@
+{
+  "audio": "assets/vo/l3.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Кольорове",
+      "start": 0.1,
+      "end": 0.6,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "зображення",
+      "start": 0.64,
+      "end": 1.28,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "—",
+      "start": 1.3,
+      "end": 1.3,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "це",
+      "start": 1.72,
+      "end": 1.88,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "три",
+      "start": 1.94,
+      "end": 2.1,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "таблиці",
+      "start": 2.16,
+      "end": 2.7,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "однакового",
+      "start": 2.78,
+      "end": 3.36,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "розміру:",
+      "start": 3.4,
+      "end": 3.84,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "червона,",
+      "start": 4.26,
+      "end": 4.74,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "зелена",
+      "start": 4.84,
+      "end": 5.22,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "і",
+      "start": 5.26,
+      "end": 5.34,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "синя",
+      "start": 5.42,
+      "end": 5.7,
+      "speaker": "speaker_0"
+    }
+  ]
+}

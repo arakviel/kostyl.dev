@@ -1,0 +1,15 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: "Inter", sans-serif; color: #e8eef7; }
+    #claim { position: absolute; left: 0; width: 1920px; top: 70px; text-align: center; font-size: 66px; font-weight: 700; letter-spacing: -0.01em; opacity: 0; }
+  </style>
+  <div data-hf-id="hf-aj9w" id="root" data-composition-id="lines" data-width="1920" data-height="1080"
+       data-composition-variables='[{"id":"claim","type":"string","label":"Claim","default":"Один детектор, 9 ваг — карта знає, де штрих"}]'>
+    <div data-hf-id="hf-t7oy" id="claim" class="clip" data-start="28.9" data-duration="4.3" data-var-text="claim">Один детектор, 9 ваг — карта знає, де штрих</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#claim", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, 28.9);
+    window.__timelines["lines"] = tl;
+  </script>
+</template>

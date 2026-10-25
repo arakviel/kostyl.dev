@@ -1,0 +1,48 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .im { position: absolute; width: 160px; height: 160px; opacity: 0; box-shadow: 0 0 0 2px rgba(255,255,255,0.08); }
+    .lab { position: absolute; font-weight: 700; white-space: nowrap; opacity: 0; }
+    .mono { font-family: "JetBrains Mono", monospace; }
+  </style>
+  <div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <div id="l1" class="lab" style="left:222px;top:118px;font-size:38px;color:#8aa0bd">MNIST: вісім сімок</div>
+    <div id="l2" class="lab" style="left:222px;top:376px;font-size:38px;color:#8aa0bd">CIFAR-10: вісім котів</div>
+    <div id="ims"></div>
+    <div id="mn" class="lab mono" style="left:222px;top:700px;font-size:84px;color:#34d399">MNIST 98,70%</div>
+    <div id="ci" class="lab mono" style="left:1000px;top:700px;font-size:84px;color:#fb7185">CIFAR-10 67,68%</div>
+    <div id="one" class="lab" style="left:222px;top:640px;font-size:38px;color:#8aa0bd">одна й та сама мала CNN</div>
+  </div>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const X0 = 222, DX = 188;
+    for (let k = 0; k < 8; k++) {
+      const a = document.createElement("img"); a.className = "im"; a.id = "sv" + k; a.src = "assets/seven" + k + ".png"; a.style.left = X0 + k * DX + "px"; a.style.top = "170px"; $("ims").appendChild(a);
+      const b = document.createElement("img"); b.className = "im"; b.id = "ct" + k; b.src = "assets/cat" + k + ".png"; b.style.left = X0 + k * DX + "px"; b.style.top = "430px"; $("ims").appendChild(b);
+    }
+    const tl = gsap.timeline({ paused: true });
+    const show = (sel, at, d = 0.3) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, at);
+    const ring = (sel, at, col) => { tl.to(sel, { boxShadow: "0 0 0 6px " + col, duration: 0.15 }, at); tl.to(sel, { boxShadow: "0 0 0 2px rgba(255,255,255,0.08)", duration: 0.45 }, at + 0.3); };
+    // L1 0.4-6: eight sevens, nearly the same
+    gsap.set(["#l1", "#sv0", "#sv1"], { opacity: 1 });
+    for (let k = 2; k < 8; k++) show("#sv" + k, 0.6 + k * 0.28, 0.3);
+    for (let k = 0; k < 8; k++) ring("#sv" + k, 3.4 + k * 0.28, "#34d399");
+    // L2 6.5-12.2: eight cats, all different
+    show("#l2", 6.7);
+    for (let k = 0; k < 8; k++) show("#ct" + k, 6.8 + k * 0.3, 0.3);
+    for (let k = 0; k < 8; k++) ring("#ct" + k, 9.4 + k * 0.32, "#fb7185");
+    // L3 12.6-21.1: a seven is a stroke and a hook; a cat is everything
+    for (let k = 0; k < 8; k++) ring("#sv" + k, 12.9 + k * 0.25, "#34d399");
+    for (let k = 0; k < 8; k++) ring("#ct" + k, 16.6 + k * 0.52, "#fb7185");
+    // L4 21.6-31.7: the same network, two results
+    show("#one", 22.1);
+    tl.to(["#sv0","#sv1","#sv2","#sv3","#sv4","#sv5","#sv6","#sv7"], { opacity: 0.45, duration: 0.5 }, 24.8);
+    show("#mn", 25.0, 0.4);
+    tl.to("#mn", { scale: 1.06, duration: 0.2, transformOrigin: "0 50%" }, 25.6); tl.to("#mn", { scale: 1, duration: 0.5 }, 25.8);
+    tl.to(["#ct0","#ct1","#ct2","#ct3","#ct4","#ct5","#ct6","#ct7"], { opacity: 0.45, duration: 0.5 }, 29.2);
+    tl.to(["#sv0","#sv1","#sv2","#sv3","#sv4","#sv5","#sv6","#sv7"], { opacity: 1, duration: 0.01 }, 26.9);
+    show("#ci", 29.4, 0.4);
+    tl.to("#ci", { scale: 1.06, duration: 0.2, transformOrigin: "0 50%" }, 30.0); tl.to("#ci", { scale: 1, duration: 0.5 }, 30.2);
+    window.__timelines["world"] = tl;
+  </script>
+</template>

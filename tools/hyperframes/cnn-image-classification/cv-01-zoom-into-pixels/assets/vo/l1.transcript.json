@@ -1,0 +1,24 @@
+{
+  "audio": "assets/vo/l1.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Ось",
+      "start": 0.3,
+      "end": 0.62,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "цифра",
+      "start": 0.72,
+      "end": 1.04,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "сім",
+      "start": 1.14,
+      "end": 1.42,
+      "speaker": "speaker_0"
+    }
+  ]
+}

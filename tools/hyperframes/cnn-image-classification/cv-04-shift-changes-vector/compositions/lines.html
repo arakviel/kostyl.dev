@@ -1,0 +1,32 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .t { position: absolute; opacity: 0; font-weight: 700; letter-spacing: -0.01em; }
+    .mono { font-family: "JetBrains Mono", monospace; }
+    #vec { left: 96px; top: 598px; font-size: 38px; color: #8aa0bd; }
+    #legend { left: 96px; top: 860px; display: flex; gap: 56px; align-items: center; font-size: 34px; white-space: nowrap; }
+    #legend .it { display: flex; align-items: center; gap: 16px; }
+    #legend .sw { width: 30px; height: 30px; }
+    #claim { left: 0; width: 1920px; top: 850px; text-align: center; font-size: 84px; }
+  </style>
+  <div data-hf-id="hf-tnni" id="root" data-composition-id="lines" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-v4hf" id="vec" class="t mono clip" data-start="2.1" data-duration="33.4">вектор: 784 числа</div>
+    <div data-hf-id="hf-3dj5" id="legend" class="t clip" data-start="7.4" data-duration="23.6">
+      <span data-hf-id="hf-z4eb" class="it"><span data-hf-id="hf-sj2q" class="sw" style="background:#fbbf24"></span>на тому самому місці</span>
+      <span data-hf-id="hf-1t6e" class="it"><span data-hf-id="hf-ccy1" class="sw" style="background:#22d3ee"></span>на новому місці</span>
+      <span data-hf-id="hf-74lx" class="it"><span data-hf-id="hf-ehjg" class="sw" style="background:#96a0b0"></span>місце звільнилось</span>
+    </div>
+    <div data-hf-id="hf-hl2u" id="claim" class="t clip" data-start="31.2" data-duration="4.3" data-var-text="claim">Та сама цифра — інший вхід</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const inn = (sel, at) =>
+      tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, at);
+    const out = (sel, at) =>
+      tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: 0.15, ease: "power3.in" }, at);
+    inn("#vec", 2.1);
+    inn("#legend", 7.4); out("#legend", 30.8);
+    inn("#claim", 31.2);
+    window.__timelines["lines"] = tl;
+  </script>
+</template>

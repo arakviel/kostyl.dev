@@ -1,0 +1,78 @@
+{
+  "audio": "assets/vo/l3.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Посунемо",
+      "start": 0.1,
+      "end": 0.82,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "плюс",
+      "start": 0.86,
+      "end": 1.16,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "три.",
+      "start": 1.22,
+      "end": 1.46,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "Три",
+      "start": 2.4,
+      "end": 2.56,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "х",
+      "start": 2.6,
+      "end": 2.68,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "рівно",
+      "start": 2.72,
+      "end": 3,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "посередині.",
+      "start": 3.04,
+      "end": 3.7,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "Далі",
+      "start": 4.14,
+      "end": 4.44,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "мінус",
+      "start": 4.48,
+      "end": 4.82,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "три",
+      "start": 4.88,
+      "end": 5.04,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "і",
+      "start": 5.18,
+      "end": 5.26,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "нуль",
+      "start": 5.34,
+      "end": 5.56,
+      "speaker": "speaker_0"
+    }
+  ]
+}

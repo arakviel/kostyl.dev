@@ -1,0 +1,84 @@
+{
+  "audio": "assets/vo/l1.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Ось",
+      "start": 0.36,
+      "end": 0.54,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "нейрон,",
+      "start": 0.64,
+      "end": 1.02,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "який",
+      "start": 1.22,
+      "end": 1.46,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "шукає",
+      "start": 1.5,
+      "end": 1.9,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "вертикальний",
+      "start": 1.94,
+      "end": 2.54,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "штрих.",
+      "start": 2.62,
+      "end": 3,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "Його",
+      "start": 3.64,
+      "end": 3.88,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "шаблон",
+      "start": 3.94,
+      "end": 4.36,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "—",
+      "start": 4.5,
+      "end": 4.5,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "яскравість",
+      "start": 4.6,
+      "end": 5.26,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "у",
+      "start": 5.32,
+      "end": 5.36,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "стовпці",
+      "start": 5.44,
+      "end": 5.86,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "два",
+      "start": 5.94,
+      "end": 6.16,
+      "speaker": "speaker_0"
+    }
+  ]
+}

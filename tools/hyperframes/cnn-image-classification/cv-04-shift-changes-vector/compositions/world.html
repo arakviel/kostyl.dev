@@ -1,0 +1,108 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "JetBrains Mono", monospace; color: #e8eef7; }
+    #win { position: absolute; left: 96px; top: 120px; width: 448px; height: 448px; overflow: hidden; background: #0b1220; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.08); }
+    #win canvas { position: absolute; top: 0; width: 448px; height: 448px; image-rendering: pixelated; }
+    #ghostc { left: 0; }
+    #d1, #d2 { left: 0; }
+    #band { position: absolute; left: 96px; top: 660px; width: 1728px; height: 150px; image-rendering: pixelated; opacity: 0; }
+    #scanrow { position: absolute; left: 0; top: 0; width: 448px; height: 16px; background: rgba(34,211,238,0.28); box-shadow: inset 0 0 0 2px #22d3ee; opacity: 0; }
+    #scanseg { position: absolute; left: 96px; top: 660px; width: 61.714px; height: 150px; box-shadow: 0 0 0 3px #22d3ee; opacity: 0; }
+    #stat { position: absolute; left: 640px; top: 128px; width: 1184px; opacity: 0; font-weight: 700; }
+    #shl { font-family: "Inter", sans-serif; font-size: 40px; color: #8aa0bd; }
+    #match { font-size: 78px; margin-top: 16px; white-space: nowrap; }
+    #match .n { color: #fbbf24; }
+    #match .p { color: #8aa0bd; }
+    #chg { font-size: 50px; margin-top: 30px; color: #22d3ee; white-space: nowrap; }
+  </style>
+  <div data-hf-id="hf-1dtx" id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-7on1" id="win">
+      <canvas data-hf-id="hf-rps3" id="ghostc" width="28" height="28"></canvas>
+      <canvas data-hf-id="hf-xpy8" id="d1" width="28" height="28"></canvas>
+      <canvas data-hf-id="hf-1cgp" id="d2" width="28" height="28"></canvas>
+      <div data-hf-id="hf-xewm" id="scanrow"></div>
+    </div>
+    <canvas data-hf-id="hf-puk6" id="band" width="784" height="1"></canvas>
+    <div data-hf-id="hf-b5bd" id="scanseg"></div>
+    <div data-hf-id="hf-vbdr" id="stat">
+      <div data-hf-id="hf-2sac" id="shl">зсув вправо: <span data-hf-id="hf-oiwl" id="shv">0</span> пікс.</div>
+      <div data-hf-id="hf-o0wf" id="match">збіг: <span data-hf-id="hf-lg78" class="n" id="m1">144</span> із 144 <span data-hf-id="hf-lu4r" class="p" id="mp">(100%)</span></div>
+      <div data-hf-id="hf-4wlq" id="chg">змінилось позицій: <span data-hf-id="hf-d5ha" id="c1">0</span> із 784</div>
+    </div>
+  </div>
+  <script>
+    const D = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 99, 91, 142, 155, 246, 182, 155, 155, 155, 155, 131, 52, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 138, 254, 254, 254, 254, 254, 254, 254, 254, 254, 254, 254, 252, 210, 122, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 220, 254, 254, 254, 235, 189, 189, 189, 189, 150, 189, 205, 254, 254, 254, 75, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 35, 74, 35, 35, 25, 0, 0, 0, 0, 0, 0, 13, 224, 254, 254, 153, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 254, 254, 247, 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 152, 246, 254, 254, 49, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 158, 254, 254, 249, 103, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 54, 251, 254, 254, 254, 248, 74, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 140, 254, 254, 254, 254, 254, 254, 202, 125, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 58, 181, 234, 254, 254, 254, 254, 254, 254, 252, 140, 22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30, 50, 73, 155, 253, 254, 254, 254, 254, 191, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 91, 200, 254, 254, 254, 254, 118, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 192, 254, 254, 254, 154, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 141, 254, 254, 254, 116, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 25, 126, 86, 0, 0, 0, 0, 0, 0, 3, 188, 254, 254, 250, 61, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 24, 209, 254, 15, 0, 0, 0, 0, 0, 23, 137, 254, 254, 254, 209, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 168, 254, 254, 48, 9, 0, 0, 9, 127, 241, 254, 254, 255, 242, 63, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 101, 254, 254, 254, 205, 190, 190, 205, 254, 254, 254, 254, 242, 67, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 166, 254, 254, 254, 254, 254, 254, 254, 254, 250, 138, 55, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 88, 154, 116, 194, 194, 154, 154, 88, 49, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const N = 28, CELL = 16;
+    // original digit (white by brightness) and its amber ghost
+    const paint = (id, fn) => {
+      const c = document.getElementById(id); const g = c.getContext("2d"); const im = g.createImageData(N, N);
+      D.forEach((v, i) => im.data.set(fn(v), i * 4)); g.putImageData(im, 0, 0);
+    };
+    paint("d1", (v) => [244, 247, 251, v]);
+    paint("d2", (v) => [244, 247, 251, v]);
+    paint("ghostc", (v) => (v > 128 ? [251, 191, 36, 80] : [0, 0, 0, 0]));
+
+    // np.roll(image, k, axis=1) and the four cell states
+    const rolled = (idx, k) => { const r = Math.floor(idx / N), c = idx % N; return D[r * N + ((c - k) % N + N) % N]; };
+    const bandCtx = document.getElementById("band").getContext("2d");
+    const stats = (k) => {
+      let match = 0, changed = 0;
+      const im = bandCtx.createImageData(784, 1);
+      for (let i = 0; i < 784; i++) {
+        const o = D[i] > 128, s = rolled(i, k) > 128;
+        if (o && s) match++;
+        if (D[i] !== rolled(i, k)) changed++;
+        const col = o && s ? [251, 191, 36] : s ? [34, 211, 238] : o ? [150, 160, 176] : [11, 18, 32];
+        im.data.set([...col, 255], i * 4);
+      }
+      bandCtx.putImageData(im, 0, 0);
+      return { match, changed };
+    };
+
+    let lastK = -1;
+    const U = { u: 0 };
+    const update = () => {
+      gsap.set("#d1", { x: U.u * CELL });
+      gsap.set("#d2", { x: U.u * CELL - N * CELL });
+      const k = Math.round(U.u);
+      if (k === lastK) return;
+      lastK = k;
+      const s = stats(k);
+      document.getElementById("shv").textContent = k;
+      document.getElementById("m1").textContent = s.match;
+      document.getElementById("mp").textContent = "(" + Math.round((100 * s.match) / 144) + "%)";
+      document.getElementById("c1").textContent = s.changed;
+    };
+    update();
+
+    const tl = gsap.timeline({ paused: true });
+    // the vector appears with the voice saying "вектор", the numbers with the first shift
+    tl.fromTo("#band", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 2.1);
+    tl.fromTo("#stat", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, 5.8);
+    // 3.2-5.6 the vector is read row by row: one row of the digit = one 28-number piece of the strip
+    tl.set(["#scanrow", "#scanseg"], { opacity: 1 }, 3.2);
+    tl.fromTo("#scanrow", { y: 0 }, { y: 432, duration: 2.4, ease: "steps(28)" }, 3.2);
+    tl.fromTo("#scanseg", { x: 0 }, { x: 1666.3, duration: 2.4, ease: "steps(28)" }, 3.2);
+    tl.set(["#scanrow", "#scanseg"], { opacity: 0 }, 5.7);
+    // pixel by pixel: 0 -> 5 shifted pixels
+    [7.4, 9.9, 12.4, 14.9, 17.0].forEach((t, i) =>
+      tl.to(U, { u: i + 1, duration: 0.5, ease: "power2.inOut", onUpdate: update }, t));
+
+    // 18.3 "сорок сім": the amber bars flash
+    tl.to("#band", { filter: "brightness(1.8)", duration: 0.3, ease: "power2.out" }, 18.3);
+    tl.to("#band", { filter: "brightness(1)", duration: 0.6, ease: "power2.inOut" }, 18.7);
+    // 21.5-24.1 the digit dims so the ghost (where the stroke used to be) shows
+    tl.to(["#d1", "#d2"], { opacity: 0.22, duration: 0.5, ease: "power2.inOut" }, 21.5);
+    tl.to(["#d1", "#d2"], { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 24.1);
+    // 24.9 "третина"
+    tl.to("#mp", { color: "#fbbf24", duration: 0.3, ease: "power2.out" }, 24.9);
+    // 26.8 "триста": the changed-positions number lights up
+    tl.to("#c1", { color: "#ffffff", duration: 0.25, ease: "power2.out" }, 26.8);
+    tl.to("#c1", { color: "#22d3ee", duration: 0.6, ease: "power2.inOut" }, 27.3);
+    // 28.2-30.2 replay: back to 0 and out to 5 again, "та сама цифра — інший вхід"
+    tl.to(U, { u: 0, duration: 0.6, ease: "power2.inOut", onUpdate: update }, 28.2);
+    tl.to(U, { u: 5, duration: 0.8, ease: "power2.inOut", onUpdate: update }, 29.4);
+
+    window.__timelines["world"] = tl;
+  </script>
+</template>

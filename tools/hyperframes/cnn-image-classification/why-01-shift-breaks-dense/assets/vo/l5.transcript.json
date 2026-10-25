@@ -1,0 +1,84 @@
+{
+  "audio": "assets/vo/l5.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Нейрон",
+      "start": 0.1,
+      "end": 0.42,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "шукав",
+      "start": 0.5,
+      "end": 0.82,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "не",
+      "start": 0.88,
+      "end": 0.98,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "штрих,",
+      "start": 1.02,
+      "end": 1.38,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "а",
+      "start": 1.76,
+      "end": 1.8,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "яскравість",
+      "start": 1.9,
+      "end": 2.58,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "у",
+      "start": 2.62,
+      "end": 2.7,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "конкретному",
+      "start": 2.74,
+      "end": 3.36,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "стовпці.",
+      "start": 3.44,
+      "end": 3.92,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "Шаблон",
+      "start": 4.3,
+      "end": 4.72,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "прив'язаний",
+      "start": 4.76,
+      "end": 5.36,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "до",
+      "start": 5.4,
+      "end": 5.5,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "місця",
+      "start": 5.56,
+      "end": 5.94,
+      "speaker": "speaker_0"
+    }
+  ]
+}

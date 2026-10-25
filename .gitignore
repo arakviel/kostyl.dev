@@ -102,6 +102,44 @@ lightning_logs/
 **/onion.png
 tools/videos/**/public/
 
+# HyperFrames (HTML -> video): keep sources, drop renders & caches
+tools/hyperframes/**/node_modules/
+tools/hyperframes/**/renders/
+tools/hyperframes/**/.hyperframes/
+tools/hyperframes/**/.cache/
+tools/hyperframes/**/.waveform-cache/
+tools/hyperframes/**/.thumbnails/
+tools/hyperframes/**/snapshots/
+tools/hyperframes/**/_snapshots/
+tools/hyperframes/**/*.mp4
+tools/hyperframes/**/*.webm
+tools/hyperframes/**/*.mov
+tools/hyperframes/**/*.wav
+tools/hyperframes/**/*.mp3
+!tools/hyperframes/**/assets/vo/*.wav
+tools/hyperframes/**/REVIEW.md
+tools/hyperframes/**/.DS_Store
+tools/hyperframes/**/.env*
+# fframes sources are kept; their renders are not
+tools/videos/**/*.mp4
+tools/videos/**/*.webm
+tools/videos/**/*.mov
+
+# Scratch media & temp dirs
+tmp/
+*.log.*
+*.pyc
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# Datasets and caches downloaded for the CNN lectures (large, reproducible)
+temp/chest_xray/
+temp/mnist_data/
+temp/cifar_data/
+temp/*.pt
+temp/*.partial
+
 # Microsoft Office temporary lock files
 ~$*.xlsx
 ~$*.docx

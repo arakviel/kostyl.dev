@@ -1,0 +1,96 @@
+{
+  "audio": "assets/vo/l4.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Одні",
+      "start": 0.12,
+      "end": 0.36,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "і",
+      "start": 0.38,
+      "end": 0.5,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "ті",
+      "start": 0.54,
+      "end": 0.7,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "самі",
+      "start": 0.76,
+      "end": 1.04,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "дев'ять",
+      "start": 1.1,
+      "end": 1.48,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "чисел",
+      "start": 1.54,
+      "end": 1.98,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "у",
+      "start": 2.04,
+      "end": 2.14,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "кожній",
+      "start": 2.18,
+      "end": 2.5,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "позиції.",
+      "start": 2.54,
+      "end": 3.12,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "А",
+      "start": 3.6,
+      "end": 3.7,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "карта",
+      "start": 3.76,
+      "end": 4.08,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "показує,",
+      "start": 4.12,
+      "end": 4.58,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "де",
+      "start": 4.68,
+      "end": 4.78,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "стоїть",
+      "start": 4.84,
+      "end": 5.22,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "штрих",
+      "start": 5.28,
+      "end": 5.62,
+      "speaker": "speaker_0"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "audio": "assets/vo/l2.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Якщо",
+      "start": 0.2,
+      "end": 0.46,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "дати",
+      "start": 0.56,
+      "end": 0.82,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "кожному",
+      "start": 0.86,
+      "end": 1.28,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "з",
+      "start": 1.32,
+      "end": 1.38,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "676",
+      "start": 1.76,
+      "end": 2.88,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "нейронів",
+      "start": 2.92,
+      "end": 3.42,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "усі",
+      "start": 4,
+      "end": 4.28,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "784",
+      "start": 4.54,
+      "end": 5.76,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "пікселі,",
+      "start": 5.8,
+      "end": 6.24,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "ваг",
+      "start": 6.76,
+      "end": 6.98,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "буде",
+      "start": 7.06,
+      "end": 7.32,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "529",
+      "start": 7.58,
+      "end": 8.74,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "984.",
+      "start": 9.42,
+      "end": 10.68,
+      "speaker": "speaker_0"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .t { position: absolute; opacity: 0; font-weight: 700; letter-spacing: -0.01em; }
+    .mono { font-family: "JetBrains Mono", monospace; }
+    .top { left: 0; width: 1920px; top: 56px; text-align: center; font-size: 92px; white-space: nowrap; }
+    .amb { color: #fbbf24; }
+    #cnt2 { opacity: 0; }
+    #mb { left: 0; width: 1920px; top: 172px; text-align: center; font-size: 48px; color: #fbbf24; }
+    #dim { left: 86px; top: 860px; font-size: 40px; width: 240px; }
+    .lab { left: 86px; width: 255px; top: 560px; font-size: 76px; white-space: nowrap; color: #e8eef7; }
+    .sub { left: 86px; width: 250px; top: 650px; font-size: 32px; color: #8aa0bd; font-family: "Inter", sans-serif; }
+    #dimimg { left: 86px; top: 482px; font-size: 30px; color: #8aa0bd; width: 240px; }
+    .nl { left: 1550px; width: 300px; top: 560px; font-size: 76px; color: #34d399; }
+    .ns { left: 1550px; width: 300px; top: 650px; font-size: 32px; color: #34d399; font-family: "Inter", sans-serif; }
+  </style>
+  <div data-hf-id="hf-tnni" id="root" data-composition-id="lines" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-3tea" id="dim" class="t mono clip" data-start="0" data-duration="2.2">28 × 28</div>
+    <div data-hf-id="hf-fibw" id="l784" class="t mono lab clip" data-start="5.3" data-duration="18.9">784</div>
+    <div data-hf-id="hf-yshq" id="s784" class="t sub clip" data-start="5.5" data-duration="18.7">чисел</div>
+    <div data-hf-id="hf-fkld" id="l128" class="t mono nl clip" data-start="10.3" data-duration="18.1">128</div>
+    <div data-hf-id="hf-mc09" id="s128" class="t ns clip" data-start="10.4" data-duration="18.0">нейронів</div>
+    <div data-hf-id="hf-achi" id="dimimg" class="t mono clip" data-start="20.3" data-duration="16.7">224 × 224 × 3</div>
+    <div data-hf-id="hf-vdga" id="l150" class="t mono lab clip" style="font-size:54px" data-start="24.1" data-duration="12.9">150 528</div>
+    <div data-hf-id="hf-3ikk" id="s150" class="t sub clip" data-start="24.3" data-duration="12.7">чисел</div>
+    <div data-hf-id="hf-03p5" id="l512" class="t mono nl clip" data-start="28.2" data-duration="8.8">512</div>
+    <div data-hf-id="hf-o3ja" id="s512" class="t ns clip" data-start="28.3" data-duration="8.7">нейронів</div>
+    <div data-hf-id="hf-1lmu" id="top1" class="t mono top clip" data-start="7.6" data-duration="16.8">784 × 128 = <span data-hf-id="hf-v7sx" id="cnt1" class="amb">0</span></div>
+    <div data-hf-id="hf-hfz5" id="top2" class="t mono top clip" data-start="24.3" data-duration="9.5">150 528 × 512 = <span data-hf-id="hf-iwpc" id="cnt2" class="amb">0</span></div>
+    <div data-hf-id="hf-r2cx" id="top3" class="t mono top clip" data-start="33.6" data-duration="3.4">Один шар — <span data-hf-id="hf-srlq" class="amb">77 070 336</span> ваг</div>
+    <div data-hf-id="hf-3qmb" id="mb" class="t mono clip" data-start="31.2" data-duration="5.8">≈ 294 МБ</div>
+  </div>
+  <script>
+    const fmt = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    const tl = gsap.timeline({ paused: true });
+    const inn = (sel, at) =>
+      tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, at);
+    const out = (sel, at) =>
+      tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: 0.15, ease: "power3.in" }, at);
+
+    gsap.set("#dim", { opacity: 1 }); out("#dim", 2.0);
+    inn("#l784", 5.3); inn("#s784", 5.5); out("#l784", 23.9); out("#s784", 23.9);
+    inn("#l128", 10.3); inn("#s128", 10.4); out("#l128", 28.0); out("#s128", 28.0);
+    inn("#top1", 7.6); out("#top1", 24.1);
+    // weights counted along the line sweep (same time and ease as the drawing in the world scene)
+    const C = { n: 0 };
+    tl.to(C, { n: 100352, duration: 7.2, ease: "power2.in", onUpdate: () => { document.getElementById("cnt1").textContent = fmt(C.n); } }, 7.8);
+    inn("#dimimg", 20.3);
+    inn("#l150", 24.1); inn("#s150", 24.3);
+    inn("#l512", 28.2); inn("#s512", 28.3);
+    inn("#top2", 24.3); out("#top2", 33.5);
+    tl.fromTo("#cnt2", { opacity: 0 }, { opacity: 1, duration: 0.15 }, 28.9);
+    const W = { n: 0 };
+    tl.to(W, { n: 77070336, duration: 1.7, ease: "power3.out", onUpdate: () => { document.getElementById("cnt2").textContent = fmt(W.n); } }, 28.9);
+    inn("#mb", 31.2);
+    inn("#top3", 33.6);
+    window.__timelines["lines"] = tl;
+  </script>
+</template>

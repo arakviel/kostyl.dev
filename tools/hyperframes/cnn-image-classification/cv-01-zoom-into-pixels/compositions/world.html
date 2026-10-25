@@ -1,0 +1,110 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; }
+    #cam { position: absolute; left: 0; top: 0; width: 3360px; height: 3360px; transform-origin: 0 0; --num: 0; }
+    #smooth { position: absolute; left: 0; top: 0; width: 3360px; height: 3360px; image-rendering: auto; }
+    #rows { position: absolute; left: 0; top: 0; width: 3360px; height: 3360px; opacity: 0; }
+    .r { position: absolute; left: 0; top: 0; width: 3360px; height: 120px; transform-origin: 0 0; }
+    .c { position: absolute; top: 0; width: 120px; height: 120px; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+         display: flex; align-items: center; justify-content: center; }
+    .n { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 44px; opacity: var(--num); }
+    #hl { position: absolute; left: 1680px; top: 1200px; width: 720px; height: 120px; border: 8px solid #fbbf24;
+          transform-origin: 0 50%; opacity: 0; }
+  </style>
+  <div data-hf-id="hf-1dtx" id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-ftaq" id="cam">
+      <canvas data-hf-id="hf-jtq3" id="smooth" width="224" height="224"></canvas>
+      <div data-hf-id="hf-q9ue" id="rows"></div>
+      <div data-hf-id="hf-zef5" id="hl"></div>
+    </div>
+  </div>
+  <script>
+    const D = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 7, 7, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 13, 120, 137, 186, 254, 254, 136, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 53, 143, 179, 254, 254, 254, 255, 254, 254, 193, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 25, 50, 149, 175, 254, 254, 254, 254, 254, 254, 255, 254, 254, 108, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 96, 170, 254, 254, 254, 254, 254, 245, 183, 99, 99, 147, 252, 254, 196, 3, 0, 0, 0, 0, 0, 0, 0, 0, 4, 145, 162, 162, 219, 254, 254, 254, 246, 186, 93, 66, 0, 0, 0, 125, 246, 254, 119, 2, 0, 0, 0, 0, 0, 0, 0, 0, 87, 215, 254, 254, 254, 254, 204, 87, 68, 0, 0, 0, 0, 0, 46, 197, 254, 180, 47, 0, 0, 0, 0, 0, 0, 0, 0, 0, 168, 254, 156, 80, 80, 80, 28, 0, 0, 0, 0, 0, 0, 0, 126, 245, 255, 57, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 74, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 43, 200, 254, 91, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 156, 245, 205, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 124, 244, 254, 85, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 217, 254, 121, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 176, 254, 254, 61, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 161, 245, 215, 58, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 54, 246, 254, 185, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 124, 254, 254, 64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 52, 237, 254, 126, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 118, 254, 254, 119, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 118, 254, 254, 61, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 6, 6, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const N = 28, CELL = 120, GRID = N * CELL;
+    const lerp = (a, b, t) => a + (b - a) * t;
+    const shade = (v) => {
+      const t = v / 255;
+      return [Math.round(lerp(7, 244, t)), Math.round(lerp(11, 247, t)), Math.round(lerp(20, 251, t))];
+    };
+
+    // smooth "photo" of the digit (bilinear), used until the squares take over
+    const src = document.createElement("canvas");
+    src.width = N; src.height = N;
+    const sctx = src.getContext("2d");
+    const img = sctx.createImageData(N, N);
+    D.forEach((v, i) => {
+      const [r, g, b] = shade(v);
+      img.data.set([r, g, b, 255], i * 4);
+    });
+    sctx.putImageData(img, 0, 0);
+    const big = document.getElementById("smooth").getContext("2d");
+    big.imageSmoothingEnabled = true;
+    big.imageSmoothingQuality = "high";
+    big.drawImage(src, 0, 0, 224, 224);
+
+    // 28 rows x 28 cells with the real numbers
+    const rowsEl = document.getElementById("rows");
+    const rows = [];
+    for (let i = 0; i < N; i++) {
+      const row = document.createElement("div");
+      row.className = "r";
+      row.id = "row" + i;
+      row.setAttribute("data-layout-allow-occlusion", "true");
+      row.setAttribute("data-layout-allow-overlap", "true");
+      for (let j = 0; j < N; j++) {
+        const v = D[i * N + j];
+        const c = document.createElement("div");
+        c.className = "c";
+        c.style.left = j * CELL + "px";
+        const [r, g, b] = shade(v);
+        c.style.background = "rgb(" + r + "," + g + "," + b + ")";
+        const n = document.createElement("span");
+        n.className = "n";
+        n.setAttribute("data-layout-allow-occlusion", "true");
+        n.textContent = v;
+        n.style.color = v >= 90 ? "#070b14" : v === 0 ? "rgb(86,97,116)" : "rgb(190,208,230)";
+        c.appendChild(n);
+        row.appendChild(c);
+      }
+      rowsEl.appendChild(row);
+      rows.push(row);
+      gsap.set(row, { x: 0, y: i * CELL });
+    }
+
+    // camera = (ln scale, centre in grid space) anchored at the screen centre
+    const S_START = 970 / GRID;
+    const OFF = 1245; // grid centre sits right of the text column
+    const cs = { ls: Math.log(S_START), cx: GRID / 2 + (960 - OFF) / S_START, cy: GRID / 2 };
+    const cam = document.getElementById("cam");
+    const apply = () => {
+      const s = Math.exp(cs.ls);
+      gsap.set(cam, { scale: s, x: 960 - cs.cx * s, y: 540 - cs.cy * s });
+    };
+    apply();
+
+    const tl = gsap.timeline({ paused: true });
+    const move = (at, dur, ls, cx, cy, ease) =>
+      tl.to(cs, { ls, cx, cy, duration: dur, ease: ease || "power2.inOut", onUpdate: apply }, at);
+
+    // 2.3-8.8 zoom into the top stroke
+    move(2.3, 6.5, 0, 2100, 1260);
+    tl.to("#smooth", { opacity: 0, duration: 1.4, ease: "power2.inOut" }, 5.0);
+    tl.to("#rows", { opacity: 1, duration: 1.4, ease: "power2.inOut" }, 5.0);
+    tl.to("#cam", { "--num": 1, duration: 1.5, ease: "power2.out" }, 6.8);
+    // 12.4-14.6 small pan left along the stroke
+    move(12.4, 2.2, 0.06, 1880, 1280, "power1.inOut");
+    // 15.0-19.0 amber frame on image[10, 14:20], push in
+    tl.fromTo("#hl", { opacity: 1, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.5, ease: "power3.out" }, 15.2);
+    move(15.0, 1.5, 0.47, 2040, 1260);
+    // 19.0-21.3 pull back to the whole grid, numbers melt into the picture
+    move(19.0, 2.3, Math.log(S_START), GRID / 2 + (960 - OFF) / S_START, GRID / 2);
+    tl.to("#cam", { "--num": 0, duration: 1.2, ease: "power2.inOut" }, 19.2);
+    tl.to("#hl", { opacity: 0, duration: 0.3 }, 19.2);
+    // 21.6-24.4 rows unroll into one line; each row grows into a tall bar as it leaves, camera pulls out to fit
+    rows.forEach((row, i) =>
+      tl.to(row, { x: i * GRID, y: 0, scaleY: 40, duration: 1.1, ease: "power3.inOut" }, 21.6 + i * 0.05));
+    move(21.6, 2.8, Math.log(1700 / (N * GRID)), (N * GRID) / 2, 2400);
+
+    window.__timelines["world"] = tl;
+  </script>
+</template>

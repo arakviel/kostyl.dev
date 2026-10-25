@@ -1,0 +1,112 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; }
+    #photo { position: absolute; left: 0; top: 0; width: 640px; height: 427px; transform-origin: 0 0; image-rendering: pixelated; }
+    #frame { position: absolute; left: 640px; top: 170px; width: 640px; height: 640px; box-shadow: 0 0 0 3000px rgba(7,11,20,0.95); opacity: 0; outline: 4px solid #22d3ee; }
+    #base { position: absolute; left: 640px; top: 170px; width: 640px; height: 640px; opacity: 0; }
+    #stack { position: absolute; left: 640px; top: 170px; width: 640px; height: 640px; isolation: isolate; }
+    .sheet { position: absolute; left: 0; top: 0; width: 640px; height: 640px; mix-blend-mode: plus-lighter; opacity: 0; transform-origin: 50% 50%; }
+    .cell { position: absolute; width: 160px; height: 160px; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 0 2px rgba(7,11,20,0.5); }
+    .sn { font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 56px; opacity: 0; }
+    .ring { position: absolute; left: 0; top: 0; width: 160px; height: 160px; border: 10px solid #fbbf24; opacity: 0; transform-origin: 50% 50%; }
+  </style>
+  <div data-hf-id="hf-1dtx" id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <img data-hf-id="hf-tisi" id="photo" src="assets/flower.jpg" alt="" />
+    <div data-hf-id="hf-xfzw" id="frame"></div>
+    <div data-hf-id="hf-6mza" id="base"></div>
+    <div data-hf-id="hf-h4bv" id="stack"></div>
+  </div>
+  <script>
+    const PATCH = [[[229, 188, 132], [207, 147, 137], [86, 68, 30], [12, 23, 19]], [[235, 192, 150], [203, 143, 132], [81, 65, 32], [11, 22, 24]], [[231, 193, 148], [192, 134, 120], [77, 60, 30], [2, 18, 15]], [[230, 191, 158], [173, 117, 102], [53, 50, 17], [2, 18, 18]]];
+    const CELL = 160;
+    const lin = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+    const lum = (r, g, b) => 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+    const ink = (r, g, b) => {
+      const L = lum(r, g, b);
+      return (1.05 / (L + 0.05)) >= ((L + 0.05) / 0.0575) ? "#ffffff" : "#070b14";
+    };
+
+    const base = document.getElementById("base");
+    for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) {
+      const d = document.createElement("div");
+      d.className = "cell";
+      d.style.left = c * CELL + "px"; d.style.top = r * CELL + "px";
+      const [R, G, B] = PATCH[r][c];
+      d.style.background = "rgb(" + R + "," + G + "," + B + ")";
+      base.appendChild(d);
+    }
+
+    const stack = document.getElementById("stack");
+    const names = ["R", "B", "G"]; // DOM order: G on top
+    const chIndex = { R: 0, G: 1, B: 2 };
+    const sheets = {};
+    names.forEach((nm) => {
+      const sh = document.createElement("div");
+      sh.className = "sheet"; sh.id = "sheet" + nm;
+      const k = chIndex[nm];
+      for (let r = 0; r < 4; r++) for (let c = 0; c < 4; c++) {
+        const v = PATCH[r][c][k];
+        const rgb = [0, 0, 0]; rgb[k] = v;
+        const d = document.createElement("div");
+        d.className = "cell";
+        d.style.left = c * CELL + "px"; d.style.top = r * CELL + "px";
+        d.style.background = "rgb(" + rgb.join(",") + ")";
+        const n = document.createElement("span");
+        n.className = "sn"; n.textContent = v;
+        n.style.color = ink(rgb[0], rgb[1], rgb[2]);
+        d.appendChild(n);
+        sh.appendChild(d);
+      }
+      const ring = document.createElement("div");
+      ring.className = "ring"; ring.id = "ring" + nm;
+      sh.appendChild(ring);
+      stack.appendChild(sh);
+      sheets[nm] = sh;
+      gsap.set(sh, { transformPerspective: 2000, x: 0, y: 0, scale: 1, rotationY: 0 });
+    });
+
+    // camera dive: photo px (446, 224) is the centre of the patch
+    const cam = { p: 0 };
+    const S0 = 3, S1 = 160;
+    const photo = document.getElementById("photo");
+    const apply = () => {
+      const s = Math.exp(Math.log(S0) + (Math.log(S1) - Math.log(S0)) * cam.p);
+      const w = cam.p;
+      const px = 960 + 378 * (1 - w), py = 490 + 83 * (1 - w);
+      gsap.set(photo, { scale: s, x: px - 446 * s, y: py - 224 * s });
+    };
+    apply();
+
+    const tl = gsap.timeline({ paused: true });
+    tl.to(cam, { p: 1, duration: 5.2, ease: "power2.inOut", onUpdate: apply }, 0.5);
+    // isolate the patch
+    tl.to("#frame", { opacity: 1, duration: 0.7, ease: "power2.out" }, 5.3);
+    tl.to("#base", { opacity: 1, duration: 0.5, ease: "power2.out" }, 5.3);
+    // 8.0 hand over to the three additive sheets (same pixels, so the swap is invisible)
+    tl.set("#photo", { opacity: 0 }, 8.1);
+    tl.to("#frame", { opacity: 0, duration: 0.3 }, 8.1);
+    tl.set(".sheet", { opacity: 1 }, 8.0);
+    tl.set("#base", { opacity: 0 }, 8.05);
+    // 8.3-10.5 the stack fans out
+    tl.to("#sheetR", { x: -540, rotationY: 24, scale: 0.9, duration: 2.0, ease: "power3.inOut" }, 8.3);
+    tl.to("#sheetB", { x: 540, rotationY: -24, scale: 0.9, duration: 2.0, ease: "power3.inOut" }, 8.3);
+    tl.to("#sheetG", { scale: 0.9, duration: 2.0, ease: "power3.inOut" }, 8.3);
+    // numbers
+    tl.to(".sn", { opacity: 1, duration: 0.5, ease: "power2.out", stagger: 0.015 }, 9.7);
+    // 13.6 pixel (0,0) ringed in every sheet
+    ["R", "G", "B"].forEach((nm, i) =>
+      tl.fromTo("#ring" + nm, { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power3.out" }, 13.6 + i * 0.15));
+    // pulse on each spoken number
+    [["R", 17.3], ["G", 19.1], ["B", 20.6]].forEach(([nm, t]) => {
+      tl.to("#ring" + nm, { scale: 1.2, duration: 0.15, ease: "power2.out" }, t);
+      tl.to("#ring" + nm, { scale: 1, duration: 0.3, ease: "power2.inOut" }, t + 0.15);
+    });
+    // 21.9-23.6 numbers off, sheets slide back together: the colour returns
+    tl.to(".sn", { opacity: 0, duration: 0.4, ease: "power2.in" }, 21.9);
+    tl.to(".ring", { opacity: 0, duration: 0.4, ease: "power2.in" }, 22.0);
+    tl.to("#sheetR, #sheetB", { x: 0, rotationY: 0, duration: 1.6, ease: "power3.inOut" }, 22.0);
+    tl.to(".sheet", { scale: 1, duration: 1.6, ease: "power3.inOut" }, 22.0);
+
+    window.__timelines["world"] = tl;
+  </script>
+</template>

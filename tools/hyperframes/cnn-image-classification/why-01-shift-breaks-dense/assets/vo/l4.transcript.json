@@ -1,0 +1,84 @@
+{
+  "audio": "assets/vo/l4.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Той",
+      "start": 0.58,
+      "end": 0.74,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "самий",
+      "start": 0.84,
+      "end": 1.14,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "штрих,",
+      "start": 1.2,
+      "end": 1.54,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "а",
+      "start": 1.74,
+      "end": 1.82,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "відгук",
+      "start": 1.84,
+      "end": 2.26,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "нуль.",
+      "start": 2.32,
+      "end": 2.56,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "Пікселі",
+      "start": 3.26,
+      "end": 3.7,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "лягли",
+      "start": 3.74,
+      "end": 4.08,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "на",
+      "start": 4.12,
+      "end": 4.22,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "ваги,",
+      "start": 4.24,
+      "end": 4.52,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "які",
+      "start": 4.8,
+      "end": 5.04,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "дорівнюють",
+      "start": 5.08,
+      "end": 5.66,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "нулю",
+      "start": 5.7,
+      "end": 5.98,
+      "speaker": "speaker_0"
+    }
+  ]
+}

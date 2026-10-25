@@ -1,0 +1,126 @@
+{
+  "audio": "assets/vo/l4.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "А",
+      "start": 0.42,
+      "end": 0.5,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "ще",
+      "start": 0.66,
+      "end": 0.8,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "всі",
+      "start": 0.84,
+      "end": 1.06,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "шістсот",
+      "start": 1.12,
+      "end": 1.5,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "сімдесят",
+      "start": 1.56,
+      "end": 2.04,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "шість",
+      "start": 2.1,
+      "end": 2.42,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "нейронів",
+      "start": 2.48,
+      "end": 2.98,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "шукають",
+      "start": 3.36,
+      "end": 3.86,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "один",
+      "start": 3.94,
+      "end": 4.26,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "і",
+      "start": 4.3,
+      "end": 4.4,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "той",
+      "start": 4.44,
+      "end": 4.6,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "самий",
+      "start": 4.66,
+      "end": 4.96,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "штрих.",
+      "start": 5.02,
+      "end": 5.4,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "Тож",
+      "start": 6.22,
+      "end": 6.48,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "їхні",
+      "start": 6.58,
+      "end": 6.86,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "дев'ять",
+      "start": 6.92,
+      "end": 7.32,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "ваг",
+      "start": 7.4,
+      "end": 7.66,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "можна",
+      "start": 7.72,
+      "end": 7.98,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "зробити",
+      "start": 8.039,
+      "end": 8.44,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "спільними",
+      "start": 8.48,
+      "end": 9.04,
+      "speaker": "speaker_0"
+    }
+  ]
+}

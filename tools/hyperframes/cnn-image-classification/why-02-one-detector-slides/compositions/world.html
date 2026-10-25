@@ -1,0 +1,133 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .pair { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 0 0; }
+    .cell { position: absolute; width: 110px; height: 110px; background: #0b1220; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.07); }
+    .pix { position: absolute; width: 110px; height: 110px; background: #f4f7fb; box-shadow: inset 0 0 0 2px rgba(7,11,20,0.35); }
+    .mc { position: absolute; width: 110px; height: 110px; background: #0b1220; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 52px; color: #070b14; }
+    .mc span { opacity: 0; }
+    .ring { position: absolute; inset: 0; border: 7px solid #e8eef7; opacity: 0; }
+    .kf { position: absolute; left: 130px; top: 210px; width: 330px; height: 330px; box-shadow: inset 0 0 0 6px #22d3ee; transform-origin: 0 0; }
+    .ks { position: absolute; top: 0; width: 110px; height: 330px; }
+    .kw { position: absolute; width: 110px; height: 110px; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 48px; text-shadow: 0 0 4px #070b14, 0 0 10px #070b14, 0 0 2px #070b14; }
+    .tile { position: absolute; width: 110px; height: 110px; background: #0b1220; box-shadow: inset 0 0 0 2px rgba(34,211,238,0.35); }
+    .cap { position: absolute; font-weight: 700; color: #8aa0bd; white-space: nowrap; }
+    .mx { position: absolute; left: 1090px; top: 792px; width: 440px; text-align: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 58px; color: #34d399; opacity: 0; }
+  </style>
+  <div data-hf-id="hf-1dtx" id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-82pz" id="pairA" class="pair"></div>
+    <div data-hf-id="hf-or31" id="pairB" class="pair" style="opacity:0"></div>
+  </div>
+  <script>
+    const CS = 110, IX = 130, IY = 210, MX = 1090, MY = 320;
+    const KV = [-1, 1, -1];
+    const resp = (strokeCol, j) => { const rel = strokeCol - j; return rel >= 0 && rel <= 2 ? 3 * KV[rel] : 0; };
+    const mk = (cls, css, parent, id) => { const d = document.createElement("div"); d.className = cls; Object.assign(d.style, css); if (id) d.id = id; parent.appendChild(d); return d; };
+
+    // one "image + detector + map" group; pair B reuses the builder
+    const build = (P, name, strokeCol) => {
+      const root = document.getElementById("pair" + P);
+      mk("cap", { left: IX + "px", top: "136px", fontSize: "52px" }, root, P + "capI").textContent = "картинка " + name;
+      mk("cap", { left: MX + "px", top: "226px", fontSize: "52px", opacity: 0 }, root, P + "capM").textContent = "карта відгуків 4×4";
+      for (let r = 0; r < 6; r++) for (let c = 0; c < 6; c++) mk("cell", { left: IX + c * CS + "px", top: IY + r * CS + "px" }, root);
+      for (let r = 0; r < 6; r++) mk("pix", { left: IX + strokeCol * CS + "px", top: IY + r * CS + "px" }, root, P + "pix" + r);
+      const mc = [];
+      for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) {
+        const m = mk("mc", { left: MX + j * CS + "px", top: MY + i * CS + "px" }, root, P + "mc" + i + j);
+        const sp = document.createElement("span"); sp.id = P + "v" + i + j; sp.textContent = ""; m.appendChild(sp);
+        const rg = mk("ring", {}, m, P + "rg" + i + j);
+        mc.push(m);
+      }
+      const kf = mk("kf", { opacity: 0 }, root, P + "kf");
+      ["rgba(251,113,133,0.30)", "rgba(52,211,153,0.34)", "rgba(251,113,133,0.30)"].forEach((c, k) => mk("ks", { left: k * CS + "px", background: c }, kf));
+      for (let r = 0; r < 3; r++) for (let k = 0; k < 3; k++) {
+        const w = mk("kw", { left: k * CS + "px", top: r * CS + "px", color: k === 1 ? "#a7f3d0" : "#fecdd3" }, kf); w.textContent = k === 1 ? "+1" : "−1";
+      }
+      const mx = mk("mx", {}, root, P + "mx"); mx.textContent = "максимум: 3";
+      return root;
+    };
+    build("A", "A", 2);
+    build("B", "B", 2);
+    gsap.set("#Akf, #Bkf", { x: 0, y: 0 });
+
+    // the 16 identical detectors (hook), placed where the map cells will be
+    const rootA = document.getElementById("pairA");
+    const tiles = [];
+    for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) {
+      const t = mk("tile", { left: MX + j * CS + "px", top: MY + i * CS + "px" }, rootA, "tile" + i + j);
+      ["#fb7185", "#34d399", "#fb7185"].forEach((c, k) => mk("", { position: "absolute", left: 18 + k * 25 + "px", top: "18px", width: "20px", height: "74px", background: c, opacity: 0.85 }, t));
+      tiles.push(t);
+    }
+    mk("cap", { left: MX + "px", top: "226px", fontSize: "52px", color: "#22d3ee" }, rootA, "capT").textContent = "16 детекторів";
+    mk("cap", { left: "0", top: "60px", width: "1920px", textAlign: "center", fontSize: "60px", color: "#e8eef7", opacity: 0 }, rootA, "cap161").textContent = "16 детекторів → 1";
+
+    // 9 weights plate
+    const plate = mk("", { position: "absolute", left: IX + "px", top: "920px", opacity: 0, fontFamily: '"JetBrains Mono", monospace', fontWeight: 700, fontSize: "62px", color: "#22d3ee" }, document.getElementById("root"), "plate9");
+    plate.textContent = "9 ваг";
+
+    const tl = gsap.timeline({ paused: true });
+    const $ = (id) => document.getElementById(id);
+    const setVal = (P, i, j, v, at) => {
+      const m = $(P + "mc" + i + j), sp = $(P + "v" + i + j);
+      sp.textContent = v > 0 ? "+" + v : v < 0 ? "−" + Math.abs(v) : "0";
+      tl.set(m, { backgroundColor: v > 0 ? "#34d399" : v < 0 ? "#fb7185" : "#0b1220" }, at);
+      sp.style.color = v === 0 ? "#8aa0bd" : "#070b14";
+      tl.to(sp, { opacity: 1, duration: 0.12, ease: "power2.out" }, at);
+      tl.to(m, { scale: 1.18, duration: 0.1, ease: "power2.out" }, at);
+      tl.to(m, { scale: 1, duration: 0.25, ease: "power3.out" }, at + 0.1);
+    };
+
+    // hook 0.4-3.0: the 16 identical detectors light up in turn
+    tiles.forEach((t, k) => {
+      tl.to(t, { boxShadow: "inset 0 0 0 4px #22d3ee", duration: 0.15, ease: "power2.out" }, 0.4 + k * 0.15);
+      tl.to(t, { boxShadow: "inset 0 0 0 2px rgba(34,211,238,0.35)", duration: 0.3 }, 0.55 + k * 0.15);
+    });
+    // 3.1-4.7 fifteen of them fold into the first one
+    tiles.forEach((t, k) => { if (k > 0) {
+      const i = Math.floor(k / 4), j = k % 4;
+      tl.to(t, { x: -j * CS, y: -i * CS, scale: 0.3, opacity: 0, duration: 0.7, ease: "power3.in" }, 3.1 + k * 0.04);
+    } });
+    tl.to("#capT", { opacity: 0, duration: 0.2 }, 3.1);
+    tl.to("#cap161", { opacity: 1, duration: 0.25, ease: "power4.out" }, 3.4);
+    // 4.2-4.9 the one left becomes the frame on the image
+    tl.set("#Akf", { opacity: 1, x: MX - IX, y: MY - IY, scale: 1 / 3 }, 4.2);
+    tl.set("#tile00", { opacity: 0 }, 4.2);
+    tl.to("#Akf", { x: 0, y: 0, scale: 1, duration: 0.7, ease: "power3.inOut" }, 4.2);
+    tl.to("#capA, #AcapM", { opacity: 1, duration: 0.3 }, 4.9);
+    tl.to("#cap161", { opacity: 0, duration: 0.25 }, 5.2);
+    // first position and the first number (-3)
+    setVal("A", 0, 0, -3, 7.1);
+    // 9.6-13.8 slide along the first row: +3, -3, 0
+    const mv = (P, i, j, at, d) => tl.to("#" + P + "kf", { x: j * CS, y: i * CS, duration: d, ease: "power2.inOut" }, at);
+    mv("A", 0, 1, 9.6, 0.5); setVal("A", 0, 1, 3, 10.6);
+    mv("A", 0, 2, 11.8, 0.5); setVal("A", 0, 2, -3, 12.5);
+    mv("A", 0, 3, 13.2, 0.5); setVal("A", 0, 3, 0, 13.8);
+    // 15.0-18.0 the other twelve positions, same nine weights
+    tl.to("#plate9", { opacity: 1, duration: 0.25, ease: "power4.out" }, 15.0);
+    let t0 = 15.0;
+    for (let i = 1; i < 4; i++) for (let j = 0; j < 4; j++) { mv("A", i, j, t0, 0.18); setVal("A", i, j, resp(2, j), t0 + 0.14); t0 += 0.25; }
+    // 18.35 "де стоїть штрих": the peaks glow
+    for (let i = 0; i < 4; i++) {
+      tl.to("#Arg" + i + "1", { opacity: 1, duration: 0.3, ease: "power2.out" }, 18.35 + i * 0.12);
+    }
+    tl.to("#Akf", { opacity: 0, duration: 0.4 }, 19.3);
+    // 21.3 epilogue: pair A moves to the left half, pair B arrives on the right
+    const HALF = { scale: 0.6, y: 236, duration: 0.9, ease: "power3.inOut" };
+    tl.to("#pairA", { ...HALF, x: -38 }, 21.3);
+    tl.set("#pairB", { scale: 0.6, x: 962, y: 236 }, 21.3);
+    tl.to("#pairB", { opacity: 1, duration: 0.4 }, 22.0);
+    tl.to("#BcapM", { opacity: 1, duration: 0.3 }, 22.2);
+    tl.to("#Bpix0, #Bpix1, #Bpix2, #Bpix3, #Bpix4, #Bpix5", { x: 2 * CS, duration: 0.8, ease: "power2.inOut" }, 22.4);
+    // 23.4-25.6 the same detector sweeps B: the peak moves with the stroke
+    tl.set("#Bkf", { opacity: 1 }, 23.3);
+    let t1 = 23.4;
+    for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) { mv("B", i, j, t1, 0.12); setVal("B", i, j, resp(4, j), t1 + 0.09); t1 += 0.14; }
+    tl.to("#Bkf", { opacity: 0, duration: 0.3 }, t1 + 0.05);
+    // 25.6 peaks and maxima
+    for (let i = 0; i < 4; i++) tl.to("#Brg" + i + "3", { opacity: 1, duration: 0.3 }, 25.7 + i * 0.1);
+    tl.to("#Amx, #Bmx", { opacity: 1, duration: 0.3, ease: "power4.out" }, 24.2);
+    tl.to("#plate9", { scale: 1.12, duration: 0.2, transformOrigin: "0 50%" }, 27.0);
+    tl.to("#plate9", { scale: 1, duration: 0.3 }, 27.2);
+    window.__timelines["world"] = tl;
+  </script>
+</template>

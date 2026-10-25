@@ -1,0 +1,72 @@
+{
+  "audio": "assets/vo/l2.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Тепер",
+      "start": 0.12,
+      "end": 0.5,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "з'єднаємо",
+      "start": 0.54,
+      "end": 1.12,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "кожне",
+      "start": 1.18,
+      "end": 1.48,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "число",
+      "start": 1.52,
+      "end": 1.88,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "з",
+      "start": 2.06,
+      "end": 2.12,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "кожним",
+      "start": 2.16,
+      "end": 2.54,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "зі",
+      "start": 2.58,
+      "end": 2.7,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "ста",
+      "start": 2.72,
+      "end": 2.92,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "двадцяти",
+      "start": 2.98,
+      "end": 3.46,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "восьми",
+      "start": 3.5,
+      "end": 3.88,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "нейронів",
+      "start": 3.92,
+      "end": 4.44,
+      "speaker": "speaker_0"
+    }
+  ]
+}

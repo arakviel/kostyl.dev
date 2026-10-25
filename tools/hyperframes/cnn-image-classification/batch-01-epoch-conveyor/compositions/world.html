@@ -1,0 +1,104 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .lab { position: absolute; font-weight: 700; white-space: nowrap; opacity: 0; }
+    .mono { font-family: "JetBrains Mono", monospace; }
+    .card { position: absolute; width: 168px; height: 168px; background: #0f172a; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.12), 0 6px 0 #070b14; }
+    .tile { position: absolute; width: 11px; height: 11px; background: #172033; opacity: 0; }
+    #batch, #last { position: absolute; image-rendering: pixelated; opacity: 0; box-shadow: 0 0 0 4px #fbbf24; }
+    #net { position: absolute; left: 1100px; top: 440px; width: 220px; height: 220px; border-radius: 28px; box-shadow: inset 0 0 0 5px #22d3ee; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 40px; color: #22d3ee; opacity: 0; }
+    .kc { position: absolute; width: 112px; height: 112px; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 28px; background: #0b1220; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.1); opacity: 0; }
+  </style>
+  <div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <div id="stack"></div>
+    <div id="l60" class="lab mono" style="left:120px;top:660px;font-size:44px;color:#e8eef7">60 000 цифр</div>
+    <div id="q" class="lab" style="left:120px;top:730px;font-size:34px;color:#8aa0bd">чому не показати все одразу?</div>
+    <div id="tiles"></div>
+    <div id="lt" class="lab mono" style="left:560px;top:84px;font-size:36px;color:#8aa0bd">938 батчів по B = 64</div>
+    <img id="batch" src="assets/b1.png" alt="" style="left:620px;top:420px;width:336px;height:336px"/>
+    <img id="last" src="assets/blast.png" alt="" style="left:620px;top:420px;width:336px;height:84px"/>
+    <div id="lb" class="lab mono" style="left:620px;top:380px;font-size:34px;color:#fbbf24">батч 1: 64 цифри</div>
+    <div id="net">мережа</div>
+    <div id="kw"></div>
+    <div id="kl" class="lab" style="left:1420px;top:390px;font-size:32px;color:#8aa0bd">ваги ядра K₁ (conv1)</div>
+    <div id="ks" class="lab mono" style="left:1420px;top:790px;font-size:34px;color:#fbbf24">після кроку <span id="ksv">0</span></div>
+    <div id="cnt" class="lab mono" style="left:560px;top:840px;font-size:72px;color:#fbbf24">крок <span id="cv">0</span> / 938</div>
+    <div id="ep" class="lab mono" style="left:1300px;top:860px;font-size:56px;color:#e8eef7">епоха <span id="ev">1</span></div>
+    <div id="lastl" class="lab mono" style="left:620px;top:530px;font-size:34px;color:#fbbf24">останній батч: 32</div>
+  </div>
+  <script>
+    const BW = {"w": [[-0.002, 0.179, -0.274, -0.245, -0.128, 0.089, -0.007, 0.264, -0.03], [-0.003, 0.178, -0.273, -0.246, -0.129, 0.09, -0.006, 0.265, -0.029], [-0.004, 0.177, -0.273, -0.247, -0.13, 0.091, -0.006, 0.265, -0.028], [-0.004, 0.177, -0.272, -0.248, -0.131, 0.091, -0.007, 0.264, -0.028]], "loss": [2.31, 2.314, 2.303]};
+    const $ = (id) => document.getElementById(id);
+    const mk = (parent, cls, css, text, id) => { const d = document.createElement("div"); d.className = cls; Object.assign(d.style, css); if (text !== undefined) d.textContent = text; if (id) d.id = id; parent.appendChild(d); return d; };
+    // the pile of 60 000 digits: a stack of cards
+    const CARDS = 14, SX = 120, SY = 440;
+    const rnd = (a) => () => { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+    const R = rnd(11); const scat = [];
+    for (let k = 0; k < CARDS; k++) {
+      const c = mk($("stack"), "card", { left: SX + k * 5 + "px", top: SY - k * 5 + "px" }, undefined, "cd" + k);
+      const n = mk(c, "mono", { position: "absolute", inset: "0", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: "88px", color: "#e8eef7", opacity: 0.85 }, String((k * 7 + 3) % 10));
+      c.setAttribute("data-layout-allow-occlusion", "true"); c.setAttribute("data-layout-allow-overlap", "true"); n.setAttribute("data-layout-allow-occlusion", "true"); n.setAttribute("data-layout-allow-overlap", "true");
+      scat.push([(R() - 0.5) * 360, (R() - 0.5) * 300, (R() - 0.5) * 50]);
+    }
+    // 938 batch tiles
+    const COLS = 67, PITCH = 15, TX = 560, TY = 140;
+    for (let i = 0; i < 938; i++) mk($("tiles"), "tile", { left: TX + (i % COLS) * PITCH + "px", top: TY + Math.floor(i / COLS) * PITCH + "px" }, undefined, "t" + i);
+    // kernel K1: real weights after steps 0..3 (three decimals, they hardly move)
+    for (let k = 0; k < 9; k++) mk($("kw"), "kc", { left: 1420 + (k % 3) * 116 + "px", top: 440 + Math.floor(k / 3) * 116 + "px" }, "", "kc" + k);
+    const fmtW = (v) => (v < 0 ? "−" : "+") + Math.abs(v).toFixed(3);
+    const W = { i: 0 }; let lastI = -1;
+    const renderW = () => { const i = Math.round(W.i); if (i === lastI) return; lastI = i; BW.w[i].forEach((v, k) => { const c = $("kc" + k); c.textContent = fmtW(v); c.style.color = v < 0 ? "#fb7185" : "#34d399"; }); $("ksv").textContent = i; };
+    renderW();
+    // the step counter and the lit tiles are functions of one number
+    const C = { k: 0 }; let litTo = 0;
+    const renderC = () => {
+      const k = Math.round(C.k);
+      $("cv").textContent = k;
+      if (k > litTo) { for (let i = litTo; i < k; i++) { const t = $("t" + i); t.style.background = i === 937 ? "#fbbf24" : "#22d3ee"; t.style.opacity = 1; } }
+      else if (k < litTo) { for (let i = k; i < litTo; i++) { const t = $("t" + i); t.style.background = "#172033"; } }
+      litTo = k;
+    };
+
+    const tl = gsap.timeline({ paused: true });
+    const show = (sel, at, d = 0.3) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, at);
+    const hide = (sel, at, d = 0.3) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+    // L1: the pile and the question
+    gsap.set("#l60", { opacity: 1 });
+    show("#q", 2.0);
+    for (let k = 0; k < CARDS; k++) { tl.to("#cd" + k, { x: 6, duration: 0.12, ease: "power2.out" }, 1.0 + k * 0.05); tl.to("#cd" + k, { x: 0, duration: 0.3 }, 1.12 + k * 0.05); }
+    // L2: shuffle, then cut into batches (the 938 tiles appear)
+    for (let k = 0; k < CARDS; k++) { tl.to("#cd" + k, { x: scat[k][0], y: scat[k][1], rotation: scat[k][2], duration: 0.7, ease: "power2.out" }, 5.0 + k * 0.03); tl.to("#cd" + k, { x: 0, y: 0, rotation: 0, duration: 0.7, ease: "power2.inOut" }, 6.1 + k * 0.03); }
+    show("#lt", 6.8);
+    tl.to(".tile", { opacity: 1, duration: 0.3, stagger: { each: 0.0012, from: "start" } }, 7.0);
+    // L3: one batch = one step
+    hide("#q", 9.6);
+    tl.to("#batch", { opacity: 1, duration: 0.4 }, 10.2); show("#lb", 10.3);
+    show("#net", 12.1); tl.to("#batch", { x: 330, duration: 0.7, ease: "power2.inOut" }, 12.2); tl.to("#batch", { opacity: 0, duration: 0.2 }, 12.85);
+    show("#cnt", 12.9); tl.to(C, { k: 1, duration: 0.01, onUpdate: renderC }, 13.0);
+    show("#kl", 13.5); for (let k = 0; k < 9; k++) show("#kc" + k, 13.6 + k * 0.05, 0.2); show("#ks", 13.9);
+    tl.to(W, { i: 1, duration: 0.01, onUpdate: renderW }, 14.2);
+    // batches 2 and 3: the same, the weights move a hair
+    tl.set("#batch", { x: 0, opacity: 0, attr: { src: "assets/b2.png" } }, 14.45);
+    tl.to("#batch", { opacity: 1, duration: 0.2 }, 14.5); tl.to("#batch", { x: 330, duration: 0.5, ease: "power2.inOut" }, 14.7); tl.to("#batch", { opacity: 0, duration: 0.15 }, 15.2);
+    tl.to(C, { k: 2, duration: 0.01, onUpdate: renderC }, 15.2); tl.to(W, { i: 2, duration: 0.01, onUpdate: renderW }, 15.25);
+    tl.set("#batch", { x: 0, opacity: 0, attr: { src: "assets/b3.png" } }, 15.4);
+    tl.to("#batch", { opacity: 1, duration: 0.2 }, 15.45); tl.to("#batch", { x: 330, duration: 0.5, ease: "power2.inOut" }, 15.65); tl.to("#batch", { opacity: 0, duration: 0.15 }, 16.15);
+    tl.to(C, { k: 3, duration: 0.01, onUpdate: renderC }, 16.15); tl.to(W, { i: 3, duration: 0.01, onUpdate: renderW }, 16.2);
+    hide("#lb", 15.4, 0.2);
+    // the weights panel shows steps 1-3 only, so it leaves when the fast forward starts
+    tl.to(["#kw", "#kl", "#ks"], { opacity: 0, duration: 0.3 }, 16.7);
+    // L4: the other batches fly past; the last one is smaller
+    tl.to(C, { k: 937, duration: 2.4, ease: "power2.in", onUpdate: renderC }, 17.0);
+    tl.to("#last", { opacity: 1, duration: 0.4 }, 19.9); show("#lastl", 20.1);
+    tl.to(C, { k: 938, duration: 0.01, onUpdate: renderC }, 20.4);
+    tl.to("#cnt", { scale: 1.08, duration: 0.2, transformOrigin: "0 50%" }, 23.0); tl.to("#cnt", { scale: 1, duration: 0.5 }, 23.2);
+    // L5: one epoch; the deck is shuffled again
+    show("#ep", 25.4);
+    tl.to("#cnt", { scale: 1.08, duration: 0.2, transformOrigin: "0 50%" }, 26.8); tl.to("#cnt", { scale: 1, duration: 0.5 }, 27.0);
+    for (let k = 0; k < CARDS; k++) { tl.to("#cd" + k, { x: scat[(k + 3) % CARDS][0], y: scat[(k + 3) % CARDS][1], rotation: scat[(k + 3) % CARDS][2], duration: 0.7, ease: "power2.out" }, 28.4 + k * 0.03); tl.to("#cd" + k, { x: 0, y: 0, rotation: 0, duration: 0.7, ease: "power2.inOut" }, 29.5 + k * 0.03); }
+    tl.to("#ev", { opacity: 1, duration: 0.01 }, 30.8);
+    tl.to(C, { k: 0, duration: 0.6, ease: "power2.inOut", onUpdate: renderC }, 30.8);
+    tl.to(["#last", "#lastl"], { opacity: 0, duration: 0.3 }, 30.8);
+    window.__timelines["world"] = tl;
+  </script>
+</template>

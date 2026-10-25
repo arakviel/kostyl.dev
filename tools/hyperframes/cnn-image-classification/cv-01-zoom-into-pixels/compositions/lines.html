@@ -1,0 +1,42 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .t { position: absolute; opacity: 0; font-weight: 700; letter-spacing: -0.01em; }
+    #hook { left: 96px; top: 430px; width: 600px; font-size: 76px; line-height: 1.08; }
+    .plate { position: absolute; opacity: 0; background: #070b14; padding: 22px 34px 22px 30px; border-left: 6px solid #22d3ee; }
+    #legend { left: 96px; top: 880px; font-size: 40px; font-weight: 700; }
+    #legend b { font-family: "JetBrains Mono", monospace; }
+    #rowlab { left: 96px; top: 820px; border-left-color: #fbbf24; }
+    #rowlab .code { font-family: "JetBrains Mono", monospace; font-size: 30px; color: #8aa0bd; }
+    #rowlab .vals { font-family: "JetBrains Mono", monospace; font-size: 54px; font-weight: 700; color: #fbbf24; margin-top: 8px; white-space: nowrap; }
+    #dim { left: 96px; top: 470px; font-family: "JetBrains Mono", monospace; font-size: 76px; }
+    #claim { left: 96px; width: 1728px; top: 190px; font-size: 76px; text-align: center; }
+    #total { left: 96px; width: 1728px; top: 790px; text-align: center; font-family: "JetBrains Mono", monospace; font-size: 64px; color: #22d3ee; }
+  </style>
+  <div data-hf-id="hf-m0oa" id="root" data-composition-id="lines" data-width="1920" data-height="1080"
+       data-composition-variables='[{"id":"hook","type":"string","label":"Hook","default":"Що ти тут бачиш?"},{"id":"claim","type":"string","label":"Claim","default":"Для комп’ютера зображення — це числа"}]'>
+    <div data-hf-id="hf-5jla" id="hook" class="t clip" data-start="0" data-duration="2.4" data-var-text="hook">Що ти тут бачиш?</div>
+    <div data-hf-id="hf-dk1q" id="legend" class="plate clip" data-layout-allow-occlusion="true" data-layout-allow-overlap="true" data-start="9.2" data-duration="5.6"><b data-hf-id="hf-sqbz">0</b> = чорний &nbsp;·&nbsp; <b data-hf-id="hf-it9r">255</b> = білий</div>
+    <div data-hf-id="hf-xd1k" id="rowlab" class="plate clip" data-layout-allow-occlusion="true" data-layout-allow-overlap="true" data-start="15.3" data-duration="3.7">
+      <div data-hf-id="hf-8tbi" class="code">image[10, 14:20]</div>
+      <div data-hf-id="hf-ct5v" class="vals">254 254 254 254 254 255</div>
+    </div>
+    <div data-hf-id="hf-c2o7" id="dim" class="t clip" data-start="20.2" data-duration="2.0">28 × 28</div>
+    <div data-hf-id="hf-q55l" id="claim" class="t clip" data-start="24.6" data-duration="3.4" data-var-text="claim">Для комп’ютера зображення — це числа</div>
+    <div data-hf-id="hf-x6d7" id="total" class="t clip" data-start="25.3" data-duration="2.7">28 × 28 = 784 числа</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const inn = (sel, at) =>
+      tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, at);
+    const out = (sel, at) =>
+      tl.to(sel, { opacity: 0, filter: "blur(8px)", duration: 0.15, ease: "power3.in" }, at);
+    gsap.set("#hook", { opacity: 1 }); out("#hook", 2.2);
+    inn("#legend", 9.2); out("#legend", 14.6);
+    inn("#rowlab", 15.3); out("#rowlab", 18.8);
+    inn("#dim", 20.2);   out("#dim", 21.9);
+    inn("#claim", 24.6);
+    inn("#total", 25.3);
+    window.__timelines["lines"] = tl;
+  </script>
+</template>

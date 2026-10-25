@@ -1,0 +1,48 @@
+{
+  "audio": "assets/vo/l3.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Тепер",
+      "start": 0.1,
+      "end": 0.46,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "посунемо",
+      "start": 0.54,
+      "end": 1.06,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "штрих",
+      "start": 1.1,
+      "end": 1.44,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "на",
+      "start": 1.48,
+      "end": 1.58,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "два",
+      "start": 1.62,
+      "end": 1.74,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "пікселі",
+      "start": 1.84,
+      "end": 2.26,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "вправо",
+      "start": 2.32,
+      "end": 2.78,
+      "speaker": "speaker_0"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .bar { position: absolute; width: 120px; height: 360px; top: 340px; transform-origin: 50% 100%; opacity: 0; }
+    .num { position: absolute; width: 160px; text-align: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 44px; opacity: 0; white-space: nowrap; }
+    .ch { position: absolute; width: 120px; text-align: center; top: 724px; font-family: "JetBrains Mono", monospace; font-weight: 900; font-size: 60px; opacity: 0; }
+    .wt { position: absolute; width: 200px; text-align: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 38px; color: #fbbf24; opacity: 0; white-space: nowrap; }
+    .lab { position: absolute; font-weight: 700; white-space: nowrap; opacity: 0; }
+    .mono { font-family: "JetBrains Mono", monospace; }
+    .ph { position: absolute; left: 1250px; width: 480px; height: 320px; }
+    #gray { clip-path: inset(0 100% 0 0); }
+    #pxbox { position: absolute; width: 18px; height: 18px; box-shadow: 0 0 0 4px #fbbf24; left: 1574px; top: 308px; opacity: 0; }
+    #scan { position: absolute; left: 1250px; top: 150px; width: 4px; height: 320px; background: #fbbf24; opacity: 0; }
+    #sw { position: absolute; left: 1000px; top: 470px; width: 140px; height: 140px; background: rgb(194,194,194); opacity: 0; box-shadow: 0 0 0 3px rgba(255,255,255,0.15); }
+  </style>
+  <div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <img id="color" class="ph" style="top:150px" src="assets/flower.jpg" alt="" />
+    <img id="gray" class="ph" style="top:540px" src="assets/flower_gray.png" alt="" />
+    <div id="pxbox"></div>
+    <div id="scan"></div>
+    <div id="clab" class="lab" style="left:1250px;top:104px;font-size:34px;color:#8aa0bd">RGB: 3 канали</div>
+    <div id="glab" class="lab" style="left:1250px;top:494px;font-size:34px;color:#8aa0bd">сіре: 1 канал</div>
+    <div id="psw" style="position:absolute;left:760px;top:360px;width:220px;height:220px;background:rgb(229,188,132);opacity:0;box-shadow:0 0 0 3px rgba(255,255,255,0.15)"></div>
+    <div id="pswl" class="lab mono" style="left:700px;top:600px;font-size:40px;color:#e8eef7">[229, 188, 132]</div>
+    <div id="pswt" class="lab" style="left:700px;top:316px;font-size:36px;color:#8aa0bd">один піксель</div>
+    <div id="bars"></div>
+    <div id="f" class="lab mono" style="left:96px;top:96px;font-size:44px;color:#e8eef7"><span style="color:#f87171">0.299 R</span> + <span style="color:#4ade80">0.587 G</span> + <span style="color:#60a5fa">0.114 B</span></div>
+    <div id="sw"></div>
+    <div id="swl" class="num" style="left:960px;top:622px;width:220px;color:#e8eef7;font-size:64px">194</div>
+    <div id="swt" class="lab" style="left:990px;top:420px;font-size:34px;color:#8aa0bd">яскравість</div>
+    <div id="t3" class="lab mono" style="left:96px;top:900px;font-size:52px;color:#22d3ee">3 канали → 1 канал</div>
+    <div id="t4" class="lab mono" style="left:96px;top:900px;font-size:52px;color:#fbbf24">Conv2d(3, 1, 1): 4 параметри</div>
+    <div id="t4b" class="lab mono" style="left:96px;top:966px;font-size:34px;color:#8aa0bd">3 ваги + зсув</div>
+  </div>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const mk = (parent, cls, css, text, id) => { const d = document.createElement("div"); d.className = cls; Object.assign(d.style, css); if (text !== undefined) d.textContent = text; if (id) d.id = id; parent.appendChild(d); return d; };
+    const CH = [["R", "#f87171", 229, 0.299, 180], ["G", "#4ade80", 188, 0.587, 360], ["B", "#60a5fa", 132, 0.114, 540]];
+    const PROD = [68.471, 110.356, 15.048];
+    CH.forEach(([n, col, v, w, x], k) => {
+      mk($("bars"), "bar", { left: x + "px", background: col }, undefined, "bar" + k);
+      gsap.set("#bar" + k, { scaleY: v / 255 });
+      mk($("bars"), "num", { left: x - 20 + "px", top: 340 + 360 * (1 - v / 255) - 56 + "px", color: col }, String(v), "nv" + k);
+      mk($("bars"), "ch", { left: x + "px", color: col }, n, "ch" + k);
+      mk($("bars"), "wt", { left: x - 40 + "px", top: "270px" }, "× " + w, "wt" + k);
+      mk($("bars"), "num", { left: x - 20 + "px", top: 340 + 360 * (1 - PROD[k] / 255) - 56 + "px", color: col }, PROD[k].toFixed(1), "np" + k);
+    });
+    mk($("bars"), "num", { left: "720px", top: "340px", width: "280px", color: "#e8eef7", fontSize: "56px" }, "193.9", "sum");
+    $("sum").style.top = Math.round(340 + 360 * (1 - 193.875 / 255) - 130) + "px";
+    const tl = gsap.timeline({ paused: true });
+    const show = (sel, at, d = 0.25) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, at);
+    const hide = (sel, at, d = 0.25) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+    // L1 0.4-5.7: one pixel of the colour photo, then its three channels
+    show("#clab", 0.5); show("#pxbox", 0.8);
+    tl.to("#pxbox", { scale: 1.7, duration: 0.25, ease: "power2.out" }, 2.4); tl.to("#pxbox", { scale: 1, duration: 0.4 }, 2.65);
+    // the pixel itself, big: its colour is three numbers
+    show("#psw", 1.0); show("#pswt", 1.4); show("#pswl", 3.9);
+    tl.to("#psw", { scale: 1.08, duration: 0.2, ease: "power2.out" }, 5.0); tl.to("#psw", { scale: 1, duration: 0.4 }, 5.2);
+    tl.to("#pswl", { color: "#fbbf24", duration: 0.25 }, 6.2); tl.to("#pswl", { color: "#e8eef7", duration: 0.5 }, 6.7);
+    tl.to("#pxbox", { scale: 1.7, duration: 0.25, ease: "power2.out" }, 7.2); tl.to("#pxbox", { scale: 1, duration: 0.4 }, 7.45);
+    hide("#psw", 13.9, 0.5); hide("#pswl", 13.9, 0.5); hide("#pswt", 13.9, 0.5);
+    // L2 5.9-13.9: R, G, B of that pixel appear as bars of their own value
+    CH.forEach(([n, col, v, w, x], k) => {
+      const at = [8.1, 10.2, 12.3][k];
+      show("#bar" + k, at - 0.1, 0.1); tl.fromTo("#bar" + k, { scaleY: 0 }, { scaleY: v / 255, duration: 0.7, ease: "power3.out", immediateRender: false }, at);
+      show("#nv" + k, at + 0.5); show("#ch" + k, at + 0.2);
+    });
+    // L3 14.4-23.5: times its own weight
+    show("#f", 14.9);
+    CH.forEach(([n, col, v, w, x], k) => {
+      const at = [17.3, 20.1, 22.0][k];
+      show("#wt" + k, at - 0.4, 0.3);
+      tl.to("#bar" + k, { scaleY: PROD[k] / 255, duration: 0.9, ease: "power2.inOut" }, at);
+      hide("#nv" + k, at, 0.2); show("#np" + k, at + 0.7, 0.25);
+    });
+    // L4 24.0-29.7: stack into one number, one gray pixel
+    const dy = [0, -(PROD[0] / 255) * 360, -((PROD[0] + PROD[1]) / 255) * 360];
+    CH.forEach(([n, col, v, w, x], k) => {
+      tl.to("#bar" + k, { x: 800 - x, y: dy[k], duration: 0.9, ease: "power3.inOut" }, 25.4);
+      tl.to(["#np" + k, "#wt" + k, "#ch" + k], { opacity: 0, duration: 0.3 }, 25.2);
+    });
+    show("#sum", 26.5);
+    tl.to("#sw", { opacity: 1, duration: 0.3 }, 27.6); show("#swl", 28.0); show("#swt", 28.0);
+    // L5 30.1-37.2: the same for every pixel; the gray photo is written
+    tl.to("#gray", { clipPath: "inset(0 0% 0 0)", duration: 5.4, ease: "none" }, 30.7);
+    tl.fromTo("#scan", { x: 0, opacity: 1 }, { x: 476, opacity: 1, duration: 5.4, ease: "none", immediateRender: false }, 30.7);
+    tl.set("#scan", { opacity: 0 }, 36.15);
+    show("#glab", 30.8); hide("#pxbox", 30.5);
+    show("#t3", 35.0);
+    // L6 37.7: four parameters
+    hide("#t3", 37.6); show("#t4", 37.8); show("#t4b", 38.6);
+    ["#wt0", "#wt1", "#wt2"].forEach((id, k) => {});
+    tl.to("#t4", { color: "#ffffff", duration: 0.2 }, 40.0); tl.to("#t4", { color: "#fbbf24", duration: 0.5 }, 40.3);
+    window.__timelines["world"] = tl;
+  </script>
+</template>

@@ -1,0 +1,54 @@
+{
+  "audio": "assets/vo/l2.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Тепер",
+      "start": 0.12,
+      "end": 0.58,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "просто",
+      "start": 0.62,
+      "end": 0.98,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "посунемо",
+      "start": 1,
+      "end": 1.56,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "цифру",
+      "start": 1.62,
+      "end": 1.92,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "вправо",
+      "start": 1.96,
+      "end": 2.44,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "піксель",
+      "start": 2.92,
+      "end": 3.36,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "за",
+      "start": 3.4,
+      "end": 3.48,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "пікселем",
+      "start": 3.58,
+      "end": 4.08,
+      "speaker": "speaker_0"
+    }
+  ]
+}

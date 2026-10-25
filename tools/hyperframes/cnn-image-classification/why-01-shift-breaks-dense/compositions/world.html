@@ -1,0 +1,110 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .cell { position: absolute; width: 120px; height: 120px; background: #0b1220; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.07); }
+    .pix { position: absolute; width: 120px; height: 120px; background: #f4f7fb; box-shadow: inset 0 0 0 2px rgba(7,11,20,0.35); }
+    .plate { position: absolute; top: 180px; height: 720px; background: rgba(20,29,49,0.9); box-shadow: inset 0 0 0 2px rgba(255,255,255,0.05); }
+    #plateL { left: 180px; width: 240px; }
+    #plateR { left: 540px; width: 360px; }
+    #slit { position: absolute; left: 420px; top: 180px; width: 120px; height: 720px; border: 6px solid #22d3ee; box-sizing: border-box; transform-origin: 50% 0; }
+    .ci { position: absolute; top: 128px; width: 120px; text-align: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 36px; color: #8aa0bd; }
+    #rl { position: absolute; left: 1050px; top: 210px; font-size: 72px; font-weight: 700; color: #8aa0bd; }
+    #num, #num0 { position: absolute; left: 1330px; top: 140px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 230px; line-height: 1; color: #8aa0bd; }
+    #num0 { color: #fb7185; opacity: 0; }
+    .sq { position: absolute; top: 470px; width: 78px; height: 78px; border: 5px solid #34d399; box-sizing: border-box; }
+    .fill { position: absolute; inset: 0; background: #34d399; opacity: 0; }
+    #sqcap { position: absolute; left: 1050px; top: 560px; font-size: 34px; color: #8aa0bd; font-weight: 700; }
+    .wc { position: absolute; width: 36px; height: 36px; background: #0b1220; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1); }
+    .wc.one { background: #22d3ee; }
+    #wcap { position: absolute; left: 1290px; top: 650px; width: 520px; font-size: 34px; color: #8aa0bd; font-weight: 700; line-height: 1.25; }
+    .zero { position: absolute; width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 44px; color: #fb7185; opacity: 0; }
+  </style>
+  <div data-hf-id="hf-1dtx" id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-gs5t" id="grid"></div>
+    <div data-hf-id="hf-lnby" id="pixels"></div>
+    <div data-hf-id="hf-cl6y" class="plate" id="plateL"></div>
+    <div data-hf-id="hf-5k7w" class="plate" id="plateR"></div>
+    <div data-hf-id="hf-sfkf" id="slit"></div>
+    <div data-hf-id="hf-bxgq" id="zeros"></div>
+    <div data-hf-id="hf-j78k" id="cols"></div>
+    <div data-hf-id="hf-4nqo" id="rl">відгук =</div>
+    <div data-hf-id="hf-ftax" id="num">—</div>
+    <div data-hf-id="hf-l1a4" id="num0" style="opacity:0">0</div>
+    <div data-hf-id="hf-9j90" id="sqs"></div>
+    <div data-hf-id="hf-wmaf" id="sqcap">яскраві пікселі в прорізі</div>
+    <div data-hf-id="hf-8n0s" id="wmini" style="opacity:0"></div>
+    <div data-hf-id="hf-xig5" id="wcap" style="opacity:0">шаблон W: одиниці лише у стовпці 2</div>
+  </div>
+  <script>
+    const X0 = 180, Y0 = 180, C = 120;
+    const $ = (id) => document.getElementById(id);
+    const grid = $("grid"), pixels = $("pixels"), zeros = $("zeros"), cols = $("cols"), sqs = $("sqs"), wmini = $("wmini");
+    for (let r = 0; r < 6; r++) for (let c = 0; c < 6; c++) {
+      const d = document.createElement("div"); d.className = "cell"; d.style.left = X0 + c * C + "px"; d.style.top = Y0 + r * C + "px"; grid.appendChild(d);
+    }
+    for (let c = 0; c < 6; c++) {
+      const d = document.createElement("div"); d.className = "ci"; d.id = "ci" + c; d.textContent = c; d.style.left = X0 + c * C + "px"; cols.appendChild(d);
+    }
+    // the stroke: six pixels in column 2; "x" is added by the slide
+    const pix = [], zs = [];
+    for (let r = 0; r < 6; r++) {
+      const d = document.createElement("div"); d.className = "pix"; d.id = "pix" + r; d.style.left = X0 + 2 * C + "px"; d.style.top = Y0 + r * C + "px"; pixels.appendChild(d); pix.push(d);
+      const z = document.createElement("div"); z.className = "zero"; z.id = "zero" + r; z.textContent = "×0"; z.style.left = X0 + 4 * C + "px"; z.style.top = Y0 + r * C + "px"; zeros.appendChild(z); zs.push(z);
+      const s = document.createElement("div"); s.className = "sq"; s.style.left = 1050 + r * 94 + "px";
+      const f = document.createElement("div"); f.className = "fill"; f.id = "fill" + r; s.appendChild(f); sqs.appendChild(s);
+    }
+    // mini W: ones in column 2
+    for (let r = 0; r < 6; r++) for (let c = 0; c < 6; c++) {
+      const d = document.createElement("div"); d.className = "wc" + (c === 2 ? " one" : ""); d.style.left = 1050 + c * 38 + "px"; d.style.top = 640 + r * 38 + "px"; wmini.appendChild(d);
+    }
+        gsap.set(".pix", { x: 0 });
+
+    const tl = gsap.timeline({ paused: true });
+    // hook: the readout is there from the start, empty; the slit and the column indices wake up
+    tl.fromTo(".ci", { opacity: 0 }, { opacity: 1, duration: 0.2, stagger: 0.28, ease: "power2.out" }, 1.4);
+    tl.to("#slit", { borderColor: "#e8eef7", duration: 0.2 }, 0.5);
+    tl.to("#slit", { borderColor: "#22d3ee", duration: 0.5 }, 0.7);
+    tl.to("#ci2", { color: "#22d3ee", duration: 0.3 }, 3.9);
+    tl.to("#wmini", { opacity: 1, duration: 0.3 }, 4.0);
+    tl.to("#wcap", { opacity: 1, duration: 0.3 }, 4.4);
+    // 5.2-8.4 the template and the slit are the same thing: they flash together
+    tl.to(".wc.one", { backgroundColor: "#e8eef7", duration: 0.25, ease: "power2.out" }, 5.2);
+    tl.to(".wc.one", { backgroundColor: "#22d3ee", duration: 0.4 }, 5.45);
+    tl.to("#slit", { borderColor: "#e8eef7", duration: 0.25 }, 5.2);
+    tl.to("#slit", { borderColor: "#22d3ee", duration: 0.4 }, 5.45);
+    tl.to("#ci2", { color: "#e8eef7", duration: 0.25 }, 6.4);
+    tl.to("#ci2", { color: "#22d3ee", duration: 0.4 }, 6.65);
+    tl.to(".pix", { backgroundColor: "#bdf2fb", duration: 0.25, ease: "power2.out" }, 7.7);
+    tl.to(".pix", { backgroundColor: "#f4f7fb", duration: 0.4 }, 7.95);
+    // 9.2-11.7 "всі шість пікселів потрапляють у проріз": counted one by one, the number follows
+    tl.to("#num", { color: "#34d399", duration: 0.2 }, 9.2);
+    const CNT = { n: 0 };
+    tl.to(CNT, { n: 6, duration: 2.1, ease: "none", onUpdate: () => { const k = Math.min(6, Math.floor(CNT.n + 0.001)); $("num").textContent = k < 1 ? "—" : String(k); } }, 9.2);
+    for (let r = 0; r < 6; r++) {
+      tl.to("#pix" + r, { backgroundColor: "#34d399", duration: 0.25, ease: "power2.out" }, 9.2 + r * 0.42);
+      tl.to("#fill" + r, { opacity: 1, duration: 0.25, ease: "power2.out" }, 9.2 + r * 0.42);
+    }
+    // "Відгук — шість"
+    tl.to("#num", { scale: 1.12, duration: 0.18, ease: "power2.out", transformOrigin: "0 50%" }, 12.7);
+    tl.to("#num", { scale: 1, duration: 0.3, ease: "power2.inOut" }, 12.9);
+    // 15.3-17.0 the stroke slides two columns right: out of the slit
+    tl.to(".pix", { backgroundColor: "#f4f7fb", duration: 0.2 }, 15.3);
+    tl.to(".fill", { opacity: 0, duration: 0.5, stagger: 0.05 }, 15.4);
+    tl.to(".pix", { x: C, duration: 0.6, ease: "power2.inOut" }, 15.3);
+    tl.to(".pix", { x: 2 * C, duration: 0.6, ease: "power2.inOut" }, 16.4);
+    // the number follows: 6 -> 0 as the last pixel leaves the slit
+    tl.to("#num", { opacity: 0, duration: 0.25 }, 15.75);
+    tl.to("#num0", { opacity: 1, duration: 0.25 }, 15.75);
+    // 19.9 "а відгук нуль"
+    tl.to("#num0", { scale: 1.12, duration: 0.18, ease: "power2.out", transformOrigin: "0 50%" }, 19.95);
+    tl.to("#num0", { scale: 1, duration: 0.3, ease: "power2.inOut" }, 20.15);
+    // 21.45 "×0" on each pixel, one by one
+    tl.fromTo(".zero", { opacity: 0 }, { opacity: 1, duration: 0.2, stagger: 0.4, ease: "power2.out" }, 21.5);
+    // 25.0-28.8 "яскравість у конкретному стовпці": the slit pulses
+    tl.to("#slit", { borderColor: "#e8eef7", duration: 0.25 }, 25.4);
+    tl.to("#slit", { borderColor: "#22d3ee", duration: 0.5 }, 25.8);
+    tl.to("#ci2", { color: "#e8eef7", duration: 0.25 }, 27.0);
+    tl.to("#ci2", { color: "#22d3ee", duration: 0.5 }, 27.4);
+    window.__timelines["world"] = tl;
+  </script>
+</template>

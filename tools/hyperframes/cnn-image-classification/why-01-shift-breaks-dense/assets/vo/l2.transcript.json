@@ -1,0 +1,84 @@
+{
+  "audio": "assets/vo/l2.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Штрих",
+      "start": 0.34,
+      "end": 0.72,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "на",
+      "start": 0.78,
+      "end": 0.88,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "місці",
+      "start": 0.94,
+      "end": 1.34,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "і",
+      "start": 1.76,
+      "end": 1.82,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "всі",
+      "start": 1.88,
+      "end": 2.16,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "шість",
+      "start": 2.22,
+      "end": 2.52,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "яскравих",
+      "start": 2.62,
+      "end": 3.06,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "пікселів",
+      "start": 3.18,
+      "end": 3.76,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "потрапляють",
+      "start": 3.78,
+      "end": 4.48,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "у",
+      "start": 4.54,
+      "end": 4.6,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "проріз.",
+      "start": 4.66,
+      "end": 5.04,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "Відгук",
+      "start": 5.48,
+      "end": 5.9,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "шість",
+      "start": 5.98,
+      "end": 6.36,
+      "speaker": "speaker_0"
+    }
+  ]
+}

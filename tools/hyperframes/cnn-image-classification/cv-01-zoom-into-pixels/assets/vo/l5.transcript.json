@@ -1,0 +1,78 @@
+{
+  "audio": "assets/vo/l5.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Двадцять",
+      "start": 0.28,
+      "end": 0.74,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "вісім",
+      "start": 0.82,
+      "end": 1.16,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "на",
+      "start": 1.26,
+      "end": 1.36,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "двадцять",
+      "start": 1.4,
+      "end": 1.8,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "вісім.",
+      "start": 1.84,
+      "end": 2.2,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "Сімсот",
+      "start": 2.64,
+      "end": 3.06,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "вісімдесят",
+      "start": 3.08,
+      "end": 3.68,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "чотири",
+      "start": 3.74,
+      "end": 4.14,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "числа",
+      "start": 4.2,
+      "end": 4.58,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "ось",
+      "start": 5.06,
+      "end": 5.24,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "уся",
+      "start": 5.3,
+      "end": 5.5,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "картинка",
+      "start": 5.6,
+      "end": 6.14,
+      "speaker": "speaker_0"
+    }
+  ]
+}

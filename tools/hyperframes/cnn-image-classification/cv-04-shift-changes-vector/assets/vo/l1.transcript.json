@@ -1,0 +1,72 @@
+{
+  "audio": "assets/vo/l1.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Ось",
+      "start": 0.38,
+      "end": 0.62,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "цифра",
+      "start": 0.68,
+      "end": 1.04,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "три",
+      "start": 1.08,
+      "end": 1.3,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "і",
+      "start": 1.7,
+      "end": 1.78,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "її",
+      "start": 1.86,
+      "end": 2.08,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "вектор",
+      "start": 2.14,
+      "end": 2.54,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "із",
+      "start": 2.72,
+      "end": 2.82,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "семисот",
+      "start": 2.86,
+      "end": 3.34,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "вісімдесяти",
+      "start": 3.38,
+      "end": 4.04,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "чотирьох",
+      "start": 4.08,
+      "end": 4.5,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "чисел",
+      "start": 4.56,
+      "end": 4.88,
+      "speaker": "speaker_0"
+    }
+  ]
+}

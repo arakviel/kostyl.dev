@@ -1,0 +1,126 @@
+{
+  "audio": "assets/vo/l4.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Після",
+      "start": 0.24,
+      "end": 0.52,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "зсуву",
+      "start": 0.62,
+      "end": 0.92,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "на",
+      "start": 0.98,
+      "end": 1.1,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "п'ять",
+      "start": 1.14,
+      "end": 1.46,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "пікселів",
+      "start": 1.5,
+      "end": 2,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "лише",
+      "start": 2.52,
+      "end": 2.82,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "сорок",
+      "start": 2.88,
+      "end": 3.14,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "сім",
+      "start": 3.24,
+      "end": 3.46,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "зі",
+      "start": 3.5,
+      "end": 3.6,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "ста",
+      "start": 3.66,
+      "end": 3.84,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "сорока",
+      "start": 3.92,
+      "end": 4.3,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "чотирьох",
+      "start": 4.34,
+      "end": 4.76,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "яскравих",
+      "start": 4.84,
+      "end": 5.28,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "пікселів",
+      "start": 5.4,
+      "end": 5.88,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "лишились",
+      "start": 6.3,
+      "end": 6.76,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "на",
+      "start": 6.8,
+      "end": 6.9,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "своїх",
+      "start": 6.94,
+      "end": 7.26,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "місцях.",
+      "start": 7.3,
+      "end": 7.74,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "Це",
+      "start": 8.02,
+      "end": 8.18,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "третина",
+      "start": 8.22,
+      "end": 8.74,
+      "speaker": "speaker_0"
+    }
+  ]
+}

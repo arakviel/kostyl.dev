@@ -1,0 +1,139 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+    canvas { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    #img { left: 110px; top: 330px; width: 560px; height: 560px; image-rendering: pixelated; box-shadow: 0 0 0 2px rgba(255,255,255,0.08); }
+    #win { position: absolute; left: 110px; top: 330px; width: 60px; height: 60px; box-shadow: inset 0 0 0 4px #22d3ee; background: rgba(34,211,238,0.14); opacity: 0; }
+    #chosen { position: absolute; left: 350px; top: 590px; width: 60px; height: 60px; box-shadow: inset 0 0 0 4px #fbbf24; opacity: 0; }
+    #stripe { position: absolute; left: 350px; top: 330px; width: 60px; height: 560px; background: rgba(34,211,238,0.22); box-shadow: inset 0 0 0 2px rgba(34,211,238,0.5); opacity: 0; }
+    .lab { position: absolute; font-family: "JetBrains Mono", monospace; font-weight: 700; white-space: nowrap; opacity: 0; }
+    .sm { font-family: "Inter", sans-serif; font-weight: 700; color: #8aa0bd; }
+    .top { left: 0; width: 1920px; top: 64px; text-align: center; font-size: 88px; }
+    .amb { color: #fbbf24; }
+    #kmat { position: absolute; left: 1604px; top: 520px; opacity: 0; }
+    .kc { position: absolute; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 34px; }
+  </style>
+  <div data-hf-id="hf-1dtx" id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <canvas data-hf-id="hf-udc8" id="img" width="28" height="28"></canvas>
+    <div data-hf-id="hf-klua" id="stripe"></div>
+    <canvas data-hf-id="hf-o55x" id="pmap" width="468" height="468" style="left:1100px;top:330px;width:468px;height:468px;opacity:0"></canvas>
+    <div data-hf-id="hf-gzqp" id="lpm" class="lab sm" style="left:1100px;top:272px;font-size:40px;opacity:0">позиції ділянки 3×3</div>
+    <canvas data-hf-id="hf-168z" id="dense" width="1920" height="1080"></canvas>
+    <canvas data-hf-id="hf-ssbp" id="locC" width="1920" height="1080"></canvas>
+    <canvas data-hf-id="hf-2i12" id="locR" width="1920" height="1080"></canvas>
+    <canvas data-hf-id="hf-v7rl" id="locG" width="1920" height="1080"></canvas>
+    <canvas data-hf-id="hf-8ye1" id="nodes" width="1920" height="1080"></canvas>
+    <div data-hf-id="hf-7on1" id="win"></div>
+    <div data-hf-id="hf-i813" id="chosen"></div>
+    <div data-hf-id="hf-iyns" id="l784" class="lab" style="left:110px;top:272px;font-size:42px;color:#8aa0bd">28 × 28 = 784</div>
+    <div data-hf-id="hf-qhm3" id="ln" class="lab" style="left:1130px;top:520px;font-size:70px;color:#34d399">676</div>
+    <div data-hf-id="hf-muee" id="ln2" class="lab sm" style="left:1130px;top:604px;font-size:34px">нейронів (показано 26)</div>
+    <div data-hf-id="hf-lme5" id="t1" class="lab top">26 × 26 = <span data-hf-id="hf-w3vm" id="n1" class="amb">0</span></div>
+    <div data-hf-id="hf-yacc" id="t2" class="lab top">784 × 676 = <span data-hf-id="hf-zof3" id="n2" class="amb">0</span></div>
+    <div data-hf-id="hf-xjrh" id="t3" class="lab top">676 × 9 = <span data-hf-id="hf-0xy5" id="n3" class="amb">529 984</span></div>
+    <div data-hf-id="hf-kgqt" id="t4" class="lab top">спільні ваги: <span data-hf-id="hf-vtkr" id="n4" class="amb">6 084</span></div>
+    <div data-hf-id="hf-vi9e" id="kmat"></div>
+  </div>
+  <script>
+    const D = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 7, 7, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 13, 120, 137, 186, 254, 254, 136, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 53, 143, 179, 254, 254, 254, 255, 254, 254, 193, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 25, 50, 149, 175, 254, 254, 254, 254, 254, 254, 255, 254, 254, 108, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 96, 170, 254, 254, 254, 254, 254, 245, 183, 99, 99, 147, 252, 254, 196, 3, 0, 0, 0, 0, 0, 0, 0, 0, 4, 145, 162, 162, 219, 254, 254, 254, 246, 186, 93, 66, 0, 0, 0, 125, 246, 254, 119, 2, 0, 0, 0, 0, 0, 0, 0, 0, 87, 215, 254, 254, 254, 254, 204, 87, 68, 0, 0, 0, 0, 0, 46, 197, 254, 180, 47, 0, 0, 0, 0, 0, 0, 0, 0, 0, 168, 254, 156, 80, 80, 80, 28, 0, 0, 0, 0, 0, 0, 0, 126, 245, 255, 57, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 74, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 43, 200, 254, 91, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 156, 245, 205, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 124, 244, 254, 85, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 59, 217, 254, 121, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 176, 254, 254, 61, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 161, 245, 215, 58, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 54, 246, 254, 185, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 124, 254, 254, 64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 52, 237, 254, 126, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 118, 254, 254, 119, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 118, 254, 254, 61, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 6, 6, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const IX = 110, IY = 330, CS = 20, NX = 1050, NY0 = 300, NDY = 24, CH = 13;
+    const $ = (id) => document.getElementById(id);
+    const fmt = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+
+    // the digit
+    { const g = $("img").getContext("2d"), im = g.createImageData(28, 28);
+      D.forEach((v, i) => { const t = v / 255; im.data.set([Math.round(7 + 237 * t), Math.round(11 + 236 * t), Math.round(20 + 231 * t), 255], i * 4); });
+      g.putImageData(im, 0, 0); }
+
+    const px = (i) => [IX + (i % 28 + 0.5) * CS, IY + (Math.floor(i / 28) + 0.5) * CS];
+    const ny = (j) => NY0 + j * NDY;
+    // the 26 neurons shown
+    { const g = $("nodes").getContext("2d");
+      for (let j = 0; j < 26; j++) { g.beginPath(); g.arc(NX, ny(j), j === CH ? 11 : 6, 0, Math.PI * 2); g.fillStyle = "#34d399"; g.fill(); } }
+    gsap.set("#nodes", { opacity: 0 });
+
+    // the dense fans: node CH first (bright), then the other 25 (faint)
+    const dense = $("dense").getContext("2d");
+    const fan = (g, j, a, b) => { g.beginPath(); for (let i = a; i < b; i++) { const [x, y] = px(i); g.moveTo(x, y); g.lineTo(NX, ny(j)); } g.stroke(); };
+    let dm = 0, dn = 0;
+    const others = []; for (let j = 0; j < 26; j++) if (j !== CH) others.push(j);
+    const drawDense = (m, n) => {
+      if (m < dm || n < dn) { dense.clearRect(0, 0, 1920, 1080); dm = 0; dn = 0; }
+      dense.lineWidth = 0.8; dense.strokeStyle = "rgba(94,234,212,0.30)"; fan(dense, CH, dm, m); dm = m;
+      dense.lineWidth = 0.7; dense.strokeStyle = "rgba(30,170,200,0.075)";
+      for (let k = dn; k < n; k++) fan(dense, others[k], 0, 784);
+      dn = n;
+    };
+    // the local fans: 9 lines per neuron, to its own 3x3 window (window of neuron j: rows j..j+2, cols 13..15)
+    const win9 = (j) => { const a = []; for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) a.push([(j + r) * 28 + CH + c, c]); return a; };
+    const loc = (id, test, style, w) => { const g = $(id).getContext("2d"); g.lineWidth = w; g.strokeStyle = style; g.beginPath();
+      for (let j = 0; j < 26; j++) win9(j).forEach(([i, c]) => { if (test(c, j)) { const [x, y] = px(i); g.moveTo(x, y); g.lineTo(NX, ny(j)); } }); g.stroke(); };
+    loc("locC", () => true, "rgba(34,211,238,0.55)", 1.2);
+    loc("locR", (c) => c !== 1, "rgba(251,113,133,0.75)", 1.6);
+    loc("locG", (c) => c === 1, "rgba(52,211,153,0.85)", 1.6);
+    gsap.set(["#locC", "#locR", "#locG"], { opacity: 0 });
+
+    // the shared weights
+    { const k = $("kmat"); const col = ["#fb7185", "#34d399", "#fb7185"], txt = ["−1", "+1", "−1"];
+      for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) { const d = document.createElement("div"); d.className = "kc"; d.style.left = c * 72 + "px"; d.style.top = r * 72 + "px"; d.style.background = col[c]; d.style.color = "#070b14"; d.textContent = txt[c]; k.appendChild(d); } }
+
+    // map of the 26 x 26 window positions: filled as the window passes them
+    const pm = $("pmap").getContext("2d");
+    const drawMap = (k) => {
+      pm.clearRect(0, 0, 468, 468);
+      for (let i = 0; i < 676; i++) {
+        const x = (i % 26) * 18, y = Math.floor(i / 26) * 18;
+        pm.fillStyle = i < k ? "rgba(34,211,238,0.55)" : "rgba(255,255,255,0.05)";
+        pm.fillRect(x + 1, y + 1, 16, 16);
+      }
+      if (k > 0 && k <= 676) { const i = k - 1; pm.fillStyle = "#fbbf24"; pm.fillRect((i % 26) * 18 + 1, Math.floor(i / 26) * 18 + 1, 16, 16); }
+    };
+    drawMap(0);
+    const tl = gsap.timeline({ paused: true });
+    const show = (sel, at, d = 0.2) => tl.fromTo(sel, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: d, ease: "power4.out" }, at);
+    const hide = (sel, at) => tl.to(sel, { opacity: 0, duration: 0.2, ease: "power3.in" }, at);
+
+    // A. 0.4-12: the 3x3 window runs over all 26 x 26 positions
+    show("#l784", 2.2);
+    tl.fromTo("#win", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 3.4);
+    show("#t1", 4.6);
+    const P = { p: 0 };
+    tl.to(P, { p: 1, duration: 6.6, ease: "power1.in", onUpdate: () => {
+      const k = Math.min(676, Math.round(676 * P.p)), kk = Math.min(675, k);
+      gsap.set("#win", { x: (kk % 26) * CS, y: Math.floor(kk / 26) * CS });
+      $("n1").textContent = k; drawMap(k); } }, 4.8);
+    tl.to(["#pmap", "#lpm"], { opacity: 1, duration: 0.3 }, 4.7);
+    tl.to(["#pmap", "#lpm"], { opacity: 0, duration: 0.4 }, 12.3);
+    hide("#win", 11.9); hide("#t1", 12.3);
+    // B. 13-23: one neuron sees every pixel; then 25 more, and the counter
+    tl.to("#nodes", { opacity: 1, duration: 0.4 }, 13.0);
+    show("#ln", 13.4); show("#ln2", 13.6);
+    const Q = { m: 0, n: 0 };
+    tl.to(Q, { m: 784, duration: 2.0, ease: "power1.inOut", onUpdate: () => drawDense(Math.round(Q.m), Math.round(Q.n)) }, 16.4);
+    tl.to(Q, { n: 25, duration: 3.4, ease: "power1.inOut", onUpdate: () => drawDense(Math.round(Q.m), Math.round(Q.n)) }, 19.0);
+    show("#t2", 19.0);
+    const C2 = { n: 0 };
+    tl.to(C2, { n: 529984, duration: 4.0, ease: "power2.out", onUpdate: () => { $("n2").textContent = fmt(C2.n); } }, 19.0);
+    // C. 23.8-33: only the own window of 9 pixels
+    tl.fromTo("#chosen", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 25.2);
+    tl.to("#locC", { opacity: 1, duration: 0.4 }, 28.0);
+    tl.to("#dense", { opacity: 0, duration: 1.2, ease: "power2.inOut" }, 28.0);
+    tl.to("#stripe", { opacity: 1, duration: 0.5 }, 28.6);
+    hide("#t2", 29.4); show("#t3", 29.6);
+    const C3 = { n: 529984 };
+    tl.to(C3, { n: 6084, duration: 2.8, ease: "power2.inOut", onUpdate: () => { $("n3").textContent = fmt(C3.n); } }, 29.8);
+    // D. 33.3-43: the same nine weights everywhere
+    tl.to("#nodes", { scale: 1.06, duration: 0.2, ease: "power2.out", transformOrigin: "1050px 600px" }, 33.6);
+    tl.to("#nodes", { scale: 1, duration: 0.4, ease: "power2.inOut" }, 33.8);
+    tl.to("#stripe", { backgroundColor: "rgba(255,255,255,0.28)", duration: 0.25 }, 36.6);
+    tl.to("#stripe", { backgroundColor: "rgba(34,211,238,0.22)", duration: 0.5 }, 36.85);
+    tl.to("#locC", { opacity: 0, duration: 0.5 }, 39.0);
+    tl.to(["#locR", "#locG"], { opacity: 1, duration: 0.5 }, 39.0);
+    tl.to("#kmat", { opacity: 1, duration: 0.4, ease: "power2.out" }, 39.5);
+    hide("#t3", 39.3); show("#t4", 39.5);
+    const C4 = { n: 6084 };
+    tl.to(C4, { n: 9, duration: 2.2, ease: "power3.out", onUpdate: () => { $("n4").textContent = fmt(C4.n); } }, 39.6);
+    hide("#t4", 42.9);
+    window.__timelines["world"] = tl;
+  </script>
+</template>

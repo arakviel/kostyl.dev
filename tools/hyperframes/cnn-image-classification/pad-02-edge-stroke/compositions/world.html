@@ -1,0 +1,109 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .c { position: absolute; width: 72px; height: 72px; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 30px; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.07); }
+    .m { position: absolute; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 700; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.08); }
+    #win { position: absolute; left: 176px; top: 300px; width: 216px; height: 216px; box-shadow: inset 0 0 0 6px #22d3ee; background: rgba(34,211,238,0.10); opacity: 0; }
+    #ctr { position: absolute; left: 90px; top: 90px; width: 36px; height: 36px; border-radius: 50%; background: #fbbf24; box-shadow: 0 0 0 4px rgba(7,11,20,0.7); }
+    .lab { position: absolute; font-weight: 700; color: #8aa0bd; white-space: nowrap; opacity: 0; }
+    .mono { font-family: "JetBrains Mono", monospace; }
+    .ov { position: absolute; box-sizing: border-box; opacity: 0; }
+    .mx { position: absolute; left: 900px; top: 770px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 84px; white-space: nowrap; opacity: 0; }
+  </style>
+  <div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <div id="grid"></div>
+    <div id="ilab" class="lab" style="left:104px;top:176px;font-size:36px">вхід 6 × 6</div>
+    <div id="olab" class="lab" style="left:900px;top:204px;font-size:36px">карта ознак</div>
+    <div id="klab" class="lab" style="left:1500px;top:196px;font-size:36px">ядро K</div>
+    <div id="kmat"></div>
+    <div id="map1"></div>
+    <div id="map2" style="opacity:0"></div>
+    <div id="ovc" class="ov" style="left:248px;top:300px;width:288px;height:432px;background:rgba(34,211,238,0.10);box-shadow:inset 0 0 0 3px rgba(34,211,238,0.5)"></div>
+    <div id="ov0" class="ov" style="left:176px;top:300px;width:72px;height:432px;box-shadow:inset 0 0 0 5px #fb7185"></div>
+    <div id="note" class="lab mono" style="left:104px;top:780px;font-size:36px;color:#8aa0bd">центр ядра: лише стовпці 1–4</div>
+    <div id="win"><div id="ctr"></div></div>
+    <div id="mx0" class="mx" style="color:#fb7185">максимум: 0</div>
+    <div id="mx3" class="mx" style="color:#34d399">максимум: 3</div>
+    <div id="hlm" class="ov" style="left:900px;top:264px;width:72px;height:432px;box-shadow:inset 0 0 0 6px #ffffff"></div>
+  </div>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const mk = (parent, cls, css, text, id) => { const d = document.createElement("div"); d.className = cls; Object.assign(d.style, css); if (text !== undefined) d.textContent = text; if (id) d.id = id; parent.appendChild(d); return d; };
+    const GX = 104, GY = 228, CS = 72;
+    // 8x8 grid: the inner 6x6 is the input, the outer ring is the frame of zeros (hidden until 26 s)
+    for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) {
+      const ring = r === 0 || c === 0 || r === 7 || c === 7;
+      const stroke = !ring && c === 1;
+      mk($("grid"), "c", { left: GX + c * CS + "px", top: GY + r * CS + "px", background: stroke ? "#f4f7fb" : "#0b1220", color: stroke ? "#070b14" : "#5b6b84", opacity: ring ? 0 : 1 }, stroke ? "1" : "0", "g" + r + c);
+    }
+    document.querySelectorAll("#grid .c, #ctr").forEach((el) => el.setAttribute("data-layout-allow-occlusion", "true"));
+    // kernel
+    const KV = [-1, 1, -1];
+    for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) mk($("kmat"), "m", { left: 1500 + c * 64 + "px", top: 264 + r * 64 + "px", width: "64px", height: "64px", background: c === 1 ? "rgba(52,211,153,0.22)" : "rgba(251,113,133,0.2)", color: c === 1 ? "#34d399" : "#fb7185", fontSize: "30px" }, c === 1 ? "+1" : "−1");
+    // maps
+    const MX = 900, MY = 264;
+    const val1 = (i, j) => (j === 0 ? -3 : 0);
+    const val2 = (i, j) => (j === 0 ? [2, 3, 3, 3, 3, 2][i] : j === 1 ? -[2, 3, 3, 3, 3, 2][i] : 0);
+    const txt = (v) => (v > 0 ? "+" + v : v < 0 ? "−" + Math.abs(v) : "0");
+    const cellCss = (v) => ({ background: v > 0 ? "#34d399" : v < 0 ? "#fb7185" : "#0b1220", color: v === 0 ? "#6b7c96" : "#070b14" });
+    for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) { const v = val1(i, j); const d = mk($("map1"), "m", { left: MX + j * CS + "px", top: MY + i * CS + "px", width: CS + "px", height: CS + "px", fontSize: "32px", background: "#0b1220", color: cellCss(v).color }, txt(v), "a" + i + j); $("a" + i + j).style.opacity = 0; d.dataset.bg = cellCss(v).background; }
+    for (let i = 0; i < 6; i++) for (let j = 0; j < 6; j++) { const v = val2(i, j); const d = mk($("map2"), "m", { left: MX + j * CS + "px", top: MY + i * CS + "px", width: CS + "px", height: CS + "px", fontSize: "32px", background: "#0b1220", color: cellCss(v).color }, txt(v), "b" + i + j); $("b" + i + j).style.opacity = 0; d.dataset.bg = cellCss(v).background; }
+
+    const tl = gsap.timeline({ paused: true });
+    const show = (sel, at, d = 0.25) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, at);
+    const hide = (sel, at, d = 0.25) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+    const put = (id, v, at) => { tl.set("#" + id, { opacity: 1, backgroundColor: cellCss(v).background }, at); tl.to("#" + id, { scale: 1.15, duration: 0.08 }, at); tl.to("#" + id, { scale: 1, duration: 0.2 }, at + 0.08); };
+    const winTo = (r, c, at, d) => tl.to("#win", { x: c * CS, y: r * CS, duration: d, ease: "power1.inOut" }, at);
+    gsap.set("#win", { x: 0, y: 0 });
+
+    // hook 0-5: input, label, kernel
+    show("#ilab", 1.0); show("#olab", 2.4); show("#klab", 4.4);
+    // 5.2 window at input (0,0) = padded (1,1); 8.2-11.9 sweep over the 16 positions
+    gsap.set("#win", { x: CS, y: CS });
+    show("#win", 5.2);
+    let n = 0;
+    for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) {
+      const at = 8.2 + n * 0.22;
+      winTo(i + 1, j + 1, at, 0.18);
+      put("a" + i + j, val1(i, j), at + 0.12);
+      n++;
+    }
+    // 12.2 back to the corner; the centre can only stand over columns 1-4
+    winTo(1, 1, 12.2, 0.5);
+    show("#note", 12.8); show("#ovc", 13.2); show("#ov0", 14.0);
+    tl.to("#ctr", { scale: 1.5, duration: 0.2 }, 15.2); tl.to("#ctr", { scale: 1, duration: 0.3 }, 15.4);
+    // 18.35 "виходить мінус три"
+    tl.to("#a00", { scale: 1.25, duration: 0.15 }, 18.35); tl.to("#a00", { scale: 1, duration: 0.3 }, 18.5);
+    hide("#ovc", 19.0); hide("#note", 19.0);
+    // 20.8 maximum 0
+    show("#mx0", 20.8); hide("#ov0", 21.0);
+    tl.to("#g10, #g20, #g30, #g40, #g50, #g60", { opacity: 1, duration: 0.01 }, 0);
+    tl.to("#grid .c", { filter: "brightness(1.0)", duration: 0.01 }, 0);
+    ["#g11", "#g21", "#g31", "#g41", "#g51", "#g61"].forEach((id, k) => { tl.to(id, { boxShadow: "inset 0 0 0 6px #fbbf24", duration: 0.15 }, 22.6 + k * 0.1); tl.to(id, { boxShadow: "inset 0 0 0 2px rgba(255,255,255,0.07)", duration: 0.4 }, 22.9 + k * 0.1); });
+    tl.to("#map1", { filter: "brightness(1.6)", duration: 0.2 }, 24.0); tl.to("#map1", { filter: "brightness(1)", duration: 0.5 }, 24.3);
+    // 26.0 the frame of zeros
+    const ringIds = []; for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) if (r === 0 || c === 0 || r === 7 || c === 7) ringIds.push("#g" + r + c);
+    ringIds.forEach((id, k) => tl.to(id, { opacity: 1, duration: 0.2, ease: "power2.out" }, 26.0 + k * 0.04));
+    hide("#mx0", 26.4);
+    // 27.4 the bigger map takes over; the window starts from the padded corner
+    hide("#map1", 27.4); show("#map2", 27.6);
+    tl.to("#win", { x: 0, y: 0, duration: 0.5, ease: "power2.inOut" }, 27.6);
+    // column 0 slowly (the +3), then column 1, then the rest quickly
+    const order = [];
+    for (let j = 0; j < 6; j++) for (let i = 0; i < 6; i++) order.push([i, j]);
+    let t = 28.6;
+    order.forEach(([i, j]) => {
+      const step = j === 0 ? 0.35 : j === 1 ? 0.15 : 0.07;
+      winTo(i, j, t, Math.min(0.12, step));
+      put("b" + i + j, val2(i, j), t + Math.min(0.12, step) * 0.8);
+      t += step;
+    });
+    // 33.7 the window goes back over the stroke: its centre is above column 0 now
+    winTo(1, 0, 33.7, 0.6);
+    tl.to("#ctr", { scale: 1.5, duration: 0.2 }, 34.5); tl.to("#ctr", { scale: 1, duration: 0.3 }, 34.7);
+    // 33.9 maximum 3 in column 0
+    show("#mx3", 33.9); show("#hlm", 34.2);
+    tl.to("#hlm", { boxShadow: "inset 0 0 0 6px #fbbf24", duration: 0.2 }, 36.4); tl.to("#hlm", { boxShadow: "inset 0 0 0 6px #ffffff", duration: 0.5 }, 36.6);
+    window.__timelines["world"] = tl;
+  </script>
+</template>

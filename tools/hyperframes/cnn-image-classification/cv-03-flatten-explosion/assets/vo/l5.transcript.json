@@ -1,0 +1,84 @@
+{
+  "audio": "assets/vo/l5.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Сімдесят",
+      "start": 0.12,
+      "end": 0.66,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "сім",
+      "start": 0.72,
+      "end": 0.9,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "мільйонів",
+      "start": 0.94,
+      "end": 1.42,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "ваг,",
+      "start": 1.48,
+      "end": 1.74,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "двісті",
+      "start": 2.18,
+      "end": 2.5,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "дев'яносто",
+      "start": 2.54,
+      "end": 3.12,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "чотири",
+      "start": 3.16,
+      "end": 3.5,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "мегабайти.",
+      "start": 3.54,
+      "end": 4.18,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "І",
+      "start": 4.58,
+      "end": 4.66,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "це",
+      "start": 4.74,
+      "end": 4.84,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "лише",
+      "start": 4.88,
+      "end": 5.18,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "перший",
+      "start": 5.24,
+      "end": 5.58,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "шар",
+      "start": 5.64,
+      "end": 5.84,
+      "speaker": "speaker_0"
+    }
+  ]
+}

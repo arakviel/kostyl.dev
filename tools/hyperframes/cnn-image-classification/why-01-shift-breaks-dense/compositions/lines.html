@@ -1,0 +1,15 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; font-family: "Inter", sans-serif; color: #e8eef7; }
+    #claim { position: absolute; left: 1050px; top: 920px; width: 840px; font-size: 50px; white-space: nowrap; font-weight: 700; letter-spacing: -0.01em; opacity: 0; line-height: 1.1; }
+  </style>
+  <div data-hf-id="hf-cw1s" id="root" data-composition-id="lines" data-width="1920" data-height="1080"
+       data-composition-variables='[{"id":"claim","type":"string","label":"Claim","default":"Шаблон прив’язаний до місця"}]'>
+    <div data-hf-id="hf-q4zk" id="claim" class="clip" data-start="29.2" data-duration="4.3" data-var-text="claim">Шаблон прив’язаний до місця</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#claim", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, 29.2);
+    window.__timelines["lines"] = tl;
+  </script>
+</template>

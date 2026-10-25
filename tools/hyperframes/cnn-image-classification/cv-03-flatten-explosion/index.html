@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #070b14; }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-bxxw" id="root" data-composition-id="main" data-start="0" data-duration="37" data-width="1920" data-height="1080">
+      <div data-hf-id="hf-ac2p" id="world" data-composition-id="world" data-composition-src="compositions/world.html"
+           data-start="0" data-duration="37" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div data-hf-id="hf-51gb" id="lines" data-composition-id="lines" data-composition-src="compositions/lines.html"
+           data-start="0" data-duration="37" data-track-index="2" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <audio id="music" src="assets/music/bed.wav" data-start="0" data-duration="37" data-track-index="3" data-volume="0.16" data-fade-in="1.5" data-fade-out="2" data-timeline-role="music"></audio>
+      <audio data-hf-id="hf-ey33" id="vo1" src="assets/vo/l1.wav" data-start="0.4" data-duration="6.17" data-track-index="4" data-volume="1"></audio>
+      <audio data-hf-id="hf-m6o1" id="vo2" src="assets/vo/l2.wav" data-start="7.0" data-duration="4.72" data-track-index="4" data-volume="1"></audio>
+      <audio data-hf-id="hf-rsml" id="vo3" src="assets/vo/l3.wav" data-start="12.0" data-duration="6.47" data-track-index="4" data-volume="1"></audio>
+      <audio data-hf-id="hf-88w4" id="vo4" src="assets/vo/l4.wav" data-start="18.9" data-duration="9.62" data-track-index="4" data-volume="1"></audio>
+      <audio data-hf-id="hf-dcit" id="vo5" src="assets/vo/l5.wav" data-start="29.0" data-duration="6.12" data-track-index="4" data-volume="1"></audio>
+      <audio data-hf-id="hf-0xxk" id="sfx-roll" src="assets/sfx/whoosh.mp3" data-start="2.0" data-duration="0.57" data-track-index="5" data-volume="0.5"></audio>
+      <audio data-hf-id="hf-g2z2" id="sfx-neur" src="assets/sfx/pop.mp3" data-start="7.0" data-duration="0.72" data-track-index="5" data-volume="0.5"></audio>
+      <audio data-hf-id="hf-7euw" id="sfx-grow" src="assets/sfx/whoosh-short.mp3" data-start="22.5" data-duration="0.57" data-track-index="5" data-volume="0.5"></audio>
+      <audio data-hf-id="hf-utij" id="sfx-land" src="assets/sfx/pop.mp3" data-start="30.55" data-duration="0.72" data-track-index="5" data-volume="0.5"></audio>
+    </div>
+    <script>
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

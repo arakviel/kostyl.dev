@@ -1,0 +1,74 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .c { position: absolute; width: 90px; height: 90px; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 40px; box-shadow: inset 0 0 0 2px rgba(7,11,20,0.45); }
+    #win { position: absolute; left: 140px; top: 230px; width: 270px; height: 270px; box-shadow: inset 0 0 0 6px #22d3ee; opacity: 0; }
+    .ring { position: absolute; box-sizing: border-box; border: 6px solid #ffffff; opacity: 0; }
+    .big { position: absolute; font-family: "JetBrains Mono", monospace; font-weight: 700; white-space: nowrap; }
+    .sw { position: absolute; width: 56px; height: 56px; opacity: 0; }
+    .lg { position: absolute; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 60px; white-space: nowrap; opacity: 0; }
+  </style>
+  <div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <div id="grid"></div>
+    <div id="win"></div>
+    <div id="rc" class="ring" style="left:320px;top:410px;width:90px;height:90px"></div>
+    <div id="rk" class="ring" style="left:140px;top:230px;width:90px;height:90px"></div>
+    <div id="re" class="ring" style="left:140px;top:230px;width:630px;height:630px;border-width:6px"></div>
+    <div id="rei" class="ring" style="left:230px;top:320px;width:450px;height:450px;border-width:6px;opacity:0"></div>
+    <div id="ilab" class="big" style="left:140px;top:168px;font-size:40px;color:#8aa0bd;opacity:0">вхід 7 × 7 = 49 пікселів</div>
+    <div id="klab" class="big" style="left:900px;top:430px;font-size:44px;color:#22d3ee;opacity:0">ядро 3 × 3 = 9 клітинок</div>
+    <div id="pos" class="big" style="left:900px;top:240px;font-size:74px">позиція: <span id="pn" style="color:#fbbf24">0</span> з 25</div>
+    <div id="pf" class="big" style="left:900px;top:340px;font-size:44px;color:#8aa0bd">(7 − 3 + 1)² = 25 позицій</div>
+    <div class="sw" id="s9" style="left:900px;top:520px;background:#fbbf24"></div><div class="lg" id="l9" style="left:980px;top:508px;color:#fbbf24">центр — 9</div>
+    <div class="sw" id="s2" style="left:900px;top:610px;background:#22d3ee"></div><div class="lg" id="l2" style="left:980px;top:598px;color:#22d3ee">край — 2–3</div>
+    <div class="sw" id="s1" style="left:900px;top:700px;background:#1c4a6e"></div><div class="lg" id="l1" style="left:980px;top:688px;color:#7fb5e0">кут — 1</div>
+  </div>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const X0 = 140, Y0 = 230, CS = 90;
+    const ramp = (c) => { if (c === 0) return "#0b1220"; const t = (c - 1) / 8; const a = [28, 74, 110], m = [34, 211, 238], z = [251, 191, 36]; const lerp = (p, q, u) => Math.round(p + (q - p) * u); const col = t < 0.5 ? a.map((v, i) => lerp(v, m[i], t * 2)) : m.map((v, i) => lerp(v, z[i], (t - 0.5) * 2)); return "rgb(" + col.join(",") + ")"; };
+    const cells = [];
+    for (let r = 0; r < 7; r++) for (let c = 0; c < 7; c++) {
+      const d = document.createElement("div"); d.className = "c"; d.id = "c" + r + c; d.style.left = X0 + c * CS + "px"; d.style.top = Y0 + r * CS + "px";
+      d.style.background = ramp(0); d.style.color = "#6b7c96"; d.textContent = "0"; $("grid").appendChild(d); cells.push(d);
+    }
+    // counts after k window positions (row-major over 5 x 5)
+    const countsAt = (k) => { const n = Array.from({ length: 7 }, () => Array(7).fill(0)); for (let p = 0; p < k; p++) { const i = Math.floor(p / 5), j = p % 5; for (let a = 0; a < 3; a++) for (let b = 0; b < 3; b++) n[i + a][j + b]++; } return n; };
+    let lastK = -1;
+    const paint = (k) => {
+      if (k === lastK) return; lastK = k;
+      const n = countsAt(k);
+      for (let r = 0; r < 7; r++) for (let c = 0; c < 7; c++) { const d = $("c" + r + c), v = n[r][c]; d.textContent = v; d.style.background = ramp(v); d.style.color = v >= 3 ? "#070b14" : v > 0 ? "#e8eef7" : "#6b7c96"; }
+      $("pn").textContent = k;
+    };
+    paint(0);
+    const P = { k: 0 };
+    const tl = gsap.timeline({ paused: true });
+    const show = (sel, at, d = 0.25) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, at);
+    const hide = (sel, at, d = 0.25) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+    // 1.2-4.4 the input is counted off; 5.6 the kernel is named
+    show("#ilab", 1.2);
+    for (let r = 0; r < 7; r++) for (let c = 0; c < 7; c++) { const k = r * 7 + c; tl.to("#c" + r + c, { filter: "brightness(1.9)", duration: 0.08 }, 1.8 + k * 0.05); tl.to("#c" + r + c, { filter: "brightness(1)", duration: 0.25 }, 1.88 + k * 0.05); }
+    show("#klab", 5.8);
+    tl.to("#win", { boxShadow: "inset 0 0 0 6px #ffffff", duration: 0.2 }, 6.4);
+    tl.to("#win", { boxShadow: "inset 0 0 0 6px #22d3ee", duration: 0.5 }, 6.65);
+    tl.to("#win", { boxShadow: "inset 0 0 0 6px #ffffff", duration: 0.2 }, 7.8);
+    tl.to("#win", { boxShadow: "inset 0 0 0 6px #22d3ee", duration: 0.5 }, 8.05);
+    // 4.6 the kernel window appears, 8.6-13.6 it runs over the 25 positions
+    show("#win", 4.6);
+    tl.to(P, { k: 25, duration: 5.0, ease: "none", onUpdate: () => { const k = Math.min(25, Math.floor(P.k + 0.001)); const kk = Math.min(24, Math.max(0, k)); gsap.set("#win", { x: (kk % 5) * CS, y: Math.floor(kk / 5) * CS }); paint(k); } }, 8.6);
+    hide("#win", 14.0);
+    // 14.7 centre, 18.2 corner, 20.7 edges
+    show("#rc", 14.7); show("#s9", 14.8); show("#l9", 14.8);
+    tl.to("#rc", { borderColor: "#fbbf24", duration: 0.2 }, 16.2);
+    hide("#rc", 17.6);
+    show("#rk", 18.2); show("#s1", 18.3); show("#l1", 18.3);
+    hide("#rk", 20.0);
+    show("#re", 20.7); show("#s2", 20.8); show("#l2", 20.8);
+    tl.to("#re", { borderColor: "#22d3ee", duration: 0.3 }, 22.6);
+    // 25.6-27.6 once more, the contrast: centre 9 against corner 1
+    show("#rc", 25.6); hide("#rc", 26.5);
+    show("#rk", 26.8); hide("#rk", 27.7);
+    window.__timelines["world"] = tl;
+  </script>
+</template>

@@ -1,0 +1,110 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .c { position: absolute; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 700; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.08); }
+    .lab { position: absolute; font-weight: 700; white-space: nowrap; opacity: 0; }
+    .mono { font-family: "JetBrains Mono", monospace; }
+    #svg { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+    .nd { position: absolute; width: 48px; height: 48px; border-radius: 50%; background: #0b1220; box-shadow: inset 0 0 0 4px #22d3ee; opacity: 0; }
+    .xv { position: absolute; width: 150px; text-align: right; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 34px; opacity: 0; }
+    .wv { position: absolute; width: 90px; text-align: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 28px; opacity: 0; background: #070b14; }
+    #neuron { position: absolute; left: 982px; top: 462px; width: 156px; height: 156px; border-radius: 50%; background: #0b1220; box-shadow: inset 0 0 0 6px #22d3ee; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 44px; color: #22d3ee; opacity: 1; }
+    #win { position: absolute; left: 96px; top: 330px; width: 210px; height: 210px; box-sizing: border-box; border: 6px solid #fbbf24; background: rgba(251,191,36,0.12); opacity: 0; }
+    .expr { position: absolute; left: 760px; top: 900px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 34px; white-space: nowrap; opacity: 0; }
+    .res { position: absolute; left: 1170px; top: 480px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 100px; line-height: 1; white-space: nowrap; opacity: 0; }
+    .gh { position: absolute; width: 44px; height: 44px; border-radius: 50%; background: #0b1220; box-shadow: inset 0 0 0 4px rgba(34,211,238,0.7); opacity: 0; }
+  </style>
+  <div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <div id="img" style="opacity:0"></div>
+    <div id="win"></div>
+    <div id="ilab" class="lab" style="left:96px;top:270px;font-size:38px;color:#8aa0bd">вхід I</div>
+    <svg id="svg" viewBox="0 0 1920 1080"></svg>
+    <div id="nodes"></div>
+    <div id="neuron">Σ + b</div>
+    <div id="blab" class="lab mono" style="left:990px;top:636px;font-size:36px;color:#8aa0bd">b = 0</div>
+    <div id="xl" class="lab" style="left:520px;top:190px;font-size:36px;color:#8aa0bd">входи x</div>
+    <div id="wl" class="lab" style="left:840px;top:190px;font-size:36px;color:#fbbf24">ваги w</div>
+    <div id="e1" class="expr" style="color:#e8eef7">0 + 1 − 5 + 0 + 0 − 5 − 1 + 0 − 4</div>
+    <div id="e2" class="expr" style="color:#e8eef7">−4 + 0 + 0 − 5 + 0 − 1 − 5 + 0 + 0</div>
+    <div id="r1" class="res" style="color:#fb7185">= −14</div>
+    <div id="r2" class="res" style="color:#fb7185">= −15</div>
+    <div id="mlab" class="lab" style="left:1560px;top:290px;font-size:38px;color:#8aa0bd">карта ознак</div>
+    <div id="map" style="opacity:0"></div>
+    <div id="ghosts"></div>
+    <div id="gl" class="lab" style="left:1200px;top:150px;font-size:34px;color:#8aa0bd">9 позицій — 9 нейронів?</div>
+    <div id="one" class="lab mono" style="left:760px;top:930px;font-size:48px;color:#22d3ee">один нейрон · одні ваги</div>
+  </div>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const mk = (parent, cls, css, text, id) => { const d = document.createElement("div"); d.className = cls; Object.assign(d.style, css); if (text !== undefined) d.textContent = text; if (id) d.id = id; parent.appendChild(d); return d; };
+    const I = [[0,1,5,0,0],[0,0,5,1,0],[1,0,4,0,0],[0,0,5,0,1],[0,1,5,0,0]];
+    const W = [-1,1,-1,-1,1,-1,-1,1,-1];
+    const X1 = [0,1,5,0,0,5,1,0,4], X2 = [4,0,0,5,0,1,5,0,0];
+    const OUT = [[-14,12,-13],[-15,13,-14],[-14,13,-15]];
+    const gray = (v) => { const t = v / 5; return "rgb(" + [Math.round(11 + 233 * t), Math.round(18 + 229 * t), Math.round(32 + 219 * t)].join(",") + ")"; };
+    const ROSE = "#fb7185", EM = "#34d399";
+    for (let r = 0; r < 5; r++) for (let c = 0; c < 5; c++) { const v = I[r][c]; mk($("img"), "c", { left: 96 + c * 70 + "px", top: 330 + r * 70 + "px", width: "70px", height: "70px", background: gray(v), color: v >= 3 ? "#070b14" : "#aab9cf", fontSize: "30px" }, v); }
+    const NX = 700, NY = (k) => 250 + k * 72, CX = 1060, CY = 540;
+    const NS = "http://www.w3.org/2000/svg"; const lines = [];
+    for (let k = 0; k < 9; k++) {
+      mk($("nodes"), "nd", { left: NX - 24 + "px", top: NY(k) - 24 + "px" }, undefined, "nd" + k);
+      mk($("nodes"), "xv", { left: NX - 190 + "px", top: NY(k) - 22 + "px", color: "#8aa0bd" }, "x" + String.fromCharCode(0x2080 + k + 1), "xs" + k);
+      [X1, X2].forEach((X, q) => mk($("nodes"), "xv", { left: NX - 190 + "px", top: NY(k) - 22 + "px", color: X[k] >= 3 ? "#fbbf24" : "#e8eef7" }, X[k], "xv" + q + k));
+      const l = document.createElementNS(NS, "line"); l.setAttribute("x1", NX + 24); l.setAttribute("y1", NY(k)); l.setAttribute("x2", CX - 78 * 0.98); l.setAttribute("y2", CY + (NY(k) - CY) * 0.14); l.setAttribute("stroke", "rgba(34,211,238,0.45)"); l.setAttribute("stroke-width", "3"); l.setAttribute("opacity", "0"); $("svg").appendChild(l); lines.push(l);
+      const mx = NX + 24 + (CX - 78 - NX - 24) * 0.45, my = NY(k) + (CY + (NY(k) - CY) * 0.14 - NY(k)) * 0.45;
+      mk($("nodes"), "wv", { left: mx - 45 + "px", top: my - 16 + "px", color: "#fbbf24" }, "w" + String.fromCharCode(0x2080 + k + 1), "ws" + k);
+      mk($("nodes"), "wv", { left: mx - 45 + "px", top: my - 16 + "px", color: W[k] > 0 ? EM : ROSE }, W[k] > 0 ? "+1" : "−1", "wn" + k);
+    }
+    for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) { mk($("map"), "c", { left: 1560 + j * 80 + "px", top: 340 + i * 80 + "px", width: "80px", height: "80px", background: "#0b1220", color: OUT[i][j] > 0 ? EM : ROSE, fontSize: "30px" }, "", "m" + i + j); const sp = document.createElement("span"); sp.id = "mv" + i + j; sp.textContent = (OUT[i][j] > 0 ? "+" : "−") + Math.abs(OUT[i][j]); sp.style.opacity = 0; $("m" + i + j).appendChild(sp); }
+    for (let g = 0; g < 9; g++) mk($("ghosts"), "gh", { left: 1250 + (g % 3) * 70 + "px", top: 210 + Math.floor(g / 3) * 70 + "px" }, undefined, "gh" + g);
+
+    const tl = gsap.timeline({ paused: true });
+    const show = (sel, at, d = 0.3) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, at);
+    const hide = (sel, at, d = 0.3) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+    // L1 0.4-8.4: the known neuron: 9 inputs, 9 weights, sum and bias
+    tl.to("#neuron", { scale: 1.12, duration: 0.25, ease: "power2.out" }, 0.9); tl.to("#neuron", { scale: 1, duration: 0.5 }, 1.15);
+    for (let k = 0; k < 9; k++) { show("#nd" + k, 2.7 + k * 0.1, 0.2); show("#xs" + k, 2.7 + k * 0.1, 0.2); }
+    show("#xl", 3.6);
+    tl.to(lines.map((l) => ({ })), {}, 0);
+    lines.forEach((l, k) => tl.to(l, { attr: { opacity: 1 }, duration: 0.2 }, 4.9 + k * 0.12));
+    for (let k = 0; k < 9; k++) show("#ws" + k, 5.4 + k * 0.17, 0.2);
+    show("#wl", 5.4);
+    show("#blab", 7.4);
+    tl.to("#neuron", { scale: 1.08, duration: 0.2, ease: "power2.out" }, 7.4); tl.to("#neuron", { scale: 1, duration: 0.4 }, 7.6);
+    // L2 8.8-14.6: inputs become the pixels of one patch
+    show("#img", 10.3); show("#ilab", 10.4); show("#win", 12.1);
+    for (let k = 0; k < 9; k++) { hide("#xs" + k, 12.8 + k * 0.05, 0.2); show("#xv0" + k, 12.9 + k * 0.05, 0.25); }
+    // weights become the numbers of the kernel
+    for (let k = 0; k < 9; k++) { hide("#ws" + k, 13.2 + k * 0.05, 0.2); show("#wn" + k, 13.3 + k * 0.05, 0.25); lines[k] && tl.to(lines[k], { attr: { stroke: W[k] > 0 ? "rgba(52,211,153,0.8)" : "rgba(251,113,133,0.8)" }, duration: 0.3 }, 13.3 + k * 0.05); }
+    hide("#wl", 13.2); show("#mlab", 14.0); show("#map", 14.0);
+    // L3 15.0-23.9: multiply and add: -14 into the first cell
+    // 15.6-18.0 each input is multiplied by its own weight, one after another
+    for (let k = 0; k < 9; k++) {
+      tl.to("#nd" + k, { backgroundColor: "#fbbf24", duration: 0.12 }, 15.6 + k * 0.27); tl.to("#nd" + k, { backgroundColor: "#0b1220", duration: 0.35 }, 15.74 + k * 0.27);
+      tl.to(lines[k], { attr: { "stroke-width": 7 }, duration: 0.12 }, 15.6 + k * 0.27); tl.to(lines[k], { attr: { "stroke-width": 3 }, duration: 0.35 }, 15.74 + k * 0.27);
+    }
+    const EX = (id, at) => { show(id, at, 0.4); };
+    show("#e1", 18.8, 0.5);
+    show("#r1", 20.8, 0.4);
+    tl.to("#r1", { x: 420, y: -140, scale: 0.35, opacity: 0, duration: 0.9, ease: "power3.inOut", transformOrigin: "0 0" }, 22.3);
+    tl.to("#mv00", { opacity: 1, duration: 0.3 }, 23.0);
+    // L4 24.3-31.6: the same weights on another patch
+    tl.to("#win", { x: 140, y: 140, duration: 0.9, ease: "power2.inOut" }, 24.6);
+    hide("#e1", 24.6, 0.3); hide("#r1", 24.4, 0.01);
+    tl.to("#nodes .wv", { scale: 1.12, duration: 0.2 }, 27.0); tl.to("#nodes .wv", { scale: 1, duration: 0.4 }, 27.2);
+    for (let k = 0; k < 9; k++) { hide("#xv0" + k, 27.6 + k * 0.05, 0.2); show("#xv1" + k, 27.7 + k * 0.05, 0.25); }
+    show("#e2", 29.6, 0.5);
+    show("#r2", 29.8, 0.4);
+    tl.to("#r2", { x: 640, y: 130, scale: 0.35, opacity: 0, duration: 0.9, ease: "power3.inOut", transformOrigin: "0 0" }, 30.6);
+    tl.to("#mv22", { opacity: 1, duration: 0.3 }, 31.3);
+    // L5 32.0-39.6: nine positions, nine "neurons" fold into one
+    hide("#e2", 32.0, 0.3);
+    show("#gl", 33.0); for (let g = 0; g < 9; g++) show("#gh" + g, 33.0 + g * 0.1, 0.2);
+    for (let g = 0; g < 9; g++) tl.to("#gh" + g, { x: CX - 22 - (1250 + (g % 3) * 70), y: CY - 22 - (210 + Math.floor(g / 3) * 70), scale: 0.4, opacity: 0, duration: 0.9, ease: "power3.in" }, 35.4 + g * 0.05);
+    hide("#gl", 35.2); show("#one", 36.0);
+    // the whole map fills in: the same neuron everywhere
+    const rest = [[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1]];
+    rest.forEach(([i, j], n) => tl.to("#mv" + i + j, { opacity: 1, duration: 0.2 }, 38.2 + n * 0.18));
+    window.__timelines["world"] = tl;
+  </script>
+</template>

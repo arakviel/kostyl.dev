@@ -1,0 +1,42 @@
+{
+  "audio": "assets/vo/l1.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Замість",
+      "start": 0.22,
+      "end": 0.62,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "шістнадцяти",
+      "start": 0.66,
+      "end": 1.4,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "однакових",
+      "start": 1.46,
+      "end": 2.02,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "детекторів",
+      "start": 2.06,
+      "end": 2.7,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "візьмемо",
+      "start": 3.02,
+      "end": 3.52,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "один",
+      "start": 3.6,
+      "end": 3.94,
+      "speaker": "speaker_0"
+    }
+  ]
+}

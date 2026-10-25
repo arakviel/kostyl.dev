@@ -1,0 +1,30 @@
+{
+  "audio": "assets/vo/l5.wav",
+  "language": "uk",
+  "words": [
+    {
+      "text": "Разум",
+      "start": 0.2,
+      "end": 0.48,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "сорок",
+      "start": 0.56,
+      "end": 0.84,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "вісім",
+      "start": 0.9,
+      "end": 1.26,
+      "speaker": "speaker_0"
+    },
+    {
+      "text": "чисел",
+      "start": 1.32,
+      "end": 1.7,
+      "speaker": "speaker_0"
+    }
+  ]
+}
