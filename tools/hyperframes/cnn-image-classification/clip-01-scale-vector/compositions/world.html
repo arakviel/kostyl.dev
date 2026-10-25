@@ -1,0 +1,101 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .t { position: absolute; white-space: nowrap; opacity: 0; font-family: "JetBrains Mono", monospace; font-weight: 700; }
+    svg { position: absolute; left: 0; top: 0; }
+  </style>
+  <div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <div id="ttl" class="t" style="left:160px;top:60px;font-size:40px;color:#8aa0bd;font-family:Inter,sans-serif">норма градієнта ‖g‖ на кроках навчання, lr = 1,0</div>
+    <div id="n0" class="t" style="left:200px;top:400px;font-size:100px;color:#34d399">2.432</div>
+    <div id="a0" class="t" style="left:560px;top:400px;font-size:100px;color:#8aa0bd">→</div>
+    <div id="n1" class="t" style="left:700px;top:400px;font-size:100px;color:#fbbf24">50.3</div>
+    <div id="a1" class="t" style="left:990px;top:400px;font-size:100px;color:#8aa0bd">→</div>
+    <div id="n2" class="t" style="left:1130px;top:400px;font-size:100px;color:#fb7185">8043</div>
+    <div id="a2" class="t" style="left:1450px;top:400px;font-size:100px;color:#8aa0bd">→</div>
+    <div id="n3" class="t" style="left:1590px;top:400px;font-size:100px;color:#fb7185">inf</div>
+    <div id="nl" class="t" style="left:200px;top:600px;font-size:38px;color:#8aa0bd">крок 0 · крок 1 · крок 2 · крок 3</div>
+    <div id="nc" class="t" style="left:200px;top:700px;font-size:44px;color:#e8eef7">поріг c: не довше за c</div>
+    <svg id="sv" width="1920" height="1080"></svg>
+    <div id="f1" class="t" style="left:1280px;top:300px;font-size:36px;color:#e8eef7">‖g‖ = √(9 + 16 + 144)</div>
+    <div id="f2" class="t" style="left:1280px;top:360px;font-size:36px;color:#e8eef7">    = 13</div>
+    <div id="f3" class="t" style="left:1280px;top:440px;font-size:36px;color:#fbbf24">поріг c = 1</div>
+    <div id="f4" class="t" style="left:1280px;top:520px;font-size:36px;color:#22d3ee">множник c / ‖g‖ = 1/13</div>
+    <div id="f5" class="t" style="left:1280px;top:640px;font-size:36px;color:#34d399">нова ‖g‖ = <span id="nn">13.000</span></div>
+    <div id="f6" class="t" style="left:1280px;top:710px;font-size:36px;color:#34d399">напрямок той самий</div>
+    <div id="p1" class="t" style="left:1300px;top:250px;font-size:36px;color:#34d399">clip_grad_norm_</div>
+    <div id="p2" class="t" style="left:1300px;top:300px;font-size:36px;color:#34d399">(3; 4) → (0.6; 0.8)</div>
+    <div id="p3" class="t" style="left:1300px;top:420px;font-size:36px;color:#fbbf24">clip_grad_value_</div>
+    <div id="p4" class="t" style="left:1300px;top:470px;font-size:36px;color:#fbbf24">(3; 4) → (1; 1)</div>
+    <div id="p5" class="t" style="left:1300px;top:600px;font-size:36px;color:#fb7185">53.1° → 45°</div>
+    <div id="p6" class="t" style="left:1300px;top:650px;font-size:36px;color:#fb7185">напрямок змінився</div>
+  </div>
+  <script>
+    const NS = "http://www.w3.org/2000/svg", sv = document.getElementById("sv");
+    const el = (tag, a, par) => { const e = document.createElementNS(NS, tag); for (const k in a) e.setAttribute(k, a[k]); (par || sv).appendChild(e); return e; };
+    // bars scene
+    const G = [3, 4, 12], BX = [260, 520, 780], BASE = 900, U = 55, BW = 150;
+    const bars = el("g", { id: "bars", opacity: 0 });
+    el("line", { x1: 200, x2: 1000, y1: BASE, y2: BASE, stroke: "#2a3a57", "stroke-width": 2 }, bars);
+    el("line", { x1: 200, x2: 1000, y1: BASE - U, y2: BASE - U, stroke: "#fbbf24", "stroke-width": 3, "stroke-dasharray": "12 8" }, bars);
+    const thr = el("text", { x: 1010, y: BASE - U + 10, fill: "#fbbf24", "font-size": 30, "font-family": "JetBrains Mono", "font-weight": 700 }, bars); thr.textContent = "c = 1";
+    const rects = [], ghosts = [], vals = [];
+    G.forEach((g, i) => {
+      ghosts.push(el("rect", { x: BX[i], y: BASE - g * U, width: BW, height: g * U, fill: "none", stroke: "#2f4468", "stroke-width": 2, "stroke-dasharray": "8 8" }, bars));
+      rects.push(el("rect", { x: BX[i], y: BASE - g * U, width: BW, height: g * U, fill: ["#22d3ee", "#34d399", "#fb7185"][i], "fill-opacity": 0.85 }, bars));
+      vals.push(el("text", { x: BX[i] + BW / 2, y: BASE + 50, "text-anchor": "middle", fill: "#e8eef7", "font-size": 34, "font-family": "JetBrains Mono", "font-weight": 700 }, bars));
+    });
+    const S = { s: 1 };
+    const updBars = () => G.forEach((g, i) => { const h = g * U * S.s; rects[i].setAttribute("y", BASE - h); rects[i].setAttribute("height", h); vals[i].textContent = "g" + (i + 1) + " = " + (S.s === 1 ? g : (g * S.s).toFixed(3)); });
+    updBars();
+    // plane scene
+    const CX = 640, CY = 780, UN = 120;
+    const pl = el("g", { id: "plane", opacity: 0 });
+    el("line", { x1: CX - 200, x2: CX + 460, y1: CY, y2: CY, stroke: "#2a3a57", "stroke-width": 2 }, pl);
+    el("line", { x1: CX, x2: CX, y1: CY + 120, y2: CY - 580, stroke: "#2a3a57", "stroke-width": 2 }, pl);
+    el("circle", { cx: CX, cy: CY, r: UN, fill: "none", stroke: "#22d3ee", "stroke-width": 3, "stroke-dasharray": "10 8" }, pl);
+    el("rect", { x: CX - UN, y: CY - UN, width: 2 * UN, height: 2 * UN, fill: "none", stroke: "#fbbf24", "stroke-width": 3, "stroke-dasharray": "10 8" }, pl);
+    const ray = el("line", { x1: CX, y1: CY, x2: CX + 3 * UN * 1.12, y2: CY - 4 * UN * 1.12, stroke: "#4a5d80", "stroke-width": 2, "stroke-dasharray": "4 8" }, pl);
+    const px = (x) => CX + x * UN, py = (y) => CY - y * UN;
+    const arrow = (id, col, w) => { const g = el("g", { id, opacity: 0 }); const l = el("line", { stroke: col, "stroke-width": w, "stroke-linecap": "round" }, g); const h = el("polygon", { fill: col }, g); return { g, l, h }; };
+    const setArrow = (a, x, y) => { a.l.setAttribute("x1", CX); a.l.setAttribute("y1", CY); const ex = px(x), ey = py(y), ang = Math.atan2(ey - CY, ex - CX), L = 22, wd = 12; const bx = ex - L * Math.cos(ang), by = ey - L * Math.sin(ang); a.l.setAttribute("x2", bx); a.l.setAttribute("y2", by); a.h.setAttribute("points", ex + "," + ey + " " + (bx + wd * Math.sin(ang)) + "," + (by - wd * Math.cos(ang)) + " " + (bx - wd * Math.sin(ang)) + "," + (by + wd * Math.cos(ang))); };
+    const A0 = arrow("A0", "#e8eef7", 7), A1 = arrow("A1", "#34d399", 9), A2 = arrow("A2", "#fbbf24", 9);
+    setArrow(A0, 3, 4); setArrow(A1, 3, 4); setArrow(A2, 1, 1);
+    const Q = { k: 1 };
+    const updQ = () => setArrow(A1, 3 * Q.k, 4 * Q.k);
+    const lab = (id, x, y, txt, col, anchor) => { const t = el("text", { id, x, y, fill: col, "font-size": 36, "font-family": "JetBrains Mono", "font-weight": 700, opacity: 0, "text-anchor": anchor || "start" }); t.textContent = txt; return t; };
+    lab("l0", px(3) + 24, py(4) + 10, "(3; 4)", "#e8eef7"); lab("l1", CX - UN - 24, py(0.8) + 10, "(0.6; 0.8)", "#34d399", "end"); lab("l2", px(1) + 30, py(1) + 60, "(1; 1)", "#fbbf24");
+    const tl = gsap.timeline({ paused: true });
+    const show = (s, at, d = 0.3) => tl.to(s, { opacity: 1, duration: d, ease: "power2.out" }, at);
+    const hide = (s, at, d = 0.3) => tl.to(s, { opacity: 0, duration: d, ease: "power2.in" }, at);
+    const pulse = (s, at, sc = 1.1) => tl.to(s, { scale: sc, transformOrigin: "left center", duration: 0.25, yoyo: true, repeat: 1 }, at);
+    // L1 0.4-10.8
+    show("#ttl", 0.5);
+    [["#n0", 2.2], ["#a0", 3.4], ["#n1", 3.8], ["#a1", 4.5], ["#n2", 5.0], ["#a2", 6.2], ["#n3", 7.0]].forEach(([s, at]) => show(s, at, 0.25));
+    show("#nl", 3.0); show("#nc", 8.2); pulse("#n3", 7.6, 1.15); pulse("#nc", 9.2, 1.04);
+    ["#n0", "#a0", "#n1", "#a1", "#n2", "#a2", "#n3", "#nl", "#nc", "#ttl"].forEach((s) => hide(s, 10.9, 0.4));
+    // L2 11.2-24.1
+    show("#bars", 11.8, 0.5);
+    G.forEach((g, i) => { tl.fromTo(rects[i], { opacity: 0.3 }, { opacity: 1, duration: 0.4 }, 12.0 + i * 1.0); pulse("#bars", 0, 1); });
+    show("#f1", 16.2); show("#f2", 17.4); pulse("#f2", 18.0, 1.08);
+    show("#f3", 19.2); show("#f4", 21.0);
+    tl.to(S, { s: 1 / 13, duration: 2.6, ease: "power2.inOut", onUpdate: updBars }, 21.6);
+    // L3 24.5-34.8
+    tl.to("#f5", { opacity: 1, duration: 0.3 }, 25.0);
+    const NN = { v: 13 };
+    tl.to(NN, { v: 1, duration: 2.0, ease: "power2.inOut", onUpdate: () => { document.getElementById("nn").textContent = NN.v.toFixed(3); } }, 28.4);
+    [0, 1, 2].forEach((i) => tl.to(rects[i], { opacity: 0.6, duration: 0.25, yoyo: true, repeat: 1 }, 25.2 + i * 1.0));
+    show("#f6", 31.4); pulse("#f6", 33.0, 1.06);
+    // L4 35.2-48.2
+    ["#bars", "#f1", "#f2", "#f3", "#f4", "#f5", "#f6"].forEach((s) => hide(s, 35.0, 0.4));
+    show("#plane", 35.6, 0.5); show("#A0", 36.4); show("#l0", 36.8);
+    tl.to("#plane", { opacity: 0.95, duration: 0.3, yoyo: true, repeat: 1 }, 38.0);
+    show("#A1", 39.0); tl.to(Q, { k: 0.2, duration: 1.8, ease: "power2.inOut", onUpdate: updQ }, 39.4); show("#l1", 41.0); show("#p1", 40.0); show("#p2", 40.6);
+    show("#A2", 43.2); show("#l2", 43.8); show("#p3", 43.2); show("#p4", 43.8);
+    tl.to("#A2", { opacity: 0.6, duration: 0.25, yoyo: true, repeat: 1 }, 45.2);
+    show("#p5", 46.0); show("#p6", 46.4); pulse("#p5", 47.0, 1.05);
+    // L5 48.6-51.5
+    tl.to("#p1, #p2", { scale: 1.1, transformOrigin: "left center", duration: 0.3, yoyo: true, repeat: 1 }, 48.8);
+    tl.to("#p3, #p4, #p5, #p6", { opacity: 0.3, duration: 0.4 }, 49.6);
+    window.__timelines["world"] = tl;
+  </script>
+</template>
