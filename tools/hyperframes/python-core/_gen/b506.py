@@ -1,0 +1,54 @@
+G="/private/tmp/claude-501/-Users-arakviel-Work-kostyl-dev/82ea6f59-25c7-47d3-a3df-29a1c293aa8e/scratchpad/gen/"
+s=open(G+"y505.part").read()
+s=s.replace('hide("#nt", CL - 0.35, 0.3);','hide("#nt", CL - 0.35, 0.3); hide("#ed", CL - 0.35, 0.3);')
+open(G+"y505.part","w").write(s)
+open(G+"y506.part","w").write('''<style>
+.t6 { position: absolute; left: 24px; height: 52px; display: flex; align-items: center; font-family: "JetBrains Mono", monospace; font-weight: 500; font-size: 34px; color: #cccccc; white-space: pre; opacity: 0; }
+.t6 .ty { display: inline-block; overflow: hidden; white-space: pre; width: 0; }
+.sq { position: absolute; height: 0; border-bottom: 5px dotted #f14c4c; opacity: 0; }
+.cp { position: absolute; top: 440px; height: 70px; border-radius: 35px; border: 4px solid; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 800; font-size: 36px; opacity: 0; padding: 0 30px; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="ed" class="vsw" style="left:80px;top:100px;width:800px;height:320px">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">eq.py</div></div>
+    <div class="vsr"></div><div class="vst">eq.py</div>
+    <div class="vsl" style="top:118px"><span class="n">1</span><span style="white-space:pre"><span style="color:#9cdcfe">x</span> = <span style="color:#b5cea8">5</span></span></div>
+    <div class="vsl" style="top:172px"><span class="n">2</span><span style="white-space:pre"><span style="color:#c586c0">if</span> <span style="color:#9cdcfe">x</span> = <span style="color:#b5cea8">5</span>:</span></div>
+    <div class="vsl" style="top:226px"><span class="n">3</span><span style="white-space:pre">    <span style="color:#dcdcaa">print</span>(<span style="color:#b5cea8">1</span>)</span></div>
+    <div id="sq" class="sq" style="left:182px;top:222px;width:108px"></div>
+  </div>
+  <div id="ed2" class="vsw" style="left:960px;top:100px;width:880px;height:320px;opacity:0">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">eq.py</div></div>
+    <div class="vsr"></div><div class="vst">eq.py</div>
+    <div class="vsl" style="top:118px"><span class="n">1</span><span style="white-space:pre"><span style="color:#9cdcfe">x</span> = <span style="color:#b5cea8">5</span></span></div>
+    <div class="vsl" style="top:172px"><span class="n">2</span><span style="white-space:pre"><span style="color:#c586c0">if</span> <span style="color:#9cdcfe">x</span> <span style="color:#34d399;font-weight:800">==</span> <span style="color:#b5cea8">5</span>:</span></div>
+    <div class="vsl" style="top:226px"><span class="n">3</span><span style="white-space:pre">    <span style="color:#dcdcaa">print</span>(<span style="color:#b5cea8">1</span>)</span></div>
+  </div>
+  <div id="p1" class="cp" style="left:140px;border-color:#fbbf24;color:#fbbf24">=  присвоєння</div>
+  <div id="p2" class="cp" style="left:560px;border-color:#22d3ee;color:#22d3ee">==  порівняння</div>
+  <div id="term" class="vsw" style="left:80px;top:540px;width:1760px;height:470px;background:#1c1c1e">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">Terminal</div></div>
+    <div id="a0" class="t6" style="top:66px"><span style="color:#4ec9b0">lesson-05 %&nbsp;</span><span id="a0y" class="ty">python3 eq.py</span></div>
+    <div id="a1" class="t6" style="top:118px;color:#9fb2cf">  File "eq.py", line 2</div>
+    <div id="a2" class="t6" style="top:170px">    if x = 5:</div>
+    <div id="a3" class="t6" style="top:222px;color:#f14c4c">       ^^^^^</div>
+    <div id="a4" class="t6" style="top:274px;color:#f14c4c;font-weight:700">SyntaxError: invalid syntax. <span id="hint" style="color:#fbbf24">Maybe you meant '==' or ':=' instead of '='?</span></div>
+    <div id="b0" class="t6" style="top:340px"><span style="color:#4ec9b0">lesson-05 %&nbsp;</span><span id="b0y" class="ty">python3 eq.py</span></div>
+    <div id="b1" class="t6" style="top:392px;color:#34d399;font-weight:700">1</div>
+  </div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+tl.set("#ed", { opacity: 1 }, 0);
+show("#p1", T[0] + 1.4); show("#p2", T[0] + 2.8); pulse("#p1", T[0] + 1.6, 1.06); pulse("#p2", T[0] + 3.0, 1.06);
+show("#sq", T[1] + 0.2, 0.3); show("#a0", T[1] + 0.3, 0.05); typeIn("#a0y", 13, T[1] + 0.4, 0.8);
+show("#a1", T[1] + 1.6, 0.1); show("#a2", T[1] + 1.9, 0.1); show("#a3", T[1] + 2.2, 0.1); show("#a4", T[1] + 2.5, 0.1); pulse("#a4", T[1] + 2.6, 1.02);
+tl.to("#hint", { backgroundColor: "rgba(251,191,36,0.25)", duration: 0.3 }, T[2] + 0.5); pulse("#hint", T[2] + 1.2, 1.03); pulse("#hint", T[2] + 3.0, 1.03);
+show("#ed2", T[3] + 0.2, 0.3); hide("#sq", T[3] + 0.2, 0.2);
+show("#b0", T[3] + 1.2, 0.05); typeIn("#b0y", 13, T[3] + 1.3, 0.8); show("#b1", T[3] + 2.4, 0.1); pulse("#b1", T[3] + 2.5, 1.2);
+hide("#ed", CL - 0.35, 0.3); hide("#ed2", CL - 0.35, 0.3); hide("#p1", CL - 0.35, 0.3); hide("#p2", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>
+''')

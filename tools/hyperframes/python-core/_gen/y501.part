@@ -1,0 +1,51 @@
+<style>
+.br { position: absolute; left: 1000px; width: 820px; height: 110px; border-radius: 18px; background: #0e1626; border: 4px solid #26365a; display: flex; align-items: center; padding-left: 34px; gap: 30px; font-family: "JetBrains Mono", monospace; font-weight: 800; font-size: 46px; opacity: 0; }
+.br span.g { font-size: 56px; }
+.sk { position: absolute; right: 30px; font-family: Inter, sans-serif; font-size: 30px; font-weight: 700; color: #6f84a6; opacity: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+<div id="ed" class="vsw" style="left:60px;top:90px;width:700px;height:700px">
+  <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">grade.py</div></div>
+  <div class="vsr"></div><div class="vst">grade.py</div>
+  <div class="vsl" style="top:118px"><span class="n">1</span><span style="white-space:pre"><span style="color:#9cdcfe">score</span> = <span style="color:#b5cea8">82</span></span></div>
+  <div class="vsl" style="top:172px"><span class="n">2</span><span style="white-space:pre"><span style="color:#c586c0">if</span> <span style="color:#9cdcfe">score</span> &gt;= <span style="color:#b5cea8">90</span>:</span></div>
+  <div class="vsl" style="top:226px"><span class="n">3</span><span style="white-space:pre">    <span style="color:#9cdcfe">grade</span> = <span style="color:#ce9178">"A"</span></span></div>
+  <div class="vsl" style="top:280px"><span class="n">4</span><span style="white-space:pre"><span style="color:#c586c0">elif</span> <span style="color:#9cdcfe">score</span> &gt;= <span style="color:#b5cea8">75</span>:</span></div>
+  <div class="vsl" style="top:334px"><span class="n">5</span><span style="white-space:pre">    <span style="color:#9cdcfe">grade</span> = <span style="color:#ce9178">"B"</span></span></div>
+  <div class="vsl" style="top:388px"><span class="n">6</span><span style="white-space:pre"><span style="color:#c586c0">elif</span> <span style="color:#9cdcfe">score</span> &gt;= <span style="color:#b5cea8">60</span>:</span></div>
+  <div class="vsl" style="top:442px"><span class="n">7</span><span style="white-space:pre">    <span style="color:#9cdcfe">grade</span> = <span style="color:#ce9178">"C"</span></span></div>
+  <div class="vsl" style="top:496px"><span class="n">8</span><span style="white-space:pre"><span style="color:#c586c0">else</span>:</span></div>
+  <div class="vsl" style="top:550px"><span class="n">9</span><span style="white-space:pre">    <span style="color:#9cdcfe">grade</span> = <span style="color:#ce9178">"F"</span></span></div>
+  <div class="vsl" style="top:604px"><span class="n">10</span><span style="white-space:pre"><span style="color:#dcdcaa">print</span>(<span style="color:#9cdcfe">grade</span>)</span></div>
+  <div id="hl" style="position:absolute;left:0;width:700px;height:54px;top:118px;background:rgba(251,191,36,0.2);opacity:0"></div>
+</div>
+
+  <div id="sc" class="mono abs" style="left:1000px;top:90px;font-size:56px;color:#22d3ee;opacity:0"><span style="color:#9cdcfe">score</span> = <span style="color:#b5cea8">82</span></div>
+  <div id="bA" class="br" style="top:210px;color:#9fb2cf"><span class="g">A</span><span style="font-size:36px">score &gt;= 90</span><span id="kA" class="sk">пропущено</span></div>
+  <div id="bB" class="br" style="top:350px;color:#9fb2cf"><span class="g">B</span><span style="font-size:36px">score &gt;= 75</span><span id="kB" class="sk" style="color:#34d399">виконується</span></div>
+  <div id="bC" class="br" style="top:490px;color:#9fb2cf"><span class="g">C</span><span style="font-size:36px">score &gt;= 60</span><span id="kC" class="sk">пропущено</span></div>
+  <div id="bF" class="br" style="top:630px;color:#9fb2cf"><span class="g">F</span><span style="font-size:36px">інакше</span><span id="kF" class="sk">пропущено</span></div>
+  <div id="term" class="vsw" style="left:1000px;top:800px;width:820px;height:190px;opacity:0">
+    <div class="vsb"><div class="vsT" style="text-align:left;left:24px">ТЕРМІНАЛ</div></div>
+    <div id="o1" class="vsx" style="top:80px;font-size:56px;color:#34d399;font-weight:700">B</div>
+  </div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+tl.set("#ed", { opacity: 1 }, 0);
+// L1 so far every line ran
+for (let k = 0; k < 10; k++) tl.set("#hl", { y: k * 54, opacity: 1 }, T[0] + 0.3 + k * 0.22);
+tl.to("#hl", { opacity: 0, duration: 0.2 }, T[0] + 2.7);
+// L2 now it chooses
+show("#sc", T[1] + 0.2); ["#bA", "#bB", "#bC", "#bF"].forEach((s, i) => show(s, T[1] + 0.5 + i * 0.3, 0.3));
+// L3 one branch runs, others skipped
+tl.set("#hl", { y: 4 * 54, opacity: 1 }, T[2] + 0.6);
+tl.to("#bB", { borderColor: "#34d399", color: "#34d399", duration: 0.3 }, T[2] + 0.6); show("#kB", T[2] + 0.8);
+["#kA", "#kC", "#kF"].forEach((s, i) => show(s, T[2] + 1.4 + i * 0.4));
+["#bA", "#bC", "#bF"].forEach((s) => tl.to(s, { opacity: 0.35, duration: 0.4 }, T[2] + 1.4));
+show("#term", T[2] + 2.6, 0.3); show("#o1", T[2] + 3.2, 0.1); pulse("#o1", T[2] + 3.3, 1.1);
+["#sc", "#ed", "#bA", "#bB", "#bC", "#bF", "#term"].forEach((x) => hide(x, CL - 0.35, 0.3));
+window.__timelines["world"] = tl;
+</script>

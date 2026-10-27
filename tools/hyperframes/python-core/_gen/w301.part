@@ -1,0 +1,48 @@
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <svg id="svg" width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;left:0;top:0"></svg>
+  <div id="ed" class="vsw" style="left:140px;top:150px;width:560px;height:230px">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">x.py</div></div>
+    <div class="vsr"></div><div class="vst">x.py</div>
+    <div class="vsl" style="top:120px;font-size:52px;height:80px"><span class="n" style="font-size:34px">1</span><span><span style="color:#9cdcfe">x</span> = <span style="color:#b5cea8">5</span></span></div>
+  </div>
+  <div id="box" class="abs" style="left:180px;top:520px;width:380px;height:340px;opacity:0">
+    <div class="abs" style="left:0;top:50px;width:380px;height:290px;border:6px solid #fbbf24;border-radius:10px;background:#3b2f10"></div>
+    <div class="abs" style="left:-14px;top:0;width:408px;height:60px;border:6px solid #fbbf24;border-radius:10px;background:#5a4515"></div>
+    <div class="mono abs" style="left:0;width:380px;top:84px;text-align:center;font-size:150px;color:#34d399">5</div>
+    <div class="mono abs" style="left:110px;top:270px;width:160px;height:56px;background:#fbbf24;color:#1a1204;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:40px">x</div>
+  </div>
+  <div id="x1" class="abs" style="left:150px;top:690px;width:440px;height:16px;background:#fb7185;border-radius:8px;transform:rotate(38deg);opacity:0"></div>
+  <div id="x2" class="abs" style="left:150px;top:690px;width:440px;height:16px;background:#fb7185;border-radius:8px;transform:rotate(-38deg);opacity:0"></div>
+  <div id="lbl" class="lab" style="left:140px;top:890px;font-size:40px;color:#fb7185;opacity:0">це не Python</div>
+  <div id="nsw"></div><div id="obw"></div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+const $ = (id) => document.getElementById(id);
+const CC = { c: "#22d3ee", e: "#34d399", a: "#fbbf24", r: "#fb7185", g: "#9fb2cf" };
+$("svg").innerHTML = `<defs>${Object.values(CC).map((c) => `<marker id="mk${c.slice(1)}" markerWidth="30" markerHeight="30" refX="26" refY="15" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 2 L28 15 L0 28 z" fill="${c}"/></marker>`).join("")}</defs>`;
+const ARW = (id, x1, y1, x2, y2, c) => $("svg").insertAdjacentHTML("beforeend", `<line id="${id}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="6" marker-end="url(#mk${c.slice(1)})" opacity="0"/>`);
+// namespace card: names = [[label, color], ...]; name boxes are shown individually
+const NSC = (id, left, top, names) => `<div id="${id}" class="card" style="left:${left}px;top:${top}px;width:300px;height:${90 + names.length * 110}px;opacity:0"><div class="lab" style="left:28px;top:16px;font-size:34px">імена</div>${names.map(([t, c], i) => `<div id="${id}n${i}" class="mono abs" style="left:30px;top:${80 + i * 110}px;width:240px;height:80px;border:4px solid ${c};border-radius:14px;color:${c};font-size:46px;display:flex;align-items:center;justify-content:center;opacity:0">${t}</div>`).join("")}</div>`;
+const NSX = (left) => left + 270, NSY = (top, i) => top + 80 + i * 110 + 40;
+// object plaque: type / value / id
+const OB = (id, left, top, type, val, vcol, idv, w = 420) => `<div id="${id}" class="card" style="left:${left}px;top:${top}px;width:${w}px;height:230px;border-color:#34d399;opacity:0"><div class="mono abs" style="left:24px;top:12px;font-size:30px;color:#22d3ee">${type}</div><div class="mono abs" style="left:0;width:${w}px;top:52px;text-align:center;font-size:${val.length > 7 ? 56 : 80}px;color:${vcol}">${val}</div><div class="mono abs" style="left:24px;top:172px;font-size:28px;color:#fbbf24">id ${idv}</div></div>`;
+
+$("nsw").innerHTML = NSC("ns", 880, 440, [["x", CC.c]]);
+$("obw").innerHTML = OB("ob", 1400, 440, "int", "5", "#34d399", "4353553800");
+ARW("ar", 1150, 560, 1394, 555, CC.c);
+tl.set("#ed", { opacity: 1 }, 0);
+// L1 the usual answer: a box with a value
+show("#box", T[0] + 1.4, 0.4); pulse("#box", T[0] + 2.4, 1.03);
+// L2 it is wrong for Python
+show("#x1", T[1] + 0.3, 0.2); show("#x2", T[1] + 0.6, 0.2); show("#lbl", T[1] + 0.9);
+// L3 a name that points to an object
+hide("#box", T[2] + 0.2, 0.3); hide("#x1", T[2] + 0.2, 0.3); hide("#x2", T[2] + 0.2, 0.3); hide("#lbl", T[2] + 0.2, 0.3);
+show("#ns", T[2] + 0.8, 0.3); show("#nsn0", T[2] + 1.2, 0.3); show("#ob", T[2] + 2.4, 0.3); show("#ar", T[2] + 3.2, 0.3);
+// L4
+pulse("#ar", T[3] + 0.3, 1.0); pulse("#ob", T[3] + 0.8, 1.04); pulse("#nsn0", T[3] + 1.4, 1.1);
+hide("#ed", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>

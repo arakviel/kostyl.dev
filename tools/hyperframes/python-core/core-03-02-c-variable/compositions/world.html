@@ -1,0 +1,97 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+.mono { font-family: "JetBrains Mono", monospace; font-weight: 700; }
+.abs { position: absolute; }
+.card { position: absolute; border-radius: 18px; background: #0e1626; border: 3px solid #26365a; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+.lab { position: absolute; font-size: 34px; font-weight: 700; color: #9fb2cf; white-space: nowrap; }
+.o0 { opacity: 0; }
+.ar { position: absolute; height: 8px; background: currentColor; opacity: 0; }
+.ar.r::after { content: ""; position: absolute; right: -8px; top: -14px; border-left: 28px solid currentColor; border-top: 18px solid transparent; border-bottom: 18px solid transparent; }
+</style>
+<style>
+.vsw { position: absolute; border-radius: 14px; background: #1e1e1e; overflow: hidden; border: 2px solid #3a3a3a; box-shadow: 0 24px 60px rgba(0,0,0,0.55); }
+.vsb { position: absolute; left: 0; top: 0; right: 0; height: 48px; background: #2b2b2b; }
+.vsd { position: absolute; top: 15px; width: 16px; height: 16px; border-radius: 8px; }
+.vsT { position: absolute; left: 0; right: 0; top: 8px; text-align: center; font-size: 28px; color: #c8c8c8; }
+.vst { position: absolute; left: 0; top: 48px; height: 56px; padding: 0 28px; display: flex; align-items: center; font-family: "JetBrains Mono", monospace; font-weight: 500; font-size: 28px; color: #fff; background: #1e1e1e; border-top: 3px solid #3794ff; }
+.vsr { position: absolute; left: 0; right: 0; top: 48px; height: 56px; background: #252526; }
+.vsl { position: absolute; left: 0; height: 54px; display: flex; align-items: center; font-family: "JetBrains Mono", monospace; font-weight: 600; font-size: 36px; color: #d4d4d4; white-space: nowrap; }
+.vsl .n { display: inline-block; width: 64px; text-align: right; color: #b4b4b4; margin-right: 28px; font-weight: 500; }
+.vsl .ty, .vsx .ty { display: inline-block; overflow: hidden; white-space: nowrap; width: 0; vertical-align: bottom; }
+.vsterm { position: absolute; left: 0; right: 0; bottom: 0; border-top: 2px solid #3c3c3c; background: #1e1e1e; }
+.vsth { position: absolute; left: 24px; top: 8px; font-size: 28px; color: #e7e7e7; letter-spacing: 0.04em; }
+.vsx { position: absolute; left: 24px; height: 46px; display: flex; align-items: center; font-family: "JetBrains Mono", monospace; font-weight: 500; font-size: 32px; color: #cccccc; white-space: nowrap; opacity: 0; }
+</style>
+<style>
+.bc2 { position: absolute; top: 500px; width: 170px; height: 120px; border-radius: 14px; background: #0e1626; border: 4px solid #26365a; opacity: 1; }
+.bv2 { position: absolute; top: 500px; width: 170px; height: 120px; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 30px; color: #34d399; opacity: 0; }
+.ad2 { position: absolute; top: 640px; width: 170px; text-align: center; font-family: "JetBrains Mono", monospace; font-size: 30px; color: #9fb2cf; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="ed" class="vsw" style="left:160px;top:120px;width:760px;height:310px;opacity:0">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">var.c</div></div>
+    <div class="vsr"></div><div class="vst">var.c</div>
+    <div id="l1" class="vsl" style="top:118px"><span class="n">1</span><span style="white-space:pre"><span style="color:#569cd6">int</span> <span style="color:#9cdcfe">x</span> = <span style="color:#b5cea8">5</span>;</span></div>
+    <div id="l2" class="vsl" style="top:172px"><span class="n">2</span><span style="white-space:pre"><span style="color:#9cdcfe">x</span> = <span style="color:#b5cea8">7</span>;</span></div>
+    <div id="hl" style="position:absolute;left:0;width:760px;height:54px;top:118px;background:rgba(251,191,36,0.2);opacity:0"></div>
+  </div>
+  <div id="cells"></div><div id="brace" class="abs" style="left:608px;top:690px;width:704px;height:8px;background:#fbbf24;border-radius:4px;opacity:0"></div>
+  <div id="xl" class="mono abs" style="left:608px;width:704px;text-align:center;top:712px;font-size:40px;color:#fbbf24;opacity:0">x: int, 4 байти</div>
+  <div id="note" class="lab" style="left:0;width:1920px;text-align:center;top:820px;font-size:44px;color:#fbbf24;opacity:0">адреса та сама, змінився вміст</div>
+  <div id="sch" class="lab" style="left:0;width:1920px;text-align:center;top:960px;font-size:30px;color:#6f84a6">схематично: адреси умовні</div>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+const show = (sel, at, d = 0.3) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, at);
+const hide = (sel, at, d = 0.3) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+const pulse = (sel, at, sc = 1.1) => { tl.to(sel, { scale: sc, duration: 0.15 }, at); tl.to(sel, { scale: 1, duration: 0.3 }, at + 0.15); };
+
+const GOLD = "#d4af37";
+const hw = {
+  dimm: (p, w) => {
+    let s = `<svg width="${w}" viewBox="0 0 1000 210" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="1000" height="190" rx="8" fill="#1d6a47" stroke="#0f3d2a" stroke-width="4"/>`;
+    for (let i = 0; i < 8; i++) { const x = 45 + i * 118; s += `<rect id="${p}chip${i}" x="${x}" y="40" width="96" height="84" rx="6" fill="#0b0f14" stroke="#2a3340" stroke-width="3"/><rect x="${x + 12}" y="58" width="44" height="6" fill="#2a3340"/><rect x="${x + 12}" y="76" width="64" height="6" fill="#2a3340"/>`; }
+    for (let k = 0; k < 58; k++) { const x = 14 + k * 16.6; if (x > 400 && x < 450) continue; s += `<rect x="${x}" y="160" width="10" height="30" fill="${GOLD}"/>`; }
+    s += `<rect x="420" y="168" width="18" height="22" fill="#070b14"/><rect x="905" y="135" width="44" height="20" fill="#0b0f14" stroke="#2a3340" stroke-width="2"/></svg>`; return s;
+  },
+  ssd: (w) => {
+    let s = `<svg width="${w}" viewBox="0 0 1000 210" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="1000" height="210" rx="14" fill="#174d36" stroke="#0f3d2a" stroke-width="4"/>`;
+    for (let k = 0; k < 14; k++) s += `<rect x="6" y="${14 + k * 13.5}" width="34" height="8" fill="${GOLD}"/>`;
+    s += `<rect x="150" y="45" width="130" height="120" rx="8" fill="#0b0f14" stroke="#2a3340" stroke-width="3"/><rect x="330" y="45" width="250" height="120" rx="8" fill="#0b0f14" stroke="#2a3340" stroke-width="3"/><rect x="630" y="45" width="250" height="120" rx="8" fill="#0b0f14" stroke="#2a3340" stroke-width="3"/>`;
+    s += `<rect x="352" y="72" width="120" height="8" fill="#2a3340"/><rect x="652" y="72" width="120" height="8" fill="#2a3340"/><circle cx="948" cy="105" r="20" fill="#070b14" stroke="${GOLD}" stroke-width="5"/></svg>`; return s;
+  },
+  cpu: (w) => `<svg width="${w}" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sg${w}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e3e9f3"/><stop offset="1" stop-color="#8794ab"/></linearGradient></defs><rect x="8" y="8" width="284" height="284" rx="22" fill="#2c3b57" stroke="#4a5f86" stroke-width="4"/><rect x="44" y="44" width="212" height="212" rx="14" fill="url(#sg${w})" stroke="#e8eef7" stroke-opacity="0.5" stroke-width="3"/><text x="150" y="172" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="800" font-size="64" fill="#2b3a55">CPU</text><path d="M14 14 L44 14 L14 44 Z" fill="${GOLD}"/></svg>`,
+  monitor: (w) => `<svg width="${w}" viewBox="0 0 440 330" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="420" height="250" rx="18" fill="#1a2236" stroke="#3a4a6e" stroke-width="4"/><rect x="30" y="30" width="380" height="210" rx="8" fill="#050913"/><text x="52" y="150" font-family="JetBrains Mono, monospace" font-weight="800" font-size="72" fill="#34d399">Hello</text><rect x="190" y="260" width="60" height="42" fill="#2c3a5a"/><rect x="130" y="300" width="180" height="16" rx="8" fill="#2c3a5a"/></svg>`
+};
+const typeIn = (sel, n, at, dur) => tl.to(sel, { width: n + "ch", duration: dur, ease: "steps(" + n + ")" }, at);
+
+const T = [0.5, 5.28, 10.58, 15.45], D = [4.13, 4.64, 4.23, 3.58], CL = 19.4;
+const $ = (id) => document.getElementById(id);
+const adr = ["0x0FFE", "0x0FFF", "0x1000", "0x1001", "0x1002", "0x1003", "0x1004", "0x1005"];
+const b5 = ["00000101", "00000000", "00000000", "00000000"], b7 = ["00000111", "00000000", "00000000", "00000000"];
+adr.forEach((a, i) => {
+  const x = 224 + i * 184 - 0, on = i >= 2 && i <= 5;
+  $("cells").insertAdjacentHTML("beforeend", `<div id="bc${i}" class="bc2" style="left:${x}px;border-color:${on ? "#fbbf24" : "#26365a"}"></div><div id="ad${i}" class="ad2" style="left:${x}px">${a}</div>` + (on ? `<div id="v5_${i}" class="bv2" style="left:${x}px">${b5[i - 2]}</div><div id="v7_${i}" class="bv2" style="left:${x}px;color:#fb7185">${b7[i - 2]}</div>` : ""));
+});
+// brace over cells 2..5 : x = 224 + 2*184 .. 224 + 5*184 + 170
+document.getElementById("brace").style.left = "592px"; document.getElementById("brace").style.width = "722px";
+document.getElementById("xl").style.left = "592px"; document.getElementById("xl").style.width = "722px";
+// L1 variable in C = cell with an address
+for (let i = 0; i < 8; i++) pulse("#bc" + i, T[0] + 0.8 + i * 0.3, 1.03);
+// L2 int x = 5
+show("#ed", T[1] + 0.2, 0.3); tl.to("#hl", { opacity: 1, duration: 0.2 }, T[1] + 0.8);
+show("#brace", T[1] + 1.6); show("#xl", T[1] + 1.7);
+for (let i = 2; i <= 5; i++) show("#v5_" + i, T[1] + 2.6 + (i - 2) * 0.3, 0.2);
+// L3 x = 7 : same bytes, new content
+tl.set("#hl", { y: 54 }, T[2] + 0.3);
+for (let i = 2; i <= 5; i++) { hide("#v5_" + i, T[2] + 1.3, 0.15); show("#v7_" + i, T[2] + 1.45, 0.15); }
+pulse("#v7_2", T[2] + 1.6, 1.15); for (let i = 2; i <= 5; i++) pulse("#bc" + i, T[2] + 2.4 + (i - 2) * 0.4, 1.04);
+// L4 address stays
+tl.to("#ad2", { color: "#fbbf24", duration: 0.2 }, T[3] + 0.2);
+show("#note", T[3] + 0.8); pulse("#note", T[3] + 1.8, 1.04);
+hide("#ed", CL - 0.35, 0.3); hide("#note", CL - 0.35, 0.2); hide("#xl", CL - 0.35, 0.2);
+window.__timelines["world"] = tl;
+</script>
+
+</template>

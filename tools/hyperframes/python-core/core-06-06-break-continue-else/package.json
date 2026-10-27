@@ -1,0 +1,11 @@
+{
+  "name": "core-06-06-break-continue-else",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.8.207 preview",
+    "check": "npx --yes hyperframes@0.8.207 check",
+    "render": "npx --yes hyperframes@0.8.207 render",
+    "publish": "npx --yes hyperframes@0.8.207 publish"
+  }
+}

@@ -1,0 +1,105 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+.mono { font-family: "JetBrains Mono", monospace; font-weight: 700; }
+.abs { position: absolute; }
+.card { position: absolute; border-radius: 18px; background: #0e1626; border: 3px solid #26365a; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+.lab { position: absolute; font-size: 34px; font-weight: 700; color: #9fb2cf; white-space: nowrap; }
+.o0 { opacity: 0; }
+.ar { position: absolute; height: 8px; background: currentColor; opacity: 0; }
+.ar.r::after { content: ""; position: absolute; right: -8px; top: -14px; border-left: 28px solid currentColor; border-top: 18px solid transparent; border-bottom: 18px solid transparent; }
+</style>
+<style>
+.vsw { position: absolute; border-radius: 14px; background: #1e1e1e; overflow: hidden; border: 2px solid #3a3a3a; box-shadow: 0 24px 60px rgba(0,0,0,0.55); }
+.vsb { position: absolute; left: 0; top: 0; right: 0; height: 48px; background: #2b2b2b; }
+.vsd { position: absolute; top: 15px; width: 16px; height: 16px; border-radius: 8px; }
+.vsT { position: absolute; left: 0; right: 0; top: 8px; text-align: center; font-size: 28px; color: #c8c8c8; }
+.vst { position: absolute; left: 0; top: 48px; height: 56px; padding: 0 28px; display: flex; align-items: center; font-family: "JetBrains Mono", monospace; font-weight: 500; font-size: 28px; color: #fff; background: #1e1e1e; border-top: 3px solid #3794ff; }
+.vsr { position: absolute; left: 0; right: 0; top: 48px; height: 56px; background: #252526; }
+.vsl { position: absolute; left: 0; height: 54px; display: flex; align-items: center; font-family: "JetBrains Mono", monospace; font-weight: 600; font-size: 36px; color: #d4d4d4; white-space: nowrap; }
+.vsl .n { display: inline-block; width: 64px; text-align: right; color: #b4b4b4; margin-right: 28px; font-weight: 500; }
+.vsl .ty, .vsx .ty { display: inline-block; overflow: hidden; white-space: nowrap; width: 0; vertical-align: bottom; }
+.vsterm { position: absolute; left: 0; right: 0; bottom: 0; border-top: 2px solid #3c3c3c; background: #1e1e1e; }
+.vsth { position: absolute; left: 24px; top: 8px; font-size: 28px; color: #e7e7e7; letter-spacing: 0.04em; }
+.vsx { position: absolute; left: 24px; height: 46px; display: flex; align-items: center; font-family: "JetBrains Mono", monospace; font-weight: 500; font-size: 32px; color: #cccccc; white-space: nowrap; opacity: 0; }
+</style>
+<style>
+.tk { position: absolute; top: 504px; width: 4px; height: 24px; background: #5a6c8c; }
+.tkl { position: absolute; top: 536px; width: 70px; text-align: center; font-family: "JetBrains Mono", monospace; font-size: 28px; color: #9fb2cf; }
+.pt { position: absolute; width: 36px; height: 36px; border-radius: 18px; opacity: 0; }
+.tg { position: absolute; font-family: "JetBrains Mono", monospace; font-weight: 800; font-size: 44px; opacity: 0; white-space: nowrap; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <svg id="svg" width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;left:0;top:0"></svg>
+  <div id="ed" class="vsw" style="left:80px;top:90px;width:740px;height:210px;opacity:0">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">floor.py</div></div>
+    <div class="vsr"></div><div class="vst">floor.py</div>
+    <div class="vsl" style="top:118px;font-size:34px"><span class="n" style="font-size:30px">1</span><span style="white-space:pre"><span style="color:#dcdcaa">print</span>(-<span style="color:#b5cea8">7</span> // <span style="color:#b5cea8">2</span>, -<span style="color:#b5cea8">7</span> % <span style="color:#b5cea8">2</span>)</span></div>
+  </div>
+  <div id="term" class="vsw" style="left:860px;top:90px;width:420px;height:210px;opacity:0">
+    <div class="vsb"><div class="vsT" style="text-align:left;left:24px">ТЕРМІНАЛ</div></div>
+    <div id="o1" class="vsx" style="top:90px;font-size:50px;color:#34d399;font-weight:700">-4 1</div>
+  </div>
+  <div class="abs" style="left:240px;top:512px;width:1440px;height:8px;background:#3a4a6e;border-radius:4px"></div>
+  <div id="ticks"></div>
+  <div id="pp" class="pt" style="background:#fbbf24"></div>
+  <div id="pn" class="pt" style="background:#fbbf24"></div>
+  <div id="lp" class="tg" style="color:#fbbf24;left:790px;top:380px">7 / 2 = 3.5</div>
+  <div id="ln" class="tg" style="color:#fbbf24;left:380px;top:380px">−7 / 2 = −3.5</div>
+  <div id="fp" class="tg" style="color:#fb7185;left:1130px;top:600px;font-size:40px">// → 3</div>
+  <div id="fn" class="tg" style="color:#fb7185;left:520px;top:600px;font-size:40px">// → −4</div>
+  <div id="eq" class="mono abs" style="left:0;width:1920px;text-align:center;top:760px;font-size:64px;opacity:0;white-space:nowrap"><span style="color:#d4d4d4">−7</span> = <span style="color:#22d3ee">2 · (−4)</span> + <span id="rest" style="color:#34d399">1</span></div>
+  <div id="nt" class="lab" style="left:0;width:1920px;text-align:center;top:880px;font-size:42px;color:#fbbf24;opacity:0">−7 % 2 = 1, а не −1</div>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+const show = (sel, at, d = 0.3) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, at);
+const hide = (sel, at, d = 0.3) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+const pulse = (sel, at, sc = 1.1) => { tl.to(sel, { scale: sc, duration: 0.15 }, at); tl.to(sel, { scale: 1, duration: 0.3 }, at + 0.15); };
+
+const GOLD = "#d4af37";
+const hw = {
+  dimm: (p, w) => {
+    let s = `<svg width="${w}" viewBox="0 0 1000 210" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="1000" height="190" rx="8" fill="#1d6a47" stroke="#0f3d2a" stroke-width="4"/>`;
+    for (let i = 0; i < 8; i++) { const x = 45 + i * 118; s += `<rect id="${p}chip${i}" x="${x}" y="40" width="96" height="84" rx="6" fill="#0b0f14" stroke="#2a3340" stroke-width="3"/><rect x="${x + 12}" y="58" width="44" height="6" fill="#2a3340"/><rect x="${x + 12}" y="76" width="64" height="6" fill="#2a3340"/>`; }
+    for (let k = 0; k < 58; k++) { const x = 14 + k * 16.6; if (x > 400 && x < 450) continue; s += `<rect x="${x}" y="160" width="10" height="30" fill="${GOLD}"/>`; }
+    s += `<rect x="420" y="168" width="18" height="22" fill="#070b14"/><rect x="905" y="135" width="44" height="20" fill="#0b0f14" stroke="#2a3340" stroke-width="2"/></svg>`; return s;
+  },
+  ssd: (w) => {
+    let s = `<svg width="${w}" viewBox="0 0 1000 210" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="1000" height="210" rx="14" fill="#174d36" stroke="#0f3d2a" stroke-width="4"/>`;
+    for (let k = 0; k < 14; k++) s += `<rect x="6" y="${14 + k * 13.5}" width="34" height="8" fill="${GOLD}"/>`;
+    s += `<rect x="150" y="45" width="130" height="120" rx="8" fill="#0b0f14" stroke="#2a3340" stroke-width="3"/><rect x="330" y="45" width="250" height="120" rx="8" fill="#0b0f14" stroke="#2a3340" stroke-width="3"/><rect x="630" y="45" width="250" height="120" rx="8" fill="#0b0f14" stroke="#2a3340" stroke-width="3"/>`;
+    s += `<rect x="352" y="72" width="120" height="8" fill="#2a3340"/><rect x="652" y="72" width="120" height="8" fill="#2a3340"/><circle cx="948" cy="105" r="20" fill="#070b14" stroke="${GOLD}" stroke-width="5"/></svg>`; return s;
+  },
+  cpu: (w) => `<svg width="${w}" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sg${w}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e3e9f3"/><stop offset="1" stop-color="#8794ab"/></linearGradient></defs><rect x="8" y="8" width="284" height="284" rx="22" fill="#2c3b57" stroke="#4a5f86" stroke-width="4"/><rect x="44" y="44" width="212" height="212" rx="14" fill="url(#sg${w})" stroke="#e8eef7" stroke-opacity="0.5" stroke-width="3"/><text x="150" y="172" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="800" font-size="64" fill="#2b3a55">CPU</text><path d="M14 14 L44 14 L14 44 Z" fill="${GOLD}"/></svg>`,
+  monitor: (w) => `<svg width="${w}" viewBox="0 0 440 330" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="420" height="250" rx="18" fill="#1a2236" stroke="#3a4a6e" stroke-width="4"/><rect x="30" y="30" width="380" height="210" rx="8" fill="#050913"/><text x="52" y="150" font-family="JetBrains Mono, monospace" font-weight="800" font-size="72" fill="#34d399">Hello</text><rect x="190" y="260" width="60" height="42" fill="#2c3a5a"/><rect x="130" y="300" width="180" height="16" rx="8" fill="#2c3a5a"/></svg>`
+};
+const typeIn = (sel, n, at, dur) => tl.to(sel, { width: n + "ch", duration: dur, ease: "steps(" + n + ")" }, at);
+
+const T = [0.5, 3.7, 7.88, 11.97, 19.59], D = [2.55, 3.53, 3.44, 6.97, 3.16], CL = 23.1;
+const $ = (id) => document.getElementById(id);
+const X = (v) => 960 + v * 90;
+for (let v = -8; v <= 8; v++) $("ticks").insertAdjacentHTML("beforeend", `<div class="tk" style="left:${X(v) - 2}px"></div><div id="tl${v}" class="tkl" style="left:${X(v) - 35}px">${v < 0 ? "−" + -v : v}</div>`);
+const pt = (id, v) => { $(id).style.left = X(v) - 18 + "px"; $(id).style.top = "496px"; };
+pt("pp", 3.5); pt("pn", -3.5);
+const AR = (id, x1, x2, y, c) => $("svg").insertAdjacentHTML("beforeend", `<line id="${id}" x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="${c}" stroke-width="6" marker-end="url(#mk)" opacity="0"/>`);
+$("svg").insertAdjacentHTML("afterbegin", `<defs><marker id="mk" markerWidth="30" markerHeight="30" refX="26" refY="15" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 2 L28 15 L0 28 z" fill="#fb7185"/></marker></defs>`);
+AR("apf", X(3.5), X(3.0) + 12, 590, "#fb7185"); AR("anf", X(-3.5), X(-4.0) + 12, 590, "#fb7185");
+// L1 7 / 2 = 3.5, floor to 3
+show("#pp", T[0] + 0.5); show("#lp", T[0] + 0.7); show("#apf", T[0] + 1.6); show("#fp", T[0] + 1.8);
+// L2 -7 / 2 = -3.5
+hide("#pp", T[1] + 0.0, 0.3); hide("#lp", T[1] + 0.0, 0.3); hide("#apf", T[1] + 0.0, 0.3); hide("#fp", T[1] + 0.0, 0.3);
+show("#pn", T[1] + 0.6); show("#ln", T[1] + 0.8); pulse("#pn", T[1] + 1.2, 1.3);
+pulse("#ln", T[1] + 2.4, 1.05); pulse("#pn", T[1] + 3.0, 1.3);
+// L3 floor rounds down -> -4
+show("#anf", T[2] + 0.5); show("#fn", T[2] + 0.7); tl.to("#tl-4", { color: "#fb7185", scale: 1.4, duration: 0.3 }, T[2] + 1.6); show("#ed", T[2] + 1.0, 0.3); show("#term", T[2] + 1.5, 0.3); show("#o1", T[2] + 2.4, 0.1);
+// L4 the equality
+show("#eq", T[3] + 0.6, 0.3);
+tl.to("#eq", { scale: 1.0, duration: 0.01 }, T[3]); pulse("#eq", T[3] + 2.4, 1.03); pulse("#rest", T[3] + 4.4, 1.3); pulse("#eq", T[3] + 5.8, 1.03);
+// L5 the remainder is 1
+show("#nt", T[4] + 0.6); pulse("#nt", T[4] + 1.4, 1.04); pulse("#o1", T[4] + 2.0, 1.1);
+hide("#ed", CL - 0.35, 0.3); hide("#term", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>
+
+</template>

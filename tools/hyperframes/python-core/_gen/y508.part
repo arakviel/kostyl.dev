@@ -1,0 +1,21 @@
+<style>
+.bk { position: absolute; top: 250px; width: 400px; height: 360px; border-radius: 20px; background: #0e1626; border: 4px solid #26365a; opacity: 0; }
+.bt { position: absolute; left: 24px; top: 16px; font-size: 34px; font-weight: 700; }
+.bc { position: absolute; left: 0; width: 400px; text-align: center; font-family: "JetBrains Mono", monospace; font-weight: 700; white-space: nowrap; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="k1" class="bk" style="left:80px;border-color:#22d3ee"><div class="bt" style="color:#22d3ee">порівняння</div><div class="bc" style="top:96px;font-size:30px;color:#d4d4d4">82 &gt;= 75</div><div class="bc" style="top:170px;font-size:56px;color:#22d3ee">True</div><div class="bc" style="top:260px;font-size:30px;color:#9fb2cf"></div></div><div id="k2" class="bk" style="left:520px;border-color:#fbbf24"><div class="bt" style="color:#fbbf24">and / or</div><div class="bc" style="top:96px;font-size:30px;color:#d4d4d4">82 &gt;= 75 and 82 &lt; 90</div><div class="bc" style="top:170px;font-size:56px;color:#fbbf24">True</div><div class="bc" style="top:260px;font-size:30px;color:#9fb2cf">зупиняється рано</div></div><div id="k3" class="bk" style="left:960px;border-color:#34d399"><div class="bt" style="color:#34d399">if / elif / else</div><div class="bc" style="top:96px;font-size:30px;color:#d4d4d4">score = 82</div><div class="bc" style="top:170px;font-size:56px;color:#34d399">B</div><div class="bc" style="top:260px;font-size:30px;color:#9fb2cf">одна галузь</div></div><div id="k4" class="bk" style="left:1400px;border-color:#a78bfa"><div class="bt" style="color:#a78bfa">match</div><div class="bc" style="top:96px;font-size:30px;color:#d4d4d4">("move", 3)</div><div class="bc" style="top:170px;font-size:56px;color:#a78bfa">крок 3</div><div class="bc" style="top:260px;font-size:30px;color:#9fb2cf">за шаблоном</div></div>
+  <div id="a1" class="ar r" style="left:480px;top:420px;width:36px;color:#9fb2cf"></div><div id="a2" class="ar r" style="left:920px;top:420px;width:36px;color:#9fb2cf"></div><div id="a3" class="ar r" style="left:1360px;top:420px;width:36px;color:#9fb2cf"></div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+tl.set("#k1", { opacity: 1 }, 0); pulse("#k1", 0.8, 1.04);
+pulse("#k1", T[1] + 0.8, 1.05);
+show("#a1", T[2] + 0.1); show("#k2", T[2] + 0.3, 0.3); pulse("#k2", T[2] + 1.0, 1.05);
+pulse("#k2", T[2] + 2.0, 1.04); pulse("#k1", T[2] + 2.9, 1.04); pulse("#k2", T[2] + 3.5, 1.04);
+show("#a2", T[3] + 0.1); show("#k3", T[3] + 0.3, 0.3); pulse("#k3", T[3] + 1.0, 1.05);
+show("#a3", T[4] + 0.1); show("#k4", T[4] + 0.3, 0.3); pulse("#k4", T[4] + 1.0, 1.05);
+window.__timelines["world"] = tl;
+</script>

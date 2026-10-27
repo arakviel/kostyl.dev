@@ -1,0 +1,39 @@
+<style>
+.bk { position: absolute; top: 250px; width: 380px; height: 360px; border-radius: 20px; background: #0e1626; border: 4px solid #26365a; opacity: 0; }
+.bt { position: absolute; left: 24px; top: 16px; font-size: 36px; font-weight: 700; }
+.bc { position: absolute; left: 0; width: 380px; text-align: center; font-family: "JetBrains Mono", monospace; font-weight: 700; white-space: nowrap; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="b1" class="bk" style="left:100px;border-color:#fbbf24"><div class="bt" style="color:#fbbf24">input()</div>
+    <div class="bc" style="top:110px;font-size:44px;color:#ce9178">"3"</div><div class="bc" style="top:180px;font-size:44px;color:#ce9178">"4"</div><div class="bc" style="top:270px;font-size:34px;color:#9fb2cf">str</div></div>
+  <div id="b2" class="bk" style="left:560px;border-color:#22d3ee"><div class="bt" style="color:#22d3ee">float()</div>
+    <div class="bc" style="top:110px;font-size:50px;color:#b5cea8">3.0</div><div class="bc" style="top:180px;font-size:50px;color:#b5cea8">4.0</div><div class="bc" style="top:270px;font-size:34px;color:#9fb2cf">float</div></div>
+  <div id="b3" class="bk" style="left:1020px;border-color:#34d399"><div class="bt" style="color:#34d399">вираз</div>
+    <div class="bc" style="top:100px;font-size:28px;color:#d4d4d4">(a**2 + b**2) ** 0.5</div><div class="bc" style="top:200px;font-size:60px;color:#34d399">5.0</div></div>
+  <div id="b4" class="bk" style="left:1480px;border-color:#a78bfa"><div class="bt" style="color:#a78bfa">f-рядок</div>
+    <div class="bc" style="top:100px;font-size:34px;color:#d4d4d4">f"{c:.2f}"</div><div class="bc" style="top:200px;font-size:60px;color:#a78bfa">5.00</div></div>
+  <div id="a1" class="ar r" style="left:490px;top:420px;width:60px;color:#9fb2cf"></div>
+  <div id="a2" class="ar r" style="left:950px;top:420px;width:60px;color:#9fb2cf"></div>
+  <div id="a3" class="ar r" style="left:1410px;top:420px;width:60px;color:#9fb2cf"></div>
+  <div id="res" class="vsw" style="left:560px;top:710px;width:800px;height:210px;opacity:0">
+    <div class="vsb"><div class="vsT" style="text-align:left;left:24px">ТЕРМІНАЛ</div></div>
+    <div id="rr" class="vsx" style="top:90px;font-size:52px;color:#34d399;font-weight:700">Гіпотенуза: 5.00</div>
+  </div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+// L1 recap starts; catheti 3 and 4
+tl.set("#b1", { opacity: 1 }, 0); pulse("#b1", 0.8, 1.04); pulse("#b1", 1.6, 1.04);
+// L2 input gives a string
+pulse("#b1", T[1] + 0.6, 1.04);
+// L3 conversion makes numbers
+show("#a1", T[2] + 0.1); show("#b2", T[2] + 0.3, 0.3); pulse("#b2", T[2] + 1.0, 1.04);
+// L4 the expression calculates
+show("#a2", T[3] + 0.05); show("#b3", T[3] + 0.1, 0.3); pulse("#b3", T[3] + 0.5, 1.04);
+// L5 f-string prints
+show("#a3", T[4] + 0.1); show("#b4", T[4] + 0.3, 0.3); show("#res", T[4] + 1.2, 0.3); show("#rr", T[4] + 1.6, 0.1); pulse("#rr", T[4] + 1.7, 1.05);
+hide("#res", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>

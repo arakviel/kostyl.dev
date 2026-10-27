@@ -1,0 +1,56 @@
+<style>
+.tk { position: absolute; top: 504px; width: 4px; height: 24px; background: #5a6c8c; }
+.tkl { position: absolute; top: 536px; width: 70px; text-align: center; font-family: "JetBrains Mono", monospace; font-size: 28px; color: #9fb2cf; }
+.pt { position: absolute; width: 36px; height: 36px; border-radius: 18px; opacity: 0; }
+.tg { position: absolute; font-family: "JetBrains Mono", monospace; font-weight: 800; font-size: 44px; opacity: 0; white-space: nowrap; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <svg id="svg" width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;left:0;top:0"></svg>
+  <div id="ed" class="vsw" style="left:80px;top:90px;width:740px;height:210px;opacity:0">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">floor.py</div></div>
+    <div class="vsr"></div><div class="vst">floor.py</div>
+    <div class="vsl" style="top:118px;font-size:34px"><span class="n" style="font-size:30px">1</span><span style="white-space:pre"><span style="color:#dcdcaa">print</span>(-<span style="color:#b5cea8">7</span> // <span style="color:#b5cea8">2</span>, -<span style="color:#b5cea8">7</span> % <span style="color:#b5cea8">2</span>)</span></div>
+  </div>
+  <div id="term" class="vsw" style="left:860px;top:90px;width:420px;height:210px;opacity:0">
+    <div class="vsb"><div class="vsT" style="text-align:left;left:24px">ТЕРМІНАЛ</div></div>
+    <div id="o1" class="vsx" style="top:90px;font-size:50px;color:#34d399;font-weight:700">-4 1</div>
+  </div>
+  <div class="abs" style="left:240px;top:512px;width:1440px;height:8px;background:#3a4a6e;border-radius:4px"></div>
+  <div id="ticks"></div>
+  <div id="pp" class="pt" style="background:#fbbf24"></div>
+  <div id="pn" class="pt" style="background:#fbbf24"></div>
+  <div id="lp" class="tg" style="color:#fbbf24;left:790px;top:380px">7 / 2 = 3.5</div>
+  <div id="ln" class="tg" style="color:#fbbf24;left:380px;top:380px">−7 / 2 = −3.5</div>
+  <div id="fp" class="tg" style="color:#fb7185;left:1130px;top:600px;font-size:40px">// → 3</div>
+  <div id="fn" class="tg" style="color:#fb7185;left:520px;top:600px;font-size:40px">// → −4</div>
+  <div id="eq" class="mono abs" style="left:0;width:1920px;text-align:center;top:760px;font-size:64px;opacity:0;white-space:nowrap"><span style="color:#d4d4d4">−7</span> = <span style="color:#22d3ee">2 · (−4)</span> + <span id="rest" style="color:#34d399">1</span></div>
+  <div id="nt" class="lab" style="left:0;width:1920px;text-align:center;top:880px;font-size:42px;color:#fbbf24;opacity:0">−7 % 2 = 1, а не −1</div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+const $ = (id) => document.getElementById(id);
+const X = (v) => 960 + v * 90;
+for (let v = -8; v <= 8; v++) $("ticks").insertAdjacentHTML("beforeend", `<div class="tk" style="left:${X(v) - 2}px"></div><div id="tl${v}" class="tkl" style="left:${X(v) - 35}px">${v < 0 ? "−" + -v : v}</div>`);
+const pt = (id, v) => { $(id).style.left = X(v) - 18 + "px"; $(id).style.top = "496px"; };
+pt("pp", 3.5); pt("pn", -3.5);
+const AR = (id, x1, x2, y, c) => $("svg").insertAdjacentHTML("beforeend", `<line id="${id}" x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="${c}" stroke-width="6" marker-end="url(#mk)" opacity="0"/>`);
+$("svg").insertAdjacentHTML("afterbegin", `<defs><marker id="mk" markerWidth="30" markerHeight="30" refX="26" refY="15" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 2 L28 15 L0 28 z" fill="#fb7185"/></marker></defs>`);
+AR("apf", X(3.5), X(3.0) + 12, 590, "#fb7185"); AR("anf", X(-3.5), X(-4.0) + 12, 590, "#fb7185");
+// L1 7 / 2 = 3.5, floor to 3
+show("#pp", T[0] + 0.5); show("#lp", T[0] + 0.7); show("#apf", T[0] + 1.6); show("#fp", T[0] + 1.8);
+// L2 -7 / 2 = -3.5
+hide("#pp", T[1] + 0.0, 0.3); hide("#lp", T[1] + 0.0, 0.3); hide("#apf", T[1] + 0.0, 0.3); hide("#fp", T[1] + 0.0, 0.3);
+show("#pn", T[1] + 0.6); show("#ln", T[1] + 0.8); pulse("#pn", T[1] + 1.2, 1.3);
+pulse("#ln", T[1] + 2.4, 1.05); pulse("#pn", T[1] + 3.0, 1.3);
+// L3 floor rounds down -> -4
+show("#anf", T[2] + 0.5); show("#fn", T[2] + 0.7); tl.to("#tl-4", { color: "#fb7185", scale: 1.4, duration: 0.3 }, T[2] + 1.6); show("#ed", T[2] + 1.0, 0.3); show("#term", T[2] + 1.5, 0.3); show("#o1", T[2] + 2.4, 0.1);
+// L4 the equality
+show("#eq", T[3] + 0.6, 0.3);
+tl.to("#eq", { scale: 1.0, duration: 0.01 }, T[3]); pulse("#eq", T[3] + 2.4, 1.03); pulse("#rest", T[3] + 4.4, 1.3); pulse("#eq", T[3] + 5.8, 1.03);
+// L5 the remainder is 1
+show("#nt", T[4] + 0.6); pulse("#nt", T[4] + 1.4, 1.04); pulse("#o1", T[4] + 2.0, 1.1);
+hide("#ed", CL - 0.35, 0.3); hide("#term", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>

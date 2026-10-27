@@ -1,0 +1,42 @@
+<style>
+.tw { position: absolute; left: 24px; height: 52px; display: flex; align-items: center; font-family: "JetBrains Mono", monospace; font-weight: 500; font-size: 34px; color: #cccccc; white-space: pre; opacity: 0; }
+.tw .ty { display: inline-block; overflow: hidden; white-space: pre; width: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="w1" class="vsw" style="left:80px;top:110px;width:1760px;height:330px;background:#1c1c1e;opacity:0">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">Terminal — in1.py</div></div>
+    <div id="a0" class="tw" style="top:70px"><span style="color:#4ec9b0">lesson-04 %&nbsp;</span><span id="a0y" class="ty">python3 in1.py</span></div>
+    <div id="a1" class="tw" style="top:128px">n:&nbsp;<span id="a1y" class="ty" style="color:#fbbf24">5</span></div>
+    <div id="a2" class="tw" style="top:186px;color:#34d399;font-weight:700">&lt;class 'str'&gt;</div>
+    <div id="a3" class="tw" style="top:244px;color:#34d399;font-weight:700">555</div>
+  </div>
+  <div id="w2" class="vsw" style="left:80px;top:480px;width:1760px;height:470px;background:#1c1c1e;opacity:0">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">Terminal — in2.py</div></div>
+    <div id="b0" class="tw" style="top:64px"><span style="color:#4ec9b0">lesson-04 %&nbsp;</span><span id="b0y" class="ty">python3 in2.py</span></div>
+    <div id="b1" class="tw" style="top:116px">n:&nbsp;<span id="b1y" class="ty" style="color:#fbbf24">5</span></div>
+    <div id="b2" class="tw" style="top:168px;color:#9fb2cf">Traceback (most recent call last):</div>
+    <div id="b3" class="tw" style="top:220px;color:#9fb2cf">  File "in2.py", line 2, in &lt;module&gt;</div>
+    <div id="b4" class="tw" style="top:272px">    print(x + 1)</div>
+    <div id="b5" class="tw" style="top:324px;color:#f14c4c">          ~~^~~</div>
+    <div id="b6" class="tw" style="top:376px;color:#f14c4c;font-weight:700">TypeError: can only concatenate str (not "int") to str</div>
+    <div id="hl" style="position:absolute;left:12px;top:376px;width:1300px;height:52px;background:rgba(241,76,76,0.18);opacity:0"></div>
+  </div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+// L1 input() always returns str
+tl.set("#w1", { opacity: 1 }, 0); show("#a0", T[0] + 0.8, 0.05); typeIn("#a0y", 14, T[0] + 0.9, 0.8); show("#a1", T[0] + 2.2, 0.05);
+// L2 even a digit
+typeIn("#a1y", 1, T[1] + 0.2, 0.2); pulse("#a1", T[1] + 0.6, 1.04);
+// L3 type is str
+show("#a2", T[2] + 0.8, 0.1); pulse("#a2", T[2] + 0.9, 1.06);
+// L4 "5" + 1 is an error; "5" * 3 is "555"
+show("#w2", T[3] + 0.2, 0.3); show("#b0", T[3] + 0.6, 0.05); typeIn("#b0y", 14, T[3] + 0.7, 0.7); show("#b1", T[3] + 1.8, 0.05); typeIn("#b1y", 1, T[3] + 2.0, 0.2);
+[2, 3, 4, 5].forEach((k, j) => show("#b" + k, T[3] + 2.5 + j * 0.3, 0.1));
+show("#b6", T[3] + 3.8, 0.1); show("#hl", T[3] + 3.9, 0.2); pulse("#b6", T[3] + 4.0, 1.02);
+show("#a3", T[3] + 5.2, 0.1); pulse("#a3", T[3] + 5.3, 1.1);
+hide("#w1", CL - 0.35, 0.3); hide("#w2", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>

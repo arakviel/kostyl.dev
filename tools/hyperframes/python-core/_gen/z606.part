@@ -1,0 +1,49 @@
+<style>
+.cpt { position: absolute; left: 80px; width: 1760px; top: 975px; text-align: center; font-size: 40px; font-weight: 700; color: #fbbf24; opacity: 0; }
+.ic { position: absolute; top: 380px; width: 150px; height: 130px; border-radius: 16px; background: #0e1626; border: 4px solid #26365a; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; font-size: 32px; font-weight: 700; color: #9fb2cf; }
+.ia { font-family: "JetBrains Mono", monospace; font-size: 28px; color: #6f84a6; }
+.dc { position: absolute; top: 680px; width: 96px; height: 96px; border-radius: 14px; background: #0e1626; border: 4px solid #26365a; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 800; font-size: 40px; color: #9fb2cf; opacity: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="ed1" class="vsw" style="left:60px;top:100px;width:880px;height:460px"><div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">loop.py</div></div><div class="vsr"></div><div class="vst">loop.py</div><div class="vsl" style="top:118px;font-size:36px"><span class="n">1</span><span style="white-space:pre"><span style="color:#c586c0">for</span> <span style="color:#9cdcfe">i</span> <span style="color:#c586c0">in</span> <span style="color:#dcdcaa">range</span>(<span style="color:#b5cea8">1</span>, <span style="color:#b5cea8">6</span>):</span></div><div class="vsl" style="top:172px;font-size:36px"><span class="n">2</span><span style="white-space:pre">    <span style="color:#c586c0">if</span> <span style="color:#9cdcfe">i</span> == <span style="color:#b5cea8">2</span>:</span></div><div class="vsl" style="top:226px;font-size:36px"><span class="n">3</span><span style="white-space:pre">        <span style="color:#c586c0">continue</span></span></div><div class="vsl" style="top:280px;font-size:36px"><span class="n">4</span><span style="white-space:pre">    <span style="color:#c586c0">if</span> <span style="color:#9cdcfe">i</span> == <span style="color:#b5cea8">5</span>:</span></div><div class="vsl" style="top:334px;font-size:36px"><span class="n">5</span><span style="white-space:pre">        <span style="color:#c586c0">break</span></span></div><div class="vsl" style="top:388px;font-size:36px"><span class="n">6</span><span style="white-space:pre">    <span style="color:#dcdcaa">print</span>(<span style="color:#9cdcfe">i</span>, <span style="color:#9cdcfe">end</span>=<span style="color:#ce9178">" "</span>)</span></div>
+    <div id="hl1" style="position:absolute;left:0;width:880px;height:54px;top:118px;background:rgba(251,191,36,0.2);opacity:0"></div></div>
+  <div id="g1"><div id="ic0" class="ic" style="left:1000px"><div class="mono">i=1</div><div id="ia0" class="ia">print</div></div><div id="ic1" class="ic" style="left:1168px"><div class="mono">i=2</div><div id="ia1" class="ia">continue</div></div><div id="ic2" class="ic" style="left:1336px"><div class="mono">i=3</div><div id="ia2" class="ia">print</div></div><div id="ic3" class="ic" style="left:1504px"><div class="mono">i=4</div><div id="ia3" class="ia">print</div></div><div id="ic4" class="ic" style="left:1672px"><div class="mono">i=5</div><div id="ia4" class="ia">break</div></div>
+    <div id="t1" class="vsw" style="left:1000px;top:100px;width:840px;height:220px"><div class="vsb"><div class="vsT" style="text-align:left;left:24px">ТЕРМІНАЛ</div></div>
+      <div id="s1" class="mono abs" style="left:24px;top:90px;font-size:56px;color:#34d399;opacity:0">1</div><div id="s2" class="mono abs" style="left:100px;top:90px;font-size:56px;color:#34d399;opacity:0">3</div><div id="s3" class="mono abs" style="left:176px;top:90px;font-size:56px;color:#34d399;opacity:0">4</div></div>
+  </div>
+  <div id="ed2" class="vsw" style="left:60px;top:100px;width:980px;height:520px;opacity:0"><div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">prime.py</div></div><div class="vsr"></div><div class="vst">prime.py</div><div class="vsl" style="top:118px;font-size:30px"><span class="n">1</span><span style="white-space:pre"><span style="color:#9cdcfe">n</span> = <span style="color:#b5cea8">17</span></span></div><div class="vsl" style="top:172px;font-size:30px"><span class="n">2</span><span style="white-space:pre"><span style="color:#c586c0">for</span> <span style="color:#9cdcfe">d</span> <span style="color:#c586c0">in</span> <span style="color:#dcdcaa">range</span>(<span style="color:#b5cea8">2</span>, <span style="color:#9cdcfe">n</span>):</span></div><div class="vsl" style="top:226px;font-size:30px"><span class="n">3</span><span style="white-space:pre">    <span style="color:#c586c0">if</span> <span style="color:#9cdcfe">n</span> % <span style="color:#9cdcfe">d</span> == <span style="color:#b5cea8">0</span>:</span></div><div class="vsl" style="top:280px;font-size:30px"><span class="n">4</span><span style="white-space:pre">        <span style="color:#dcdcaa">print</span>(<span style="color:#9cdcfe">n</span>, <span style="color:#ce9178">"складене, дільник"</span>, <span style="color:#9cdcfe">d</span>)</span></div><div class="vsl" style="top:334px;font-size:30px"><span class="n">5</span><span style="white-space:pre">        <span style="color:#c586c0">break</span></span></div><div class="vsl" style="top:388px;font-size:30px"><span class="n">6</span><span style="white-space:pre"><span style="color:#c586c0">else</span>:</span></div><div class="vsl" style="top:442px;font-size:30px"><span class="n">7</span><span style="white-space:pre">    <span style="color:#dcdcaa">print</span>(<span style="color:#9cdcfe">n</span>, <span style="color:#ce9178">"просте"</span>)</span></div>
+    <div id="hl2" style="position:absolute;left:0;width:980px;height:54px;top:118px;background:rgba(251,191,36,0.2);opacity:0"></div></div>
+  <div id="g2" style="opacity:0"><div id="dc2" class="dc" style="left:70px">2</div><div id="dc3" class="dc" style="left:182px">3</div><div id="dc4" class="dc" style="left:294px">4</div><div id="dc5" class="dc" style="left:406px">5</div><div id="dc6" class="dc" style="left:518px">6</div><div id="dc7" class="dc" style="left:630px">7</div><div id="dc8" class="dc" style="left:742px">8</div><div id="dc9" class="dc" style="left:854px">9</div><div id="dc10" class="dc" style="left:966px">10</div><div id="dc11" class="dc" style="left:1078px">11</div><div id="dc12" class="dc" style="left:1190px">12</div><div id="dc13" class="dc" style="left:1302px">13</div><div id="dc14" class="dc" style="left:1414px">14</div><div id="dc15" class="dc" style="left:1526px">15</div><div id="dc16" class="dc" style="left:1638px">16</div></div>
+  <div id="t2" class="vsw" style="left:1100px;top:100px;width:740px;height:220px;opacity:0"><div class="vsb"><div class="vsT" style="text-align:left;left:24px">ТЕРМІНАЛ</div></div>
+    <div id="p1" class="vsx" style="top:90px;font-size:56px;color:#34d399;font-weight:700">17 просте</div></div>
+  <div id="caps"></div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+const CAPS = ["break завершує цикл одразу", "continue пропускає решту ітерації й повертається до початку циклу", "i == 2 → continue (пропуск), i == 5 → break (вихід). Виводиться: 1 3 4", "else виконується, тільки якщо цикл дійшов до кінця без break", "17: дільника немає, break не спрацював → виконується else: «просте»"];
+const $ = (id) => document.getElementById(id);
+CAPS.forEach((t, i) => { $("caps").insertAdjacentHTML("beforeend", `<div id="cp${i}" class="cpt">${t}</div>`); show("#cp" + i, T[i] + 0.2, 0.3); hide("#cp" + i, (i < CAPS.length - 1 ? T[i + 1] - 0.15 : CL - 0.35), 0.25); });
+const row = (k) => k * 54;
+tl.set("#ed1", { opacity: 1 }, 0);
+// L1 break
+tl.set("#hl1", { y: row(4), opacity: 1 }, T[0] + 0.5); pulse("#ed1", T[0] + 1.2, 1.02);
+// L2 continue
+tl.set("#hl1", { y: row(2) }, T[1] + 0.5); pulse("#ed1", T[1] + 1.4, 1.02);
+// L3 iterations 1..5
+const steps = [[5, "print"], [2, "continue"], [5, "print"], [5, "print"], [4, "break"]];
+const col = { print: "#34d399", continue: "#fbbf24", break: "#fb7185" };
+steps.forEach(([ln, a], i) => { const at = T[2] + 0.6 + i * 1.25;
+  tl.set("#hl1", { y: row(ln) }, at); tl.to("#ic" + i, { borderColor: col[a], duration: 0.2 }, at); tl.to("#ia" + i, { color: col[a], duration: 0.2 }, at); pulse("#ic" + i, at, 1.08); });
+show("#s1", T[2] + 0.9, 0.1); show("#s2", T[2] + 3.4, 0.1); show("#s3", T[2] + 4.65, 0.1); tl.set("#hl1", { opacity: 0 }, T[2] + 7.0);
+// L4 else after the loop
+hide("#ed1", T[3] + 0.1, 0.3); hide("#g1", T[3] + 0.1, 0.3); show("#ed2", T[3] + 0.5, 0.3);
+tl.set("#hl2", { y: row(5), opacity: 1 }, T[3] + 1.4); pulse("#ed2", T[3] + 3.4, 1.01);
+// L5 17: no divisor
+tl.set("#hl2", { y: row(2) }, T[4] + 0.4); show("#g2", T[4] + 0.4, 0.2);
+for (let d = 2; d <= 16; d++) show("#dc" + d, T[4] + 0.6 + (d - 2) * 0.22, 0.1);
+tl.set("#hl2", { y: row(5) }, T[4] + 4.2); show("#t2", T[4] + 4.4, 0.3); show("#p1", T[4] + 4.8, 0.1); pulse("#p1", T[4] + 4.9, 1.1);
+["#ed2", "#g2", "#t2"].forEach((x) => hide(x, CL - 0.35, 0.3));
+window.__timelines["world"] = tl;
+</script>

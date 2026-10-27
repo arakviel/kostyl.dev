@@ -1,0 +1,9 @@
+const $ = (id) => document.getElementById(id);
+const CC = { c: "#22d3ee", e: "#34d399", a: "#fbbf24", r: "#fb7185", g: "#9fb2cf" };
+$("svg").innerHTML = `<defs>${Object.values(CC).map((c) => `<marker id="mk${c.slice(1)}" markerWidth="30" markerHeight="30" refX="26" refY="15" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 2 L28 15 L0 28 z" fill="${c}"/></marker>`).join("")}</defs>`;
+const ARW = (id, x1, y1, x2, y2, c) => $("svg").insertAdjacentHTML("beforeend", `<line id="${id}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="6" marker-end="url(#mk${c.slice(1)})" opacity="0"/>`);
+// namespace card: names = [[label, color], ...]; name boxes are shown individually
+const NSC = (id, left, top, names) => `<div id="${id}" class="card" style="left:${left}px;top:${top}px;width:300px;height:${90 + names.length * 110}px;opacity:0"><div class="lab" style="left:28px;top:16px;font-size:34px">імена</div>${names.map(([t, c], i) => `<div id="${id}n${i}" class="mono abs" style="left:30px;top:${80 + i * 110}px;width:240px;height:80px;border:4px solid ${c};border-radius:14px;color:${c};font-size:46px;display:flex;align-items:center;justify-content:center;opacity:0">${t}</div>`).join("")}</div>`;
+const NSX = (left) => left + 270, NSY = (top, i) => top + 80 + i * 110 + 40;
+// object plaque: type / value / id
+const OB = (id, left, top, type, val, vcol, idv, w = 420) => `<div id="${id}" class="card" style="left:${left}px;top:${top}px;width:${w}px;height:230px;border-color:#34d399;opacity:0"><div class="mono abs" style="left:24px;top:12px;font-size:30px;color:#22d3ee">${type}</div><div class="mono abs" style="left:0;width:${w}px;top:52px;text-align:center;font-size:${val.length > 7 ? 56 : 80}px;color:${vcol}">${val}</div><div class="mono abs" style="left:24px;top:172px;font-size:28px;color:#fbbf24">id ${idv}</div></div>`;

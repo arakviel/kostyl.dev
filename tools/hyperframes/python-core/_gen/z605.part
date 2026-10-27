@@ -1,0 +1,44 @@
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="ed" class="vsw" style="left:60px;top:100px;width:960px;height:330px">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">rng.py</div></div>
+    <div class="vsr"></div><div class="vst">rng.py</div>
+    <div class="vsl" style="top:118px"><span class="n">1</span><span style="white-space:pre"><span style="color:#9cdcfe">r</span> = <span style="color:#dcdcaa">range</span>(<span style="color:#b5cea8">10</span>**<span style="color:#b5cea8">12</span>)</span></div>
+    <div class="vsl" style="top:172px"><span class="n">2</span><span style="white-space:pre"><span style="color:#dcdcaa">print</span>(<span style="color:#dcdcaa">len</span>(<span style="color:#9cdcfe">r</span>), <span style="color:#b5cea8">999_999_999_999</span> <span style="color:#c586c0">in</span> <span style="color:#9cdcfe">r</span>)</span></div>
+    <div class="vsl" style="top:226px"><span class="n">3</span><span style="white-space:pre"><span style="color:#dcdcaa">print</span>(<span style="color:#4ec9b0">sys</span>.<span style="color:#dcdcaa">getsizeof</span>(<span style="color:#9cdcfe">r</span>))</span></div>
+  </div>
+  <div id="term" class="vsw" style="left:1080px;top:100px;width:760px;height:330px;opacity:0">
+    <div class="vsb"><div class="vsT" style="text-align:left;left:24px">ТЕРМІНАЛ</div></div>
+    <div id="o1" class="vsx" style="top:70px;font-size:36px;color:#34d399;font-weight:700">1000000000000 True</div>
+    <div id="o2" class="vsx" style="top:130px;font-size:56px;color:#fbbf24;font-weight:700">48</div>
+  </div>
+  <div id="pl" class="card" style="left:60px;top:500px;width:900px;height:380px;border-color:#34d399;opacity:0">
+    <div class="mono abs" style="left:28px;top:14px;font-size:34px;color:#22d3ee">range</div>
+    <div class="mono abs" style="left:28px;top:80px;font-size:44px;color:#d4d4d4;white-space:pre"><span id="f1" style="opacity:0">start  <span style="color:#b5cea8">0</span></span>
+<span id="f2" style="opacity:0">stop   <span style="color:#b5cea8">10**12</span></span>
+<span id="f3" style="opacity:0">step   <span style="color:#b5cea8">1</span></span></div>
+    <div id="sz" class="mono abs" style="left:28px;top:290px;font-size:52px;color:#fbbf24;opacity:0">48 байтів</div>
+  </div>
+  <div id="lb" class="abs" style="left:1040px;top:600px;width:820px;height:100px;border-radius:14px;background:rgba(251,113,133,0.25);border:4px solid #fb7185;opacity:0"></div>
+  <div id="ll" class="mono abs" style="left:1040px;top:620px;width:820px;text-align:center;font-size:44px;color:#fb7185;opacity:0">list(range(10**12)) ≈ 8 ТБ</div>
+  <div id="sb" class="abs" style="left:1040px;top:760px;width:10px;height:100px;border-radius:4px;background:#34d399;opacity:0"></div>
+  <div id="sl" class="mono abs" style="left:1070px;top:785px;font-size:40px;color:#34d399;opacity:0">range: 48 байтів</div>
+  <div id="ns" class="lab" style="left:1040px;top:900px;font-size:28px;color:#6f84a6;opacity:0">шкала умовна, не в масштабі</div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+tl.set("#ed", { opacity: 1 }, 0);
+// L1 range is not a list
+pulse("#ed", T[0] + 0.8, 1.02);
+// L2 start, stop, step
+show("#pl", T[1] + 0.3, 0.3); show("#f1", T[1] + 1.4); show("#f2", T[1] + 2.6); show("#f3", T[1] + 3.8);
+show("#term", T[1] + 4.4, 0.3); show("#o1", T[1] + 4.8, 0.1);
+// L3 48 bytes
+show("#sz", T[2] + 0.6); show("#o2", T[2] + 1.0, 0.1); pulse("#sz", T[2] + 1.4, 1.1); pulse("#o2", T[2] + 1.6, 1.1);
+// L4 a list would need ~8 TB
+show("#lb", T[3] + 0.6, 0.3); show("#ll", T[3] + 0.8); show("#sb", T[3] + 2.4); show("#sl", T[3] + 2.6); show("#ns", T[3] + 3.0);
+pulse("#ll", T[3] + 3.6, 1.03);
+["#ed", "#term", "#pl"].forEach((x) => hide(x, CL - 0.35, 0.3));
+window.__timelines["world"] = tl;
+</script>

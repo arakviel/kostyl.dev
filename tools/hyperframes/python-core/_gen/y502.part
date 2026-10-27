@@ -1,0 +1,53 @@
+<style>
+.tk { position: absolute; top: 604px; width: 4px; height: 22px; background: #5a6c8c; }
+.tkl { position: absolute; top: 634px; width: 70px; text-align: center; font-family: "JetBrains Mono", monospace; font-size: 28px; color: #9fb2cf; }
+.ck { position: absolute; top: 760px; width: 500px; height: 130px; border-radius: 18px; background: #0e1626; border: 4px solid #26365a; display: flex; align-items: center; justify-content: center; gap: 24px; font-family: "JetBrains Mono", monospace; font-weight: 800; font-size: 44px; color: #d4d4d4; opacity: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="ed" class="vsw" style="left:80px;top:100px;width:780px;height:260px">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">chain.py</div></div>
+    <div class="vsr"></div><div class="vst">chain.py</div>
+    <div class="vsl" style="top:118px"><span class="n">1</span><span style="white-space:pre"><span style="color:#9cdcfe">x</span> = <span id="xv" style="color:#b5cea8">7</span></span></div>
+    <div class="vsl" style="top:172px"><span class="n">2</span><span style="white-space:pre"><span style="color:#dcdcaa">print</span>(<span style="color:#b5cea8">0</span> &lt; <span style="color:#9cdcfe">x</span> &lt; <span style="color:#b5cea8">10</span>)</span></div>
+  </div>
+  <div id="term" class="vsw" style="left:900px;top:100px;width:460px;height:260px;opacity:0">
+    <div class="vsb"><div class="vsT" style="text-align:left;left:24px">ТЕРМІНАЛ</div></div>
+    <div id="oT" class="vsx" style="top:90px;font-size:56px;color:#34d399;font-weight:700">True</div><div id="oF" class="vsx" style="top:90px;font-size:56px;color:#fb7185;font-weight:700">False</div>
+  </div>
+  <div class="abs" style="left:150px;top:612px;width:1620px;height:8px;background:#3a4a6e;border-radius:4px"></div>
+  <div id="band" class="abs" style="left:360px;top:580px;width:750px;height:72px;border-radius:12px;background:rgba(52,211,153,0.28);border:4px solid #34d399;opacity:0"></div>
+  <div id="ticks"></div>
+  <div id="pt" class="abs" style="width:40px;height:40px;border-radius:20px;background:#fbbf24;top:596px;opacity:0"></div>
+  <div id="ptl" class="mono abs" style="top:520px;font-size:44px;color:#fbbf24;opacity:0">x</div>
+  <div id="c1" class="ck" style="left:260px"><span>0 &lt; x</span><span id="m1" style="color:#34d399">✓</span></div>
+  <div id="c2" class="ck" style="left:900px"><span>x &lt; 10</span><span id="m2" style="color:#34d399">✓</span></div>
+  <div id="rs" class="mono abs" style="left:1480px;top:790px;font-size:60px;font-weight:800;opacity:0;color:#34d399">True</div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+const $ = (id) => document.getElementById(id);
+const X = (v) => 960 + (v - 8) * 75;
+for (let v = -2; v <= 18; v++) $("ticks").insertAdjacentHTML("beforeend", `<div class="tk" style="left:${X(v) - 2}px"></div><div class="tkl" style="left:${X(v) - 35}px">${v < 0 ? "−" + -v : v}</div>`);
+const place = (v) => { $("pt").style.left = X(v) - 20 + "px"; $("ptl").style.left = X(v) - 12 + "px"; };
+place(7);
+tl.set("#ed", { opacity: 1 }, 0);
+// L1 comparisons give True / False
+pulse("#ed", T[0] + 0.8, 1.02);
+// L2 chain like in maths
+tl.to("#band", { opacity: 1, duration: 0.4 }, T[1] + 1.2); show("#term", T[1] + 0.2, 0.3);
+pulse("#band", T[1] + 2.6, 1.02); pulse("#ed", T[1] + 3.6, 1.02); pulse("#band", T[1] + 4.6, 1.02);
+// L3 two checks in one
+show("#c1", T[2] + 0.8, 0.3); show("#c2", T[2] + 2.4, 0.3); pulse("#c1", T[2] + 3.4, 1.04); pulse("#c2", T[2] + 4.2, 1.04);
+// L4 x = 7: True
+show("#pt", T[3] + 0.2); show("#ptl", T[3] + 0.2); pulse("#pt", T[3] + 0.6, 1.4); show("#rs", T[3] + 1.6, 0.2); show("#oT", T[3] + 1.8, 0.1); pulse("#rs", T[3] + 2.0, 1.1);
+// L5 x = 15: False
+hide("#rs", T[4] + 0.1, 0.2); hide("#oT", T[4] + 0.1, 0.1);
+tl.to("#pt", { x: (15 - 7) * 75, duration: 0.8, ease: "power2.inOut" }, T[4] + 0.4); tl.to("#ptl", { x: (15 - 7) * 75, duration: 0.8, ease: "power2.inOut" }, T[4] + 0.4);
+tl.set("#xv", { innerText: "15" }, T[4] + 0.6);
+tl.set("#m2", { innerText: "✗", color: "#fb7185" }, T[4] + 1.6); tl.to("#c2", { borderColor: "#fb7185", duration: 0.3 }, T[4] + 1.6);
+tl.set("#rs", { innerText: "False", color: "#fb7185" }, T[4] + 2.2); show("#rs", T[4] + 2.2, 0.2); show("#oF", T[4] + 2.4, 0.1); pulse("#rs", T[4] + 2.5, 1.1);
+hide("#ed", CL - 0.35, 0.3); hide("#term", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>

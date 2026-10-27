@@ -1,0 +1,48 @@
+<style>
+.chp { position: absolute; top: 700px; width: 400px; height: 130px; border-radius: 18px; background: #0e1626; border: 4px solid #26365a; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 800; font-size: 50px; opacity: 0; }
+.chp span { font-size: 28px; font-family: Inter, sans-serif; color: #9fb2cf; font-weight: 600; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="ed" class="vsw" style="left:80px;top:100px;width:940px;height:470px">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">fmt.py</div></div>
+    <div class="vsr"></div><div class="vst">fmt.py</div>
+    <div class="vsl" style="top:118px"><span class="n">1</span><span style="white-space:pre"><span style="color:#9cdcfe">price</span> = <span style="color:#b5cea8">3.14159</span></span></div>
+    <div class="vsl" style="top:172px"><span class="n">2</span><span style="white-space:pre"><span style="color:#9cdcfe">n</span> = <span style="color:#b5cea8">42</span></span></div>
+    <div class="vsl" style="top:226px"><span class="n">3</span><span style="white-space:pre"><span style="color:#9cdcfe">x</span> = <span style="color:#b5cea8">0.256</span></span></div>
+    <div class="vsl" style="top:280px"><span class="n">4</span><span style="white-space:pre"><span style="color:#dcdcaa">print</span>(<span id="fp4" style="color:#569cd6">f</span><span style="color:#ce9178">"</span><span id="br4" style="color:#ffd700">{</span><span id="ex4" style="color:#9cdcfe">price</span><span id="sp4" style="color:#fbbf24">:.2f</span><span style="color:#ffd700">}</span><span style="color:#ce9178">"</span>)</span></div>
+    <div class="vsl" style="top:334px"><span class="n">5</span><span style="white-space:pre"><span style="color:#dcdcaa">print</span>(<span style="color:#569cd6">f</span><span style="color:#ce9178">"</span><span style="color:#ffd700">{</span><span style="color:#9cdcfe">n</span><span id="sp5" style="color:#fbbf24">:05d</span><span style="color:#ffd700">}</span><span style="color:#ce9178">"</span>)</span></div>
+    <div class="vsl" style="top:388px"><span class="n">6</span><span style="white-space:pre"><span style="color:#dcdcaa">print</span>(<span style="color:#569cd6">f</span><span style="color:#ce9178">"</span><span style="color:#ffd700">{</span><span style="color:#9cdcfe">x</span><span id="sp6" style="color:#fbbf24">:.1%</span><span style="color:#ffd700">}</span><span style="color:#ce9178">"</span>)</span></div>
+    <div id="hl" style="position:absolute;left:0;width:940px;height:54px;top:280px;background:rgba(251,191,36,0.15);opacity:0"></div>
+  </div>
+  <div id="term" class="vsw" style="left:1060px;top:100px;width:780px;height:470px">
+    <div class="vsb"><div class="vsT" style="text-align:left;left:24px">ТЕРМІНАЛ</div></div>
+    <div id="o1" class="vsx" style="top:90px;font-size:48px;color:#34d399;font-weight:700">3.14</div>
+    <div id="o2" class="vsx" style="top:170px;font-size:48px;color:#34d399;font-weight:700">00042</div>
+    <div id="o3" class="vsx" style="top:250px;font-size:48px;color:#34d399;font-weight:700">25.6%</div>
+  </div>
+  <div id="c1" class="chp" style="left:140px;border-color:#fbbf24;color:#fbbf24">.2f<span>2 знаки після коми</span></div>
+  <div id="c2" class="chp" style="left:760px;border-color:#fbbf24;color:#fbbf24">05d<span>ширина 5, нулі попереду</span></div>
+  <div id="c3" class="chp" style="left:1380px;border-color:#fbbf24;color:#fbbf24">.1%<span>відсотки, 1 знак</span></div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+tl.set("#ed", { opacity: 1 }, 0);
+const hbg = (id, col, at) => tl.to("#" + id, { backgroundColor: col, duration: 0.25 }, at);
+// L1 the f prefix makes a template
+tl.to("#hl", { opacity: 1, duration: 0.2 }, T[0] + 0.5); hbg("fp4", "rgba(86,156,214,0.4)", T[0] + 1.0); pulse("#fp4", T[0] + 1.2, 1.3);
+// L2 expressions in braces
+hbg("fp4", "rgba(86,156,214,0)", T[1] + 0.1); hbg("br4", "rgba(255,215,0,0.35)", T[1] + 0.3); hbg("ex4", "rgba(156,220,254,0.3)", T[1] + 0.9);
+// L3 the format goes after a colon
+hbg("br4", "rgba(255,215,0,0)", T[2] + 0.1); hbg("ex4", "rgba(156,220,254,0)", T[2] + 0.1); hbg("sp4", "rgba(251,191,36,0.35)", T[2] + 0.5); pulse("#sp4", T[2] + 1.0, 1.15);
+// L4 .2f
+show("#c1", T[3] + 0.3); show("#o1", T[3] + 1.2, 0.1); pulse("#o1", T[3] + 1.3, 1.08);
+// L5 05d
+tl.set("#hl", { y: 54 }, T[4] + 0.1); hbg("sp5", "rgba(251,191,36,0.35)", T[4] + 0.2); show("#c2", T[4] + 0.4); show("#o2", T[4] + 1.2, 0.1); pulse("#o2", T[4] + 1.3, 1.08);
+// L6 .1%
+tl.set("#hl", { y: 108 }, T[5] + 0.1); hbg("sp6", "rgba(251,191,36,0.35)", T[5] + 0.2); show("#c3", T[5] + 0.4); show("#o3", T[5] + 1.4, 0.1); pulse("#o3", T[5] + 1.5, 1.08);
+pulse("#ed", T[5] + 3.2, 1.01);
+hide("#ed", CL - 0.35, 0.3); hide("#term", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>

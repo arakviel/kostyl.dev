@@ -1,0 +1,46 @@
+<style>
+.t3 { position: absolute; left: 24px; height: 52px; display: flex; align-items: center; font-family: "JetBrains Mono", monospace; font-weight: 500; font-size: 36px; color: #cccccc; white-space: pre; opacity: 0; }
+.t3 .ty { display: inline-block; overflow: hidden; white-space: pre; width: 0; }
+.kc { position: absolute; top: 560px; height: 110px; border-radius: 16px; background: #2b2b2b; border: 4px solid #5a6c8c; display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-weight: 700; font-size: 44px; color: #e8eef7; opacity: 0; box-shadow: 0 8px 0 #1a1a1a; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="ed" class="vsw" style="left:80px;top:100px;width:620px;height:260px">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">inf.py</div></div>
+    <div class="vsr"></div><div class="vst">inf.py</div>
+    <div class="vsl" style="top:118px"><span class="n">1</span><span style="white-space:pre"><span style="color:#c586c0">while</span> <span style="color:#569cd6">True</span>:</span></div>
+    <div class="vsl" style="top:172px"><span class="n">2</span><span style="white-space:pre">    <span style="color:#c586c0">pass</span></span></div>
+  </div>
+  <div id="term" class="vsw" style="left:760px;top:100px;width:1080px;height:440px;background:#1c1c1e">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">Terminal</div></div>
+    <div id="a0" class="t3" style="top:70px"><span style="color:#4ec9b0">lesson-06 %&nbsp;</span><span id="a0y" class="ty">python3 inf.py</span></div>
+    <div id="cur" class="abs" style="left:24px;top:130px;width:22px;height:40px;background:#e8eef7;opacity:0"></div>
+    <div id="hang" class="lab" style="left:24px;top:200px;font-size:34px;color:#fbbf24;opacity:0">програма працює і не завершується</div>
+    <div id="a1" class="t3" style="top:130px;color:#9fb2cf">^C</div>
+    <div id="a2" class="t3" style="top:182px;color:#9fb2cf">Traceback (most recent call last):</div>
+    <div id="a3" class="t3" style="top:234px;color:#9fb2cf">  File "inf.py", line 2, in &lt;module&gt;</div>
+    <div id="a4" class="t3" style="top:286px">    pass</div>
+    <div id="a5" class="t3" style="top:338px;color:#f14c4c;font-weight:700">KeyboardInterrupt</div>
+    <div id="hl4" style="position:absolute;left:12px;top:286px;width:700px;height:52px;background:rgba(251,191,36,0.2);opacity:0"></div>
+    <div id="hl5" style="position:absolute;left:12px;top:338px;width:460px;height:52px;background:rgba(241,76,76,0.2);opacity:0"></div>
+  </div>
+  <div id="k1" class="kc" style="left:860px;width:260px">control</div><div id="k2" class="kc" style="left:1150px;width:130px">C</div>
+  <div id="kl" class="lab" style="left:860px;top:710px;font-size:36px;color:#fbbf24;opacity:0">перервати виконання</div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+tl.set("#ed", { opacity: 1 }, 0); tl.set("#term", { opacity: 1 }, 0);
+// L1 program hangs; Ctrl+C
+show("#a0", T[0] + 0.4, 0.05); typeIn("#a0y", 14, T[0] + 0.5, 0.8);
+show("#cur", T[0] + 1.5, 0.05); for (let i = 0; i < 5; i++) { tl.set("#cur", { opacity: 0 }, T[0] + 1.8 + i * 0.4); tl.set("#cur", { opacity: 1 }, T[0] + 2.0 + i * 0.4); }
+show("#hang", T[0] + 1.6);
+show("#k1", T[0] + 2.6, 0.15); show("#k2", T[0] + 2.9, 0.15); pulse("#k1", T[0] + 3.2, 1.05); pulse("#k2", T[0] + 3.2, 1.05); show("#kl", T[0] + 3.3);
+// L2 interrupt and traceback
+hide("#cur", T[1] + 0.2, 0.05); hide("#hang", T[1] + 0.2, 0.2); show("#a1", T[1] + 0.3, 0.05);
+show("#a2", T[1] + 0.8, 0.1); show("#a3", T[1] + 1.2, 0.1); show("#a4", T[1] + 1.6, 0.1); show("#hl4", T[1] + 1.8, 0.2); show("#a5", T[1] + 2.2, 0.1);
+// L3 KeyboardInterrupt
+show("#hl5", T[2] + 0.2, 0.2); pulse("#a5", T[2] + 0.4, 1.05); pulse("#a5", T[2] + 1.2, 1.05);
+["#ed", "#term", "#k1", "#k2", "#kl"].forEach((x) => hide(x, CL - 0.35, 0.3));
+window.__timelines["world"] = tl;
+</script>

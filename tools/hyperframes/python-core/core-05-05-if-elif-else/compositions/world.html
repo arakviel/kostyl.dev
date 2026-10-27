@@ -1,0 +1,113 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+.mono { font-family: "JetBrains Mono", monospace; font-weight: 700; }
+.abs { position: absolute; }
+.card { position: absolute; border-radius: 18px; background: #0e1626; border: 3px solid #26365a; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+.lab { position: absolute; font-size: 34px; font-weight: 700; color: #9fb2cf; white-space: nowrap; }
+.o0 { opacity: 0; }
+.ar { position: absolute; height: 8px; background: currentColor; opacity: 0; }
+.ar.r::after { content: ""; position: absolute; right: -8px; top: -14px; border-left: 28px solid currentColor; border-top: 18px solid transparent; border-bottom: 18px solid transparent; }
+</style>
+<style>
+.vsw { position: absolute; border-radius: 14px; background: #1e1e1e; overflow: hidden; border: 2px solid #3a3a3a; box-shadow: 0 24px 60px rgba(0,0,0,0.55); }
+.vsb { position: absolute; left: 0; top: 0; right: 0; height: 48px; background: #2b2b2b; }
+.vsd { position: absolute; top: 15px; width: 16px; height: 16px; border-radius: 8px; }
+.vsT { position: absolute; left: 0; right: 0; top: 8px; text-align: center; font-size: 28px; color: #c8c8c8; }
+.vst { position: absolute; left: 0; top: 48px; height: 56px; padding: 0 28px; display: flex; align-items: center; font-family: "JetBrains Mono", monospace; font-weight: 500; font-size: 28px; color: #fff; background: #1e1e1e; border-top: 3px solid #3794ff; }
+.vsr { position: absolute; left: 0; right: 0; top: 48px; height: 56px; background: #252526; }
+.vsl { position: absolute; left: 0; height: 54px; display: flex; align-items: center; font-family: "JetBrains Mono", monospace; font-weight: 600; font-size: 36px; color: #d4d4d4; white-space: nowrap; }
+.vsl .n { display: inline-block; width: 64px; text-align: right; color: #b4b4b4; margin-right: 28px; font-weight: 500; }
+.vsl .ty, .vsx .ty { display: inline-block; overflow: hidden; white-space: nowrap; width: 0; vertical-align: bottom; }
+.vsterm { position: absolute; left: 0; right: 0; bottom: 0; border-top: 2px solid #3c3c3c; background: #1e1e1e; }
+.vsth { position: absolute; left: 24px; top: 8px; font-size: 28px; color: #e7e7e7; letter-spacing: 0.04em; }
+.vsx { position: absolute; left: 24px; height: 46px; display: flex; align-items: center; font-family: "JetBrains Mono", monospace; font-weight: 500; font-size: 32px; color: #cccccc; white-space: nowrap; opacity: 0; }
+</style>
+<style>
+.dl { position: absolute; left: 860px; width: 280px; text-align: center; font-family: "JetBrains Mono", monospace; font-weight: 800; font-size: 30px; color: #9fb2cf; }
+.rb { position: absolute; left: 1330px; width: 220px; height: 100px; border-radius: 16px; background: #0e1626; border: 4px solid #26365a; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 800; font-size: 52px; color: #9fb2cf; }
+.yn { position: absolute; font-size: 30px; font-weight: 700; opacity: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <svg id="svg" width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;left:0;top:0">
+    <g id="fc"><polygon points="1000,125 1190,210 1000,295 810,210" fill="#0e1626" stroke="#26365a" stroke-width="5"/><polygon points="1000,365 1190,450 1000,535 810,450" fill="#0e1626" stroke="#26365a" stroke-width="5"/><polygon points="1000,605 1190,690 1000,775 810,690" fill="#0e1626" stroke="#26365a" stroke-width="5"/>
+    <line id="l1" x1="1000" y1="295" x2="1000" y2="365" stroke="#5a6c8c" stroke-width="5"/><line id="l2" x1="1000" y1="535" x2="1000" y2="605" stroke="#5a6c8c" stroke-width="5"/><line id="l3" x1="1000" y1="775" x2="1000" y2="845" stroke="#5a6c8c" stroke-width="5"/>
+    <line id="y1" x1="1190" y1="210" x2="1325" y2="210" stroke="#5a6c8c" stroke-width="5"/><line id="y2" x1="1190" y1="450" x2="1325" y2="450" stroke="#5a6c8c" stroke-width="5"/><line id="y3" x1="1190" y1="690" x2="1325" y2="690" stroke="#5a6c8c" stroke-width="5"/>
+    </g>
+  </svg>
+<div id="ed" class="vsw" style="left:60px;top:150px;width:700px;height:700px">
+  <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">grade.py</div></div>
+  <div class="vsr"></div><div class="vst">grade.py</div>
+  <div class="vsl" style="top:118px"><span class="n">1</span><span style="white-space:pre"><span style="color:#9cdcfe">score</span> = <span style="color:#b5cea8">82</span></span></div>
+  <div class="vsl" style="top:172px"><span class="n">2</span><span style="white-space:pre"><span style="color:#c586c0">if</span> <span style="color:#9cdcfe">score</span> &gt;= <span style="color:#b5cea8">90</span>:</span></div>
+  <div class="vsl" style="top:226px"><span class="n">3</span><span style="white-space:pre">    <span style="color:#9cdcfe">grade</span> = <span style="color:#ce9178">"A"</span></span></div>
+  <div class="vsl" style="top:280px"><span class="n">4</span><span style="white-space:pre"><span style="color:#c586c0">elif</span> <span style="color:#9cdcfe">score</span> &gt;= <span style="color:#b5cea8">75</span>:</span></div>
+  <div class="vsl" style="top:334px"><span class="n">5</span><span style="white-space:pre">    <span style="color:#9cdcfe">grade</span> = <span style="color:#ce9178">"B"</span></span></div>
+  <div class="vsl" style="top:388px"><span class="n">6</span><span style="white-space:pre"><span style="color:#c586c0">elif</span> <span style="color:#9cdcfe">score</span> &gt;= <span style="color:#b5cea8">60</span>:</span></div>
+  <div class="vsl" style="top:442px"><span class="n">7</span><span style="white-space:pre">    <span style="color:#9cdcfe">grade</span> = <span style="color:#ce9178">"C"</span></span></div>
+  <div class="vsl" style="top:496px"><span class="n">8</span><span style="white-space:pre"><span style="color:#c586c0">else</span>:</span></div>
+  <div class="vsl" style="top:550px"><span class="n">9</span><span style="white-space:pre">    <span style="color:#9cdcfe">grade</span> = <span style="color:#ce9178">"F"</span></span></div>
+  <div class="vsl" style="top:604px"><span class="n">10</span><span style="white-space:pre"><span style="color:#dcdcaa">print</span>(<span style="color:#9cdcfe">grade</span>)</span></div>
+  <div id="hl" style="position:absolute;left:0;width:700px;height:54px;top:118px;background:rgba(251,191,36,0.2);opacity:0"></div>
+</div>
+
+  <div id="d1" class="dl" style="top:192px">score &gt;= 90</div><div id="d2" class="dl" style="top:432px">score &gt;= 75</div><div id="d3" class="dl" style="top:672px">score &gt;= 60</div>
+  <div id="rA" class="rb" style="top:160px">A</div><div id="rB" class="rb" style="top:400px">B</div><div id="rC" class="rb" style="top:640px">C</div>
+  <div id="rF" class="rb" style="left:890px;top:850px;width:220px">F</div>
+  <div id="n1" class="yn" style="left:1020px;top:300px;color:#fb7185">ні</div><div id="n2" class="yn" style="left:1020px;top:540px;color:#fb7185">ні</div><div id="n3" class="yn" style="left:1020px;top:780px;color:#fb7185">ні</div>
+  <div id="y1t" class="yn" style="left:1220px;top:165px;color:#9fb2cf">так</div><div id="y2t" class="yn" style="left:1220px;top:405px;color:#34d399">так</div><div id="y3t" class="yn" style="left:1220px;top:645px;color:#9fb2cf">так</div>
+  <div id="sc" class="mono abs" style="left:1600px;top:420px;font-size:40px;color:#22d3ee;opacity:0;white-space:nowrap">score = 82</div>
+  <div id="term" class="vsw" style="left:1330px;top:830px;width:490px;height:190px;opacity:0">
+    <div class="vsb"><div class="vsT" style="text-align:left;left:24px">ТЕРМІНАЛ</div></div>
+    <div id="o1" class="vsx" style="top:80px;font-size:56px;color:#34d399;font-weight:700">B</div>
+  </div>
+  <div id="nt" class="lab" style="left:830px;top:100px;width:600px;font-size:36px;color:#fbbf24;opacity:0;white-space:nowrap">порядок умов має значення</div>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+const show = (sel, at, d = 0.3) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, at);
+const hide = (sel, at, d = 0.3) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+const pulse = (sel, at, sc = 1.1) => { tl.to(sel, { scale: sc, duration: 0.15 }, at); tl.to(sel, { scale: 1, duration: 0.3 }, at + 0.15); };
+
+const GOLD = "#d4af37";
+const hw = {
+  dimm: (p, w) => {
+    let s = `<svg width="${w}" viewBox="0 0 1000 210" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="1000" height="190" rx="8" fill="#1d6a47" stroke="#0f3d2a" stroke-width="4"/>`;
+    for (let i = 0; i < 8; i++) { const x = 45 + i * 118; s += `<rect id="${p}chip${i}" x="${x}" y="40" width="96" height="84" rx="6" fill="#0b0f14" stroke="#2a3340" stroke-width="3"/><rect x="${x + 12}" y="58" width="44" height="6" fill="#2a3340"/><rect x="${x + 12}" y="76" width="64" height="6" fill="#2a3340"/>`; }
+    for (let k = 0; k < 58; k++) { const x = 14 + k * 16.6; if (x > 400 && x < 450) continue; s += `<rect x="${x}" y="160" width="10" height="30" fill="${GOLD}"/>`; }
+    s += `<rect x="420" y="168" width="18" height="22" fill="#070b14"/><rect x="905" y="135" width="44" height="20" fill="#0b0f14" stroke="#2a3340" stroke-width="2"/></svg>`; return s;
+  },
+  ssd: (w) => {
+    let s = `<svg width="${w}" viewBox="0 0 1000 210" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="1000" height="210" rx="14" fill="#174d36" stroke="#0f3d2a" stroke-width="4"/>`;
+    for (let k = 0; k < 14; k++) s += `<rect x="6" y="${14 + k * 13.5}" width="34" height="8" fill="${GOLD}"/>`;
+    s += `<rect x="150" y="45" width="130" height="120" rx="8" fill="#0b0f14" stroke="#2a3340" stroke-width="3"/><rect x="330" y="45" width="250" height="120" rx="8" fill="#0b0f14" stroke="#2a3340" stroke-width="3"/><rect x="630" y="45" width="250" height="120" rx="8" fill="#0b0f14" stroke="#2a3340" stroke-width="3"/>`;
+    s += `<rect x="352" y="72" width="120" height="8" fill="#2a3340"/><rect x="652" y="72" width="120" height="8" fill="#2a3340"/><circle cx="948" cy="105" r="20" fill="#070b14" stroke="${GOLD}" stroke-width="5"/></svg>`; return s;
+  },
+  cpu: (w) => `<svg width="${w}" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sg${w}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e3e9f3"/><stop offset="1" stop-color="#8794ab"/></linearGradient></defs><rect x="8" y="8" width="284" height="284" rx="22" fill="#2c3b57" stroke="#4a5f86" stroke-width="4"/><rect x="44" y="44" width="212" height="212" rx="14" fill="url(#sg${w})" stroke="#e8eef7" stroke-opacity="0.5" stroke-width="3"/><text x="150" y="172" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="800" font-size="64" fill="#2b3a55">CPU</text><path d="M14 14 L44 14 L14 44 Z" fill="${GOLD}"/></svg>`,
+  monitor: (w) => `<svg width="${w}" viewBox="0 0 440 330" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="420" height="250" rx="18" fill="#1a2236" stroke="#3a4a6e" stroke-width="4"/><rect x="30" y="30" width="380" height="210" rx="8" fill="#050913"/><text x="52" y="150" font-family="JetBrains Mono, monospace" font-weight="800" font-size="72" fill="#34d399">Hello</text><rect x="190" y="260" width="60" height="42" fill="#2c3a5a"/><rect x="130" y="300" width="180" height="16" rx="8" fill="#2c3a5a"/></svg>`
+};
+const typeIn = (sel, n, at, dur) => tl.to(sel, { width: n + "ch", duration: dur, ease: "steps(" + n + ")" }, at);
+
+const T = [0.5, 3.33, 9.32, 15.5, 18.01], D = [2.18, 5.34, 5.53, 1.86, 2.28], CL = 20.7;
+const $ = (id) => document.getElementById(id);
+const lit = (id, c, at) => { const el = document.querySelector("#svg polygon:nth-of-type(" + id + ")"); tl.to(el, { attr: { stroke: c }, duration: 0.3 }, at); };
+tl.set("#ed", { opacity: 1 }, 0);
+// L1 top to bottom
+tl.to("#hl", { opacity: 1, duration: 0.2 }, T[0] + 0.3);
+pulse("#d1", T[0] + 0.6, 1.1); pulse("#d2", T[0] + 1.0, 1.1); pulse("#d3", T[0] + 1.4, 1.1);
+// L2 first condition false
+tl.set("#hl", { y: 54 }, T[1] + 0.3); show("#sc", T[1] + 0.4); lit(1, "#fbbf24", T[1] + 0.6); pulse("#d1", T[1] + 0.8, 1.1);
+show("#n1", T[1] + 2.2); lit(1, "#fb7185", T[1] + 2.2); tl.to("#l1", { attr: { stroke: "#fbbf24" }, duration: 0.3 }, T[1] + 3.0); lit(2, "#fbbf24", T[1] + 3.2);
+// L3 second condition true -> B
+tl.set("#hl", { y: 3 * 54 }, T[2] + 0.2); show("#y2t", T[2] + 0.8); tl.to("#y2", { attr: { stroke: "#34d399" }, duration: 0.3 }, T[2] + 1.0); lit(2, "#34d399", T[2] + 1.0);
+tl.to("#rB", { borderColor: "#34d399", color: "#34d399", duration: 0.3 }, T[2] + 1.6); tl.set("#hl", { y: 4 * 54 }, T[2] + 1.8);
+show("#term", T[2] + 3.0, 0.3); show("#o1", T[2] + 3.6, 0.1); pulse("#o1", T[2] + 3.7, 1.1); pulse("#rB", T[2] + 4.4, 1.08);
+// L4 the rest is skipped
+["#rA", "#rC", "#rF", "#d3"].forEach((s, i) => tl.to(s, { opacity: 0.3, duration: 0.4 }, T[3] + 0.3 + i * 0.3));
+// L5 order matters
+show("#nt", T[4] + 0.3); pulse("#nt", T[4] + 1.3, 1.03);
+hide("#nt", CL - 0.35, 0.3); ["#ed", "#svg", "#d1", "#d2", "#d3", "#rA", "#rB", "#rC", "#rF", "#term", "#sc", "#n1", "#n2", "#n3", "#y1t", "#y2t", "#y3t"].forEach((x) => hide(x, CL - 0.35, 0.3));
+window.__timelines["world"] = tl;
+</script>
+
+</template>

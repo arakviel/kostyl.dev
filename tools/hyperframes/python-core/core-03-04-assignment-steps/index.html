@@ -1,61 +1,28 @@
 <!doctype html>
-<html lang="en">
+<html lang="uk">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
-      /* Placeholders: replace all three with the film's own palette and display face. */
-      :root {
-        --ground: #6b6b6b;
-        --ink: #ffffff;
-        --font-display: sans-serif;
-      }
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      html,
-      body {
-        margin: 0;
-        width: 1920px;
-        height: 1080px;
-        overflow: hidden;
-        background: var(--ground);
-      }
-      #root {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: var(--font-display);
-      }
-      #title {
-        color: var(--ink);
-        font-size: 72px;
-        font-weight: 600;
-        letter-spacing: -0.03em;
-      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #070b14; }
     </style>
   </head>
   <body>
-    <div
-      id="root"
-      data-composition-id="main"
-      data-start="0"
-      data-duration="10"
-      data-width="1920"
-      data-height="1080"
-    >
-      <h1 id="title" class="clip" data-start="0" data-duration="10" data-track-index="0">Title</h1>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="26.5" data-width="1920" data-height="1080">
+      <div id="world" data-composition-id="world" data-composition-src="compositions/world.html"
+           data-start="0" data-duration="26.5" data-track-index="1" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <div id="lines" data-composition-id="lines" data-composition-src="compositions/lines.html"
+           data-start="0" data-duration="26.5" data-track-index="2" data-track-kind="graphics" data-width="1920" data-height="1080"></div>
+      <audio id="music" src="assets/music/bed.wav" data-start="0" data-duration="26.5" data-track-index="3" data-volume="0.16" data-fade-in="1.5" data-fade-out="2" data-timeline-role="music"></audio>
+      <audio id="vo1" src="assets/vo/l1.wav" data-start="0.5" data-duration="5.25" data-track-index="4" data-volume="1"></audio>
+      <audio id="vo2" src="assets/vo/l2.wav" data-start="6.4" data-duration="4.88" data-track-index="4" data-volume="1"></audio>
+      <audio id="vo3" src="assets/vo/l3.wav" data-start="11.92" data-duration="4.78" data-track-index="4" data-volume="1"></audio>
+      <audio id="vo4" src="assets/vo/l4.wav" data-start="17.36" data-duration="5.9" data-track-index="4" data-volume="1"></audio>
     </div>
     <script>
-      const tl = gsap.timeline({ paused: true });
-      // Example: tl.fromTo("#title", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, 0);
-      window.__timelines["main"] = tl;
-      tl.seek(0);
+      window.__timelines["main"] = gsap.timeline({ paused: true });
     </script>
   </body>
 </html>

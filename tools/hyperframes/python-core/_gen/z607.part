@@ -1,0 +1,53 @@
+<style>
+.cpt { position: absolute; left: 80px; width: 1760px; top: 975px; text-align: center; font-size: 40px; font-weight: 700; color: #fbbf24; opacity: 0; }
+.cell7 { position: absolute; width: 180px; height: 110px; border-radius: 14px; background: #0e1626; border: 4px solid #26365a; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 800; font-size: 60px; color: #34d399; }
+.hd7 { position: absolute; width: 180px; text-align: center; font-family: "JetBrains Mono", monospace; font-size: 32px; color: #9fb2cf; }
+.hand { position: absolute; left: 1493px; border-radius: 7px; transform-origin: 7px 100%; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="ed" class="vsw" style="left:60px;top:100px;width:900px;height:380px"><div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">nested.py</div></div><div class="vsr"></div><div class="vst">nested.py</div><div class="vsl" style="top:118px;font-size:36px"><span class="n">1</span><span style="white-space:pre"><span style="color:#c586c0">for</span> <span style="color:#9cdcfe">i</span> <span style="color:#c586c0">in</span> <span style="color:#dcdcaa">range</span>(<span style="color:#b5cea8">1</span>, <span style="color:#b5cea8">4</span>):</span></div><div class="vsl" style="top:172px;font-size:36px"><span class="n">2</span><span style="white-space:pre">    <span style="color:#c586c0">for</span> <span style="color:#9cdcfe">j</span> <span style="color:#c586c0">in</span> <span style="color:#dcdcaa">range</span>(<span style="color:#b5cea8">1</span>, <span style="color:#b5cea8">4</span>):</span></div><div class="vsl" style="top:226px;font-size:36px"><span class="n">3</span><span style="white-space:pre">        <span style="color:#dcdcaa">print</span>(<span style="color:#9cdcfe">i</span> * <span style="color:#9cdcfe">j</span>, <span style="color:#9cdcfe">end</span>=<span style="color:#ce9178">"\t"</span>)</span></div><div class="vsl" style="top:280px;font-size:36px"><span class="n">4</span><span style="white-space:pre">    <span style="color:#dcdcaa">print</span>()</span></div>
+    <div id="hl" style="position:absolute;left:0;width:900px;height:54px;top:118px;background:rgba(251,191,36,0.2);opacity:0"></div></div>
+  <div class="hd7" style="left:190px;top:545px">j=1</div><div class="hd7" style="left:390px;top:545px">j=2</div><div class="hd7" style="left:590px;top:545px">j=3</div><div class="hd7" style="left:60px;top:628px;width:110px;text-align:right">i=1</div><div class="hd7" style="left:60px;top:753px;width:110px;text-align:right">i=2</div><div class="hd7" style="left:60px;top:878px;width:110px;text-align:right">i=3</div><div id="c11" class="cell7" style="left:190px;top:600px"><span id="v11" style="opacity:0">1</span></div><div id="c12" class="cell7" style="left:390px;top:600px"><span id="v12" style="opacity:0">2</span></div><div id="c13" class="cell7" style="left:590px;top:600px"><span id="v13" style="opacity:0">3</span></div><div id="c21" class="cell7" style="left:190px;top:725px"><span id="v21" style="opacity:0">2</span></div><div id="c22" class="cell7" style="left:390px;top:725px"><span id="v22" style="opacity:0">4</span></div><div id="c23" class="cell7" style="left:590px;top:725px"><span id="v23" style="opacity:0">6</span></div><div id="c31" class="cell7" style="left:190px;top:850px"><span id="v31" style="opacity:0">3</span></div><div id="c32" class="cell7" style="left:390px;top:850px"><span id="v32" style="opacity:0">6</span></div><div id="c33" class="cell7" style="left:590px;top:850px"><span id="v33" style="opacity:0">9</span></div>
+  <div class="abs" style="left:1280px;top:190px;width:440px;height:440px;border-radius:220px;border:6px solid #3a4a6e;background:#0e1626"></div>
+  <div class="abs" style="left:1496px;top:195px;width:8px;height:28px;background:#5a6c8c;transform-origin:4px 215px;transform:rotate(0deg)"></div><div class="abs" style="left:1496px;top:195px;width:8px;height:28px;background:#5a6c8c;transform-origin:4px 215px;transform:rotate(30deg)"></div><div class="abs" style="left:1496px;top:195px;width:8px;height:28px;background:#5a6c8c;transform-origin:4px 215px;transform:rotate(60deg)"></div><div class="abs" style="left:1496px;top:195px;width:8px;height:28px;background:#5a6c8c;transform-origin:4px 215px;transform:rotate(90deg)"></div><div class="abs" style="left:1496px;top:195px;width:8px;height:28px;background:#5a6c8c;transform-origin:4px 215px;transform:rotate(120deg)"></div><div class="abs" style="left:1496px;top:195px;width:8px;height:28px;background:#5a6c8c;transform-origin:4px 215px;transform:rotate(150deg)"></div><div class="abs" style="left:1496px;top:195px;width:8px;height:28px;background:#5a6c8c;transform-origin:4px 215px;transform:rotate(180deg)"></div><div class="abs" style="left:1496px;top:195px;width:8px;height:28px;background:#5a6c8c;transform-origin:4px 215px;transform:rotate(210deg)"></div><div class="abs" style="left:1496px;top:195px;width:8px;height:28px;background:#5a6c8c;transform-origin:4px 215px;transform:rotate(240deg)"></div><div class="abs" style="left:1496px;top:195px;width:8px;height:28px;background:#5a6c8c;transform-origin:4px 215px;transform:rotate(270deg)"></div><div class="abs" style="left:1496px;top:195px;width:8px;height:28px;background:#5a6c8c;transform-origin:4px 215px;transform:rotate(300deg)"></div><div class="abs" style="left:1496px;top:195px;width:8px;height:28px;background:#5a6c8c;transform-origin:4px 215px;transform:rotate(330deg)"></div>
+  <div id="hi" class="hand" style="top:290px;width:14px;height:120px;background:#34d399"></div>
+  <div id="hj" class="hand" style="top:220px;width:8px;height:190px;background:#22d3ee;left:1496px;transform-origin:4px 100%"></div>
+  <div class="abs" style="left:1486px;top:396px;width:28px;height:28px;border-radius:14px;background:#e8eef7"></div>
+  <div class="lab" style="left:1240px;top:690px;font-size:34px;color:#34d399">коротка стрілка — зовнішній i</div>
+  <div class="lab" style="left:1240px;top:740px;font-size:34px;color:#22d3ee">довга стрілка — внутрішній j</div>
+  <div class="lab" style="left:1240px;top:800px;font-size:28px;color:#6f84a6">схема: стрілки показують стан циклів</div>
+  <div id="n9" class="mono abs" style="left:1240px;top:850px;width:560px;text-align:center;font-size:60px;color:#fbbf24;opacity:0">9 ітерацій</div>
+  <div id="caps"></div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+const CAPS = ["Вкладені цикли працюють як годинник", "зовнішній цикл робить один крок, внутрішній проходить усе своє коло", "i = 1: j пробігає 1, 2, 3 → рядок 1 2 3", "i = 2 і i = 3: внутрішній цикл щоразу починається заново", "3 × 3 = 9 ітерацій"];
+const $ = (id) => document.getElementById(id);
+CAPS.forEach((t, i) => { $("caps").insertAdjacentHTML("beforeend", `<div id="cp${i}" class="cpt">${t}</div>`); show("#cp" + i, T[i] + 0.2, 0.3); hide("#cp" + i, (i < CAPS.length - 1 ? T[i + 1] - 0.15 : CL - 0.35), 0.25); });
+const row = (k) => k * 54;
+const ang = (v) => (v - 1) * 120;
+tl.set("#ed", { opacity: 1 }, 0);
+tl.set("#hi", { rotation: 0 }, 0); tl.set("#hj", { rotation: 0 }, 0);
+const cur = (i, j, at) => { tl.to("#c" + i + j, { borderColor: "#fbbf24", duration: 0.2 }, at); tl.to("#v" + i + j, { opacity: 1, duration: 0.2 }, at + 0.1); tl.to("#hj", { rotation: ang(j), duration: 0.4 }, at - 0.1); tl.to("#c" + i + j, { borderColor: "#34d399", duration: 0.3 }, at + 0.7); pulse("#c" + i + j, at + 0.1, 1.08); };
+// L1 clock
+pulse("#ed", T[0] + 0.8, 1.02); tl.set("#hl", { y: row(0), opacity: 1 }, T[0] + 1.2); tl.set("#hl", { y: row(1) }, T[0] + 2.4);
+// L2 one outer step, full inner circle
+tl.to("#hi", { rotation: ang(1), duration: 0.4 }, T[1] + 0.4);
+tl.to("#hj", { rotation: 360, duration: 3.0, ease: "power1.inOut" }, T[1] + 1.2); tl.set("#hj", { rotation: 0 }, T[1] + 4.4);
+// L3 i = 1
+tl.set("#hl", { y: row(2) }, T[2] + 0.4);
+cur(1, 1, T[2] + 0.8); cur(1, 2, T[2] + 2.0); cur(1, 3, T[2] + 3.2); tl.set("#hl", { y: row(3) }, T[2] + 4.6);
+// L4 i = 2 and i = 3
+tl.set("#hl", { y: row(0) }, T[3] + 0.2); tl.to("#hi", { rotation: ang(2), duration: 0.4 }, T[3] + 0.3);
+tl.set("#hl", { y: row(2) }, T[3] + 0.8);
+cur(2, 1, T[3] + 0.9); cur(2, 2, T[3] + 1.5); cur(2, 3, T[3] + 2.1);
+tl.set("#hl", { y: row(0) }, T[3] + 2.9); tl.to("#hi", { rotation: ang(3), duration: 0.4 }, T[3] + 3.0); tl.set("#hl", { y: row(2) }, T[3] + 3.4);
+cur(3, 1, T[3] + 3.5); cur(3, 2, T[3] + 4.1); cur(3, 3, T[3] + 4.7);
+// L5 nine iterations
+tl.set("#hl", { opacity: 0 }, T[4] + 0.1); show("#n9", T[4] + 0.6, 0.3); pulse("#n9", T[4] + 1.2, 1.08);
+for (const i of [1, 2, 3]) for (const j of [1, 2, 3]) pulse("#c" + i + j, T[4] + 1.0 + ((i - 1) * 3 + j - 1) * 0.2, 1.05);
+hide("#n9", CL - 0.35, 0.2); hide("#ed", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>

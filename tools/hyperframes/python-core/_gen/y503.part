@@ -1,0 +1,80 @@
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="ed" class="vsw" style="left:60px;top:90px;width:900px;height:620px">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">short.py</div></div>
+    <div class="vsr"></div><div class="vst">short.py</div>
+    <div class="vsl" style="top:118px"><span class="n">1</span><span style="white-space:pre"><span style="color:#569cd6">def</span> <span style="color:#dcdcaa">f</span>():</span></div>
+    <div class="vsl" style="top:172px"><span class="n">2</span><span style="white-space:pre">    <span style="color:#dcdcaa">print</span>(<span style="color:#ce9178">"f викликана"</span>)</span></div>
+    <div class="vsl" style="top:226px"><span class="n">3</span><span style="white-space:pre">    <span style="color:#c586c0">return</span> <span style="color:#b5cea8">1</span></span></div>
+    <div class="vsl" style="top:280px"><span class="n">4</span><span style="white-space:pre"><span style="color:#dcdcaa">print</span>(<span style="color:#b5cea8">0</span> <span style="color:#c586c0">and</span> <span style="color:#dcdcaa">f</span>())</span></div>
+    <div class="vsl" style="top:334px"><span class="n">5</span><span style="white-space:pre"><span style="color:#dcdcaa">print</span>(<span style="color:#b5cea8">1</span> <span style="color:#c586c0">and</span> <span style="color:#dcdcaa">f</span>())</span></div>
+    <div class="vsl" style="top:388px"><span class="n">6</span><span style="white-space:pre"><span style="color:#dcdcaa">print</span>(<span style="color:#b5cea8">1</span> <span style="color:#c586c0">or</span> <span style="color:#dcdcaa">f</span>())</span></div>
+    <div class="vsl" style="top:442px"><span class="n">7</span><span style="white-space:pre"><span style="color:#dcdcaa">print</span>(<span style="color:#b5cea8">0</span> <span style="color:#c586c0">or</span> <span style="color:#dcdcaa">f</span>())</span></div>
+    <div class="vsl" style="top:496px"><span class="n">8</span><span style="white-space:pre"><span style="color:#dcdcaa">print</span>(<span style="color:#ce9178">""</span> <span style="color:#c586c0">or</span> <span style="color:#ce9178">"Гість"</span>)</span></div>
+    <div id="hl" style="position:absolute;left:0;width:900px;height:54px;top:280px;background:rgba(251,191,36,0.2);opacity:0"></div>
+  </div>
+  <div id="xp" class="card" style="left:1020px;top:90px;width:800px;height:250px"><div id="xA" class="abs" style="left:0;top:0;width:800px;height:240px;opacity:0">
+  <div class="lab" style="left:30px;top:10px;font-size:30px;color:#9fb2cf">перевірка зліва направо</div>
+  <div class="mono abs" style="left:30px;top:70px;width:230px;height:90px;border:4px solid #fb7185;border-radius:14px;color:#fb7185;font-size:44px;display:flex;align-items:center;justify-content:center">0</div>
+  <div class="mono abs" style="left:280px;top:90px;font-size:48px;color:#c586c0">and</div>
+  <div id="rA" class="mono abs" style="left:380px;top:70px;width:230px;height:90px;border:4px solid #34d399;border-radius:14px;color:#34d399;font-size:44px;display:flex;align-items:center;justify-content:center">f()</div>
+  <div id="sA" class="lab" style="left:380px;top:170px;font-size:30px;color:#6f84a6;opacity:0;white-space:nowrap">не виконується</div>
+  <div class="mono abs" style="left:560px;top:170px;width:230px;text-align:right;font-size:44px;color:#fbbf24;opacity:0" id="vA">= 0</div>
+</div><div id="xB" class="abs" style="left:0;top:0;width:800px;height:240px;opacity:0">
+  <div class="lab" style="left:30px;top:10px;font-size:30px;color:#9fb2cf">перевірка зліва направо</div>
+  <div class="mono abs" style="left:30px;top:70px;width:230px;height:90px;border:4px solid #34d399;border-radius:14px;color:#34d399;font-size:44px;display:flex;align-items:center;justify-content:center">1</div>
+  <div class="mono abs" style="left:280px;top:90px;font-size:48px;color:#c586c0">and</div>
+  <div id="rB" class="mono abs" style="left:380px;top:70px;width:230px;height:90px;border:4px solid #34d399;border-radius:14px;color:#34d399;font-size:44px;display:flex;align-items:center;justify-content:center">f()</div>
+  <div id="sB" class="lab" style="left:380px;top:170px;font-size:30px;color:#6f84a6;opacity:0;white-space:nowrap">виконується</div>
+  <div class="mono abs" style="left:560px;top:170px;width:230px;text-align:right;font-size:44px;color:#fbbf24;opacity:0" id="vB">= 1</div>
+</div><div id="xC" class="abs" style="left:0;top:0;width:800px;height:240px;opacity:0">
+  <div class="lab" style="left:30px;top:10px;font-size:30px;color:#9fb2cf">перевірка зліва направо</div>
+  <div class="mono abs" style="left:30px;top:70px;width:230px;height:90px;border:4px solid #34d399;border-radius:14px;color:#34d399;font-size:44px;display:flex;align-items:center;justify-content:center">1</div>
+  <div class="mono abs" style="left:280px;top:90px;font-size:48px;color:#c586c0">or</div>
+  <div id="rC" class="mono abs" style="left:380px;top:70px;width:230px;height:90px;border:4px solid #34d399;border-radius:14px;color:#34d399;font-size:44px;display:flex;align-items:center;justify-content:center">f()</div>
+  <div id="sC" class="lab" style="left:380px;top:170px;font-size:30px;color:#6f84a6;opacity:0;white-space:nowrap">не виконується</div>
+  <div class="mono abs" style="left:560px;top:170px;width:230px;text-align:right;font-size:44px;color:#fbbf24;opacity:0" id="vC">= 1</div>
+</div><div id="xD" class="abs" style="left:0;top:0;width:800px;height:240px;opacity:0">
+  <div class="lab" style="left:30px;top:10px;font-size:30px;color:#9fb2cf">перевірка зліва направо</div>
+  <div class="mono abs" style="left:30px;top:70px;width:230px;height:90px;border:4px solid #fb7185;border-radius:14px;color:#fb7185;font-size:44px;display:flex;align-items:center;justify-content:center">0</div>
+  <div class="mono abs" style="left:280px;top:90px;font-size:48px;color:#c586c0">or</div>
+  <div id="rD" class="mono abs" style="left:380px;top:70px;width:230px;height:90px;border:4px solid #34d399;border-radius:14px;color:#34d399;font-size:44px;display:flex;align-items:center;justify-content:center">f()</div>
+  <div id="sD" class="lab" style="left:380px;top:170px;font-size:30px;color:#6f84a6;opacity:0;white-space:nowrap">виконується</div>
+  <div class="mono abs" style="left:560px;top:170px;width:230px;text-align:right;font-size:44px;color:#fbbf24;opacity:0" id="vD">= 1</div>
+</div><div id="xE" class="abs" style="left:0;top:0;width:800px;height:240px;opacity:0">
+  <div class="lab" style="left:30px;top:10px;font-size:30px;color:#9fb2cf">перевірка зліва направо</div>
+  <div class="mono abs" style="left:30px;top:70px;width:230px;height:90px;border:4px solid #fb7185;border-radius:14px;color:#fb7185;font-size:44px;display:flex;align-items:center;justify-content:center">""</div>
+  <div class="mono abs" style="left:280px;top:90px;font-size:48px;color:#c586c0">or</div>
+  <div id="rE" class="mono abs" style="left:380px;top:70px;width:300px;height:90px;border:4px solid #34d399;border-radius:14px;color:#34d399;font-size:34px;display:flex;align-items:center;justify-content:center">"Гість"</div>
+  <div id="sE" class="lab" style="left:30px;top:200px;font-size:30px;color:#6f84a6;opacity:0;white-space:nowrap">повертається операнд</div>
+  <div class="mono abs" style="left:560px;top:170px;width:230px;text-align:right;font-size:44px;color:#fbbf24;opacity:0" id="vE">= Гість</div>
+</div></div>
+  <div id="term" class="vsw" style="left:1020px;top:380px;width:800px;height:400px">
+    <div class="vsb"><div class="vsT" style="text-align:left;left:24px">ТЕРМІНАЛ</div></div>
+    <div id="t0" class="vsx" style="top:64px;font-size:36px">0</div>
+    <div id="t1" class="vsx" style="top:110px;font-size:36px;color:#fbbf24">f викликана</div><div id="t2" class="vsx" style="top:156px;font-size:36px">1</div>
+    <div id="t3" class="vsx" style="top:202px;font-size:36px">1</div>
+    <div id="t4" class="vsx" style="top:248px;font-size:36px;color:#fbbf24">f викликана</div><div id="t5" class="vsx" style="top:294px;font-size:36px">1</div>
+    <div id="t6" class="vsx" style="top:340px;font-size:36px;color:#34d399;font-weight:700">Гість</div>
+  </div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+const showX = (i, at) => { ["A", "B", "C", "D", "E"].forEach((j) => { if (j !== i) hide("#x" + j, at - 0.05, 0.15); }); show("#x" + i, at, 0.2); };
+const line = (k, at) => tl.set("#hl", { y: (k - 4) * 54, opacity: 1 }, at);
+tl.set("#ed", { opacity: 1 }, 0); tl.set("#xA", { opacity: 1 }, 0);
+// L1 left to right
+tl.set("#hl", { y: 0, opacity: 1 }, T[0] + 0.4); pulse("#xA", T[0] + 1.5, 1.02);
+// L2 0 and f(): f is not called
+show("#sA", T[1] + 1.2); tl.to("#rA", { opacity: 0.3, duration: 0.4 }, T[1] + 1.2); show("#vA", T[1] + 2.2); show("#t0", T[1] + 3.0, 0.1); pulse("#t0", T[1] + 3.1, 1.1);
+// L3 1 and f(): f is called
+showX("B", T[2] + 0.2); line(5, T[2] + 0.2); show("#sB", T[2] + 1.0); show("#vB", T[2] + 1.8); show("#t1", T[2] + 2.2, 0.1); show("#t2", T[2] + 2.6, 0.1);
+// L4 mirror rule for or
+showX("C", T[3] + 0.2); line(6, T[3] + 0.2); show("#sC", T[3] + 1.0); tl.to("#rC", { opacity: 0.3, duration: 0.4 }, T[3] + 1.0); show("#vC", T[3] + 1.8); show("#t3", T[3] + 2.2, 0.1);
+showX("D", T[3] + 3.0); line(7, T[3] + 3.0); show("#sD", T[3] + 3.6); show("#vD", T[3] + 4.0); show("#t4", T[3] + 4.0, 0.1); show("#t5", T[3] + 4.4, 0.1);
+// L5 the operand is returned
+showX("E", T[4] + 0.3); line(8, T[4] + 0.3); show("#sE", T[4] + 1.4); show("#vE", T[4] + 2.4); show("#t6", T[4] + 3.4, 0.1); pulse("#t6", T[4] + 3.5, 1.1); pulse("#vE", T[4] + 4.6, 1.1); pulse("#xE", T[4] + 5.4, 1.02);
+hide("#xp", CL - 0.35, 0.3); hide("#ed", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>

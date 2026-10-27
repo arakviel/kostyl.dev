@@ -1,0 +1,59 @@
+{
+ "python": "3.15.0rc2",
+ "id5": 4353553800,
+ "globals": "{'x': 5, 'y': 5}",
+ "xy_same": [
+  true,
+  true,
+  true
+ ],
+ "id7": 4353553864,
+ "after_x7": [
+  7,
+  5
+ ],
+ "count_id_before": 4356865648,
+ "count_id_after": 4358528368,
+ "count_ne": true,
+ "list_id": 4437295680,
+ "ab": [
+  true,
+  true
+ ],
+ "rc_a": 2,
+ "rc_ab": 2,
+ "rc_del_b": 1,
+ "eq": {
+  "a==c": true,
+  "a is c": false,
+  "a==b": true
+ },
+ "cache": {
+  "1000": [
+   true,
+   true
+  ],
+  "100000": [
+   false,
+   true
+  ]
+ },
+ "str_ids": [
+  4357889264,
+  4358355216
+ ],
+ "swapped": [
+  "право",
+  "ліво"
+ ],
+ "dis_swap": "  0           RESUME                   0\n\n  1           LOAD_NAME                0 (b)\n              LOAD_NAME                1 (a)\n              SWAP                     2\n              STORE_NAME               1 (a)\n              STORE_NAME               0 (b)\n              LOAD_COMMON_CONSTANT     7 (None)\n              RETURN_VALUE\n",
+ "list_ids": {
+  "a": 4355319552,
+  "b": 4355319552,
+  "c": 4355156992
+ },
+ "ids_equal": [
+  true,
+  false
+ ]
+}

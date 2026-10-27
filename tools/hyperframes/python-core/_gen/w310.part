@@ -1,0 +1,49 @@
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <svg id="svg" width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;left:0;top:0"></svg>
+  <div id="ed" class="vsw" style="left:80px;top:230px;width:640px;height:320px">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">summary.py</div></div>
+    <div class="vsr"></div><div class="vst">summary.py</div>
+    <div class="vsl" style="top:118px"><span class="n">1</span><span style="white-space:pre"><span style="color:#9cdcfe">x</span> = <span style="color:#b5cea8">5</span></span></div>
+    <div class="vsl" style="top:172px"><span class="n">2</span><span style="white-space:pre"><span style="color:#9cdcfe">y</span> = <span style="color:#9cdcfe">x</span></span></div>
+    <div class="vsl" style="top:226px"><span class="n">3</span><span style="white-space:pre"><span style="color:#9cdcfe">x</span> = <span style="color:#b5cea8">7</span></span></div>
+    <div id="hl" style="position:absolute;left:0;width:640px;height:54px;top:118px;background:rgba(251,191,36,0.2);opacity:0"></div>
+  </div>
+  <div id="th1" class="lab" style="left:80px;top:620px;font-size:36px;color:#22d3ee;opacity:0;white-space:nowrap">1 · змінна — ім'я, яке вказує на об'єкт</div>
+  <div id="th2" class="lab" style="left:80px;top:690px;font-size:36px;color:#fbbf24;opacity:0;white-space:nowrap">2 · присвоєння переносить стрілку</div>
+  <div id="th3" class="lab" style="left:80px;top:760px;font-size:36px;color:#fb7185;opacity:0;white-space:nowrap">3 · об'єкт без стрілок зникає</div>
+  <div id="th4" class="lab" style="left:80px;top:830px;font-size:36px;color:#34d399;opacity:0;white-space:nowrap">is — ідентичність, == — значення</div>
+  <div id="nsw"></div><div id="obw"></div>
+  <div id="gone" class="lab" style="left:1400px;top:408px;font-size:36px;color:#fb7185;opacity:0">зникає</div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+const $ = (id) => document.getElementById(id);
+const CC = { c: "#22d3ee", e: "#34d399", a: "#fbbf24", r: "#fb7185", g: "#9fb2cf" };
+$("svg").innerHTML = `<defs>${Object.values(CC).map((c) => `<marker id="mk${c.slice(1)}" markerWidth="30" markerHeight="30" refX="26" refY="15" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 2 L28 15 L0 28 z" fill="${c}"/></marker>`).join("")}</defs>`;
+const ARW = (id, x1, y1, x2, y2, c) => $("svg").insertAdjacentHTML("beforeend", `<line id="${id}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="6" marker-end="url(#mk${c.slice(1)})" opacity="0"/>`);
+// namespace card: names = [[label, color], ...]; name boxes are shown individually
+const NSC = (id, left, top, names) => `<div id="${id}" class="card" style="left:${left}px;top:${top}px;width:300px;height:${90 + names.length * 110}px;opacity:0"><div class="lab" style="left:28px;top:16px;font-size:34px">імена</div>${names.map(([t, c], i) => `<div id="${id}n${i}" class="mono abs" style="left:30px;top:${80 + i * 110}px;width:240px;height:80px;border:4px solid ${c};border-radius:14px;color:${c};font-size:46px;display:flex;align-items:center;justify-content:center;opacity:0">${t}</div>`).join("")}</div>`;
+const NSX = (left) => left + 270, NSY = (top, i) => top + 80 + i * 110 + 40;
+// object plaque: type / value / id
+const OB = (id, left, top, type, val, vcol, idv, w = 420) => `<div id="${id}" class="card" style="left:${left}px;top:${top}px;width:${w}px;height:230px;border-color:#34d399;opacity:0"><div class="mono abs" style="left:24px;top:12px;font-size:30px;color:#22d3ee">${type}</div><div class="mono abs" style="left:0;width:${w}px;top:52px;text-align:center;font-size:${val.length > 7 ? 56 : 80}px;color:${vcol}">${val}</div><div class="mono abs" style="left:24px;top:172px;font-size:28px;color:#fbbf24">id ${idv}</div></div>`;
+
+$("nsw").innerHTML = NSC("ns", 880, 270, [["x", CC.c], ["y", CC.a]]);
+$("obw").innerHTML = OB("o5", 1400, 210, "int", "5", "#34d399", "4353553800") + OB("o7", 1400, 560, "int", "7", "#34d399", "4353553864");
+ARW("ax5", NSX(880), NSY(270, 0), 1394, 325, CC.c);
+ARW("ay5", NSX(880), NSY(270, 1), 1394, 350, CC.a);
+ARW("ax7", NSX(880), NSY(270, 0), 1394, 675, CC.c);
+tl.set(["#ed", "#ns", "#nsn0", "#o5", "#ax5"], { opacity: 1 }, 0);
+// L2 a variable is a name that points to an object
+show("#th1", T[1] + 0.6); pulse("#nsn0", T[1] + 1.2, 1.1); pulse("#o5", T[1] + 2.0, 1.04); tl.to("#hl", { opacity: 1, duration: 0.2 }, T[1] + 0.2);
+// L3 assignment moves the arrow
+show("#th2", T[2] + 0.4); tl.set("#hl", { y: 108 }, T[2] + 0.6); show("#o7", T[2] + 0.8, 0.3); hide("#ax5", T[2] + 1.5, 0.3); show("#ax7", T[2] + 1.8, 0.3); pulse("#nsn0", T[2] + 2.0, 1.1);
+// L4 two arrows on one object, then none
+tl.set("#hl", { y: 54 }, T[3] - 0.2); show("#nsn1", T[3] + 0.2, 0.3); show("#ay5", T[3] + 0.6, 0.3); pulse("#o5", T[3] + 1.0, 1.05);
+show("#th3", T[3] + 2.2); hide("#ay5", T[3] + 3.2, 0.3); hide("#nsn1", T[3] + 3.2, 0.3); tl.to("#o5", { opacity: 0.25, duration: 0.8 }, T[3] + 3.8); show("#gone", T[3] + 4.0);
+// L5 is vs ==
+show("#th4", T[4] + 0.6); pulse("#th4", T[4] + 1.6, 1.03); pulse("#th4", T[4] + 2.6, 1.03);
+hide("#ed", CL - 0.35, 0.3); hide("#o5", CL - 0.35, 0.3); hide("#gone", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>

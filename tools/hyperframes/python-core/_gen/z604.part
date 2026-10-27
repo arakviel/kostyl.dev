@@ -1,0 +1,53 @@
+<style>
+.ce { position: absolute; top: 330px; width: 180px; height: 180px; border-radius: 18px; background: #0e1626; border: 4px solid #26365a; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 800; font-size: 90px; color: #e8eef7; }
+.cl { position: absolute; left: 24px; font-family: "JetBrains Mono", monospace; font-weight: 600; font-size: 32px; white-space: pre; opacity: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="ed" class="vsw" style="left:60px;top:100px;width:700px;height:260px">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">for.py</div></div>
+    <div class="vsr"></div><div class="vst">for.py</div>
+    <div class="vsl" style="top:118px"><span class="n">1</span><span style="white-space:pre"><span style="color:#c586c0">for</span> <span style="color:#9cdcfe">ch</span> <span style="color:#c586c0">in</span> <span style="color:#ce9178">"кіт"</span>:</span></div>
+    <div class="vsl" style="top:172px"><span class="n">2</span><span style="white-space:pre">    <span style="color:#dcdcaa">print</span>(<span style="color:#9cdcfe">ch</span>, <span style="color:#9cdcfe">end</span>=<span style="color:#ce9178">" "</span>)</span></div>
+  </div>
+  <div id="cells"></div>
+  <div id="cur" class="abs" style="left:760px;top:560px;width:60px;opacity:0"><div class="abs" style="left:10px;top:0;width:8px;height:60px;background:#fbbf24"></div><div class="abs" style="left:-6px;top:-4px;border-bottom:26px solid #fbbf24;border-left:18px solid transparent;border-right:18px solid transparent;width:0;height:0;transform:translateY(-22px)"></div></div>
+  <div id="itl" class="lab" style="left:700px;top:640px;font-size:34px;color:#fbbf24;opacity:0;white-space:nowrap">ітератор: курсор у рядку</div>
+  <div id="chb" class="card" style="left:700px;top:710px;width:360px;height:130px;opacity:0"><div class="lab" style="left:20px;top:10px;font-size:30px">ім'я ch</div><div id="cv1" class="mono abs" style="left:0;width:360px;top:46px;text-align:center;font-size:62px;color:#34d399;opacity:0">"к"</div><div id="cv2" class="mono abs" style="left:0;width:360px;top:46px;text-align:center;font-size:62px;color:#34d399;opacity:0">"і"</div><div id="cv3" class="mono abs" style="left:0;width:360px;top:46px;text-align:center;font-size:62px;color:#34d399;opacity:0">"т"</div></div>
+  <div id="cl" class="card" style="left:1340px;top:130px;width:520px;height:400px;opacity:0">
+    <div id="m0" class="cl" style="top:30px;color:#22d3ee">it = iter("кіт")</div>
+    <div id="m1" class="cl" style="top:100px">next(it) → "к"</div>
+    <div id="m2" class="cl" style="top:170px">next(it) → "і"</div>
+    <div id="m3" class="cl" style="top:240px">next(it) → "т"</div>
+    <div id="m4" class="cl" style="top:310px;color:#f14c4c;font-weight:800">next(it) → StopIteration</div>
+  </div>
+  <div id="term" class="vsw" style="left:60px;top:880px;width:700px;height:130px;opacity:0">
+    <div class="vsb" style="height:44px"><div class="vsT" style="text-align:left;left:24px;top:6px">ТЕРМІНАЛ</div></div>
+    <div id="o1" class="vsx" style="top:66px;font-size:40px;color:#34d399;font-weight:700">к і т&nbsp;</div>
+  </div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+const $ = (id) => document.getElementById(id);
+["к", "і", "т"].forEach((c, i) => $("cells").insertAdjacentHTML("beforeend", `<div id="ce${i}" class="ce" style="left:${700 + i * 210}px">${c}</div>`));
+const cx = (i) => 760 + i * 220 + 90 - 30;
+tl.set("#ed", { opacity: 1 }, 0);
+// L1 for does not count
+pulse("#ed", T[0] + 0.8, 1.02);
+// L2 asks for an iterator
+show("#cl", T[1] + 0.2, 0.3); show("#m0", T[1] + 0.6); show("#cur", T[1] + 1.2); show("#itl", T[1] + 1.4); tl.set("#cur", { x: -150 }, 0);
+// L3 elements one by one
+show("#chb", T[2] + 0.1, 0.3);
+[1, 2, 3].forEach((k) => {
+  const a = T[2] + 0.3 + (k - 1) * 0.9;
+  tl.to("#cur", { x: (k - 1) * 210, duration: 0.3 }, a); show("#m" + k, a + 0.1, 0.1);
+  tl.to("#ce" + (k - 1), { borderColor: "#34d399", duration: 0.2 }, a + 0.2);
+  show("#cv" + k, a + 0.2, 0.1); if (k > 1) hide("#cv" + (k - 1), a + 0.15, 0.1);
+});
+// L4 StopIteration, loop ends
+tl.to("#cur", { x: 3 * 210, duration: 0.3 }, T[3] + 0.4); show("#m4", T[3] + 0.8); pulse("#m4", T[3] + 1.0, 1.04);
+show("#term", T[3] + 2.4, 0.3); show("#o1", T[3] + 2.8, 0.1); pulse("#m4", T[3] + 3.8, 1.03);
+["#ed", "#cl", "#chb", "#itl", "#cur", "#term"].forEach((x) => hide(x, CL - 0.35, 0.3));
+window.__timelines["world"] = tl;
+</script>

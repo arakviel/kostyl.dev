@@ -1,0 +1,88 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+.mono { font-family: "JetBrains Mono", monospace; font-weight: 700; }
+.abs { position: absolute; }
+.card { position: absolute; border-radius: 18px; background: #0e1626; border: 3px solid #26365a; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+.lab { position: absolute; font-size: 34px; font-weight: 700; color: #9fb2cf; white-space: nowrap; }
+.o0 { opacity: 0; }
+.ar { position: absolute; height: 8px; background: currentColor; opacity: 0; }
+.ar.r::after { content: ""; position: absolute; right: -8px; top: -14px; border-left: 28px solid currentColor; border-top: 18px solid transparent; border-bottom: 18px solid transparent; }
+</style>
+<style>
+.vsw { position: absolute; border-radius: 14px; background: #1e1e1e; overflow: hidden; border: 2px solid #3a3a3a; box-shadow: 0 24px 60px rgba(0,0,0,0.55); }
+.vsb { position: absolute; left: 0; top: 0; right: 0; height: 48px; background: #2b2b2b; }
+.vsd { position: absolute; top: 15px; width: 16px; height: 16px; border-radius: 8px; }
+.vsT { position: absolute; left: 0; right: 0; top: 8px; text-align: center; font-size: 28px; color: #c8c8c8; }
+.vst { position: absolute; left: 0; top: 48px; height: 56px; padding: 0 28px; display: flex; align-items: center; font-family: "JetBrains Mono", monospace; font-weight: 500; font-size: 28px; color: #fff; background: #1e1e1e; border-top: 3px solid #3794ff; }
+.vsr { position: absolute; left: 0; right: 0; top: 48px; height: 56px; background: #252526; }
+.vsl { position: absolute; left: 0; height: 54px; display: flex; align-items: center; font-family: "JetBrains Mono", monospace; font-weight: 600; font-size: 36px; color: #d4d4d4; white-space: nowrap; }
+.vsl .n { display: inline-block; width: 64px; text-align: right; color: #b4b4b4; margin-right: 28px; font-weight: 500; }
+.vsl .ty, .vsx .ty { display: inline-block; overflow: hidden; white-space: nowrap; width: 0; vertical-align: bottom; }
+.vsterm { position: absolute; left: 0; right: 0; bottom: 0; border-top: 2px solid #3c3c3c; background: #1e1e1e; }
+.vsth { position: absolute; left: 24px; top: 8px; font-size: 28px; color: #e7e7e7; letter-spacing: 0.04em; }
+.vsx { position: absolute; left: 24px; height: 46px; display: flex; align-items: center; font-family: "JetBrains Mono", monospace; font-weight: 500; font-size: 32px; color: #cccccc; white-space: nowrap; opacity: 0; }
+</style>
+<style>
+.bk { position: absolute; top: 250px; width: 380px; height: 360px; border-radius: 20px; background: #0e1626; border: 4px solid #26365a; opacity: 0; }
+.bt { position: absolute; left: 24px; top: 16px; font-size: 36px; font-weight: 700; }
+.bc { position: absolute; left: 0; width: 380px; text-align: center; font-family: "JetBrains Mono", monospace; font-weight: 700; white-space: nowrap; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="b1" class="bk" style="left:100px;border-color:#fbbf24"><div class="bt" style="color:#fbbf24">input()</div>
+    <div class="bc" style="top:110px;font-size:44px;color:#ce9178">"3"</div><div class="bc" style="top:180px;font-size:44px;color:#ce9178">"4"</div><div class="bc" style="top:270px;font-size:34px;color:#9fb2cf">str</div></div>
+  <div id="b2" class="bk" style="left:560px;border-color:#22d3ee"><div class="bt" style="color:#22d3ee">float()</div>
+    <div class="bc" style="top:110px;font-size:50px;color:#b5cea8">3.0</div><div class="bc" style="top:180px;font-size:50px;color:#b5cea8">4.0</div><div class="bc" style="top:270px;font-size:34px;color:#9fb2cf">float</div></div>
+  <div id="b3" class="bk" style="left:1020px;border-color:#34d399"><div class="bt" style="color:#34d399">вираз</div>
+    <div class="bc" style="top:100px;font-size:28px;color:#d4d4d4">(a**2 + b**2) ** 0.5</div><div class="bc" style="top:200px;font-size:60px;color:#34d399">5.0</div></div>
+  <div id="b4" class="bk" style="left:1480px;border-color:#a78bfa"><div class="bt" style="color:#a78bfa">f-рядок</div>
+    <div class="bc" style="top:100px;font-size:34px;color:#d4d4d4">f"{c:.2f}"</div><div class="bc" style="top:200px;font-size:60px;color:#a78bfa">5.00</div></div>
+  <div id="a1" class="ar r" style="left:490px;top:420px;width:60px;color:#9fb2cf"></div>
+  <div id="a2" class="ar r" style="left:950px;top:420px;width:60px;color:#9fb2cf"></div>
+  <div id="a3" class="ar r" style="left:1410px;top:420px;width:60px;color:#9fb2cf"></div>
+  <div id="res" class="vsw" style="left:560px;top:710px;width:800px;height:210px;opacity:0">
+    <div class="vsb"><div class="vsT" style="text-align:left;left:24px">ТЕРМІНАЛ</div></div>
+    <div id="rr" class="vsx" style="top:90px;font-size:52px;color:#34d399;font-weight:700">Гіпотенуза: 5.00</div>
+  </div>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+const show = (sel, at, d = 0.3) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, at);
+const hide = (sel, at, d = 0.3) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+const pulse = (sel, at, sc = 1.1) => { tl.to(sel, { scale: sc, duration: 0.15 }, at); tl.to(sel, { scale: 1, duration: 0.3 }, at + 0.15); };
+
+const GOLD = "#d4af37";
+const hw = {
+  dimm: (p, w) => {
+    let s = `<svg width="${w}" viewBox="0 0 1000 210" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="1000" height="190" rx="8" fill="#1d6a47" stroke="#0f3d2a" stroke-width="4"/>`;
+    for (let i = 0; i < 8; i++) { const x = 45 + i * 118; s += `<rect id="${p}chip${i}" x="${x}" y="40" width="96" height="84" rx="6" fill="#0b0f14" stroke="#2a3340" stroke-width="3"/><rect x="${x + 12}" y="58" width="44" height="6" fill="#2a3340"/><rect x="${x + 12}" y="76" width="64" height="6" fill="#2a3340"/>`; }
+    for (let k = 0; k < 58; k++) { const x = 14 + k * 16.6; if (x > 400 && x < 450) continue; s += `<rect x="${x}" y="160" width="10" height="30" fill="${GOLD}"/>`; }
+    s += `<rect x="420" y="168" width="18" height="22" fill="#070b14"/><rect x="905" y="135" width="44" height="20" fill="#0b0f14" stroke="#2a3340" stroke-width="2"/></svg>`; return s;
+  },
+  ssd: (w) => {
+    let s = `<svg width="${w}" viewBox="0 0 1000 210" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="1000" height="210" rx="14" fill="#174d36" stroke="#0f3d2a" stroke-width="4"/>`;
+    for (let k = 0; k < 14; k++) s += `<rect x="6" y="${14 + k * 13.5}" width="34" height="8" fill="${GOLD}"/>`;
+    s += `<rect x="150" y="45" width="130" height="120" rx="8" fill="#0b0f14" stroke="#2a3340" stroke-width="3"/><rect x="330" y="45" width="250" height="120" rx="8" fill="#0b0f14" stroke="#2a3340" stroke-width="3"/><rect x="630" y="45" width="250" height="120" rx="8" fill="#0b0f14" stroke="#2a3340" stroke-width="3"/>`;
+    s += `<rect x="352" y="72" width="120" height="8" fill="#2a3340"/><rect x="652" y="72" width="120" height="8" fill="#2a3340"/><circle cx="948" cy="105" r="20" fill="#070b14" stroke="${GOLD}" stroke-width="5"/></svg>`; return s;
+  },
+  cpu: (w) => `<svg width="${w}" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sg${w}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e3e9f3"/><stop offset="1" stop-color="#8794ab"/></linearGradient></defs><rect x="8" y="8" width="284" height="284" rx="22" fill="#2c3b57" stroke="#4a5f86" stroke-width="4"/><rect x="44" y="44" width="212" height="212" rx="14" fill="url(#sg${w})" stroke="#e8eef7" stroke-opacity="0.5" stroke-width="3"/><text x="150" y="172" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="800" font-size="64" fill="#2b3a55">CPU</text><path d="M14 14 L44 14 L14 44 Z" fill="${GOLD}"/></svg>`,
+  monitor: (w) => `<svg width="${w}" viewBox="0 0 440 330" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="420" height="250" rx="18" fill="#1a2236" stroke="#3a4a6e" stroke-width="4"/><rect x="30" y="30" width="380" height="210" rx="8" fill="#050913"/><text x="52" y="150" font-family="JetBrains Mono, monospace" font-weight="800" font-size="72" fill="#34d399">Hello</text><rect x="190" y="260" width="60" height="42" fill="#2c3a5a"/><rect x="130" y="300" width="180" height="16" rx="8" fill="#2c3a5a"/></svg>`
+};
+const typeIn = (sel, n, at, dur) => tl.to(sel, { width: n + "ch", duration: dur, ease: "steps(" + n + ")" }, at);
+
+const T = [0.5, 2.78, 4.59, 7.42, 9.09], D = [1.63, 1.16, 2.18, 1.02, 2.23], CL = 11.7;
+// L1 recap starts; catheti 3 and 4
+tl.set("#b1", { opacity: 1 }, 0); pulse("#b1", 0.8, 1.04); pulse("#b1", 1.6, 1.04);
+// L2 input gives a string
+pulse("#b1", T[1] + 0.6, 1.04);
+// L3 conversion makes numbers
+show("#a1", T[2] + 0.1); show("#b2", T[2] + 0.3, 0.3); pulse("#b2", T[2] + 1.0, 1.04);
+// L4 the expression calculates
+show("#a2", T[3] + 0.05); show("#b3", T[3] + 0.1, 0.3); pulse("#b3", T[3] + 0.5, 1.04);
+// L5 f-string prints
+show("#a3", T[4] + 0.1); show("#b4", T[4] + 0.3, 0.3); show("#res", T[4] + 1.2, 0.3); show("#rr", T[4] + 1.6, 0.1); pulse("#rr", T[4] + 1.7, 1.05);
+hide("#res", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>
+
+</template>
