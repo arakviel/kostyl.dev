@@ -1,0 +1,206 @@
+{
+ "format": 1,
+ "python": "3.15.0rc2",
+ "implementation": "cpython",
+ "name": "main.py",
+ "code": "command = \"stop\"\nmatch command:\n    case \"go\":\n        print(\"їдемо\")\n    case \"stop\" | \"halt\":\n        print(\"зупиняємось\")\n    case _:\n        print(\"невідома команда\")\nprint(\"кінець\")\n",
+ "inputs": [],
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "heap": {},
+   "i": 0
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "command",
+       "ref": "4475013760"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4475013760": {
+     "type": "str",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "'stop'",
+     "refs": 1
+    }
+   },
+   "i": 1
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "command",
+       "ref": "4475013760"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4475013760": {
+     "type": "str",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "'stop'",
+     "refs": 1
+    }
+   },
+   "i": 2
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "command",
+       "ref": "4475013760"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4475013760": {
+     "type": "str",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "'stop'",
+     "refs": 1
+    }
+   },
+   "ask": "Який рядок виконається після цього збігу?",
+   "i": 3
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "command",
+       "ref": "4475013760"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4475013760": {
+     "type": "str",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "'stop'",
+     "refs": 1
+    }
+   },
+   "out": "зупиняємось\n",
+   "i": 4
+  },
+  {
+   "event": "line",
+   "line": 9,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "command",
+       "ref": "4475013760"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4475013760": {
+     "type": "str",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "'stop'",
+     "refs": 1
+    }
+   },
+   "out": "кінець\n",
+   "i": 5
+  },
+  {
+   "event": "return",
+   "line": 9,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "command",
+       "ref": "4475013760"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4394301912",
+   "heap": {
+    "4475013760": {
+     "type": "str",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "'stop'",
+     "refs": 1
+    },
+    "4394301912": {
+     "type": "NoneType",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "None",
+     "refs": 0
+    }
+   },
+   "i": 6
+  }
+ ],
+ "truncated": false,
+ "error": null
+}
