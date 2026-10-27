@@ -1,0 +1,56 @@
+<style>
+.tl6 { position: absolute; width: 120px; height: 120px; border-radius: 16px; background: #0e1626; border: 4px solid #26365a; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 800; font-size: 64px; opacity: 0; }
+.avd { position: absolute; width: 8px; background: currentColor; opacity: 0; }
+.avd::after { content: ""; position: absolute; left: -14px; bottom: -24px; border-top: 28px solid currentColor; border-left: 18px solid transparent; border-right: 18px solid transparent; }
+.cnt { position: absolute; font-size: 38px; font-weight: 700; opacity: 0; white-space: nowrap; }
+.chip6 { position: absolute; left: 0; width: 1920px; text-align: center; top: 790px; font-size: 64px; opacity: 0; font-family: "JetBrains Mono", monospace; font-weight: 700; color: #e8eef7; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+ <div id="all">
+  <div class="lab" style="left:140px;top:175px;font-size:38px">у коді</div>
+  <div class="lab" style="left:140px;top:465px;font-size:38px">у рядку (результат)</div>
+  <div id="sa"></div><div id="sb"></div><div id="sc"></div>
+ </div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+const $ = (id) => document.getElementById(id);
+const COL = { n: "#34d399", e: "#fb7185", s: "#9fb2cf", b: "#fbbf24" };
+const scenes = {
+  a: { src: [["A", "n", 684], ["\\", "s", 828], ["n", "s", 972], ["B", "n", 1116]], dst: [["A", "n", 684], ["↵", "e", 900], ["B", "n", 1116]], c1: "4 знаки", c2: "3 символи", chip: 'len("A\\nB")  →  3' },
+  b: { src: [["A", "n", 612], ["\\", "s", 756], ["\\", "s", 900], ["n", "n", 1044], ["B", "n", 1188]], dst: [["A", "n", 612], ["\\", "b", 828], ["n", "n", 1044], ["B", "n", 1188]], c1: "5 знаків", c2: "4 символи", chip: 'len("A\\\\nB")  →  4' },
+  c: { src: [["a", "n", 684], ["\\", "s", 828], ["t", "s", 972], ["b", "n", 1116]], dst: [["a", "n", 684], ["⇥", "e", 900], ["b", "n", 1116]], c1: "4 знаки", c2: "3 символи", chip: 'len("a\\tb")  →  3' },
+};
+for (const [p, s] of Object.entries(scenes)) {
+  const g = $("s" + p);
+  s.src.forEach(([t, c, x], i) => g.insertAdjacentHTML("beforeend", `<div id="${p}s${i}" class="tl6" style="left:${x}px;top:240px;color:${COL[c]}">${t}</div>`));
+  s.dst.forEach(([t, c, x], i) => g.insertAdjacentHTML("beforeend", `<div id="${p}d${i}" class="tl6" style="left:${x}px;top:540px;color:${COL[c]};border-color:${c === "n" ? "#26365a" : COL[c]}">${t}</div><div id="${p}r${i}" class="avd" style="left:${x + 56}px;top:372px;height:140px;color:#5a6c8c"></div>`));
+  g.insertAdjacentHTML("beforeend", `<div id="${p}c1" class="cnt" style="left:1390px;top:272px;color:#fbbf24">${s.c1}</div><div id="${p}c2" class="cnt" style="left:1390px;top:572px;color:#34d399">${s.c2}</div><div id="${p}h" class="chip6">${s.chip}</div>`);
+}
+const hl = (id, at) => tl.to("#" + id, { borderColor: "#fbbf24", duration: 0.25 }, at);
+// scene A: A\nB
+for (let i = 0; i < 4; i++) show("#as" + i, T[0] + 0.5 + i * 0.3, 0.2);
+hl("as1", T[0] + 2.6); hl("as2", T[0] + 3.6); pulse("#as1", T[0] + 2.6, 1.12); pulse("#as2", T[0] + 3.6, 1.12);
+show("#ac1", T[0] + 4.4);
+show("#ad0", T[1] + 0.3, 0.2); show("#ar0", T[1] + 0.3, 0.2);
+show("#ad1", T[1] + 0.7, 0.2); show("#ar1", T[1] + 0.7, 0.2); pulse("#ad1", T[1] + 0.9, 1.2);
+show("#ad2", T[1] + 1.2, 0.2); show("#ar2", T[1] + 1.2, 0.2); show("#ac2", T[1] + 1.8);
+show("#ah", T[2] + 0.6, 0.3); pulse("#ad0", T[2] + 1.6, 1.15); pulse("#ad1", T[2] + 2.3, 1.15); pulse("#ad2", T[2] + 3.0, 1.15); pulse("#ah", T[2] + 4.2, 1.06);
+// scene B: A\\nB
+hide("#sa", T[3] - 0.15, 0.2);
+for (let i = 0; i < 5; i++) show("#bs" + i, T[3] + 0.2 + i * 0.2, 0.2);
+hl("bs1", T[3] + 1.4); hl("bs2", T[3] + 1.8); pulse("#bs1", T[3] + 1.4, 1.12); pulse("#bs2", T[3] + 1.8, 1.12);
+show("#bc1", T[3] + 2.4);
+for (let i = 0; i < 4; i++) { show("#bd" + i, T[3] + 2.9 + i * 0.3, 0.2); show("#br" + i, T[3] + 2.9 + i * 0.3, 0.2); }
+show("#bc2", T[3] + 4.2); show("#bh", T[3] + 4.3, 0.3);
+// scene C: a\tb
+hide("#sb", T[4] - 0.15, 0.2);
+for (let i = 0; i < 4; i++) show("#cs" + i, T[4] + 0.1 + i * 0.15, 0.2);
+show("#cc1", T[4] + 0.7);
+for (let i = 0; i < 3; i++) { show("#cd" + i, T[4] + 1.0 + i * 0.25, 0.2); show("#cr" + i, T[4] + 1.0 + i * 0.25, 0.2); }
+show("#cc2", T[4] + 1.7); show("#ch", T[4] + 1.8, 0.3);
+hide("#all", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>

@@ -1,0 +1,201 @@
+{
+ "format": 1,
+ "python": "3.15.0rc2",
+ "implementation": "cpython",
+ "name": "main.py",
+ "code": "score = 82\nif score >= 90:\n    grade = \"A\"\nelif score >= 75:\n    grade = \"B\"\nelif score >= 60:\n    grade = \"C\"\nelse:\n    grade = \"F\"\nprint(grade)\n",
+ "inputs": [],
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "heap": {},
+   "i": 0
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "score",
+       "ref": "4356865832"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4356865832": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "82",
+     "refs": 1
+    }
+   },
+   "i": 1
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "score",
+       "ref": "4356865832"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4356865832": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "82",
+     "refs": 1
+    }
+   },
+   "ask": "Який рядок виконається після цієї перевірки?",
+   "i": 2
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "score",
+       "ref": "4356865832"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4356865832": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "82",
+     "refs": 1
+    }
+   },
+   "i": 3
+  },
+  {
+   "event": "line",
+   "line": 10,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "score",
+       "ref": "4356865832"
+      },
+      {
+       "name": "grade",
+       "ref": "4356957792"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4356865832": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "82",
+     "refs": 1
+    },
+    "4356957792": {
+     "type": "str",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "'B'",
+     "refs": 1
+    }
+   },
+   "out": "B\n",
+   "i": 4
+  },
+  {
+   "event": "return",
+   "line": 10,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "score",
+       "ref": "4356865832"
+      },
+      {
+       "name": "grade",
+       "ref": "4356957792"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4356536792",
+   "heap": {
+    "4356865832": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "82",
+     "refs": 1
+    },
+    "4356957792": {
+     "type": "str",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "'B'",
+     "refs": 1
+    },
+    "4356536792": {
+     "type": "NoneType",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "None",
+     "refs": 0
+    }
+   },
+   "i": 5
+  }
+ ],
+ "truncated": false,
+ "error": null
+}

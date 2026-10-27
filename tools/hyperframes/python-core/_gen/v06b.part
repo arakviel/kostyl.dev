@@ -1,0 +1,100 @@
+<style>
+.bxx { position: absolute; border-radius: 16px; background: #0e1626; border: 4px solid #26365a; display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: 700; opacity: 0; }
+.pill { position: absolute; top: 150px; height: 70px; border-radius: 35px; border: 4px solid #26365a; display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 700; color: #9fb2cf; opacity: 0; }
+.hxr { position: absolute; left: 30px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 32px; overflow: hidden; width: 0; white-space: nowrap; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="pl1" class="pill" style="left:470px;width:400px">компілятор</div>
+  <div id="pl2" class="pill" style="left:960px;width:440px">інтерпретатор</div>
+  <div id="cs" style="opacity:0">
+    <div id="ced" class="vsw" style="left:70px;top:260px;width:760px;height:340px">
+  <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">program</div></div>
+  <div class="vsr"></div><div class="vst">program</div>
+  <div id="cbar" style="position:absolute;left:0;width:760px;height:54px;top:112px;background:rgba(34,211,238,0.2);opacity:0"></div>
+  <div class="vsl" style="top:112px"><span class="n">1</span><span style="color:#dcdcaa">print</span><span style="color:#ffd700">(</span><span style="color:#b5cea8">2 + 3</span><span style="color:#ffd700">)</span></div><div class="vsl" style="top:170px"><span class="n">2</span><span style="color:#dcdcaa">print</span><span style="color:#ffd700">(</span><span style="color:#ce9178">"Hello"</span><span style="color:#ffd700">)</span></div><div class="vsl" style="top:228px"><span class="n">3</span><span style="color:#dcdcaa">print</span><span style="color:#ffd700">(</span><span style="color:#ce9178">"Готово"</span><span style="color:#ffd700">)</span></div>
+</div>
+    <div id="cbx" class="bxx" style="left:900px;top:335px;width:300px;height:130px;border-color:#22d3ee;color:#22d3ee">компілятор</div>
+    <div id="car1" class="ar r" style="left:835px;top:396px;width:55px;color:#22d3ee"></div>
+    <div id="car2" class="ar r" style="left:1210px;top:396px;width:60px;color:#fbbf24"></div>
+    <div id="cexe" class="card" style="left:1280px;top:260px;width:570px;height:340px;border-color:#fbbf24;opacity:0">
+      <div class="lab" style="left:28px;top:18px;font-size:30px;color:#fbbf24">нулі й одиниці (схематично)</div>
+      <div id="ch0" class="hxr" style="top:100px;color:#fbbf24">10111000 00000101 11101000</div>
+      <div id="ch1" class="hxr" style="top:170px;color:#fbbf24">01001000 10001101 00111101</div>
+      <div id="ch2" class="hxr" style="top:240px;color:#fbbf24">01001000 10001101 00110101</div>
+    </div>
+    <div id="cnote" class="lab" style="left:70px;top:625px;color:#fb7185;opacity:0;font-size:34px">вихідний текст більше не потрібен</div>
+    <div id="cterm" class="vsw" style="left:1280px;top:640px;width:570px;height:330px">
+  <div class="vsb"><div class="vsT" style="text-align:left;left:24px">ТЕРМІНАЛ</div></div>
+  <div id="cc" class="vsx" style="top:52px"><span id="ccy" class="ty">$ ./program</span></div><div id="co0" class="vsx" style="top:104px">5</div><div id="co1" class="vsx" style="top:156px">Hello</div><div id="co2" class="vsx" style="top:208px">Готово</div></div>
+  </div>
+  <div id="is" style="opacity:0">
+    <div id="ied" class="vsw" style="left:70px;top:260px;width:760px;height:340px">
+  <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">program</div></div>
+  <div class="vsr"></div><div class="vst">program</div>
+  <div id="ibar" style="position:absolute;left:0;width:760px;height:54px;top:112px;background:rgba(52,211,153,0.22);opacity:0"></div>
+  <div class="vsl" style="top:112px"><span class="n">1</span><span style="color:#dcdcaa">print</span><span style="color:#ffd700">(</span><span style="color:#b5cea8">2 + 3</span><span style="color:#ffd700">)</span></div><div class="vsl" style="top:170px"><span class="n">2</span><span style="color:#dcdcaa">print</span><span style="color:#ffd700">(</span><span style="color:#ce9178">"Hello"</span><span style="color:#ffd700">)</span></div><div class="vsl" style="top:228px"><span class="n">3</span><span style="color:#dcdcaa">print</span><span style="color:#ffd700">(</span><span style="color:#ce9178">"Готово"</span><span style="color:#ffd700">)</span></div>
+</div>
+    <div id="ibx" class="bxx" style="left:900px;top:335px;width:300px;height:130px;border-color:#34d399;color:#34d399">інтерпретатор</div>
+    <div id="iar1" class="ar r" style="left:835px;top:396px;width:55px;color:#34d399"></div>
+    <div id="iar2" class="ar r" style="left:1210px;top:396px;width:60px;color:#fbbf24"></div>
+    <div id="icard" class="card" style="left:1280px;top:260px;width:570px;height:340px;border-color:#fbbf24">
+      <div class="lab" style="left:28px;top:18px;font-size:30px;color:#fbbf24">нулі й одиниці (схематично)</div>
+      <div id="ih0" class="hxr" style="top:150px;color:#fbbf24">10111000 00000101 11101000</div>
+      <div id="ih1" class="hxr" style="top:150px;color:#fbbf24">01001000 10001101 00111101</div>
+      <div id="ih2" class="hxr" style="top:150px;color:#fbbf24">01001000 10001101 00110101</div>
+    </div>
+    <div id="inote" class="lab" style="left:70px;top:625px;color:#34d399;opacity:0;font-size:34px">щоразу під час запуску</div>
+    <div id="iterm" class="vsw" style="left:1280px;top:640px;width:570px;height:330px">
+  <div class="vsb"><div class="vsT" style="text-align:left;left:24px">ТЕРМІНАЛ</div></div>
+  <div id="ic" class="vsx" style="top:52px"><span id="icy" class="ty">$ interpreter program</span></div><div id="io0" class="vsx" style="top:104px">5</div><div id="io1" class="vsx" style="top:156px">Hello</div><div id="io2" class="vsx" style="top:208px">Готово</div></div>
+  </div>
+  <div id="cpu" class="card" style="left:900px;top:560px;width:300px;height:130px;border-color:#22d3ee;opacity:0"><div class="mono abs" style="left:0;width:300px;top:34px;text-align:center;font-size:56px;color:#22d3ee">CPU</div></div>
+  <div id="cmdl" class="lab" style="left:900px;top:710px;width:300px;text-align:center;color:#e8eef7;opacity:0">команди</div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+const barY = (k) => 112 + k * 58;
+// L1 pills
+tl.set("#cs", { opacity: 1 }, 0);
+show("#pl1", T[0] + 0.5); show("#pl2", T[0] + 0.9); pulse("#pl1", T[0] + 1.2, 1.06); pulse("#pl2", T[0] + 1.5, 1.06);
+// L2 compiler takes the whole file
+tl.to("#pl1", { borderColor: "#22d3ee", color: "#22d3ee", duration: 0.3 }, T[1] + 0.2);
+tl.set("#cbar", { height: 168 }, 0);
+show("#cbar", T[1] + 1.2, 0.3);
+show("#car1", T[1] + 1.6); show("#cbx", T[1] + 1.7); pulse("#cbx", T[1] + 2.1, 1.08);
+show("#car2", T[1] + 2.3); show("#cexe", T[1] + 2.4, 0.3);
+for (let k = 0; k < 3; k++) typeIn("#ch" + k, 26, T[1] + 2.8 + k * 0.5, 0.5);
+// L3 ready file; source not needed
+pulse("#cexe", T[2] + 0.3, 1.03);
+for (let k = 0; k < 3; k++) tl.to("#ch" + k, { color: "#e8eef7", duration: 0.2 }, T[2] + 1.6 + k * 0.2);
+tl.to("#ced", { opacity: 0.5, duration: 0.5 }, T[2] + 3.0); hide("#cbar", T[2] + 3.0, 0.3);
+show("#cnote", T[2] + 3.3); pulse("#cbx", T[2] + 4.1, 1.08); pulse("#cexe", T[2] + 4.9, 1.03); pulse("#cnote", T[2] + 5.5, 1.04);
+// L4 run it
+show("#cc", T[3] + 0.2, 0.05); typeIn("#ccy", 11, T[3] + 0.3, 0.6);
+for (let k = 0; k < 3; k++) show("#co" + k, T[3] + 1.3, 0.05);
+pulse("#cterm", T[3] + 1.5, 1.03);
+// L5 interpreter reads, translates, executes one line
+hide("#cs", T[4] - 0.4, 0.35);
+tl.to("#is", { opacity: 1, duration: 0.3 }, T[4] - 0.05);
+tl.to("#pl1", { borderColor: "#26365a", color: "#9fb2cf", duration: 0.2 }, T[4]);
+tl.to("#pl2", { borderColor: "#34d399", color: "#34d399", duration: 0.3 }, T[4] + 0.2);
+show("#iar1", T[4] + 0.8); show("#ibx", T[4] + 0.9);
+tl.set("#ibar", { height: 54 }, 0);
+show("#ibar", T[4] + 2.0, 0.2);
+show("#iar2", T[4] + 2.8); typeIn("#ih0", 26, T[4] + 3.0, 0.5);
+show("#ic", T[4] + 3.4, 0.05); typeIn("#icy", 21, T[4] + 3.5, 0.8);
+show("#io0", T[4] + 4.5, 0.1); pulse("#io0", T[4] + 4.5, 1.1);
+// L6 next lines, translated each time
+const mv = (k, a) => tl.to("#ibar", { y: k * 58, duration: 0.25 }, a);
+mv(1, T[5] + 0.3); tl.to("#ih0", { opacity: 0, duration: 0.15 }, T[5] + 0.8); tl.set("#ih1", { width: 0 }, 0); typeIn("#ih1", 26, T[5] + 1.0, 0.5); show("#io1", T[5] + 1.6, 0.1); pulse("#io1", T[5] + 1.6, 1.1);
+mv(2, T[5] + 2.4); tl.to("#ih1", { opacity: 0, duration: 0.15 }, T[5] + 2.9); typeIn("#ih2", 26, T[5] + 3.1, 0.5); show("#io2", T[5] + 3.6, 0.1); pulse("#io2", T[5] + 3.6, 1.1);
+show("#inote", T[5] + 4.0);
+// L7 both deliver commands to the CPU
+hide("#inote", T[6] - 0.1, 0.2);
+show("#cpu", T[6] + 0.2); show("#cmdl", T[6] + 0.6); pulse("#cpu", T[6] + 1.0, 1.08);
+pulse("#icard", T[6] + 1.4, 1.03);
+hide("#pl1", CL - 0.35, 0.3); hide("#pl2", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>

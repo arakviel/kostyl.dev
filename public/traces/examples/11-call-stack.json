@@ -1,0 +1,1138 @@
+{
+ "format": 1,
+ "python": "3.15.0rc2",
+ "implementation": "cpython",
+ "name": "main.py",
+ "code": "def square(n):\n    result = n * n\n    return result\n\ndef sum_of_squares(a, b):\n    return square(a) + square(b)\n\ntotal = sum_of_squares(3, 4)\nprint(total)\n",
+ "inputs": [
+  "abc"
+ ],
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "heap": {},
+   "i": 0
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "square",
+       "ref": "4470883424"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4470883424": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "square",
+     "signature": "(n)",
+     "refs": 1
+    }
+   },
+   "i": 1
+  },
+  {
+   "event": "line",
+   "line": 8,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "square",
+       "ref": "4470883424"
+      },
+      {
+       "name": "sum_of_squares",
+       "ref": "4470883776"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4470883424": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "square",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4470883776": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "sum_of_squares",
+     "signature": "(a, b)",
+     "refs": 1
+    }
+   },
+   "i": 2
+  },
+  {
+   "event": "call",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "square",
+       "ref": "4470883424"
+      },
+      {
+       "name": "sum_of_squares",
+       "ref": "4470883776"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "sum_of_squares",
+     "line": 5,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4385617224"
+      },
+      {
+       "name": "b",
+       "ref": "4385617256"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4470883424": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "square",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4470883776": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "sum_of_squares",
+     "signature": "(a, b)",
+     "refs": 1
+    },
+    "4385617224": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    },
+    "4385617256": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "4",
+     "refs": 1
+    }
+   },
+   "i": 3
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "square",
+       "ref": "4470883424"
+      },
+      {
+       "name": "sum_of_squares",
+       "ref": "4470883776"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "sum_of_squares",
+     "line": 6,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4385617224"
+      },
+      {
+       "name": "b",
+       "ref": "4385617256"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4470883424": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "square",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4470883776": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "sum_of_squares",
+     "signature": "(a, b)",
+     "refs": 1
+    },
+    "4385617224": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    },
+    "4385617256": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "4",
+     "refs": 1
+    }
+   },
+   "i": 4
+  },
+  {
+   "event": "call",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "square",
+       "ref": "4470883424"
+      },
+      {
+       "name": "sum_of_squares",
+       "ref": "4470883776"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "sum_of_squares",
+     "line": 6,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4385617224"
+      },
+      {
+       "name": "b",
+       "ref": "4385617256"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "square",
+     "line": 1,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4385617224"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4470883424": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "square",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4470883776": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "sum_of_squares",
+     "signature": "(a, b)",
+     "refs": 1
+    },
+    "4385617224": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 2
+    },
+    "4385617256": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "4",
+     "refs": 1
+    }
+   },
+   "i": 5
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "square",
+       "ref": "4470883424"
+      },
+      {
+       "name": "sum_of_squares",
+       "ref": "4470883776"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "sum_of_squares",
+     "line": 6,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4385617224"
+      },
+      {
+       "name": "b",
+       "ref": "4385617256"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "square",
+     "line": 2,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4385617224"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4470883424": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "square",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4470883776": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "sum_of_squares",
+     "signature": "(a, b)",
+     "refs": 1
+    },
+    "4385617224": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 2
+    },
+    "4385617256": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "4",
+     "refs": 1
+    }
+   },
+   "i": 6
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "square",
+       "ref": "4470883424"
+      },
+      {
+       "name": "sum_of_squares",
+       "ref": "4470883776"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "sum_of_squares",
+     "line": 6,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4385617224"
+      },
+      {
+       "name": "b",
+       "ref": "4385617256"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "square",
+     "line": 3,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4385617224"
+      },
+      {
+       "name": "result",
+       "ref": "4385617416"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4470883424": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "square",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4470883776": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "sum_of_squares",
+     "signature": "(a, b)",
+     "refs": 1
+    },
+    "4385617224": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 2
+    },
+    "4385617256": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "4",
+     "refs": 1
+    },
+    "4385617416": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "9",
+     "refs": 1
+    }
+   },
+   "i": 7
+  },
+  {
+   "event": "return",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "square",
+       "ref": "4470883424"
+      },
+      {
+       "name": "sum_of_squares",
+       "ref": "4470883776"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "sum_of_squares",
+     "line": 6,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4385617224"
+      },
+      {
+       "name": "b",
+       "ref": "4385617256"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "square",
+     "line": 3,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4385617224"
+      },
+      {
+       "name": "result",
+       "ref": "4385617416"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4385617416",
+   "heap": {
+    "4470883424": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "square",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4470883776": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "sum_of_squares",
+     "signature": "(a, b)",
+     "refs": 1
+    },
+    "4385617224": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 2
+    },
+    "4385617256": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "4",
+     "refs": 1
+    },
+    "4385617416": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "9",
+     "refs": 1
+    }
+   },
+   "i": 8
+  },
+  {
+   "event": "call",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "square",
+       "ref": "4470883424"
+      },
+      {
+       "name": "sum_of_squares",
+       "ref": "4470883776"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "sum_of_squares",
+     "line": 6,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4385617224"
+      },
+      {
+       "name": "b",
+       "ref": "4385617256"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "square",
+     "line": 1,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4385617256"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4470883424": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "square",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4470883776": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "sum_of_squares",
+     "signature": "(a, b)",
+     "refs": 1
+    },
+    "4385617224": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    },
+    "4385617256": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "4",
+     "refs": 2
+    }
+   },
+   "i": 9
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "square",
+       "ref": "4470883424"
+      },
+      {
+       "name": "sum_of_squares",
+       "ref": "4470883776"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "sum_of_squares",
+     "line": 6,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4385617224"
+      },
+      {
+       "name": "b",
+       "ref": "4385617256"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "square",
+     "line": 2,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4385617256"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4470883424": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "square",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4470883776": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "sum_of_squares",
+     "signature": "(a, b)",
+     "refs": 1
+    },
+    "4385617224": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    },
+    "4385617256": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "4",
+     "refs": 2
+    }
+   },
+   "i": 10
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "square",
+       "ref": "4470883424"
+      },
+      {
+       "name": "sum_of_squares",
+       "ref": "4470883776"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "sum_of_squares",
+     "line": 6,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4385617224"
+      },
+      {
+       "name": "b",
+       "ref": "4385617256"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "square",
+     "line": 3,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4385617256"
+      },
+      {
+       "name": "result",
+       "ref": "4385617640"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4470883424": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "square",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4470883776": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "sum_of_squares",
+     "signature": "(a, b)",
+     "refs": 1
+    },
+    "4385617224": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    },
+    "4385617256": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "4",
+     "refs": 2
+    },
+    "4385617640": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "16",
+     "refs": 1
+    }
+   },
+   "i": 11
+  },
+  {
+   "event": "return",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "square",
+       "ref": "4470883424"
+      },
+      {
+       "name": "sum_of_squares",
+       "ref": "4470883776"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "sum_of_squares",
+     "line": 6,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4385617224"
+      },
+      {
+       "name": "b",
+       "ref": "4385617256"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "square",
+     "line": 3,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4385617256"
+      },
+      {
+       "name": "result",
+       "ref": "4385617640"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4385617640",
+   "heap": {
+    "4470883424": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "square",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4470883776": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "sum_of_squares",
+     "signature": "(a, b)",
+     "refs": 1
+    },
+    "4385617224": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    },
+    "4385617256": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "4",
+     "refs": 2
+    },
+    "4385617640": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "16",
+     "refs": 1
+    }
+   },
+   "i": 12
+  },
+  {
+   "event": "return",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "square",
+       "ref": "4470883424"
+      },
+      {
+       "name": "sum_of_squares",
+       "ref": "4470883776"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "sum_of_squares",
+     "line": 6,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4385617224"
+      },
+      {
+       "name": "b",
+       "ref": "4385617256"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4385617928",
+   "heap": {
+    "4470883424": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "square",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4470883776": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "sum_of_squares",
+     "signature": "(a, b)",
+     "refs": 1
+    },
+    "4385617224": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    },
+    "4385617256": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "4",
+     "refs": 1
+    },
+    "4385617928": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "25",
+     "refs": 0
+    }
+   },
+   "i": 13
+  },
+  {
+   "event": "line",
+   "line": 9,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "square",
+       "ref": "4470883424"
+      },
+      {
+       "name": "sum_of_squares",
+       "ref": "4470883776"
+      },
+      {
+       "name": "total",
+       "ref": "4385617928"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4470883424": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "square",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4470883776": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "sum_of_squares",
+     "signature": "(a, b)",
+     "refs": 1
+    },
+    "4385617928": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "25",
+     "refs": 1
+    }
+   },
+   "out": "25\n",
+   "i": 14
+  },
+  {
+   "event": "return",
+   "line": 9,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "square",
+       "ref": "4470883424"
+      },
+      {
+       "name": "sum_of_squares",
+       "ref": "4470883776"
+      },
+      {
+       "name": "total",
+       "ref": "4385617928"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4385290712",
+   "heap": {
+    "4470883424": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "square",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4470883776": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "sum_of_squares",
+     "signature": "(a, b)",
+     "refs": 1
+    },
+    "4385617928": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "25",
+     "refs": 1
+    },
+    "4385290712": {
+     "type": "NoneType",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "None",
+     "refs": 0
+    }
+   },
+   "i": 15
+  }
+ ],
+ "truncated": false,
+ "error": null
+}

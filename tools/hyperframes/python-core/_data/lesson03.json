@@ -1,0 +1,37 @@
+{
+ "python": "3.15.0rc2",
+ "globals": {
+  "x": "10",
+  "y": "10"
+ },
+ "same_id": [
+  4387747368,
+  4387747368,
+  true
+ ],
+ "rebind": {
+  "id5": 4387747208,
+  "id6": 4387747240,
+  "ne": true
+ },
+ "refcount": {
+  "a": 1,
+  "a_b": 2,
+  "after_del_b": 1
+ },
+ "is_eq": {
+  "p==q": true,
+  "p is q": false
+ },
+ "cache": {
+  "-5": true,
+  "-6": false,
+  "256": true,
+  "257": true,
+  "1024": true,
+  "1025": false
+ },
+ "tuple_swap": null,
+ "dis_swap": "  0           RESUME                   0\n\n  1           LOAD_NAME                0 (b)\n              LOAD_NAME                1 (a)\n              SWAP                     2\n              STORE_NAME               1 (a)\n              STORE_NAME               0 (b)\n              LOAD_COMMON_CONSTANT     7 (None)\n              RETURN_VALUE\n",
+ "dis_assign": "  0           RESUME                   0\n\n  1           LOAD_NAME                0 (x)\n              LOAD_SMALL_INT           1\n              BINARY_OP                0 (+)\n              STORE_NAME               1 (y)\n              LOAD_COMMON_CONSTANT     7 (None)\n              RETURN_VALUE\n"
+}

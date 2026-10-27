@@ -1,0 +1,217 @@
+{
+ "format": 1,
+ "python": "3.15.0rc2",
+ "implementation": "cpython",
+ "name": "main.py",
+ "code": "count = 100_000\nbefore = id(count)\ncount = count + 1\nprint(before == id(count))\nprint(count)\n",
+ "inputs": [],
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "heap": {},
+   "i": 0
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "count",
+       "ref": "4409389104"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4409389104": {
+     "type": "int",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "100000",
+     "refs": 1
+    }
+   },
+   "i": 1
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "count",
+       "ref": "4409389104"
+      },
+      {
+       "name": "before",
+       "ref": "4409391344"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4409389104": {
+     "type": "int",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "100000",
+     "refs": 1
+    },
+    "4409391344": {
+     "type": "int",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "4409389104",
+     "refs": 1
+    }
+   },
+   "ask": "Чи зміниться сам об'єкт 100000?",
+   "i": 2
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "count",
+       "ref": "4409388432"
+      },
+      {
+       "name": "before",
+       "ref": "4409391344"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4409388432": {
+     "type": "int",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "100001",
+     "refs": 1
+    },
+    "4409391344": {
+     "type": "int",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "4409389104",
+     "refs": 1
+    }
+   },
+   "out": "False\n",
+   "i": 3
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "count",
+       "ref": "4409388432"
+      },
+      {
+       "name": "before",
+       "ref": "4409391344"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4409388432": {
+     "type": "int",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "100001",
+     "refs": 1
+    },
+    "4409391344": {
+     "type": "int",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "4409389104",
+     "refs": 1
+    }
+   },
+   "out": "100001\n",
+   "i": 4
+  },
+  {
+   "event": "return",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "count",
+       "ref": "4409388432"
+      },
+      {
+       "name": "before",
+       "ref": "4409391344"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4324538840",
+   "heap": {
+    "4409388432": {
+     "type": "int",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "100001",
+     "refs": 1
+    },
+    "4409391344": {
+     "type": "int",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "4409389104",
+     "refs": 1
+    },
+    "4324538840": {
+     "type": "NoneType",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "None",
+     "refs": 0
+    }
+   },
+   "i": 5
+  }
+ ],
+ "truncated": false,
+ "error": null
+}

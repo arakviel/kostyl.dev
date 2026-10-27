@@ -1,0 +1,40 @@
+<style>
+.cd8 { position: absolute; width: 820px; height: 330px; border-radius: 20px; background: #0e1626; border: 4px solid #26365a; opacity: 0; }
+.ct { position: absolute; left: 28px; top: 20px; font-size: 38px; font-weight: 700; }
+.cb { position: absolute; opacity: 0; }
+.k8 { position: absolute; top: 140px; width: 110px; height: 110px; border-radius: 14px; background: #0b1322; border: 4px solid #26365a; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 800; font-size: 62px; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+ <div id="all">
+  <div id="c1" class="cd8" style="left:100px;top:240px;border-color:#22d3ee"><div class="ct" style="color:#22d3ee">Виклик функції</div>
+    <div id="c1a" class="cb mono" style="left:0;width:820px;top:120px;text-align:center;font-size:56px;white-space:nowrap"><span style="color:#dcdcaa">print</span><span style="color:#ffd700">(</span><span style="color:#ce9178">"Hi"</span><span style="color:#ffd700">)</span></div>
+    <div id="c1b" class="cb mono" style="left:0;width:820px;top:220px;text-align:center;font-size:56px;color:#9fb2cf">→ None</div></div>
+  <div id="c2" class="cd8" style="left:1000px;top:240px;border-color:#fbbf24"><div class="ct" style="color:#fbbf24">Аргументи, sep, end</div>
+    <div id="c2a" class="cb mono" style="left:0;width:820px;top:120px;text-align:center;font-size:44px;white-space:nowrap"><span style="color:#dcdcaa">print</span>(<span style="color:#ce9178">"a"</span>, <span style="color:#ce9178">"b"</span>, <span style="color:#9cdcfe">sep</span>=<span style="color:#ce9178">"-"</span>)</div>
+    <div id="c2b" class="cb mono" style="left:0;width:820px;top:220px;text-align:center;font-size:60px;color:#34d399">a-b</div></div>
+  <div id="c3" class="cd8" style="left:100px;top:620px;border-color:#34d399"><div class="ct" style="color:#34d399">stdout — потік символів</div>
+    <div id="c3a" class="cb" style="left:0;top:0;width:820px;height:330px"><div class="k8" style="left:230px;color:#34d399">H</div><div class="k8" style="left:360px;color:#34d399">i</div><div class="k8" style="left:490px;color:#fb7185;border-color:#fb7185">↵</div></div>
+    <div id="c3b" class="cb lab" style="left:0;width:820px;text-align:center;top:270px;color:#fb7185;font-size:34px">↵ — один символ</div></div>
+  <div id="c4" class="cd8" style="left:1000px;top:620px;border-color:#fb7185"><div class="ct" style="color:#fb7185">Помилка: читай з кінця</div>
+    <div id="c4a" class="cb mono" style="left:30px;top:120px;font-size:32px;color:#9fb2cf;white-space:pre">  File "e2.py", line 1
+    prnt("Hello")</div>
+    <div id="c4b" class="cb mono" style="left:30px;top:220px;font-size:32px;color:#f14c4c;font-weight:700;white-space:pre">NameError: name 'prnt' ...</div>
+    <div id="c4c" class="cb" style="left:640px;top:222px;font-size:50px;color:#fbbf24">↑</div></div>
+ </div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+tl.set(["#c1", "#c2", "#c3", "#c4"], { opacity: 1 }, 0);
+pulse("#c1", 1.0, 1.04); pulse("#c2", 1.6, 1.04); pulse("#c3", 2.2, 1.04); pulse("#c4", 2.8, 1.04);
+// L2 print call
+show("#c1a", T[1] + 0.8); show("#c1b", T[1] + 2.6); pulse("#c1", T[1] + 2.7, 1.03); pulse("#c1a", T[1] + 3.4, 1.06); pulse("#c1b", T[1] + 4.2, 1.1); pulse("#c1", T[1] + 5.0, 1.03);
+// L3 arguments
+show("#c2a", T[2] + 0.8); show("#c2b", T[2] + 3.0); pulse("#c2", T[2] + 3.1, 1.03);
+// L4 stdout
+show("#c3a", T[3] + 0.8); show("#c3b", T[3] + 3.0); pulse("#c3", T[3] + 3.1, 1.03);
+// L5 errors
+show("#c4a", T[4] + 0.6); show("#c4b", T[4] + 1.8); show("#c4c", T[4] + 2.6); pulse("#c4", T[4] + 2.8, 1.03);
+window.__timelines["world"] = tl;
+</script>

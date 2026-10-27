@@ -1,0 +1,266 @@
+{
+ "format": 1,
+ "python": "3.15.0rc2",
+ "implementation": "cpython",
+ "name": "main.py",
+ "code": "name = \"\"\nshown = name or \"Гість\"\ncount = 0\nratio = count and 10 / count\nprint(shown, ratio)\n",
+ "inputs": [],
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "heap": {},
+   "i": 0
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "name",
+       "ref": "4393822240"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4393822240": {
+     "type": "str",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "''",
+     "refs": 1
+    }
+   },
+   "ask": "Який об'єкт опиниться в shown?",
+   "i": 1
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "name",
+       "ref": "4393822240"
+      },
+      {
+       "name": "shown",
+       "ref": "4480083056"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4393822240": {
+     "type": "str",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "''",
+     "refs": 1
+    },
+    "4480083056": {
+     "type": "str",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "'Гість'",
+     "refs": 1
+    }
+   },
+   "i": 2
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "name",
+       "ref": "4393822240"
+      },
+      {
+       "name": "shown",
+       "ref": "4480083056"
+      },
+      {
+       "name": "count",
+       "ref": "4393776360"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4393822240": {
+     "type": "str",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "''",
+     "refs": 1
+    },
+    "4480083056": {
+     "type": "str",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "'Гість'",
+     "refs": 1
+    },
+    "4393776360": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "0",
+     "refs": 1
+    }
+   },
+   "ask": "Чи виникне ділення на нуль?",
+   "i": 3
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "name",
+       "ref": "4393822240"
+      },
+      {
+       "name": "shown",
+       "ref": "4480083056"
+      },
+      {
+       "name": "count",
+       "ref": "4393776360"
+      },
+      {
+       "name": "ratio",
+       "ref": "4393776360"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4393822240": {
+     "type": "str",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "''",
+     "refs": 1
+    },
+    "4480083056": {
+     "type": "str",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "'Гість'",
+     "refs": 1
+    },
+    "4393776360": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "0",
+     "refs": 2
+    }
+   },
+   "out": "Гість 0\n",
+   "i": 4
+  },
+  {
+   "event": "return",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "name",
+       "ref": "4393822240"
+      },
+      {
+       "name": "shown",
+       "ref": "4480083056"
+      },
+      {
+       "name": "count",
+       "ref": "4393776360"
+      },
+      {
+       "name": "ratio",
+       "ref": "4393776360"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4393449944",
+   "heap": {
+    "4393822240": {
+     "type": "str",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "''",
+     "refs": 1
+    },
+    "4480083056": {
+     "type": "str",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "'Гість'",
+     "refs": 1
+    },
+    "4393776360": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "0",
+     "refs": 2
+    },
+    "4393449944": {
+     "type": "NoneType",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "None",
+     "refs": 0
+    }
+   },
+   "i": 5
+  }
+ ],
+ "truncated": false,
+ "error": null
+}

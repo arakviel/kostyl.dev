@@ -1,0 +1,86 @@
+<style>
+#win { position: absolute; left: 40px; top: 40px; width: 1840px; height: 1000px; border-radius: 16px; background: #1e1e1e; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.6); font-family: "Inter", sans-serif; }
+#tb { position: absolute; left: 0; top: 0; width: 1840px; height: 56px; background: #2b2b2b; }
+.tl3 { position: absolute; top: 19px; width: 18px; height: 18px; border-radius: 9px; }
+#ttl { position: absolute; left: 0; width: 1840px; top: 10px; text-align: center; font-size: 28px; color: #c8c8c8; }
+#act { position: absolute; left: 0; top: 56px; width: 70px; height: 944px; background: #333333; }
+.ai { position: absolute; left: 20px; width: 30px; height: 30px; border-radius: 6px; border: 3px solid #858585; }
+#side { position: absolute; left: 70px; top: 56px; width: 430px; height: 944px; background: #252526; }
+.sh { position: absolute; left: 22px; top: 22px; font-size: 28px; color: #bbbbbb; letter-spacing: 0.08em; }
+.tr { position: absolute; left: 0; width: 430px; height: 46px; display: flex; align-items: center; font-size: 30px; color: #cccccc; }
+#tabs { position: absolute; left: 500px; top: 56px; width: 1340px; height: 64px; background: #252526; }
+.tab { position: absolute; top: 0; height: 64px; display: flex; align-items: center; padding: 0 28px; font-size: 28px; color: #8c8c8c; background: #2d2d2d; }
+.tab.act { background: #1e1e1e; color: #ffffff; border-top: 3px solid #3794ff; }
+.cl { position: absolute; left: 600px; top: 150px; font-family: "JetBrains Mono", monospace; font-weight: 600; font-size: 44px; color: #d4d4d4; white-space: nowrap; }
+.gut { position: absolute; left: 520px; top: 150px; width: 60px; text-align: right; font-family: "JetBrains Mono", monospace; font-size: 40px; color: #858585; }
+#term { position: absolute; left: 500px; top: 440px; width: 1340px; height: 560px; background: #1e1e1e; border-top: 2px solid #3c3c3c; }
+#tth { position: absolute; left: 24px; top: 14px; font-size: 28px; color: #e7e7e7; letter-spacing: 0.04em; border-bottom: 2px solid #e7e7e7; padding-bottom: 6px; }
+.pg { position: absolute; left: 24px; top: 72px; width: 1360px; height: 470px; opacity: 0; }
+.tx { position: absolute; left: 0; height: 44px; display: flex; align-items: center; font-family: "JetBrains Mono", monospace; font-weight: 500; font-size: 32px; color: #cccccc; white-space: nowrap; opacity: 0; }
+.tx .pr { color: #4ec9b0; margin-right: 0; }
+.tx .ty { display: inline-block; overflow: hidden; white-space: nowrap; width: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+ <div id="win">
+  <div id="tb"><span class="tl3" style="left:24px;background:#ff5f57"></span><span class="tl3" style="left:56px;background:#febc2e"></span><span class="tl3" style="left:88px;background:#28c840"></span><div id="ttl">hello.py — lesson-00</div></div>
+  <div id="act"><span class="ai" style="top:24px"></span><span class="ai" style="top:90px"></span><span class="ai" style="top:156px"></span></div>
+  <div id="side">
+    <div class="sh">ПРОВІДНИК</div>
+    <div class="tr" style="top:80px;padding-left:22px">▾ LESSON-00</div>
+    <div id="tpy" class="tr mono" style="top:130px;padding-left:56px;font-weight:500;color:#e2c08d">hello.py</div>
+    <div id="tmain" class="tr mono" style="top:176px;padding-left:56px;font-weight:500;color:#e2c08d">main.py</div>
+    <div id="tpc" class="tr" style="top:222px;padding-left:36px;opacity:0;color:#cccccc">▾ __pycache__</div>
+    <div id="tpyc" class="tr mono" style="top:268px;padding-left:64px;font-weight:500;color:#9cdcfe;opacity:0;font-size:28px">hello.cpython-315.pyc</div>
+  </div>
+  <div id="tabs"><div id="tab1" class="tab act mono" style="left:0;font-weight:500">hello.py</div><div id="tab2" class="tab mono" style="left:190px;font-weight:500">main.py</div></div>
+  <div id="code1"><div class="gut">1</div><div class="cl"><span style="color:#dcdcaa">print</span><span style="color:#ffd700">(</span><span style="color:#ce9178">"Hello"</span><span style="color:#ffd700">)</span></div></div>
+  <div id="code2" style="opacity:0"><div class="gut">1</div><div class="cl"><span style="color:#c586c0">import</span> <span style="color:#4ec9b0">hello</span></div></div>
+  <div id="term"><div id="tth">ТЕРМІНАЛ</div>
+    <div id="pgA" class="pg"></div><div id="pgB" class="pg"></div><div id="pgC" class="pg"></div>
+  </div>
+ </div>
+</div>
+<script>
+/*PRE*/
+// build terminal lines: [page, row, prompt, text, kind(cmd|out), typeStart, showStart]
+const PR = "lesson-00 % ", RP = ">>> ";
+const L = [
+  ["pgA", 0, PR, "python3 --version", "cmd", 1.0],
+  ["pgA", 1, "", "Python 3.15.0rc2", "out", 2.3],
+  ["pgA", 2, PR, "python3", "cmd", 3.8],
+  ["pgA", 3, RP, "2 + 3", "cmd", 4.5],
+  ["pgA", 4, "", "5", "out", 5.1],
+  ["pgA", 5, RP, 'print("Hello")', "cmd", 5.4],
+  ["pgA", 6, "", "Hello", "out", 6.2],
+  ["pgA", 7, RP, "exit()", "cmd", 6.4],
+  ["pgB", 0, PR, "python3 hello.py", "cmd", 7.8],
+  ["pgB", 1, "", "Hello", "out", 8.8],
+  ["pgC", 0, PR, "python3 main.py", "cmd", 10.8],
+  ["pgC", 1, "", "Hello", "out", 11.8],
+  ["pgC", 2, PR, "ls __pycache__", "cmd", 13.4],
+  ["pgC", 3, "", "hello.cpython-315.pyc", "out", 14.6],
+];
+L.forEach(([pg, row, pr, text, kind, at], i) => {
+  const color = pr === RP ? "#3794ff" : "#4ec9b0";
+  const col = kind === "out" ? "#cccccc" : "#cccccc";
+  document.getElementById(pg).insertAdjacentHTML("beforeend",
+    `<div id="x${i}" class="tx" style="top:${row * 50}px"><span style="color:${color}">${pr.replace(/ /g, "&nbsp;")}</span><span id="y${i}" class="ty" style="color:${col}">${text.replace(/ /g, "&nbsp;")}</span></div>`);
+  tl.to("#x" + i, { opacity: 1, duration: 0.05 }, at);
+  if (kind === "cmd") tl.to("#y" + i, { width: text.length + "ch", duration: Math.max(0.5, text.length * 0.05), ease: "steps(" + text.length + ")" }, at + 0.1);
+  else tl.set("#y" + i, { width: "auto" }, at);
+});
+tl.set("#pgA", { opacity: 1 }, 0);
+// pages
+hide("#pgA", 7.3, 0.2); tl.set("#pgB", { opacity: 1 }, 7.45);
+hide("#pgB", 10.2, 0.2); tl.set("#pgC", { opacity: 1 }, 10.55);
+// tab switch to main.py
+tl.set("#tab1", { className: "tab mono" }, 10.5); tl.set("#tab2", { className: "tab act mono" }, 10.5);
+hide("#code1", 10.5, 0.1); show("#code2", 10.55, 0.1);
+tl.set("#ttl", { innerText: "main.py — lesson-00" }, 10.5);
+// __pycache__ appears
+show("#tpc", 12.4, 0.3); show("#tpyc", 12.8, 0.3); tl.to("#tpc", { backgroundColor: "#37373d", duration: 0.3 }, 12.4);
+tl.to("#tpyc", { backgroundColor: "#094771", duration: 0.3 }, 14.7);
+pulse("#tpyc", 14.7, 1.0);
+hide("#win", 16.2, 0.3);
+window.__timelines["world"] = tl;
+</script>

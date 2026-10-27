@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """usage: make_index.py <project-id> <duration-s> '<vo json: [[start, dur], ...]>' '<sfx json: [[name, start, dur], ...]>'
 Writes index.html for a project: world + lines scenes, ambient bed (one element, fades), VO l1..ln, SFX."""
-import json, sys
+import json, os, sys
 pid, dur, vo, sfx = sys.argv[1], float(sys.argv[2]), json.loads(sys.argv[3]), json.loads(sys.argv[4])
 a = "".join(f'      <audio id="vo{i+1}" src="assets/vo/l{i+1}.wav" data-start="{s}" data-duration="{d}" data-track-index="4" data-volume="1"></audio>\n' for i, (s, d) in enumerate(vo))
 a += "".join(f'      <audio id="sfx{i+1}" src="assets/sfx/{n}.mp3" data-start="{s}" data-duration="{d}" data-track-index="5" data-volume="0.5"></audio>\n' for i, (n, s, d) in enumerate(sfx))
@@ -30,5 +30,5 @@ html = f'''<!doctype html>
   </body>
 </html>
 '''
-open(f"/Users/arakviel/Work/kostyl.dev/tools/hyperframes/cnn-image-classification/{pid}/index.html", "w").write(html)
+open(f"/Users/arakviel/Work/kostyl.dev/tools/hyperframes/{os.environ.get('HF_MODULE','cnn-image-classification')}/{pid}/index.html", "w").write(html)
 print("index.html written for", pid)

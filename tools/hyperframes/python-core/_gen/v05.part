@@ -1,0 +1,35 @@
+<style>
+.hx { position: absolute; left: 24px; font-size: 34px; color: #34d399; opacity: 0; white-space: nowrap; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="kl" class="lab" style="left:1040px;top:240px;opacity:0">команди процесора: 0 і 1 (схематично)</div>
+  <div id="code" class="card" style="left:90px;top:340px;width:600px;height:260px;opacity:0"><div class="lab" style="left:28px;top:20px;font-size:32px">hello.py</div><div class="mono abs" style="left:0;width:600px;top:120px;text-align:center;font-size:58px;color:#22d3ee">print("Hello")</div></div>
+  <div id="tr" class="card" style="left:780px;top:400px;width:260px;height:140px;border-color:#22d3ee;opacity:0"><div class="abs" style="left:0;width:260px;top:46px;text-align:center;font-size:34px;font-weight:800;color:#22d3ee">перекладач</div></div>
+  <div id="q" class="mono abs" style="left:740px;top:300px;width:340px;text-align:center;font-size:130px;color:#fbbf24;opacity:0">?</div>
+  <div id="ar1" class="ar r" style="left:700px;top:468px;width:70px;color:#22d3ee"></div>
+  <div id="ar2" class="ar r" style="left:1050px;top:468px;width:70px;color:#22d3ee"></div>
+  <div id="hxc" class="card" style="left:1130px;top:300px;width:700px;height:500px">
+    <div id="h0" class="hx mono" style="top:30px">10111000 00000101 00000000</div>
+    <div id="h1" class="hx mono" style="top:110px">10000011 11000000 00000011</div>
+    <div id="h2" class="hx mono" style="top:190px">00111011 01000101 11111000</div>
+    <div id="h3" class="hx mono" style="top:270px">10001011 01010101 11111100</div>
+    <div id="h4" class="hx mono" style="top:350px">11000111 01000101 11110100</div>
+    <div id="h5" class="hx mono" style="top:430px">11101000 00111100 00000000</div>
+  </div>
+  <div id="bad" class="abs" style="left:90px;top:720px;width:1000px;font-size:48px;font-weight:700;color:#fb7185;opacity:0">вручну: довго й ризиковано</div>
+  <div id="one" class="abs" style="left:90px;top:660px;width:700px;font-size:44px;font-weight:700;color:#34d399;opacity:0">один рядок → багато команд</div>
+</div>
+<script>
+/*PRE*/
+tl.set("#h0", { opacity: 1 }, 0); tl.set("#kl", { opacity: 1 }, 0);
+// L1 0.5-2.78: CPU understands only numeric commands
+for (let i = 1; i < 6; i++) show("#h" + i, 1.0 + i * 0.25, 0.2);
+// L2 3.43-6.03: manual writing
+show("#bad", 4.2); pulse("#bad", 5.0, 1.04);
+// L3 6.68-12.2: high level language + translator
+hide("#bad", 6.6); show("#code", 7.0); show("#q", 7.6); pulse("#q", 8.0, 1.2);
+hide("#q", 8.9); show("#tr", 9.0); show("#ar1", 9.2); show("#ar2", 9.5); pulse("#tr", 10.0, 1.08);
+show("#one", 10.6);
+for (let i = 0; i < 6; i++) tl.to("#h" + i, { color: "#22d3ee", duration: 0.2 }, 10.9 + i * 0.12);
+window.__timelines["world"] = tl;
+</script>

@@ -1,0 +1,51 @@
+<style>
+.nchip { position: absolute; width: 460px; height: 130px; border-radius: 18px; background: #1e1e1e; border: 4px solid #3a3a3a; opacity: 0; }
+.nchip .l { position: absolute; left: 24px; top: 10px; font-size: 30px; font-weight: 700; }
+.nchip .c { position: absolute; left: 24px; top: 48px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 52px; color: #b5cea8; white-space: nowrap; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="pq"></div>
+  <div id="d" class="nchip" style="left:140px;top:340px;border-color:#22d3ee"><div class="l" style="color:#22d3ee">десяткова</div><div class="c">42</div></div>
+  <div id="b" class="nchip" style="left:1320px;top:340px;border-color:#a78bfa"><div class="l" style="color:#a78bfa">двійкова</div><div class="c">0b101010</div></div>
+  <div id="o" class="nchip" style="left:140px;top:580px;border-color:#fbbf24"><div class="l" style="color:#fbbf24">вісімкова</div><div class="c">0o52</div></div>
+  <div id="h" class="nchip" style="left:1320px;top:580px;border-color:#fb7185"><div class="l" style="color:#fb7185">шістнадцяткова</div><div class="c">0x2a</div></div>
+  <div id="ad" class="ar r" style="left:620px;top:402px;width:130px;color:#22d3ee"></div>
+  <div id="ab" class="ar l" style="left:1170px;top:402px;width:130px;color:#a78bfa"></div>
+  <div id="ao" class="ar r" style="left:620px;top:642px;width:130px;color:#fbbf24"></div>
+  <div id="ah" class="ar l" style="left:1170px;top:642px;width:130px;color:#fb7185"></div>
+  <div id="eq" class="mono abs" style="left:0;width:1920px;text-align:center;top:830px;font-size:52px;color:#e8eef7;opacity:0;white-space:nowrap"><span style="color:#b5cea8">0b101010 == 0o52 == 0x2a == 42</span>  <span style="color:#9fb2cf">→</span>  <span style="color:#34d399">True</span></div>
+  <div id="un" class="mono abs" style="left:0;width:1920px;text-align:center;top:830px;font-size:56px;color:#e8eef7;opacity:0;white-space:nowrap"><span style="color:#b5cea8">1_000_000</span>  <span style="color:#9fb2cf">→</span>  <span style="color:#34d399">1000000</span></div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+const $ = (id) => document.getElementById(id);
+const IDV = "4380162600";
+// object plaque: type / id / value
+const PQ = (p, left, top, w, h, type, val, vcol, idv) => `<div id="${p}" class="card" style="left:${left}px;top:${top}px;width:${w}px;height:${h}px;border-color:#34d399;opacity:0">
+  <div id="${p}t" class="abs" style="left:28px;top:20px;width:${w - 56}px;height:${h * 0.22}px;border:3px solid transparent;border-radius:12px;display:flex;align-items:center;gap:20px;padding:0 14px"><span class="lab" style="position:static;font-size:30px">тип</span><span class="mono" style="font-size:${Math.round(h * 0.14)}px;color:#22d3ee">${type}</span></div>
+  <div id="${p}v" class="abs" style="left:28px;top:${h * 0.28}px;width:${w - 56}px;height:${h * 0.38}px;border:3px solid transparent;border-radius:12px;display:flex;align-items:center;gap:20px;padding:0 14px"><span class="lab" style="position:static;font-size:30px">значення</span><span class="mono" style="font-size:${Math.round(h * 0.26)}px;color:${vcol}">${val}</span></div>
+  <div id="${p}i" class="abs" style="left:28px;top:${h * 0.72}px;width:${w - 56}px;height:${h * 0.2}px;border:3px solid transparent;border-radius:12px;display:flex;align-items:center;gap:20px;padding:0 14px"><span class="lab" style="position:static;font-size:30px">id</span><span class="mono" style="font-size:${Math.round(h * 0.09)}px;color:#fbbf24">${idv || IDV}</span></div></div>`;
+const hf = (sel, col, at) => tl.to(sel, { borderColor: col, duration: 0.25 }, at);
+const uf = (sel, at) => tl.to(sel, { borderColor: "transparent", duration: 0.25 }, at);
+
+$("pq").innerHTML = PQ("pl", 760, 330, 400, 380, "int", "42", "#34d399");
+tl.set("#d", { opacity: 1 }, 0);
+// L1 one number, several notations
+show("#pl", T[0] + 0.4, 0.4); show("#ad", T[0] + 1.0); pulse("#d", T[0] + 1.4, 1.05);
+// L2 decimal
+pulse("#d", T[1] + 0.3, 1.08);
+// L3 binary
+show("#b", T[2] + 0.4, 0.3); show("#ab", T[2] + 0.9); pulse("#b", T[2] + 1.2, 1.06);
+// L4 octal, hex
+show("#o", T[3] + 0.5, 0.3); show("#ao", T[3] + 1.0); pulse("#o", T[3] + 1.3, 1.06);
+show("#h", T[3] + 3.8, 0.3); show("#ah", T[3] + 4.3); pulse("#h", T[3] + 4.6, 1.06);
+pulse("#h", T[3] + 5.6, 1.06); pulse("#pl", T[3] + 6.3, 1.05); pulse("#d", T[3] + 7.0, 1.05);
+// L5 same object
+show("#eq", T[4] + 0.6, 0.3); pulse("#pl", T[4] + 1.2, 1.06); pulse("#eq", T[4] + 2.0, 1.03);
+// L6 underscores
+hide("#eq", T[5] - 0.1, 0.3); show("#un", T[5] + 0.5, 0.3); pulse("#un", T[5] + 1.8, 1.04);
+hide("#un", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>

@@ -1,0 +1,175 @@
+{
+ "format": 1,
+ "python": "3.15.0rc2",
+ "implementation": "cpython",
+ "name": "main.py",
+ "code": "it = iter(\"кіт\")\nprint(next(it))\nprint(next(it))\nprint(next(it))\nprint(next(it, \"кінець\"))\n",
+ "inputs": [],
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "heap": {},
+   "i": 0
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "it",
+       "ref": "4469718128"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4469718128": {
+     "type": "str_iterator",
+     "mutable": true,
+     "kind": "object",
+     "repr": "<str_iterator object at 0x10a6a7c70>",
+     "refs": 1
+    }
+   },
+   "out": "к\n",
+   "i": 1
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "it",
+       "ref": "4469718128"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4469718128": {
+     "type": "str_iterator",
+     "mutable": true,
+     "kind": "object",
+     "repr": "<str_iterator object at 0x10a6a7c70>",
+     "refs": 1
+    }
+   },
+   "out": "і\n",
+   "i": 2
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "it",
+       "ref": "4469718128"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4469718128": {
+     "type": "str_iterator",
+     "mutable": true,
+     "kind": "object",
+     "repr": "<str_iterator object at 0x10a6a7c70>",
+     "refs": 1
+    }
+   },
+   "out": "т\n",
+   "i": 3
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "it",
+       "ref": "4469718128"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4469718128": {
+     "type": "str_iterator",
+     "mutable": true,
+     "kind": "object",
+     "repr": "<str_iterator object at 0x10a6a7c70>",
+     "refs": 1
+    }
+   },
+   "ask": "Що поверне next, коли символи закінчились?",
+   "out": "кінець\n",
+   "i": 4
+  },
+  {
+   "event": "return",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "it",
+       "ref": "4469718128"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4383554008",
+   "heap": {
+    "4469718128": {
+     "type": "str_iterator",
+     "mutable": true,
+     "kind": "object",
+     "repr": "<str_iterator object at 0x10a6a7c70>",
+     "refs": 1
+    },
+    "4383554008": {
+     "type": "NoneType",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "None",
+     "refs": 0
+    }
+   },
+   "i": 5
+  }
+ ],
+ "truncated": false,
+ "error": null
+}

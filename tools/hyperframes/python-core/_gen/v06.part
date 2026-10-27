@@ -1,0 +1,37 @@
+<style>
+.bx { position: absolute; height: 130px; border-radius: 16px; background: #0e1626; border: 4px solid #26365a; display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 700; opacity: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div class="lab" style="left:80px;top:190px">компільована мова (C)</div>
+  <div class="lab" style="left:80px;top:560px">інтерпретована (Python, ідея)</div>
+  <div id="a0" class="bx mono" style="left:80px;top:250px;width:330px;opacity:1">program.c</div>
+  <div id="b0" class="bx mono" style="left:80px;top:620px;width:330px;opacity:1">program.py</div>
+  <div id="a1" class="bx" style="left:520px;top:250px;width:300px;border-color:#22d3ee;color:#22d3ee">компілятор</div>
+  <div id="a2" class="bx mono" style="left:930px;top:250px;width:300px;border-color:#fbbf24;color:#fbbf24">program.exe</div>
+  <div id="b1" class="bx" style="left:520px;top:620px;width:710px;border-color:#34d399;color:#34d399">інтерпретатор</div>
+  <div id="aa0" class="ar r" style="left:420px;top:312px;width:90px;color:#9fb2cf"></div>
+  <div id="aa1" class="ar r" style="left:830px;top:312px;width:90px;color:#9fb2cf"></div>
+  <div id="aa2" class="ar r" style="left:1240px;top:312px;width:300px;color:#fbbf24"></div>
+  <div id="ba0" class="ar r" style="left:420px;top:682px;width:90px;color:#9fb2cf"></div>
+  <div id="ba1" class="ar r" style="left:1240px;top:682px;width:300px;color:#34d399"></div>
+  <div id="cpu" class="card" style="left:1560px;top:340px;width:300px;height:420px;border-color:#22d3ee"><div class="mono abs" style="left:0;width:300px;top:160px;text-align:center;font-size:72px;color:#22d3ee">CPU</div></div>
+  <div id="once" class="lab o0" style="left:520px;top:400px;width:300px;text-align:center;color:#fbbf24;font-size:38px">один раз</div>
+  <div id="each" class="lab o0" style="left:520px;top:775px;width:710px;text-align:center;color:#34d399;font-size:38px">щоразу під час запуску</div>
+  <div id="cmd" class="mono abs o0" style="left:1560px;top:790px;width:300px;text-align:center;font-size:34px;color:#e8eef7">команди</div>
+</div>
+<script>
+/*PRE*/
+// L1 0.5-2.5: two ways
+tl.set("#cpu", { opacity: 1 }, 0);
+pulse("#a0", 1.0, 1.08); pulse("#b0", 1.5, 1.08);
+// L2 3.15-6.82: compiler
+show("#aa0", 3.4); show("#a1", 3.5); show("#aa1", 4.2); show("#a2", 4.3); show("#once", 4.9); pulse("#once", 5.6, 1.1);
+show("#aa2", 6.0);
+// L3 7.47-10.34: interpreter
+show("#ba0", 7.7); show("#b1", 7.8); show("#each", 8.6); show("#ba1", 9.0);
+pulse("#b1", 8.8, 1.03); pulse("#b1", 9.4, 1.03); pulse("#b1", 10.0, 1.03);
+// L4 10.99-13.22: both deliver commands
+show("#cmd", 11.2); pulse("#cpu", 11.4, 1.06); pulse("#cpu", 12.2, 1.06);
+tl.to("#aa2", { backgroundColor: "#22d3ee", duration: 0.3 }, 11.2); tl.to("#ba1", { backgroundColor: "#22d3ee", duration: 0.3 }, 11.2);
+window.__timelines["world"] = tl;
+</script>

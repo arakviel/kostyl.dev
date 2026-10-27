@@ -1,0 +1,1056 @@
+{
+ "format": 1,
+ "python": "3.15.0rc2",
+ "implementation": "cpython",
+ "name": "main.py",
+ "code": "def countdown(n):\n    while n > 0:\n        yield n\n        n -= 1\n\ng = countdown(2)\nprint(next(g))\nprint(next(g))\nfor x in g:\n    print(x)\n",
+ "inputs": [
+  "abc"
+ ],
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "heap": {},
+   "i": 0
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "countdown",
+       "ref": "4475405408"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4475405408": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "countdown",
+     "signature": "(n)",
+     "refs": 1
+    }
+   },
+   "i": 1
+  },
+  {
+   "event": "line",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "countdown",
+       "ref": "4475405408"
+      },
+      {
+       "name": "g",
+       "ref": "4473076800"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4475405408": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "countdown",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4473076800": {
+     "type": "generator",
+     "mutable": true,
+     "kind": "generator",
+     "name": "countdown",
+     "state": "GEN_CREATED",
+     "frame": {
+      "line": 1,
+      "vars": [
+       {
+        "name": "n",
+        "ref": "4390352168"
+       }
+      ]
+     },
+     "refs": 1
+    },
+    "4390352168": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    }
+   },
+   "i": 2
+  },
+  {
+   "event": "call",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "countdown",
+       "ref": "4475405408"
+      },
+      {
+       "name": "g",
+       "ref": "4473076800"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "countdown",
+     "line": 1,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4390352168"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4475405408": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "countdown",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4473076800": {
+     "type": "generator",
+     "mutable": true,
+     "kind": "generator",
+     "name": "countdown",
+     "state": "GEN_RUNNING",
+     "refs": 1
+    },
+    "4390352168": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    }
+   },
+   "i": 3
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "countdown",
+       "ref": "4475405408"
+      },
+      {
+       "name": "g",
+       "ref": "4473076800"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "countdown",
+     "line": 2,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4390352168"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4475405408": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "countdown",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4473076800": {
+     "type": "generator",
+     "mutable": true,
+     "kind": "generator",
+     "name": "countdown",
+     "state": "GEN_RUNNING",
+     "refs": 1
+    },
+    "4390352168": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    }
+   },
+   "i": 4
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "countdown",
+       "ref": "4475405408"
+      },
+      {
+       "name": "g",
+       "ref": "4473076800"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "countdown",
+     "line": 3,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4390352168"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4475405408": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "countdown",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4473076800": {
+     "type": "generator",
+     "mutable": true,
+     "kind": "generator",
+     "name": "countdown",
+     "state": "GEN_RUNNING",
+     "refs": 1
+    },
+    "4390352168": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    }
+   },
+   "i": 5
+  },
+  {
+   "event": "return",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "countdown",
+       "ref": "4475405408"
+      },
+      {
+       "name": "g",
+       "ref": "4473076800"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "countdown",
+     "line": 3,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4390352168"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4390352168",
+   "heap": {
+    "4475405408": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "countdown",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4473076800": {
+     "type": "generator",
+     "mutable": true,
+     "kind": "generator",
+     "name": "countdown",
+     "state": "GEN_RUNNING",
+     "refs": 1
+    },
+    "4390352168": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    }
+   },
+   "out": "2\n",
+   "i": 6
+  },
+  {
+   "event": "line",
+   "line": 8,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "countdown",
+       "ref": "4475405408"
+      },
+      {
+       "name": "g",
+       "ref": "4473076800"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4475405408": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "countdown",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4473076800": {
+     "type": "generator",
+     "mutable": true,
+     "kind": "generator",
+     "name": "countdown",
+     "state": "GEN_SUSPENDED",
+     "frame": {
+      "line": 3,
+      "vars": [
+       {
+        "name": "n",
+        "ref": "4390352168"
+       }
+      ]
+     },
+     "refs": 1
+    },
+    "4390352168": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    }
+   },
+   "i": 7
+  },
+  {
+   "event": "call",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "countdown",
+       "ref": "4475405408"
+      },
+      {
+       "name": "g",
+       "ref": "4473076800"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "countdown",
+     "line": 3,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4390352168"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4475405408": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "countdown",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4473076800": {
+     "type": "generator",
+     "mutable": true,
+     "kind": "generator",
+     "name": "countdown",
+     "state": "GEN_RUNNING",
+     "refs": 1
+    },
+    "4390352168": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    }
+   },
+   "i": 8
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "countdown",
+       "ref": "4475405408"
+      },
+      {
+       "name": "g",
+       "ref": "4473076800"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "countdown",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4390352168"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4475405408": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "countdown",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4473076800": {
+     "type": "generator",
+     "mutable": true,
+     "kind": "generator",
+     "name": "countdown",
+     "state": "GEN_RUNNING",
+     "refs": 1
+    },
+    "4390352168": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    }
+   },
+   "i": 9
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "countdown",
+       "ref": "4475405408"
+      },
+      {
+       "name": "g",
+       "ref": "4473076800"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "countdown",
+     "line": 2,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4390352136"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4475405408": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "countdown",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4473076800": {
+     "type": "generator",
+     "mutable": true,
+     "kind": "generator",
+     "name": "countdown",
+     "state": "GEN_RUNNING",
+     "refs": 1
+    },
+    "4390352136": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    }
+   },
+   "i": 10
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "countdown",
+       "ref": "4475405408"
+      },
+      {
+       "name": "g",
+       "ref": "4473076800"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "countdown",
+     "line": 3,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4390352136"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4475405408": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "countdown",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4473076800": {
+     "type": "generator",
+     "mutable": true,
+     "kind": "generator",
+     "name": "countdown",
+     "state": "GEN_RUNNING",
+     "refs": 1
+    },
+    "4390352136": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    }
+   },
+   "i": 11
+  },
+  {
+   "event": "return",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 8,
+     "vars": [
+      {
+       "name": "countdown",
+       "ref": "4475405408"
+      },
+      {
+       "name": "g",
+       "ref": "4473076800"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "countdown",
+     "line": 3,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4390352136"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4390352136",
+   "heap": {
+    "4475405408": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "countdown",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4473076800": {
+     "type": "generator",
+     "mutable": true,
+     "kind": "generator",
+     "name": "countdown",
+     "state": "GEN_RUNNING",
+     "refs": 1
+    },
+    "4390352136": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    }
+   },
+   "out": "1\n",
+   "i": 12
+  },
+  {
+   "event": "line",
+   "line": 9,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "countdown",
+       "ref": "4475405408"
+      },
+      {
+       "name": "g",
+       "ref": "4473076800"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4475405408": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "countdown",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4473076800": {
+     "type": "generator",
+     "mutable": true,
+     "kind": "generator",
+     "name": "countdown",
+     "state": "GEN_SUSPENDED",
+     "frame": {
+      "line": 3,
+      "vars": [
+       {
+        "name": "n",
+        "ref": "4390352136"
+       }
+      ]
+     },
+     "refs": 1
+    },
+    "4390352136": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    }
+   },
+   "i": 13
+  },
+  {
+   "event": "call",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "countdown",
+       "ref": "4475405408"
+      },
+      {
+       "name": "g",
+       "ref": "4473076800"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "countdown",
+     "line": 3,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4390352136"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4475405408": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "countdown",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4473076800": {
+     "type": "generator",
+     "mutable": true,
+     "kind": "generator",
+     "name": "countdown",
+     "state": "GEN_RUNNING",
+     "refs": 1
+    },
+    "4390352136": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    }
+   },
+   "i": 14
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "countdown",
+       "ref": "4475405408"
+      },
+      {
+       "name": "g",
+       "ref": "4473076800"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "countdown",
+     "line": 4,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4390352136"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4475405408": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "countdown",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4473076800": {
+     "type": "generator",
+     "mutable": true,
+     "kind": "generator",
+     "name": "countdown",
+     "state": "GEN_RUNNING",
+     "refs": 1
+    },
+    "4390352136": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    }
+   },
+   "i": 15
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "countdown",
+       "ref": "4475405408"
+      },
+      {
+       "name": "g",
+       "ref": "4473076800"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "countdown",
+     "line": 2,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4390352104"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4475405408": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "countdown",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4473076800": {
+     "type": "generator",
+     "mutable": true,
+     "kind": "generator",
+     "name": "countdown",
+     "state": "GEN_RUNNING",
+     "refs": 1
+    },
+    "4390352104": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "0",
+     "refs": 1
+    }
+   },
+   "i": 16
+  },
+  {
+   "event": "return",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "countdown",
+       "ref": "4475405408"
+      },
+      {
+       "name": "g",
+       "ref": "4473076800"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "countdown",
+     "line": 2,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4390352104"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4390025688",
+   "heap": {
+    "4475405408": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "countdown",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4473076800": {
+     "type": "generator",
+     "mutable": true,
+     "kind": "generator",
+     "name": "countdown",
+     "state": "GEN_RUNNING",
+     "refs": 1
+    },
+    "4390352104": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "0",
+     "refs": 1
+    },
+    "4390025688": {
+     "type": "NoneType",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "None",
+     "refs": 0
+    }
+   },
+   "i": 17
+  },
+  {
+   "event": "return",
+   "line": 9,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "countdown",
+       "ref": "4475405408"
+      },
+      {
+       "name": "g",
+       "ref": "4473076800"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4390025688",
+   "heap": {
+    "4475405408": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "countdown",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4473076800": {
+     "type": "generator",
+     "mutable": true,
+     "kind": "generator",
+     "name": "countdown",
+     "state": "GEN_CLOSED",
+     "refs": 1
+    },
+    "4390025688": {
+     "type": "NoneType",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "None",
+     "refs": 0
+    }
+   },
+   "i": 18
+  }
+ ],
+ "truncated": false,
+ "error": null
+}

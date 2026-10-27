@@ -1,0 +1,64 @@
+<style>
+.tile { position: absolute; top: 640px; width: 130px; height: 130px; border-radius: 16px; background: #0e1626; border: 4px solid #26365a; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 800; font-size: 72px; opacity: 0; }
+.stg { position: absolute; left: 0; top: 0; width: 1000px; height: 250px; opacity: 0; }
+.ul { position: absolute; height: 6px; opacity: 0; }
+.ult { position: absolute; font-size: 28px; font-weight: 700; opacity: 0; white-space: nowrap; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+ <div id="all">
+  <div id="ed" class="vsw" style="left:100px;top:190px;width:1000px;height:250px">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">sep.py</div></div>
+    <div class="vsr"></div><div class="vst">sep.py</div>
+    <div id="sA" class="stg"></div><div id="sB" class="stg"></div><div id="sC" class="stg"></div><div id="sD" class="stg"></div>
+    <div id="u1" class="ul" style="left:222px;top:176px;width:173px;background:#22d3ee"></div>
+    <div id="u1t" class="ult" style="left:222px;top:188px;color:#22d3ee">позиційні</div>
+    <div id="u2" class="ul" style="left:438px;top:176px;width:151px;background:#fbbf24"></div>
+    <div id="u2t" class="ult" style="left:438px;top:188px;color:#fbbf24">ключовий</div>
+  </div>
+  <div id="term" class="vsw" style="left:1180px;top:190px;width:640px;height:250px">
+    <div class="vsb"><div class="vsT" style="text-align:left;left:24px">ТЕРМІНАЛ</div></div>
+    <div id="oA" class="vsx" style="top:70px;font-size:44px">a b c</div><div id="oB" class="vsx" style="top:70px;font-size:44px">a-b-c</div><div id="oC" class="vsx" style="top:70px;font-size:44px">ab</div><div id="oD" class="vsx" style="top:70px;font-size:44px">a-b</div>
+  </div>
+  <div class="card" style="left:100px;top:500px;width:1720px;height:450px"></div>
+  <div class="lab" style="left:140px;top:520px;font-size:34px">символи, які потрапляють у вивід</div>
+  <div id="tiles"></div>
+  <div id="lg" class="lab" style="left:0;width:1920px;text-align:center;top:830px;font-size:34px;opacity:0"><span style="color:#fbbf24">· пробіл — роздільник sep</span>      <span style="color:#fb7185">↵ новий рядок — закінчення end</span></div>
+  <div id="lgC" class="lab" style="left:0;width:1920px;text-align:center;top:830px;font-size:36px;opacity:0;color:#fb7185">за замовчуванням end — це новий рядок ↵</div>
+ </div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+const $ = (id) => document.getElementById(id);
+const K = { s: "#fbbf24", e: "#fb7185", n: "#34d399" };
+const code = {
+  A: ['<span style="color:#dcdcaa">print</span><span style="color:#ffd700">(</span><span style="color:#ce9178">"a"</span>, <span style="color:#ce9178">"b"</span>, <span style="color:#ce9178">"c"</span><span style="color:#ffd700">)</span>'],
+  B: ['<span style="color:#dcdcaa">print</span><span style="color:#ffd700">(</span><span style="color:#ce9178">"a"</span>, <span style="color:#ce9178">"b"</span>, <span style="color:#ce9178">"c"</span>, <span style="color:#9cdcfe">sep</span>=<span style="color:#ce9178">"-"</span><span style="color:#ffd700">)</span>'],
+  C: ['<span style="color:#dcdcaa">print</span><span style="color:#ffd700">(</span><span style="color:#ce9178">"a"</span>, <span style="color:#9cdcfe">end</span>=<span style="color:#ce9178">""</span><span style="color:#ffd700">)</span>', '<span style="color:#dcdcaa">print</span><span style="color:#ffd700">(</span><span style="color:#ce9178">"b"</span><span style="color:#ffd700">)</span>'],
+  D: ['<span style="color:#dcdcaa">print</span><span style="color:#ffd700">(</span><span style="color:#ce9178">"a"</span>, <span style="color:#ce9178">"b"</span>, <span style="color:#9cdcfe">sep</span>=<span style="color:#ce9178">"-"</span><span style="color:#ffd700">)</span>'],
+};
+const rows = { A: [["a", "n"], ["·", "s"], ["b", "n"], ["·", "s"], ["c", "n"], ["↵", "e"]], B: [["a", "n"], ["-", "s"], ["b", "n"], ["-", "s"], ["c", "n"], ["↵", "e"]], C: [["a", "n"], ["b", "n"], ["↵", "e"]], D: [["a", "n"], ["-", "s"], ["b", "n"], ["↵", "e"]] };
+for (const k of "ABCD") {
+  $("s" + k).innerHTML = code[k].map((h, i) => `<div class="vsl" style="top:${118 + i * 54}px"><span class="n">${i + 1}</span><span style="white-space:pre">${h}</span></div>`).join("");
+  const n = rows[k].length, left = (1920 - (n * 130 + (n - 1) * 30)) / 2;
+  rows[k].forEach(([t, c], i) => $("tiles").insertAdjacentHTML("beforeend", `<div id="t${k}${i}" class="tile" style="left:${left + i * 160}px;border-color:${K[c]};color:${K[c]}">${t}</div>`));
+}
+const sw = (a, b, at) => { hide("#s" + a, at - 0.1, 0.2); hide("#o" + a, at - 0.1, 0.2); rows[a].forEach((_, i) => hide("#t" + a + i, at - 0.1, 0.2)); show("#s" + b, at + 0.2, 0.3); show("#o" + b, at + 0.4, 0.2); };
+tl.set("#sA", { opacity: 1 }, 0);
+// L1 several arguments, separated by a space
+show("#oA", T[0] + 1.0, 0.2);
+rows.A.forEach((_, i) => show("#tA" + i, T[0] + 2.0 + i * 0.35, 0.2));
+show("#lg", T[0] + 4.2); pulse("#tA1", T[0] + 3.0, 1.15); pulse("#tA3", T[0] + 3.4, 1.15);
+// L2 sep
+sw("A", "B", T[1]); rows.B.forEach((_, i) => show("#tB" + i, T[1] + 0.7 + i * 0.2, 0.2)); pulse("#tB1", T[1] + 1.6, 1.2); pulse("#tB3", T[1] + 1.8, 1.2);
+// L3 end
+sw("B", "C", T[2]); rows.C.forEach((_, i) => show("#tC" + i, T[2] + 0.9 + i * 0.5, 0.2));
+hide("#lg", T[2] - 0.1, 0.2); show("#lgC", T[2] + 3.4); pulse("#tC2", T[2] + 3.6, 1.2);
+// L4 positional vs keyword
+hide("#lgC", T[3] - 0.1, 0.2); sw("C", "D", T[3]); rows.D.forEach((_, i) => show("#tD" + i, T[3] + 0.6 + i * 0.25, 0.2));
+show("#u1", T[3] + 1.2, 0.2); show("#u1t", T[3] + 1.3, 0.2); show("#u2", T[3] + 2.4, 0.2); show("#u2t", T[3] + 2.5, 0.2);
+show("#lg", T[3] + 3.0);
+hide("#all", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>

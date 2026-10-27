@@ -1,0 +1,63 @@
+<style>
+.bx { position: absolute; top: 240px; width: 240px; height: 150px; border-radius: 18px; background: #0e1626; border: 4px solid #26365a; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 36px; font-weight: 700; opacity: 0; text-align: center; line-height: 1.2; }
+.th { position: absolute; left: 0; width: 1920px; text-align: center; font-size: 48px; font-weight: 700; opacity: 0; }
+.hwl { position: absolute; font-size: 32px; font-weight: 700; color: #9fb2cf; text-align: center; opacity: 0; white-space: nowrap; }
+.hww { position: absolute; opacity: 0; }
+.cn { position: absolute; background: #3a4a6e; opacity: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="b0" class="bx" style="left:90px;border-color:#fbbf24;color:#fbbf24"><span class="mono">hello.py</span><span style="font-size:30px;color:#9fb2cf">диск</span></div>
+  <div id="b1" class="bx" style="left:390px;border-color:#34d399;color:#34d399"><span>RAM</span><span style="font-size:30px;color:#9fb2cf">числа</span></div>
+  <div id="b2" class="bx" style="left:690px;border-color:#22d3ee;color:#22d3ee"><span>компілятор</span><span style="font-size:30px;color:#9fb2cf">CPython</span></div>
+  <div id="b3" class="bx" style="left:990px;border-color:#22d3ee;color:#22d3ee"><span>байт-код</span><span style="font-size:30px;color:#9fb2cf">команди</span></div>
+  <div id="b4" class="bx" style="left:1290px;border-color:#22d3ee;color:#22d3ee"><span>PVM</span><span style="font-size:30px;color:#9fb2cf">виконує</span></div>
+  <div id="b5" class="bx mono" style="left:1590px;border-color:#34d399;color:#34d399;font-size:56px">Hello</div>
+  <div id="ar0" class="ar r" style="left:335px;top:310px;width:45px;color:#9fb2cf"></div>
+  <div id="ar1" class="ar r" style="left:635px;top:310px;width:45px;color:#9fb2cf"></div>
+  <div id="ar2" class="ar r" style="left:935px;top:310px;width:45px;color:#9fb2cf"></div>
+  <div id="ar3" class="ar r" style="left:1235px;top:310px;width:45px;color:#9fb2cf"></div>
+  <div id="ar4" class="ar r" style="left:1535px;top:310px;width:45px;color:#9fb2cf"></div>
+  <!-- hardware row -->
+  <div id="cn0" class="cn" style="left:208px;top:390px;width:4px;height:128px"></div>
+  <div id="cn1" class="cn" style="left:508px;top:390px;width:4px;height:128px"></div>
+  <div id="cn2" class="cn" style="left:690px;top:410px;width:840px;height:4px;background:#22d3ee"></div>
+  <div id="cn3" class="cn" style="left:1108px;top:414px;width:4px;height:36px;background:#22d3ee"></div>
+  <div id="cn4" class="cn" style="left:1708px;top:390px;width:4px;height:60px"></div>
+  <div id="hw0" class="hww" style="left:75px;top:520px"></div>
+  <div id="hw1" class="hww" style="left:375px;top:520px"></div>
+  <div id="hw2" class="hww" style="left:990px;top:450px"></div>
+  <div id="hw3" class="hww" style="left:1560px;top:450px"></div>
+  <div id="hl0" class="hwl" style="left:60px;width:300px;top:610px">SSD (диск)</div>
+  <div id="hl1" class="hwl" style="left:360px;width:300px;top:610px">RAM (модуль)</div>
+  <div id="hl2" class="hwl" style="left:990px;width:240px;top:700px;color:#22d3ee">CPU (процесор)</div>
+  <div id="hl3" class="hwl" style="left:1560px;width:300px;top:700px">екран</div>
+  <div id="t1" class="th" style="top:770px;color:#34d399">1 · усе — числа</div>
+  <div id="t2" class="th" style="top:840px;color:#22d3ee">2 · Python компілює в байт-код</div>
+  <div id="t3" class="th" style="top:910px;color:#fbbf24">3 · PVM виконує</div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+const $ = (id) => document.getElementById(id);
+$("hw0").innerHTML = hw.ssd(270); $("hw1").innerHTML = hw.dimm("m", 270); $("hw2").innerHTML = hw.cpu(240); $("hw3").innerHTML = hw.monitor(300);
+// L1 recap: pipeline appears
+tl.set("#b0", { opacity: 1 }, 0);
+for (let i = 1; i < 6; i++) show("#b" + i, T[0] + 0.1 + i * 0.25, 0.3);
+for (let i = 0; i < 5; i++) show("#ar" + i, T[0] + 0.3 + i * 0.25, 0.2);
+// L2 disk -> RAM
+show("#hw0", T[1] + 0.1); show("#hl0", T[1] + 0.2); show("#cn0", T[1] + 0.2); pulse("#b0", T[1] + 0.3, 1.08);
+show("#hw1", T[1] + 1.8); show("#hl1", T[1] + 1.9); show("#cn1", T[1] + 1.9); pulse("#b1", T[1] + 2.0, 1.08); pulse("#ar0", T[1] + 1.6, 1.2);
+// L3 numbers
+show("#t1", T[2] + 0.1); pulse("#b1", T[2] + 0.2, 1.1); pulse("#hw1", T[2] + 0.3, 1.05);
+// L4 CPU needs commands, code is translated
+show("#hw2", T[3] + 0.2); show("#hl2", T[3] + 0.3); show("#cn2", T[3] + 0.2); show("#cn3", T[3] + 0.4);
+pulse("#b2", T[3] + 0.8, 1.08); pulse("#b3", T[3] + 1.6, 1.08);
+// L5 compile + VM
+show("#t2", T[4] + 0.3); pulse("#b2", T[4] + 0.4, 1.08); pulse("#b3", T[4] + 0.9, 1.08);
+show("#t3", T[4] + 2.0); pulse("#b4", T[4] + 2.1, 1.08);
+// L6 CPU does all of it, result on screen
+pulse("#hw2", T[5] + 0.3, 1.1); ["#b2", "#b3", "#b4"].forEach((s, k) => pulse(s, T[5] + 0.5 + k * 0.4, 1.06));
+show("#hw3", T[5] + 2.2); show("#hl3", T[5] + 2.3); show("#cn4", T[5] + 2.3); pulse("#b5", T[5] + 2.5, 1.1);
+window.__timelines["world"] = tl;
+</script>

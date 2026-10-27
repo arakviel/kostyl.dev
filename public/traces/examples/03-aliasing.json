@@ -1,0 +1,528 @@
+{
+ "format": 1,
+ "python": "3.15.0rc2",
+ "implementation": "cpython",
+ "name": "main.py",
+ "code": "a = [1, 2, 3]\nb = a\nb.append(4)\nprint(a)\nx = 100_000\nx = x + 1\nprint(a is b, x)\n",
+ "inputs": [
+  "abc"
+ ],
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "heap": {},
+   "i": 0
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4399271872"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4399271872": {
+     "type": "list",
+     "mutable": true,
+     "kind": "sequence",
+     "items": [
+      "4313298184",
+      "4313298216",
+      "4313298248"
+     ],
+     "refs": 1
+    },
+    "4313298184": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    },
+    "4313298216": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    },
+    "4313298248": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    }
+   },
+   "ask": "Скільки списків зараз у пам'яті?",
+   "i": 1
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4399271872"
+      },
+      {
+       "name": "b",
+       "ref": "4399271872"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4399271872": {
+     "type": "list",
+     "mutable": true,
+     "kind": "sequence",
+     "items": [
+      "4313298184",
+      "4313298216",
+      "4313298248"
+     ],
+     "refs": 2
+    },
+    "4313298184": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    },
+    "4313298216": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    },
+    "4313298248": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    }
+   },
+   "i": 2
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4399271872"
+      },
+      {
+       "name": "b",
+       "ref": "4399271872"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4399271872": {
+     "type": "list",
+     "mutable": true,
+     "kind": "sequence",
+     "items": [
+      "4313298184",
+      "4313298216",
+      "4313298248",
+      "4313298280"
+     ],
+     "refs": 2
+    },
+    "4313298184": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    },
+    "4313298216": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    },
+    "4313298248": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    },
+    "4313298280": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "4",
+     "refs": 1
+    }
+   },
+   "out": "[1, 2, 3, 4]\n",
+   "i": 3
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4399271872"
+      },
+      {
+       "name": "b",
+       "ref": "4399271872"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4399271872": {
+     "type": "list",
+     "mutable": true,
+     "kind": "sequence",
+     "items": [
+      "4313298184",
+      "4313298216",
+      "4313298248",
+      "4313298280"
+     ],
+     "refs": 2
+    },
+    "4313298184": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    },
+    "4313298216": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    },
+    "4313298248": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    },
+    "4313298280": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "4",
+     "refs": 1
+    }
+   },
+   "i": 4
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 6,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4399271872"
+      },
+      {
+       "name": "b",
+       "ref": "4399271872"
+      },
+      {
+       "name": "x",
+       "ref": "4398215216"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4399271872": {
+     "type": "list",
+     "mutable": true,
+     "kind": "sequence",
+     "items": [
+      "4313298184",
+      "4313298216",
+      "4313298248",
+      "4313298280"
+     ],
+     "refs": 2
+    },
+    "4313298184": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    },
+    "4313298216": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    },
+    "4313298248": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    },
+    "4313298280": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "4",
+     "refs": 1
+    },
+    "4398215216": {
+     "type": "int",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "100000",
+     "refs": 1
+    }
+   },
+   "ask": "Чи зміниться об'єкт 100000?",
+   "i": 5
+  },
+  {
+   "event": "line",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4399271872"
+      },
+      {
+       "name": "b",
+       "ref": "4399271872"
+      },
+      {
+       "name": "x",
+       "ref": "4398214544"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4399271872": {
+     "type": "list",
+     "mutable": true,
+     "kind": "sequence",
+     "items": [
+      "4313298184",
+      "4313298216",
+      "4313298248",
+      "4313298280"
+     ],
+     "refs": 2
+    },
+    "4313298184": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    },
+    "4313298216": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    },
+    "4313298248": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    },
+    "4313298280": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "4",
+     "refs": 1
+    },
+    "4398214544": {
+     "type": "int",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "100001",
+     "refs": 1
+    }
+   },
+   "out": "True 100001\n",
+   "i": 6
+  },
+  {
+   "event": "return",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 7,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4399271872"
+      },
+      {
+       "name": "b",
+       "ref": "4399271872"
+      },
+      {
+       "name": "x",
+       "ref": "4398214544"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4312971736",
+   "heap": {
+    "4399271872": {
+     "type": "list",
+     "mutable": true,
+     "kind": "sequence",
+     "items": [
+      "4313298184",
+      "4313298216",
+      "4313298248",
+      "4313298280"
+     ],
+     "refs": 2
+    },
+    "4313298184": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    },
+    "4313298216": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    },
+    "4313298248": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    },
+    "4313298280": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "4",
+     "refs": 1
+    },
+    "4398214544": {
+     "type": "int",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "100001",
+     "refs": 1
+    },
+    "4312971736": {
+     "type": "NoneType",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "None",
+     "refs": 0
+    }
+   },
+   "i": 7
+  }
+ ],
+ "truncated": false,
+ "error": null
+}

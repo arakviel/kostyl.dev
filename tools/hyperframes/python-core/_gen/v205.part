@@ -1,0 +1,54 @@
+<style>
+.dg { position: absolute; top: 400px; width: 380px; height: 220px; border-radius: 18px; background: #0e1626; border: 4px solid #26365a; opacity: 0; }
+.dgv { position: absolute; left: 0; width: 380px; top: 56px; text-align: center; font-size: 78px; font-family: "JetBrains Mono", monospace; font-weight: 800; color: #34d399; opacity: 0; }
+.dgl { position: absolute; left: 0; width: 380px; text-align: center; top: 140px; font-size: 30px; color: #9fb2cf; font-family: "JetBrains Mono", monospace; }
+.dgt { position: absolute; left: 0; width: 380px; top: 16px; text-align: center; font-size: 30px; font-weight: 700; color: #9fb2cf; }
+.fill { position: absolute; left: 20px; top: 180px; height: 16px; border-radius: 8px; background: #34d399; width: 0; }
+.bar { position: absolute; left: 540px; height: 80px; border-radius: 12px; opacity: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="top" class="card" style="left:210px;top:110px;width:1500px;height:150px;opacity:0;background:#1e1e1e;border-color:#3a3a3a">
+    <div class="mono abs" style="left:36px;top:40px;font-size:60px;color:#d4d4d4"><span style="color:#b5cea8">2</span> ** <span style="color:#b5cea8">100</span></div>
+    <div id="big" class="mono abs" style="left:420px;top:50px;font-size:46px;color:#34d399;opacity:0">= 1267650600228229401496703205376</div>
+  </div>
+  <div id="dgs"></div>
+  <div id="lbl1" class="lab" style="left:0;width:1920px;text-align:center;top:320px;font-size:40px;color:#22d3ee;opacity:0">цифри по 30 біт (4 байти кожна)</div>
+  <div id="lbl2" class="mono abs" style="left:0;width:1920px;text-align:center;top:660px;font-size:44px;color:#fbbf24;opacity:0">101 біт = 3 × 30 + 11</div>
+  <div id="sz1" class="mono abs" style="left:100px;top:760px;font-size:34px;color:#9fb2cf;opacity:0">sys.getsizeof(42)</div>
+  <div id="bar1" class="bar" style="top:745px;width:392px;background:#22d3ee"></div>
+  <div id="v1" class="mono abs" style="left:950px;top:762px;font-size:44px;color:#22d3ee;opacity:0">28 байтів</div>
+  <div id="sz2" class="mono abs" style="left:100px;top:880px;font-size:34px;color:#9fb2cf;opacity:0">sys.getsizeof(2**100)</div>
+  <div id="bar2" class="bar" style="top:865px;width:560px;background:#fbbf24"></div>
+  <div id="v2" class="mono abs" style="left:1120px;top:882px;font-size:44px;color:#fbbf24;opacity:0">40 байтів</div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+const $ = (id) => document.getElementById(id);
+const names = ["цифра 3 (старша)", "цифра 2", "цифра 1", "цифра 0 (молодша)"], vals = ["1024", "0", "0", "0"];
+names.forEach((n, i) => {
+  const x = 170 + i * 400;
+  $("dgs").insertAdjacentHTML("beforeend", `<div id="dg${i}" class="dg" style="left:${x}px"><div class="dgt">${n}</div><div id="dv${i}" class="dgv" style="${i === 0 ? "" : "color:#9fb2cf"}">${vals[i]}</div><div class="dgl">30 біт</div><div class="fill" id="fl${i}"></div></div>`);
+});
+tl.set("#top", { opacity: 1 }, 0);
+// L1 no limit
+show("#big", T[0] + 0.8); pulse("#big", T[0] + 1.6, 1.03);
+// L2 digits of 30 bits
+show("#lbl1", T[1] + 0.5);
+for (let i = 3; i >= 0; i--) show("#dg" + i, T[1] + 1.2 + (3 - i) * 0.6, 0.3);
+for (let i = 0; i < 4; i++) pulse("#dg" + (3 - i), T[1] + 3.6 + i * 0.4, 1.04); pulse("#lbl1", T[1] + 5.4, 1.04);
+// L3 101 bits -> 4 digits
+show("#lbl2", T[2] + 3.4); pulse("#lbl2", T[2] + 3.8, 1.05);
+tl.to("#fl0", { width: 139, duration: 0.6 }, T[2] + 4.6);
+for (let i = 0; i < 4; i++) pulse("#dg" + i, T[2] + 1.0 + i * 0.5, 1.04);
+// L4 values
+for (let i = 3; i >= 1; i--) show("#dv" + i, T[3] + 0.3 + (3 - i) * 0.6, 0.2);
+show("#dv0", T[3] + 2.6, 0.3); pulse("#dv0", T[3] + 2.8, 1.12);
+// L5 size grows
+hide("#lbl2", T[4] - 0.1, 0.2);
+show("#sz1", T[4] + 1.0); tl.to("#bar1", { opacity: 1, duration: 0.3 }, T[4] + 1.2); show("#v1", T[4] + 1.8);
+show("#sz2", T[4] + 3.6); tl.to("#bar2", { opacity: 1, duration: 0.3 }, T[4] + 3.8); show("#v2", T[4] + 4.4); pulse("#v2", T[4] + 4.6, 1.1);
+hide("#top", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>

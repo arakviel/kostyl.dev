@@ -1,0 +1,114 @@
+<style>
+.st { position: absolute; top: 250px; width: 310px; height: 110px; border-radius: 16px; background: #0e1626; border: 4px solid #26365a; display: flex; align-items: center; justify-content: center; font-size: 36px; font-weight: 700; color: #9fb2cf; }
+.pn { position: absolute; opacity: 0; }
+.tk { position: absolute; top: 0; height: 100px; border-radius: 14px; background: #111c33; border: 3px solid #22d3ee; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 30px; padding: 0 14px; opacity: 0; }
+.nd { position: absolute; border-radius: 14px; background: #111c33; border: 3px solid #34d399; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 34px; color: #34d399; height: 90px; opacity: 0; }
+.ins { position: absolute; left: 0; width: 520px; height: 70px; border-radius: 10px; display: flex; align-items: center; padding-left: 22px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 34px; color: #e8eef7; }
+.nt { position: absolute; left: 560px; font-size: 34px; font-weight: 700; color: #fbbf24; opacity: 0; white-space: nowrap; }
+.vmb { position: absolute; left: 820px; width: 420px; height: 90px; border-radius: 16px; background: #0e1626; border: 4px solid #26365a; display: flex; align-items: center; padding-left: 26px; gap: 18px; font-size: 36px; font-weight: 700; color: #9fb2cf; opacity: 0; }
+.vmb .k { font-family: "JetBrains Mono", monospace; color: #e8eef7; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="ed" class="vsw" style="left:70px;top:44px;width:700px;height:176px">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">hello.py</div></div>
+    <div class="vsr"></div><div class="vst">hello.py</div>
+    <div class="vsl" style="top:112px"><span class="n">1</span><span style="color:#dcdcaa">print</span><span style="color:#ffd700">(</span><span style="color:#ce9178">"Hello"</span><span style="color:#ffd700">)</span></div>
+  </div>
+  <div id="p0" class="st" style="left:70px">Текст</div>
+  <div id="p1" class="st" style="left:450px">Токени</div>
+  <div id="p2" class="st" style="left:830px">Дерево</div>
+  <div id="p3" class="st" style="left:1210px">Байт-код</div>
+  <div id="p4" class="st" style="left:1590px">PVM</div>
+  <div id="tokP" class="pn" style="left:100px;top:480px;width:1720px;height:120px">
+    <div id="tk0" class="tk" style="left:50px;width:190px"><span style="color:#9fb2cf;font-size:28px">NAME</span><span style="color:#22d3ee">'print'</span></div>
+    <div id="tk1" class="tk" style="left:290px;width:110px"><span style="color:#9fb2cf;font-size:28px">OP</span><span style="color:#22d3ee">'('</span></div>
+    <div id="tk2" class="tk" style="left:450px;width:260px"><span style="color:#9fb2cf;font-size:28px">STRING</span><span style="color:#34d399">'"Hello"'</span></div>
+    <div id="tk3" class="tk" style="left:760px;width:110px"><span style="color:#9fb2cf;font-size:28px">OP</span><span style="color:#22d3ee">')'</span></div>
+    <div id="tk4" class="tk" style="left:920px;width:240px"><span style="color:#9fb2cf;font-size:28px">NEWLINE</span><span style="color:#9fb2cf">'\n'</span></div>
+  </div>
+  <div id="trP" class="pn" style="left:0;top:430px;width:1920px;height:500px">
+    <div class="nd" id="n0" style="left:760px;top:0;width:400px">Call</div>
+    <div class="nd" id="n1" style="left:360px;top:200px;width:480px">func: Name('print')</div>
+    <div class="nd" id="n2" style="left:1000px;top:200px;width:560px">args: Constant('Hello')</div>
+    <div class="abs" id="l1" style="left:958px;top:90px;width:4px;height:60px;background:#34d399;opacity:0"></div>
+    <div class="abs" id="l2" style="left:598px;top:148px;width:684px;height:4px;background:#34d399;opacity:0"></div>
+    <div class="abs" id="l3" style="left:598px;top:150px;width:4px;height:50px;background:#34d399;opacity:0"></div>
+    <div class="abs" id="l4" style="left:1278px;top:150px;width:4px;height:50px;background:#34d399;opacity:0"></div>
+  </div>
+  <div id="bcP" class="pn" style="left:200px;top:430px;width:1500px;height:500px">
+    <div id="i0" class="ins" style="top:0;color:#8fa3c4">RESUME 0</div>
+    <div id="i1" class="ins" style="top:80px">LOAD_NAME 0 (print)</div>
+    <div id="i2" class="ins" style="top:160px">PUSH_NULL</div>
+    <div id="i3" class="ins" style="top:240px">LOAD_CONST 0 ('Hello')</div>
+    <div id="i4" class="ins" style="top:320px">CALL 1</div>
+    <div id="i5" class="ins" style="top:400px">RETURN_VALUE</div>
+    <div id="a1" class="nt" style="top:92px">знайти print</div>
+    <div id="a3" class="nt" style="top:252px">покласти рядок</div>
+    <div id="a4" class="nt" style="top:332px">викликати функцію</div>
+    <div id="out" class="mono abs" style="left:1000px;top:230px;width:400px;height:130px;border-radius:16px;background:#0b1322;border:3px solid #26365a;display:flex;align-items:center;justify-content:center;font-size:64px;color:#34d399;opacity:0">Hello</div>
+  </div>
+  <!-- VM loop -->
+  <div id="vm" class="pn" style="left:0;top:0;width:1920px;height:1080px">
+    <div id="vb1" class="vmb" style="top:450px"><span class="k">1</span>взяти інструкцію</div>
+    <div id="vb2" class="vmb" style="top:590px"><span class="k">2</span>виконати</div>
+    <div id="vb3" class="vmb" style="top:730px"><span class="k">3</span>перейти далі</div>
+    <div class="ar r" id="va1" style="left:1028px;top:548px;width:8px;height:0"></div>
+    <div class="abs" style="left:1245px;top:495px;width:8px;height:325px;background:#9fb2cf;opacity:0.8"></div>
+    <div class="abs" style="left:1240px;top:491px;width:18px;height:8px;background:#9fb2cf"></div>
+    <div class="abs" style="left:1240px;top:815px;width:13px;height:8px;background:#9fb2cf"></div>
+    <div id="vmt" class="lab" style="left:820px;top:380px;color:#34d399;font-size:40px">PVM: цикл виконання</div>
+    <div id="term" class="vsw" style="left:1340px;top:520px;width:500px;height:260px">
+      <div class="vsb"><div class="vsT" style="text-align:left;left:24px">ТЕРМІНАЛ</div></div>
+      <div id="tm0" class="vsx" style="top:60px">$ python hello.py</div>
+      <div id="tm1" class="vsx" style="top:112px;color:#34d399;font-weight:700;font-size:40px">Hello</div>
+    </div>
+    <div id="endl" class="lab" style="left:80px;top:935px;color:#fbbf24;opacity:0;font-size:36px">кінець байт-коду</div>
+  </div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+const act = (id, col) => tl.to("#" + id, { borderColor: col, color: col, duration: 0.3 });
+// L1 tokens
+tl.to("#p0", { borderColor: "#22d3ee", color: "#22d3ee", duration: 0.3 }, T[0] + 0.1);
+tl.to("#tokP", { opacity: 1, duration: 0.2 }, T[0] + 0.5);
+tl.to("#p1", { borderColor: "#22d3ee", color: "#22d3ee", duration: 0.3 }, T[0] + 0.6);
+for (let i = 0; i < 5; i++) show("#tk" + i, T[0] + 0.8 + i * 0.28, 0.2);
+// L2 tree
+hide("#tokP", T[1] - 0.1, 0.3); tl.to("#p2", { borderColor: "#34d399", color: "#34d399", duration: 0.3 }, T[1] + 0.1);
+show("#trP", T[1] + 0.3, 0.2); show("#n0", T[1] + 0.4); ["#l1", "#l2", "#l3", "#l4"].forEach((s) => show(s, T[1] + 0.9));
+show("#n1", T[1] + 1.2); show("#n2", T[1] + 1.5);
+// L3 bytecode
+hide("#trP", T[2] - 0.1, 0.3); tl.to("#p3", { borderColor: "#fbbf24", color: "#fbbf24", duration: 0.3 }, T[2] + 0.1);
+show("#bcP", T[2] + 0.4, 0.2);
+// L4 PVM runs instructions one by one
+tl.to("#p4", { borderColor: "#34d399", color: "#34d399", duration: 0.3 }, T[3] + 0.1);
+for (let k = 0; k < 6; k++) { const a = T[3] + 0.6 + k * 0.45; tl.to("#i" + k, { backgroundColor: "#16294a", duration: 0.15 }, a); if (k < 5) tl.to("#i" + k, { backgroundColor: "rgba(0,0,0,0)", duration: 0.15 }, a + 0.4); }
+show("#out", T[3] + 2.9);
+// L5 simple commands
+tl.to("#i5", { backgroundColor: "rgba(0,0,0,0)", duration: 0.2 }, T[4] + 0.2);
+[["i1", "a1", 0.9], ["i3", "a3", 2.2], ["i4", "a4", 3.5]].forEach(([i, a, d]) => { tl.to("#" + i, { backgroundColor: "#16294a", duration: 0.2 }, T[4] + d); show("#" + a, T[4] + d); if (i !== "i4") tl.to("#" + i, { backgroundColor: "rgba(0,0,0,0)", duration: 0.2 }, T[4] + d + 1.1); });
+// L6 what the VM does: the loop
+tl.to("#i4", { backgroundColor: "rgba(0,0,0,0)", duration: 0.2 }, T[5] - 0.3);
+["#a1", "#a3", "#a4", "#out"].forEach((s) => hide(s, T[5] - 0.3, 0.3));
+tl.to("#bcP", { x: -120, duration: 0.4 }, T[5] - 0.2);
+show("#vm", T[5] + 0.1, 0.3);
+show("#vmt", T[5] + 0.3); ["#vb1", "#vb2", "#vb3"].forEach((s, k) => show(s, T[5] + 0.8 + k * 0.5, 0.3));
+show("#tm0", T[5] + 2.0, 0.1);
+// L7 the cycle: take -> execute -> next, one instruction per turn
+const cyc = [["vb1", "#22d3ee"], ["vb2", "#34d399"], ["vb3", "#fbbf24"]];
+for (let k = 0; k < 6; k++) {
+  const a = T[6] + 0.2 + k * 0.68;
+  tl.to("#i" + k, { backgroundColor: "#16294a", duration: 0.12 }, a);
+  if (k > 0) tl.to("#i" + (k - 1), { backgroundColor: "rgba(0,0,0,0)", duration: 0.12 }, a);
+  cyc.forEach(([id, col], j) => { tl.to("#" + id, { borderColor: col, color: col, duration: 0.1 }, a + j * 0.2); tl.to("#" + id, { borderColor: "#26365a", color: "#9fb2cf", duration: 0.1 }, a + j * 0.2 + 0.19); });
+  if (k === 4) show("#tm1", a + 0.45, 0.1);
+}
+// L8 end
+show("#endl", T[7] + 0.4); pulse("#tm1", T[7] + 1.6, 1.08);
+tl.to("#i5", { backgroundColor: "#16294a", duration: 0.2 }, T[7] + 0.3);
+// claim: clear top area
+hide("#ed", CL - 0.35, 0.3); hide("#vmt", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>

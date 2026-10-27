@@ -1,0 +1,57 @@
+<style>
+.st5 { position: absolute; top: 320px; width: 90px; height: 90px; border-radius: 14px; background: #0e1626; border: 4px solid #26365a; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 800; font-size: 52px; opacity: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+ <div id="all">
+  <div id="ed" class="vsw" style="left:100px;top:250px;width:640px;height:220px">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">hello.py</div></div>
+    <div class="vsr"></div><div class="vst">hello.py</div>
+    <div class="vsl" style="top:118px;font-size:44px"><span class="n">1</span><span style="white-space:pre"><span style="color:#dcdcaa">print</span><span style="color:#ffd700">(</span><span style="color:#ce9178">"Hello"</span><span style="color:#ffd700">)</span></span></div>
+  </div>
+  <div id="ar" class="ar r" style="left:770px;top:356px;width:70px;color:#9fb2cf"></div>
+  <div id="lab" class="lab" style="left:880px;top:236px;color:#22d3ee;font-size:36px;opacity:0">stdout — потік символів</div>
+  <div id="strip" style="position:absolute;left:870px;top:310px;width:620px;height:110px;border:4px solid #22d3ee;border-radius:18px;opacity:0"></div>
+  <div id="tiles"></div>
+  <div id="ptr" class="abs mono" style="left:905px;top:420px;font-size:44px;color:#fbbf24;opacity:0;width:40px;text-align:center">▲</div>
+  <div id="one" class="lab" style="left:1290px;top:430px;color:#fb7185;font-size:34px;opacity:0;white-space:nowrap">один символ</div>
+  <div id="esc" class="mono abs" style="left:1290px;top:480px;font-size:40px;color:#fb7185;opacity:0;font-weight:700">'\n'</div>
+  <div id="term" class="vsw" style="left:880px;top:560px;width:600px;height:330px">
+    <div class="vsb"><div class="vsT" style="text-align:left;left:24px">ТЕРМІНАЛ</div></div>
+    <div id="trow" class="abs mono" style="left:24px;top:80px;font-size:56px;display:flex;color:#34d399"></div>
+    <div id="cur" class="abs" style="left:24px;top:84px;width:26px;height:56px;background:#e8eef7;opacity:0"></div>
+  </div>
+ </div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+const $ = (id) => document.getElementById(id);
+const ch = ["H", "e", "l", "l", "o", "↵"];
+ch.forEach((c, i) => {
+  $("tiles").insertAdjacentHTML("beforeend", `<div id="k${i}" class="st5" style="left:${880 + i * 100}px;color:${i === 5 ? "#fb7185" : "#34d399"};border-color:${i === 5 ? "#fb7185" : "#26365a"}">${c}</div>`);
+  if (i < 5) $("trow").insertAdjacentHTML("beforeend", `<span id="c${i}" style="opacity:0;width:33.6px">${c}</span>`);
+});
+tl.set("#ed", { opacity: 1 }, 0);
+// L1 print writes into stdout
+pulse("#ed", T[0] + 1.0, 1.02);
+show("#ar", T[0] + 2.2); show("#lab", T[0] + 3.0); show("#strip", T[0] + 3.4);
+// L2 stream of characters
+ch.forEach((_, i) => show("#k" + i, T[1] + 0.3 + i * 0.35, 0.2));
+// L3 newline = one character
+tl.to("#k5", { backgroundColor: "rgba(251,113,133,0.25)", duration: 0.3 }, T[2] + 0.5); pulse("#k5", T[2] + 0.5, 1.15);
+show("#one", T[2] + 1.0); show("#esc", T[2] + 2.0); pulse("#esc", T[2] + 2.2, 1.1);
+pulse("#esc", T[2] + 3.2, 1.1); pulse("#one", T[2] + 4.0, 1.08); pulse("#k5", T[2] + 4.8, 1.12);
+hide("#one", T[3] - 0.05, 0.2); hide("#esc", T[3] - 0.05, 0.2);
+// L4 terminal draws characters one by one
+show("#ptr", T[3] + 0.1, 0.1); show("#cur", T[3] + 0.1, 0.05);
+ch.forEach((_, i) => {
+  const a = T[3] + 0.2 + i * 0.5;
+  tl.set("#ptr", { x: i * 100 }, a);
+  tl.set("#k" + i, { backgroundColor: "rgba(34,211,238,0.25)" }, a);
+  if (i < 5) { tl.set("#c" + i, { opacity: 1 }, a); tl.set("#cur", { x: (i + 1) * 33.6 }, a); }
+  else tl.set("#cur", { x: 0, y: 70 }, a);
+});
+hide("#all", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>

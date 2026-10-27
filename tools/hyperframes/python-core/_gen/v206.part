@@ -1,0 +1,55 @@
+<style>
+.bit { position: absolute; top: 400px; width: 24px; height: 70px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 28px; opacity: 0; }
+.grp { position: absolute; height: 6px; opacity: 0; }
+.gl { position: absolute; font-size: 32px; font-weight: 700; opacity: 0; white-space: nowrap; }
+.fx { position: absolute; opacity: 0; font-family: "JetBrains Mono", monospace; font-weight: 700; white-space: nowrap; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="ttl" class="lab" style="left:0;width:1920px;text-align:center;top:130px;font-size:48px;color:#e8eef7">float = IEEE 754, подвійна точність</div>
+  <div id="code" class="vsw" style="left:140px;top:210px;width:400px;height:150px;opacity:1">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span></div>
+    <div class="vsl" style="top:70px;font-size:48px"><span class="n" style="font-size:32px;width:50px">1</span><span style="color:#b5cea8">0.1</span></div>
+  </div>
+  <div id="bits"></div>
+  <div id="n64" class="mono abs" style="left:0;width:1920px;text-align:center;top:330px;font-size:40px;color:#9fb2cf;opacity:0">64 біти</div>
+  <div id="g1" class="grp" style="left:128px;top:490px;width:24px;background:#fbbf24"></div>
+  <div id="g2" class="grp" style="left:154px;top:490px;width:284px;background:#22d3ee"></div>
+  <div id="g3" class="grp" style="left:440px;top:490px;width:1352px;background:#34d399"></div>
+  <div id="l1" class="gl" style="left:100px;top:510px;color:#fbbf24">знак</div>
+  <div id="l2" class="gl" style="left:170px;top:550px;color:#22d3ee">експонента: 11 бітів</div>
+  <div id="l3" class="gl" style="left:830px;top:510px;color:#34d399">мантиса: 52 біти</div>
+  <div id="e1" class="fx" style="left:140px;top:650px;font-size:40px;color:#22d3ee">01111111011<sub>2</sub> = 1019</div>
+  <div id="e2" class="fx" style="left:140px;top:720px;font-size:40px;color:#22d3ee">1019 − 1023 = −4</div>
+  <div id="e3" class="fx" style="left:760px;top:650px;font-size:40px;color:#34d399">1.6000000000000000888…</div>
+  <div id="fm" class="fx" style="left:0;width:1920px;text-align:center;top:850px;font-size:56px;color:#e8eef7"><span style="color:#fbbf24">(+1)</span> × <span style="color:#34d399">1.6000000000000000888…</span> × <span style="color:#22d3ee">2<sup style="font-size:34px">−4</sup></span> = <span style="color:#e8eef7">0.1</span></div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+const $ = (id) => document.getElementById(id);
+const sign = "0", exp = "01111111011", mant = "1001100110011001100110011001100110011001100110011010";
+const all = sign + exp + mant;
+[...all].forEach((b, i) => {
+  const col = i === 0 ? "#fbbf24" : i < 12 ? "#22d3ee" : "#34d399";
+  $("bits").insertAdjacentHTML("beforeend", `<div id="b${i}" class="bit" style="left:${128 + i * 26}px;background:${col}22;border:2px solid ${col};color:${col}">${b}</div>`);
+});
+// L1 title + code
+pulse("#code", T[0] + 1.2, 1.04); pulse("#ttl", T[0] + 3.0, 1.03);
+// L2 64 bits
+for (let i = 0; i < 64; i++) tl.to("#b" + i, { opacity: 1, duration: 0.1 }, T[1] + 0.3 + i * 0.03);
+show("#n64", T[1] + 2.4); pulse("#n64", T[1] + 2.8, 1.1);
+// L3 three parts
+show("#g1", T[2] + 0.4); show("#l1", T[2] + 0.5);
+show("#g2", T[2] + 1.8); show("#l2", T[2] + 1.9);
+show("#g3", T[2] + 3.9); show("#l3", T[2] + 4.0);
+hide("#n64", T[2] + 0.2, 0.2);
+pulse("#l1", T[2] + 5.0, 1.15); pulse("#l2", T[2] + 5.7, 1.08); pulse("#l3", T[2] + 6.3, 1.08);
+// L4 decode 0.1
+show("#e1", T[3] + 0.5); show("#e2", T[3] + 2.5); show("#e3", T[3] + 4.5);
+pulse("#e1", T[3] + 1.2, 1.04); pulse("#e2", T[3] + 3.2, 1.04); pulse("#e3", T[3] + 5.2, 1.04);
+// L5 formula
+show("#fm", T[4] + 0.6, 0.3); pulse("#fm", T[4] + 2.8, 1.03);
+hide("#ttl", CL - 0.35, 0.3); hide("#code", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>

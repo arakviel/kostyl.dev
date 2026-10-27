@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # usage: check.sh <project-id>  -> compact summary of lint/runtime/layout/contrast/craft findings
-cd /Users/arakviel/Work/kostyl.dev/tools/hyperframes/cnn-image-classification/$1
+cd /Users/arakviel/Work/kostyl.dev/tools/hyperframes/${HF_MODULE:-cnn-image-classification}/$1
 npx hyperframes check --json > /tmp/chk_$1.json 2>&1
 python3 -I - "$1" <<'P'
 import json,collections,sys

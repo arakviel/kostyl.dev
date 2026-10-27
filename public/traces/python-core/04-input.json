@@ -1,0 +1,209 @@
+{
+ "format": 1,
+ "python": "3.15.0rc2",
+ "implementation": "cpython",
+ "name": "main.py",
+ "code": "raw = input(\"Число: \")\nnumber = int(raw)\nresult = number + 1\nprint(result)\n",
+ "inputs": [
+  "41"
+ ],
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "heap": {},
+   "ask": "Який тип має значення raw?",
+   "out": "Число: 41\n",
+   "i": 0
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "raw",
+       "ref": "4316708912"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4316708912": {
+     "type": "str",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "'41'",
+     "refs": 1
+    }
+   },
+   "ask": "Чи зміниться об'єкт raw після int()?",
+   "i": 1
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "raw",
+       "ref": "4316708912"
+      },
+      {
+       "name": "number",
+       "ref": "4312594952"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4316708912": {
+     "type": "str",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "'41'",
+     "refs": 1
+    },
+    "4312594952": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "41",
+     "refs": 1
+    }
+   },
+   "i": 2
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "raw",
+       "ref": "4316708912"
+      },
+      {
+       "name": "number",
+       "ref": "4312594952"
+      },
+      {
+       "name": "result",
+       "ref": "4312594984"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4316708912": {
+     "type": "str",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "'41'",
+     "refs": 1
+    },
+    "4312594952": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "41",
+     "refs": 1
+    },
+    "4312594984": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "42",
+     "refs": 1
+    }
+   },
+   "out": "42\n",
+   "i": 3
+  },
+  {
+   "event": "return",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "raw",
+       "ref": "4316708912"
+      },
+      {
+       "name": "number",
+       "ref": "4312594952"
+      },
+      {
+       "name": "result",
+       "ref": "4312594984"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4312267224",
+   "heap": {
+    "4316708912": {
+     "type": "str",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "'41'",
+     "refs": 1
+    },
+    "4312594952": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "41",
+     "refs": 1
+    },
+    "4312594984": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "42",
+     "refs": 1
+    },
+    "4312267224": {
+     "type": "NoneType",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "None",
+     "refs": 0
+    }
+   },
+   "i": 4
+  }
+ ],
+ "truncated": false,
+ "error": null
+}

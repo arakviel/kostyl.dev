@@ -1,0 +1,66 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+.mono { font-family: "JetBrains Mono", monospace; font-weight: 700; }
+.abs { position: absolute; }
+.card { position: absolute; border-radius: 18px; background: #0e1626; border: 3px solid #26365a; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+.lab { position: absolute; font-size: 34px; font-weight: 700; color: #9fb2cf; white-space: nowrap; }
+.o0 { opacity: 0; }
+.ar { position: absolute; height: 8px; background: currentColor; opacity: 0; }
+.ar.r::after { content: ""; position: absolute; right: -8px; top: -14px; border-left: 28px solid currentColor; border-top: 18px solid transparent; border-bottom: 18px solid transparent; }
+</style>
+<style>
+.bc { position: absolute; top: 460px; width: 170px; height: 170px; border-radius: 16px; background: #0e1626; border: 3px solid #26365a; }
+.bt { position: absolute; top: 460px; width: 170px; height: 170px; display: flex; align-items: center; justify-content: center; font-size: 96px; opacity: 0; }
+.wt { position: absolute; top: 380px; width: 170px; text-align: center; font-size: 44px; color: #9fb2cf; opacity: 0; }
+.big { position: absolute; left: 0; width: 1920px; text-align: center; opacity: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <!-- scene A: one bit -->
+  <div id="scA">
+    <div class="card" style="left:560px;top:380px;width:360px;height:300px"></div>
+    <div class="card" style="left:1000px;top:380px;width:360px;height:300px"></div>
+    <div class="mono abs" style="left:560px;top:420px;width:360px;text-align:center;font-size:190px;color:#9fb2cf">0</div>
+    <div class="mono abs" style="left:1000px;top:420px;width:360px;text-align:center;font-size:190px;color:#34d399">1</div>
+    <div class="lab" style="left:0;width:1920px;text-align:center;top:730px;font-size:44px;opacity:0" id="bitl">біт: 0 або 1</div>
+  </div>
+  <!-- scene B: byte -->
+  <div id="scB" style="opacity:0">
+    <div id="bc"></div><div id="wt"></div><div id="b0"></div><div id="b1"></div>
+    <div id="cnt" class="big mono" style="top:230px;font-size:70px;color:#9fb2cf"><span style="color:#fbbf24">8 бітів</span> = 1 байт = <span style="color:#34d399">2<sup style="font-size:40px">8</sup> = 256</span> значень</div>
+    <div id="sum" class="big mono" style="top:740px;font-size:76px;color:#e8eef7"><span id="s1" class="o0" style="color:#34d399">32</span><span id="s2" class="o0"> + <span style="color:#34d399">8</span></span><span id="s3" class="o0"> + <span style="color:#34d399">2</span></span><span id="s4" class="o0"> = <span style="color:#fbbf24">42</span></span></div>
+    <div id="max" class="big mono" style="top:880px;font-size:76px;color:#fbbf24">11111111 = 255</div>
+  </div>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+const show = (sel, at, d = 0.3) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, at);
+const hide = (sel, at, d = 0.3) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+const pulse = (sel, at, sc = 1.1) => { tl.to(sel, { scale: sc, duration: 0.15 }, at); tl.to(sel, { scale: 1, duration: 0.3 }, at + 0.15); };
+const X0 = 184, W = 170, G = 16, wts = [128, 64, 32, 16, 8, 4, 2, 1], bits = [0, 0, 1, 0, 1, 0, 1, 0];
+for (let i = 0; i < 8; i++) {
+  const x = X0 + i * (W + G);
+  document.getElementById("bc").insertAdjacentHTML("beforeend", `<div id="c${i}" class="bc" style="left:${x}px"></div>`);
+  document.getElementById("wt").insertAdjacentHTML("beforeend", `<div id="w${i}" class="wt mono" style="left:${x}px">${wts[i]}</div>`);
+  document.getElementById("b0").insertAdjacentHTML("beforeend", `<div id="z${i}" class="bt mono" style="left:${x}px;color:#9fb2cf;opacity:${bits[i] ? 0 : 1}">0</div>`);
+  document.getElementById("b1").insertAdjacentHTML("beforeend", `<div id="o${i}" class="bt mono" style="left:${x}px;color:#34d399;opacity:${bits[i] ? 1 : 0}">1</div>`);
+}
+// L1 0.5-2.5 one bit
+show("#bitl", 1.0);
+// L2 3.15-7.42: eight bits = byte, 256 values
+hide("#scA", 3.1, 0.4); tl.to("#scB", { opacity: 1, duration: 0.4 }, 3.4);
+show("#cnt", 5.4); pulse("#cnt", 6.4, 1.04);
+// L3 8.07-10.11 weights
+hide("#cnt", 7.7);
+for (let i = 0; i < 8; i++) show("#w" + i, 8.3 + i * 0.15, 0.25);
+// L4 10.76-17.26 sum
+[2, 4, 6].forEach((i, k) => { tl.to("#c" + i, { borderColor: "#34d399", backgroundColor: "#12302a", duration: 0.3 }, 11.8 + k * 0.3); pulse("#w" + i, 11.8 + k * 0.3, 1.2); });
+show("#sum", 13.9, 0.1); show("#s1", 14.0, 0.2); show("#s2", 14.9, 0.2); show("#s3", 15.6, 0.2); show("#s4", 16.1, 0.2); pulse("#s4", 16.3, 1.15);
+// L5 17.91-22.42 all ones
+hide("#sum", 17.6);
+for (let i = 0; i < 8; i++) { if (!bits[i]) { tl.to("#z" + i, { opacity: 0, duration: 0.1 }, 18.1 + i * 0.12); tl.to("#o" + i, { opacity: 1, duration: 0.1 }, 18.25 + i * 0.12); } tl.to("#c" + i, { borderColor: "#34d399", backgroundColor: "#12302a", duration: 0.2 }, 18.1 + i * 0.1); }
+show("#max", 20.6);
+window.__timelines["world"] = tl;
+</script>
+
+</template>

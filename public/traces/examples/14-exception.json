@@ -1,0 +1,1379 @@
+{
+ "format": 1,
+ "python": "3.15.0rc2",
+ "implementation": "cpython",
+ "name": "main.py",
+ "code": "def parse(text):\n    return int(text)\n\ndef read_age():\n    raw = input(\"Вік: \")\n    try:\n        return parse(raw)\n    except ValueError as e:\n        print(\"Помилка:\", e)\n        return None\n\nage = read_age()\nparse(\"x\")\n",
+ "inputs": [
+  "abc"
+ ],
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "heap": {},
+   "i": 0
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    }
+   },
+   "i": 1
+  },
+  {
+   "event": "line",
+   "line": 12,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 12,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      },
+      {
+       "name": "read_age",
+       "ref": "4445750720"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    },
+    "4445750720": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "read_age",
+     "signature": "()",
+     "refs": 1
+    }
+   },
+   "i": 2
+  },
+  {
+   "event": "call",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 12,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      },
+      {
+       "name": "read_age",
+       "ref": "4445750720"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "read_age",
+     "line": 4,
+     "vars": []
+    }
+   ],
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    },
+    "4445750720": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "read_age",
+     "signature": "()",
+     "refs": 1
+    }
+   },
+   "i": 3
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 12,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      },
+      {
+       "name": "read_age",
+       "ref": "4445750720"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "read_age",
+     "line": 5,
+     "vars": []
+    }
+   ],
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    },
+    "4445750720": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "read_age",
+     "signature": "()",
+     "refs": 1
+    }
+   },
+   "out": "Вік: abc\n",
+   "i": 4
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 12,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      },
+      {
+       "name": "read_age",
+       "ref": "4445750720"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "read_age",
+     "line": 6,
+     "vars": [
+      {
+       "name": "raw",
+       "ref": "4364484448"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    },
+    "4445750720": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "read_age",
+     "signature": "()",
+     "refs": 1
+    },
+    "4364484448": {
+     "type": "str",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "'abc'",
+     "refs": 1
+    }
+   },
+   "i": 5
+  },
+  {
+   "event": "line",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 12,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      },
+      {
+       "name": "read_age",
+       "ref": "4445750720"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "read_age",
+     "line": 7,
+     "vars": [
+      {
+       "name": "raw",
+       "ref": "4364484448"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    },
+    "4445750720": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "read_age",
+     "signature": "()",
+     "refs": 1
+    },
+    "4364484448": {
+     "type": "str",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "'abc'",
+     "refs": 1
+    }
+   },
+   "i": 6
+  },
+  {
+   "event": "call",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 12,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      },
+      {
+       "name": "read_age",
+       "ref": "4445750720"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "read_age",
+     "line": 7,
+     "vars": [
+      {
+       "name": "raw",
+       "ref": "4364484448"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "parse",
+     "line": 1,
+     "vars": [
+      {
+       "name": "text",
+       "ref": "4364484448"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    },
+    "4445750720": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "read_age",
+     "signature": "()",
+     "refs": 1
+    },
+    "4364484448": {
+     "type": "str",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "'abc'",
+     "refs": 2
+    }
+   },
+   "i": 7
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 12,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      },
+      {
+       "name": "read_age",
+       "ref": "4445750720"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "read_age",
+     "line": 7,
+     "vars": [
+      {
+       "name": "raw",
+       "ref": "4364484448"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "parse",
+     "line": 2,
+     "vars": [
+      {
+       "name": "text",
+       "ref": "4364484448"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    },
+    "4445750720": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "read_age",
+     "signature": "()",
+     "refs": 1
+    },
+    "4364484448": {
+     "type": "str",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "'abc'",
+     "refs": 2
+    }
+   },
+   "i": 8
+  },
+  {
+   "event": "exception",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 12,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      },
+      {
+       "name": "read_age",
+       "ref": "4445750720"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "read_age",
+     "line": 7,
+     "vars": [
+      {
+       "name": "raw",
+       "ref": "4364484448"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "parse",
+     "line": 2,
+     "vars": [
+      {
+       "name": "text",
+       "ref": "4364484448"
+      }
+     ]
+    }
+   ],
+   "exception": "4445579264",
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    },
+    "4445750720": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "read_age",
+     "signature": "()",
+     "refs": 1
+    },
+    "4364484448": {
+     "type": "str",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "'abc'",
+     "refs": 2
+    },
+    "4445579264": {
+     "type": "ValueError",
+     "mutable": true,
+     "kind": "exception",
+     "message": "invalid literal for int() with base 10: 'abc'",
+     "refs": 0
+    }
+   },
+   "i": 9
+  },
+  {
+   "event": "unwind",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 12,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      },
+      {
+       "name": "read_age",
+       "ref": "4445750720"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "read_age",
+     "line": 7,
+     "vars": [
+      {
+       "name": "raw",
+       "ref": "4364484448"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "parse",
+     "line": 2,
+     "vars": [
+      {
+       "name": "text",
+       "ref": "4364484448"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    },
+    "4445750720": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "read_age",
+     "signature": "()",
+     "refs": 1
+    },
+    "4364484448": {
+     "type": "str",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "'abc'",
+     "refs": 2
+    }
+   },
+   "i": 10
+  },
+  {
+   "event": "exception",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 12,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      },
+      {
+       "name": "read_age",
+       "ref": "4445750720"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "read_age",
+     "line": 7,
+     "vars": [
+      {
+       "name": "raw",
+       "ref": "4364484448"
+      }
+     ]
+    }
+   ],
+   "exception": "4445579264",
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    },
+    "4445750720": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "read_age",
+     "signature": "()",
+     "refs": 1
+    },
+    "4364484448": {
+     "type": "str",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "'abc'",
+     "refs": 1
+    },
+    "4445579264": {
+     "type": "ValueError",
+     "mutable": true,
+     "kind": "exception",
+     "message": "invalid literal for int() with base 10: 'abc'",
+     "refs": 0
+    }
+   },
+   "i": 11
+  },
+  {
+   "event": "line",
+   "line": 8,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 12,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      },
+      {
+       "name": "read_age",
+       "ref": "4445750720"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "read_age",
+     "line": 8,
+     "vars": [
+      {
+       "name": "raw",
+       "ref": "4364484448"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    },
+    "4445750720": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "read_age",
+     "signature": "()",
+     "refs": 1
+    },
+    "4364484448": {
+     "type": "str",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "'abc'",
+     "refs": 1
+    }
+   },
+   "i": 12
+  },
+  {
+   "event": "line",
+   "line": 9,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 12,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      },
+      {
+       "name": "read_age",
+       "ref": "4445750720"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "read_age",
+     "line": 9,
+     "vars": [
+      {
+       "name": "raw",
+       "ref": "4364484448"
+      },
+      {
+       "name": "e",
+       "ref": "4445579264"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    },
+    "4445750720": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "read_age",
+     "signature": "()",
+     "refs": 1
+    },
+    "4364484448": {
+     "type": "str",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "'abc'",
+     "refs": 1
+    },
+    "4445579264": {
+     "type": "ValueError",
+     "mutable": true,
+     "kind": "exception",
+     "message": "invalid literal for int() with base 10: 'abc'",
+     "refs": 1
+    }
+   },
+   "out": "Помилка: invalid literal for int() with base 10: 'abc'\n",
+   "i": 13
+  },
+  {
+   "event": "line",
+   "line": 10,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 12,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      },
+      {
+       "name": "read_age",
+       "ref": "4445750720"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "read_age",
+     "line": 10,
+     "vars": [
+      {
+       "name": "raw",
+       "ref": "4364484448"
+      },
+      {
+       "name": "e",
+       "ref": "4445579264"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    },
+    "4445750720": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "read_age",
+     "signature": "()",
+     "refs": 1
+    },
+    "4364484448": {
+     "type": "str",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "'abc'",
+     "refs": 1
+    },
+    "4445579264": {
+     "type": "ValueError",
+     "mutable": true,
+     "kind": "exception",
+     "message": "invalid literal for int() with base 10: 'abc'",
+     "refs": 1
+    }
+   },
+   "i": 14
+  },
+  {
+   "event": "return",
+   "line": 10,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 12,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      },
+      {
+       "name": "read_age",
+       "ref": "4445750720"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "read_age",
+     "line": 10,
+     "vars": [
+      {
+       "name": "raw",
+       "ref": "4364484448"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4360534488",
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    },
+    "4445750720": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "read_age",
+     "signature": "()",
+     "refs": 1
+    },
+    "4364484448": {
+     "type": "str",
+     "mutable": false,
+     "kind": "primitive",
+     "repr": "'abc'",
+     "refs": 1
+    },
+    "4360534488": {
+     "type": "NoneType",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "None",
+     "refs": 0
+    }
+   },
+   "i": 15
+  },
+  {
+   "event": "line",
+   "line": 13,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 13,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      },
+      {
+       "name": "read_age",
+       "ref": "4445750720"
+      },
+      {
+       "name": "age",
+       "ref": "4360534488"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    },
+    "4445750720": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "read_age",
+     "signature": "()",
+     "refs": 1
+    },
+    "4360534488": {
+     "type": "NoneType",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "None",
+     "refs": 1
+    }
+   },
+   "i": 16
+  },
+  {
+   "event": "call",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 13,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      },
+      {
+       "name": "read_age",
+       "ref": "4445750720"
+      },
+      {
+       "name": "age",
+       "ref": "4360534488"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "parse",
+     "line": 1,
+     "vars": [
+      {
+       "name": "text",
+       "ref": "4360958080"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    },
+    "4445750720": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "read_age",
+     "signature": "()",
+     "refs": 1
+    },
+    "4360534488": {
+     "type": "NoneType",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "None",
+     "refs": 1
+    },
+    "4360958080": {
+     "type": "str",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "'x'",
+     "refs": 1
+    }
+   },
+   "i": 17
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 13,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      },
+      {
+       "name": "read_age",
+       "ref": "4445750720"
+      },
+      {
+       "name": "age",
+       "ref": "4360534488"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "parse",
+     "line": 2,
+     "vars": [
+      {
+       "name": "text",
+       "ref": "4360958080"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    },
+    "4445750720": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "read_age",
+     "signature": "()",
+     "refs": 1
+    },
+    "4360534488": {
+     "type": "NoneType",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "None",
+     "refs": 1
+    },
+    "4360958080": {
+     "type": "str",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "'x'",
+     "refs": 1
+    }
+   },
+   "i": 18
+  },
+  {
+   "event": "exception",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 13,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      },
+      {
+       "name": "read_age",
+       "ref": "4445750720"
+      },
+      {
+       "name": "age",
+       "ref": "4360534488"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "parse",
+     "line": 2,
+     "vars": [
+      {
+       "name": "text",
+       "ref": "4360958080"
+      }
+     ]
+    }
+   ],
+   "exception": "4445579264",
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    },
+    "4445750720": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "read_age",
+     "signature": "()",
+     "refs": 1
+    },
+    "4360534488": {
+     "type": "NoneType",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "None",
+     "refs": 1
+    },
+    "4360958080": {
+     "type": "str",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "'x'",
+     "refs": 1
+    },
+    "4445579264": {
+     "type": "ValueError",
+     "mutable": true,
+     "kind": "exception",
+     "message": "invalid literal for int() with base 10: 'x'",
+     "refs": 0
+    }
+   },
+   "i": 19
+  },
+  {
+   "event": "unwind",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 13,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      },
+      {
+       "name": "read_age",
+       "ref": "4445750720"
+      },
+      {
+       "name": "age",
+       "ref": "4360534488"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "parse",
+     "line": 2,
+     "vars": [
+      {
+       "name": "text",
+       "ref": "4360958080"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    },
+    "4445750720": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "read_age",
+     "signature": "()",
+     "refs": 1
+    },
+    "4360534488": {
+     "type": "NoneType",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "None",
+     "refs": 1
+    },
+    "4360958080": {
+     "type": "str",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "'x'",
+     "refs": 1
+    }
+   },
+   "i": 20
+  },
+  {
+   "event": "exception",
+   "line": 13,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 13,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      },
+      {
+       "name": "read_age",
+       "ref": "4445750720"
+      },
+      {
+       "name": "age",
+       "ref": "4360534488"
+      }
+     ]
+    }
+   ],
+   "exception": "4445579264",
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    },
+    "4445750720": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "read_age",
+     "signature": "()",
+     "refs": 1
+    },
+    "4360534488": {
+     "type": "NoneType",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "None",
+     "refs": 1
+    },
+    "4445579264": {
+     "type": "ValueError",
+     "mutable": true,
+     "kind": "exception",
+     "message": "invalid literal for int() with base 10: 'x'",
+     "refs": 0
+    }
+   },
+   "i": 21
+  },
+  {
+   "event": "unwind",
+   "line": 13,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 13,
+     "vars": [
+      {
+       "name": "parse",
+       "ref": "4445750368"
+      },
+      {
+       "name": "read_age",
+       "ref": "4445750720"
+      },
+      {
+       "name": "age",
+       "ref": "4360534488"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4445750368": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "parse",
+     "signature": "(text)",
+     "refs": 1
+    },
+    "4445750720": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "read_age",
+     "signature": "()",
+     "refs": 1
+    },
+    "4360534488": {
+     "type": "NoneType",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "None",
+     "refs": 1
+    }
+   },
+   "i": 22
+  }
+ ],
+ "truncated": false,
+ "error": {
+  "type": "ValueError",
+  "message": "invalid literal for int() with base 10: 'x'",
+  "traceback": "Traceback (most recent call last):\n  File \"main.py\", line 13, in <module>\n    parse(\"x\")\n    ~~~~~^^^^^\n  File \"main.py\", line 2, in parse\n    return int(text)\nValueError: invalid literal for int() with base 10: 'x'\n"
+ }
+}

@@ -1,0 +1,46 @@
+<style>
+.chipx { position: absolute; top: 760px; width: 300px; height: 120px; border-radius: 18px; background: #0e1626; border: 4px solid #26365a; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 800; font-size: 44px; opacity: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="ed" class="vsw" style="left:140px;top:290px;width:640px;height:240px">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">number.py</div></div>
+    <div class="vsr"></div><div class="vst">number.py</div>
+    <div class="vsl" style="top:120px;font-size:56px;height:80px"><span class="n" style="font-size:36px">1</span><span id="n42" style="color:#b5cea8">42</span></div>
+  </div>
+  <div id="ar" class="ar r" style="left:810px;top:406px;width:150px;color:#9fb2cf"></div>
+  <div id="q" class="mono abs" style="left:1050px;top:260px;width:500px;text-align:center;font-size:260px;color:#fbbf24;opacity:0">?</div>
+  <div id="pq"></div>
+  <div id="c1" class="chipx" style="left:100px;border-color:#22d3ee;color:#22d3ee">int</div>
+  <div id="c2" class="chipx" style="left:420px;border-color:#a78bfa;color:#a78bfa">float</div>
+  <div id="c3" class="chipx" style="left:740px;border-color:#fbbf24;color:#fbbf24">str</div>
+  <div id="c4" class="chipx" style="left:1060px;border-color:#34d399;color:#34d399">bool</div>
+  <div id="c5" class="chipx" style="left:1380px;border-color:#9fb2cf;color:#9fb2cf">NoneType</div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+const $ = (id) => document.getElementById(id);
+const IDV = "4380162600";
+// object plaque: type / id / value
+const PQ = (p, left, top, w, h, type, val, vcol, idv) => `<div id="${p}" class="card" style="left:${left}px;top:${top}px;width:${w}px;height:${h}px;border-color:#34d399;opacity:0">
+  <div id="${p}t" class="abs" style="left:28px;top:20px;width:${w - 56}px;height:${h * 0.22}px;border:3px solid transparent;border-radius:12px;display:flex;align-items:center;gap:20px;padding:0 14px"><span class="lab" style="position:static;font-size:30px">тип</span><span class="mono" style="font-size:${Math.round(h * 0.14)}px;color:#22d3ee">${type}</span></div>
+  <div id="${p}v" class="abs" style="left:28px;top:${h * 0.28}px;width:${w - 56}px;height:${h * 0.38}px;border:3px solid transparent;border-radius:12px;display:flex;align-items:center;gap:20px;padding:0 14px"><span class="lab" style="position:static;font-size:30px">значення</span><span class="mono" style="font-size:${Math.round(h * 0.26)}px;color:${vcol}">${val}</span></div>
+  <div id="${p}i" class="abs" style="left:28px;top:${h * 0.72}px;width:${w - 56}px;height:${h * 0.2}px;border:3px solid transparent;border-radius:12px;display:flex;align-items:center;gap:20px;padding:0 14px"><span class="lab" style="position:static;font-size:30px">id</span><span class="mono" style="font-size:${Math.round(h * 0.09)}px;color:#fbbf24">${idv || IDV}</span></div></div>`;
+const hf = (sel, col, at) => tl.to(sel, { borderColor: col, duration: 0.25 }, at);
+const uf = (sel, at) => tl.to(sel, { borderColor: "transparent", duration: 0.25 }, at);
+
+$("pq").innerHTML = PQ("pl", 1000, 230, 700, 440, "int", "42", "#34d399");
+tl.set("#ed", { opacity: 1 }, 0);
+// L1
+tl.to("#n42", { backgroundColor: "rgba(181,206,168,0.3)", duration: 0.3 }, T[0] + 0.6);
+show("#ar", T[0] + 1.2); show("#q", T[0] + 1.6); pulse("#q", T[0] + 2.2, 1.1);
+// L2
+hide("#q", T[1] + 0.1, 0.2); show("#pl", T[1] + 0.3, 0.4);
+hf("#plt", "#22d3ee", T[1] + 1.4); uf("#plt", T[1] + 2.4);
+hf("#pli", "#fbbf24", T[1] + 2.5); uf("#pli", T[1] + 3.4);
+hf("#plv", "#34d399", T[1] + 3.5); uf("#plv", T[1] + 4.5);
+// L3
+[["#c1", 1.8], ["#c2", 2.6], ["#c3", 3.3], ["#c4", 4.0], ["#c5", 5.0]].forEach(([s, d]) => { show(s, T[2] + d); pulse(s, T[2] + d, 1.08); });
+window.__timelines["world"] = tl;
+</script>

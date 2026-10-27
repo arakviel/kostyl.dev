@@ -1,0 +1,326 @@
+{
+ "format": 1,
+ "python": "3.15.0rc2",
+ "implementation": "cpython",
+ "name": "main.py",
+ "code": "a = [1, 2]\nb = a\nc = [1, 2]\nprint(a == b, a is b)\nprint(a == c, a is c)\n",
+ "inputs": [],
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "heap": {},
+   "i": 0
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 2,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4413558912"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4413558912": {
+     "type": "list",
+     "mutable": true,
+     "kind": "sequence",
+     "items": [
+      "4327798024",
+      "4327798056"
+     ],
+     "refs": 1
+    },
+    "4327798024": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    },
+    "4327798056": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    }
+   },
+   "i": 1
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 3,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4413558912"
+      },
+      {
+       "name": "b",
+       "ref": "4413558912"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4413558912": {
+     "type": "list",
+     "mutable": true,
+     "kind": "sequence",
+     "items": [
+      "4327798024",
+      "4327798056"
+     ],
+     "refs": 2
+    },
+    "4327798024": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    },
+    "4327798056": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    }
+   },
+   "i": 2
+  },
+  {
+   "event": "line",
+   "line": 4,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 4,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4413558912"
+      },
+      {
+       "name": "b",
+       "ref": "4413558912"
+      },
+      {
+       "name": "c",
+       "ref": "4413558784"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4413558912": {
+     "type": "list",
+     "mutable": true,
+     "kind": "sequence",
+     "items": [
+      "4327798024",
+      "4327798056"
+     ],
+     "refs": 2
+    },
+    "4327798024": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 2
+    },
+    "4327798056": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 2
+    },
+    "4413558784": {
+     "type": "list",
+     "mutable": true,
+     "kind": "sequence",
+     "items": [
+      "4327798024",
+      "4327798056"
+     ],
+     "refs": 1
+    }
+   },
+   "out": "True True\n",
+   "i": 3
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4413558912"
+      },
+      {
+       "name": "b",
+       "ref": "4413558912"
+      },
+      {
+       "name": "c",
+       "ref": "4413558784"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4413558912": {
+     "type": "list",
+     "mutable": true,
+     "kind": "sequence",
+     "items": [
+      "4327798024",
+      "4327798056"
+     ],
+     "refs": 2
+    },
+    "4327798024": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 2
+    },
+    "4327798056": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 2
+    },
+    "4413558784": {
+     "type": "list",
+     "mutable": true,
+     "kind": "sequence",
+     "items": [
+      "4327798024",
+      "4327798056"
+     ],
+     "refs": 1
+    }
+   },
+   "ask": "Що виведе цей рядок: == і is однакові?",
+   "out": "True False\n",
+   "i": 4
+  },
+  {
+   "event": "return",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 5,
+     "vars": [
+      {
+       "name": "a",
+       "ref": "4413558912"
+      },
+      {
+       "name": "b",
+       "ref": "4413558912"
+      },
+      {
+       "name": "c",
+       "ref": "4413558784"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4327471576",
+   "heap": {
+    "4413558912": {
+     "type": "list",
+     "mutable": true,
+     "kind": "sequence",
+     "items": [
+      "4327798024",
+      "4327798056"
+     ],
+     "refs": 2
+    },
+    "4327798024": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 2
+    },
+    "4327798056": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 2
+    },
+    "4413558784": {
+     "type": "list",
+     "mutable": true,
+     "kind": "sequence",
+     "items": [
+      "4327798024",
+      "4327798056"
+     ],
+     "refs": 1
+    },
+    "4327471576": {
+     "type": "NoneType",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "None",
+     "refs": 0
+    }
+   },
+   "i": 5
+  }
+ ],
+ "truncated": false,
+ "error": null
+}

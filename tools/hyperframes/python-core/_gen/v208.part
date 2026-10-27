@@ -1,0 +1,44 @@
+<style>
+.cls { position: absolute; top: 130px; width: 300px; height: 120px; border-radius: 18px; background: #0e1626; border: 4px solid #26365a; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 800; font-size: 54px; opacity: 0; }
+.rw { position: absolute; left: 0; width: 1920px; text-align: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 46px; white-space: nowrap; opacity: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="cb" class="cls" style="left:260px;border-color:#fbbf24;color:#fbbf24">bool</div>
+  <div id="ci" class="cls" style="left:810px;border-color:#22d3ee;color:#22d3ee">int</div>
+  <div id="co" class="cls" style="left:1360px;border-color:#9fb2cf;color:#9fb2cf">object</div>
+  <div id="a1" class="ar r" style="left:575px;top:188px;width:200px;color:#fbbf24"></div>
+  <div id="a2" class="ar r" style="left:1125px;top:188px;width:200px;color:#22d3ee"></div>
+  <div id="sub" class="lab" style="left:0;width:1920px;text-align:center;top:270px;color:#9fb2cf;font-size:34px;opacity:0">підклас  →  батьківський клас</div>
+  <div id="tf" class="mono abs" style="left:0;width:1920px;text-align:center;top:340px;font-size:56px;opacity:0"><span style="color:#34d399">True</span> = <span style="color:#b5cea8">1</span>     <span style="color:#fb7185">False</span> = <span style="color:#b5cea8">0</span></div>
+  <div id="r1" class="rw" style="top:440px"><span style="color:#dcdcaa">isinstance</span>(<span style="color:#34d399">True</span>, <span style="color:#4ec9b0">int</span>)  <span style="color:#9fb2cf">→</span>  <span style="color:#34d399">True</span></div>
+  <div id="r2" class="rw" style="top:520px"><span style="color:#34d399">True</span> + <span style="color:#34d399">True</span>  <span style="color:#9fb2cf">→</span>  <span style="color:#b5cea8">2</span></div>
+  <div id="r3" class="rw" style="top:600px"><span style="color:#dcdcaa">sum</span>([<span style="color:#34d399">True</span>, <span style="color:#34d399">True</span>, <span style="color:#fb7185">False</span>, <span style="color:#34d399">True</span>])  <span style="color:#9fb2cf">→</span>  <span style="color:#b5cea8">3</span></div>
+  <div id="nh" class="lab" style="left:0;width:1920px;text-align:center;top:700px;font-size:44px;color:#9fb2cf;opacity:0">None</div>
+  <div id="nn" class="card" style="left:810px;top:770px;width:300px;height:160px;opacity:0;border-color:#9fb2cf"><div class="mono abs" style="left:0;width:300px;top:30px;text-align:center;font-size:56px;color:#9fb2cf">None</div><div class="mono abs" style="left:0;width:300px;top:104px;text-align:center;font-size:28px;color:#6f84a6">NoneType</div></div>
+  <div id="na" class="card" style="left:260px;top:790px;width:200px;height:90px;opacity:0;border-color:#22d3ee"><div class="mono abs" style="left:0;width:200px;top:16px;text-align:center;font-size:48px;color:#22d3ee">a</div></div>
+  <div id="nb" class="card" style="left:1460px;top:790px;width:200px;height:90px;opacity:0;border-color:#22d3ee"><div class="mono abs" style="left:0;width:200px;top:16px;text-align:center;font-size:48px;color:#22d3ee">b</div></div>
+  <div id="ra" class="ar r" style="left:470px;top:831px;width:320px;color:#22d3ee"></div>
+  <div id="rb" class="ar l" style="left:1130px;top:831px;width:320px;color:#22d3ee"></div>
+  <div id="is" class="mono abs" style="left:0;width:1920px;text-align:center;top:950px;font-size:48px;opacity:0"><span style="color:#22d3ee">a</span> <span style="color:#c586c0">is</span> <span style="color:#22d3ee">b</span>  <span style="color:#9fb2cf">→</span>  <span style="color:#34d399">True</span></div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+// L1 bool values are ints
+tl.set("#cb", { opacity: 1 }, 0);
+pulse("#cb", T[0] + 1.0, 1.08);
+// L2 subclass chain
+show("#a1", T[1] + 0.5); show("#ci", T[1] + 0.6); show("#a2", T[1] + 1.4); show("#co", T[1] + 1.5);
+show("#sub", T[1] + 2.4); show("#tf", T[1] + 3.6); show("#r1", T[1] + 4.4);
+// L3 arithmetic
+hide("#sub", T[2] + 0.1, 0.2);
+show("#r2", T[2] + 1.0); pulse("#r2", T[2] + 1.2, 1.04); show("#r3", T[2] + 3.4); pulse("#r3", T[2] + 3.6, 1.04);
+// L4 None
+show("#nh", T[3] + 0.5); show("#nn", T[3] + 1.2); pulse("#nn", T[3] + 2.2, 1.08);
+// L5 one instance
+show("#na", T[4] + 0.4); show("#nb", T[4] + 0.8); show("#ra", T[4] + 1.4); show("#rb", T[4] + 1.8);
+show("#is", T[4] + 3.0); pulse("#is", T[4] + 3.4, 1.05);
+["#cb", "#ci", "#co", "#a1", "#a2", "#sub", "#tf"].forEach((x) => hide(x, CL - 0.35, 0.3));
+window.__timelines["world"] = tl;
+</script>

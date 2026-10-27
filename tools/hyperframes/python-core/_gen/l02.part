@@ -1,0 +1,64 @@
+<style>
+#win { position: absolute; left: 40px; top: 40px; width: 1840px; height: 1000px; border-radius: 16px; background: #1e1e1e; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.6); }
+#tb { position: absolute; left: 0; top: 0; width: 1840px; height: 56px; background: #2b2b2b; }
+.tl3 { position: absolute; top: 19px; width: 18px; height: 18px; border-radius: 9px; }
+#ttl { position: absolute; left: 0; width: 1840px; top: 10px; text-align: center; font-size: 28px; color: #c8c8c8; }
+#act { position: absolute; left: 0; top: 56px; width: 70px; height: 944px; background: #333333; }
+.ai { position: absolute; left: 20px; width: 30px; height: 30px; border-radius: 6px; border: 3px solid #858585; }
+#side { position: absolute; left: 70px; top: 56px; width: 430px; height: 944px; background: #252526; }
+.sh { position: absolute; left: 22px; top: 22px; font-size: 28px; color: #bbbbbb; letter-spacing: 0.08em; }
+.trr { position: absolute; left: 0; width: 430px; height: 46px; display: flex; align-items: center; font-size: 30px; color: #cccccc; }
+#tabs { position: absolute; left: 500px; top: 56px; width: 1340px; height: 64px; background: #252526; }
+.tab { position: absolute; left: 0; top: 0; height: 64px; display: flex; align-items: center; padding: 0 28px; font-size: 28px; color: #fff; background: #1e1e1e; border-top: 3px solid #3794ff; font-family: "JetBrains Mono", monospace; font-weight: 500; opacity: 0; }
+.gut2 { position: absolute; left: 520px; top: 150px; width: 60px; text-align: right; font-family: "JetBrains Mono", monospace; font-size: 40px; color: #b4b4b4; }
+#codeL { position: absolute; left: 600px; top: 150px; font-family: "JetBrains Mono", monospace; font-weight: 600; font-size: 44px; color: #d4d4d4; white-space: nowrap; height: 54px; display: flex; align-items: center; }
+#codeL .ty { display: inline-block; overflow: hidden; white-space: nowrap; width: 0; }
+#term2 { position: absolute; left: 500px; top: 440px; width: 1340px; height: 560px; background: #1e1e1e; border-top: 2px solid #3c3c3c; }
+#tth { position: absolute; left: 24px; top: 14px; font-size: 28px; color: #e7e7e7; letter-spacing: 0.04em; border-bottom: 2px solid #e7e7e7; padding-bottom: 6px; }
+.tx2 { position: absolute; left: 24px; height: 44px; display: flex; align-items: center; font-family: "JetBrains Mono", monospace; font-weight: 500; font-size: 34px; color: #cccccc; white-space: nowrap; opacity: 0; }
+.tx2 .ty { display: inline-block; overflow: hidden; white-space: nowrap; width: 0; }
+.fl { position: absolute; left: 0; height: 46px; width: 430px; display: flex; align-items: center; font-size: 30px; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+ <div id="win">
+  <div id="tb"><span class="tl3" style="left:24px;background:#ff5f57"></span><span class="tl3" style="left:56px;background:#febc2e"></span><span class="tl3" style="left:88px;background:#28c840"></span><div id="ttl">lesson-01 — Visual Studio Code</div></div>
+  <div id="act"><span class="ai" style="top:24px"></span><span class="ai" style="top:90px"></span><span class="ai" style="top:156px"></span></div>
+  <div id="side">
+    <div class="sh">ПРОВІДНИК</div>
+    <div class="trr" style="top:80px;padding-left:22px">▾ LESSON-01</div>
+    <div id="newicon" class="abs" style="left:350px;top:76px;width:50px;height:50px;border-radius:8px;border:3px solid #858585;display:flex;align-items:center;justify-content:center;font-size:34px;color:#cccccc">+</div>
+    <div id="fnew" class="fl mono" style="top:130px;padding-left:56px;font-weight:500;color:#e2c08d;opacity:0"><span id="fny" style="display:inline-block;overflow:hidden;white-space:nowrap;width:0">hello.py</span></div>
+  </div>
+  <div id="tabs"><div id="tab" class="tab"><span style="position:relative;display:inline-block;width:34px;height:34px;margin-right:12px"><span id="dot" style="position:absolute;left:0;top:-8px;color:#cccccc;font-size:30px">●</span><span id="x" style="position:absolute;left:0;top:-8px;color:#cccccc;font-size:30px;opacity:0">×</span></span><span>hello.py</span></div></div>
+  <div id="gt" class="gut2" style="opacity:0">1</div>
+  <div id="codeL"><span id="cy"></span></div><div id="cur" class="abs" style="left:602px;top:153px;width:4px;height:48px;background:#fff;opacity:0"></div>
+  <div id="saved" class="abs" style="left:1500px;top:150px;font-size:30px;color:#34d399;opacity:0;font-weight:700">збережено</div>
+  <div id="term2"><div id="tth">ТЕРМІНАЛ</div>
+    <div id="x0" class="tx2" style="top:72px"><span style="color:#4ec9b0">lesson-01 %&nbsp;</span><span id="x0y" class="ty">python3 hello.py</span></div>
+    <div id="x1" class="tx2" style="top:122px;color:#34d399;font-weight:700;font-size:40px">Hello, World!</div>
+  </div>
+ </div>
+</div>
+<script>
+/*PRE*/
+/*HW*/
+/*T*/
+const CODE = [["print", "#dcdcaa"], ["(", "#ffd700"], ['"Hello, World!"', "#ce9178"], [")", "#ffd700"]].flatMap(([t, c]) => [...t].map((ch) => [ch, c]));
+CODE.forEach(([ch, c], i) => document.getElementById("cy").insertAdjacentHTML("beforeend", `<span id="cc${i}" style="color:${c};opacity:0;white-space:pre">${ch}</span>`));
+tl.set("#newicon", { borderColor: "#858585" }, 0);
+// L1 create the file
+tl.to("#newicon", { borderColor: "#22d3ee", color: "#22d3ee", duration: 0.3 }, T[0] + 0.6); pulse("#newicon", T[0] + 0.8, 1.15);
+show("#fnew", T[0] + 1.4, 0.1); typeIn("#fny", 8, T[0] + 1.5, 0.9);
+show("#tab", T[0] + 2.9, 0.2); show("#gt", T[0] + 3.0, 0.1); show("#cur", T[0] + 3.0, 0.05);
+tl.to("#cur", { opacity: 0, duration: 0.01 }, T[0] + 3.5); tl.to("#cur", { opacity: 1, duration: 0.01 }, T[0] + 3.8);
+// L2 type the code
+show("#cur", T[1] + 0.4, 0.05); tl.to("#cur", { x: 22 * 26.4 + 6, duration: 22 * 0.13, ease: "steps(22)" }, T[1] + 0.9); CODE.forEach((c, i) => tl.set("#cc" + i, { opacity: 1 }, T[1] + 0.9 + i * 0.13));
+// L3 save, run
+tl.to("#dot", { opacity: 0, duration: 0.1 }, T[2] + 0.4); tl.to("#x", { opacity: 1, duration: 0.1 }, T[2] + 0.4);
+show("#saved", T[2] + 0.4, 0.2); hide("#saved", T[2] + 1.6, 0.3);
+show("#x0", T[2] + 1.4, 0.05); typeIn("#x0y", 16, T[2] + 1.5, 1.3);
+// L4 output
+show("#x1", T[3] + 0.2, 0.1); pulse("#x1", T[3] + 0.2, 1.05);
+hide("#win", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>

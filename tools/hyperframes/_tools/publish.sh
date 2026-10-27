@@ -4,10 +4,10 @@
 #   e.g. publish.sh pad-02-edge-stroke edge-stroke padding-and-stride 34.8
 set -euo pipefail
 ROOT=/Users/arakviel/Work/kostyl.dev
-P=$ROOT/tools/hyperframes/cnn-image-classification/$1
+P=$ROOT/tools/hyperframes/${HF_MODULE:-cnn-image-classification}/$1
 OUT=$2; LESSON=$3; POSTER=$4
-V=$ROOT/public/videos/ai-python/cnn-image-classification/$LESSON
-I=$ROOT/public/images/ai-python/cnn-image-classification/$LESSON
+V=$ROOT/public/videos/${HF_VIDEO_DIR:-ai-python/cnn-image-classification}/$LESSON
+I=$ROOT/public/images/${HF_IMAGE_DIR:-ai-python/cnn-image-classification}/${HF_IMAGE_LESSON:-$LESSON}
 mkdir -p "$V" "$I" "$P/renders"
 cd "$P"
 npx hyperframes render --quality delivery --output "$P/renders/$OUT.mp4" 2>&1 | grep -E "◇  /|MB|✗" || true

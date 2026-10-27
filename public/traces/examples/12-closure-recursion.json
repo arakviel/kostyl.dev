@@ -1,0 +1,2452 @@
+{
+ "format": 1,
+ "python": "3.15.0rc2",
+ "implementation": "cpython",
+ "name": "main.py",
+ "code": "def make_counter():\n    count = 0\n    def step():\n        nonlocal count\n        count += 1\n        return count\n    return step\n\nc = make_counter()\nc()\nc()\n\ndef fact(n):\n    if n <= 1:\n        return 1\n    return n * fact(n - 1)\n\nprint(fact(3))\n",
+ "inputs": [
+  "abc"
+ ],
+ "steps": [
+  {
+   "event": "line",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "heap": {},
+   "i": 0
+  },
+  {
+   "event": "line",
+   "line": 9,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    }
+   },
+   "i": 1
+  },
+  {
+   "event": "call",
+   "line": 1,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "make_counter",
+     "line": 1,
+     "vars": []
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    }
+   },
+   "i": 2
+  },
+  {
+   "event": "line",
+   "line": 2,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "make_counter",
+     "line": 2,
+     "vars": []
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    }
+   },
+   "i": 3
+  },
+  {
+   "event": "line",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "make_counter",
+     "line": 3,
+     "vars": [
+      {
+       "name": "count",
+       "ref": "4324750568",
+       "cell": true
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4324750568": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "0",
+     "refs": 1
+    }
+   },
+   "i": 4
+  },
+  {
+   "event": "line",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "make_counter",
+     "line": 7,
+     "vars": [
+      {
+       "name": "step",
+       "ref": "4410082752"
+      },
+      {
+       "name": "count",
+       "ref": "4324750568",
+       "cell": true,
+       "cellRef": "4409841680"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750568",
+     "refs": 2
+    },
+    "4324750568": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "0",
+     "refs": 1
+    }
+   },
+   "i": 5
+  },
+  {
+   "event": "return",
+   "line": 7,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 9,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      }
+     ]
+    },
+    {
+     "id": "f1",
+     "name": "make_counter",
+     "line": 7,
+     "vars": [
+      {
+       "name": "step",
+       "ref": "4410082752"
+      },
+      {
+       "name": "count",
+       "ref": "4324750568",
+       "cell": true,
+       "cellRef": "4409841680"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4410082752",
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750568",
+     "refs": 2
+    },
+    "4324750568": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "0",
+     "refs": 1
+    }
+   },
+   "i": 6
+  },
+  {
+   "event": "line",
+   "line": 10,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750568",
+     "refs": 1
+    },
+    "4324750568": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "0",
+     "refs": 1
+    }
+   },
+   "i": 7
+  },
+  {
+   "event": "call",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "make_counter.<locals>.step",
+     "line": 3,
+     "vars": [
+      {
+       "name": "count",
+       "ref": "4324750568",
+       "cell": true,
+       "cellRef": "4409841680"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750568",
+     "refs": 2
+    },
+    "4324750568": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "0",
+     "refs": 1
+    }
+   },
+   "i": 8
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "make_counter.<locals>.step",
+     "line": 5,
+     "vars": [
+      {
+       "name": "count",
+       "ref": "4324750568",
+       "cell": true,
+       "cellRef": "4409841680"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750568",
+     "refs": 2
+    },
+    "4324750568": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "0",
+     "refs": 1
+    }
+   },
+   "i": 9
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "make_counter.<locals>.step",
+     "line": 6,
+     "vars": [
+      {
+       "name": "count",
+       "ref": "4324750600",
+       "cell": true,
+       "cellRef": "4409841680"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750600",
+     "refs": 2
+    },
+    "4324750600": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    }
+   },
+   "i": 10
+  },
+  {
+   "event": "return",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 10,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      }
+     ]
+    },
+    {
+     "id": "f2",
+     "name": "make_counter.<locals>.step",
+     "line": 6,
+     "vars": [
+      {
+       "name": "count",
+       "ref": "4324750600",
+       "cell": true,
+       "cellRef": "4409841680"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4324750600",
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750600",
+     "refs": 2
+    },
+    "4324750600": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    }
+   },
+   "i": 11
+  },
+  {
+   "event": "line",
+   "line": 11,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750600",
+     "refs": 1
+    },
+    "4324750600": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    }
+   },
+   "i": 12
+  },
+  {
+   "event": "call",
+   "line": 3,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "make_counter.<locals>.step",
+     "line": 3,
+     "vars": [
+      {
+       "name": "count",
+       "ref": "4324750600",
+       "cell": true,
+       "cellRef": "4409841680"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750600",
+     "refs": 2
+    },
+    "4324750600": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    }
+   },
+   "i": 13
+  },
+  {
+   "event": "line",
+   "line": 5,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "make_counter.<locals>.step",
+     "line": 5,
+     "vars": [
+      {
+       "name": "count",
+       "ref": "4324750600",
+       "cell": true,
+       "cellRef": "4409841680"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750600",
+     "refs": 2
+    },
+    "4324750600": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    }
+   },
+   "i": 14
+  },
+  {
+   "event": "line",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "make_counter.<locals>.step",
+     "line": 6,
+     "vars": [
+      {
+       "name": "count",
+       "ref": "4324750632",
+       "cell": true,
+       "cellRef": "4409841680"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750632",
+     "refs": 2
+    },
+    "4324750632": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    }
+   },
+   "i": 15
+  },
+  {
+   "event": "return",
+   "line": 6,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 11,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      }
+     ]
+    },
+    {
+     "id": "f3",
+     "name": "make_counter.<locals>.step",
+     "line": 6,
+     "vars": [
+      {
+       "name": "count",
+       "ref": "4324750632",
+       "cell": true,
+       "cellRef": "4409841680"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4324750632",
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750632",
+     "refs": 2
+    },
+    "4324750632": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    }
+   },
+   "i": 16
+  },
+  {
+   "event": "line",
+   "line": 13,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 13,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750632",
+     "refs": 1
+    },
+    "4324750632": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    }
+   },
+   "i": 17
+  },
+  {
+   "event": "line",
+   "line": 18,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 18,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      },
+      {
+       "name": "fact",
+       "ref": "4410082928"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750632",
+     "refs": 1
+    },
+    "4324750632": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    },
+    "4410082928": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "fact",
+     "signature": "(n)",
+     "refs": 1
+    }
+   },
+   "i": 18
+  },
+  {
+   "event": "call",
+   "line": 13,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 18,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      },
+      {
+       "name": "fact",
+       "ref": "4410082928"
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "fact",
+     "line": 13,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750664"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750632",
+     "refs": 1
+    },
+    "4324750632": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    },
+    "4410082928": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "fact",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4324750664": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    }
+   },
+   "i": 19
+  },
+  {
+   "event": "line",
+   "line": 14,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 18,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      },
+      {
+       "name": "fact",
+       "ref": "4410082928"
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "fact",
+     "line": 14,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750664"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750632",
+     "refs": 1
+    },
+    "4324750632": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    },
+    "4410082928": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "fact",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4324750664": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    }
+   },
+   "i": 20
+  },
+  {
+   "event": "line",
+   "line": 16,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 18,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      },
+      {
+       "name": "fact",
+       "ref": "4410082928"
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "fact",
+     "line": 16,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750664"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750632",
+     "refs": 1
+    },
+    "4324750632": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    },
+    "4410082928": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "fact",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4324750664": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    }
+   },
+   "i": 21
+  },
+  {
+   "event": "call",
+   "line": 13,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 18,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      },
+      {
+       "name": "fact",
+       "ref": "4410082928"
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "fact",
+     "line": 16,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750664"
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "fact",
+     "line": 13,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750632"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750632",
+     "refs": 1
+    },
+    "4324750632": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 2
+    },
+    "4410082928": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "fact",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4324750664": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    }
+   },
+   "i": 22
+  },
+  {
+   "event": "line",
+   "line": 14,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 18,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      },
+      {
+       "name": "fact",
+       "ref": "4410082928"
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "fact",
+     "line": 16,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750664"
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "fact",
+     "line": 14,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750632"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750632",
+     "refs": 1
+    },
+    "4324750632": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 2
+    },
+    "4410082928": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "fact",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4324750664": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    }
+   },
+   "i": 23
+  },
+  {
+   "event": "line",
+   "line": 16,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 18,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      },
+      {
+       "name": "fact",
+       "ref": "4410082928"
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "fact",
+     "line": 16,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750664"
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "fact",
+     "line": 16,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750632"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750632",
+     "refs": 1
+    },
+    "4324750632": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 2
+    },
+    "4410082928": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "fact",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4324750664": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    }
+   },
+   "i": 24
+  },
+  {
+   "event": "call",
+   "line": 13,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 18,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      },
+      {
+       "name": "fact",
+       "ref": "4410082928"
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "fact",
+     "line": 16,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750664"
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "fact",
+     "line": 16,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750632"
+      }
+     ]
+    },
+    {
+     "id": "f6",
+     "name": "fact",
+     "line": 13,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750600"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750632",
+     "refs": 1
+    },
+    "4324750632": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 2
+    },
+    "4410082928": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "fact",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4324750664": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    },
+    "4324750600": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    }
+   },
+   "i": 25
+  },
+  {
+   "event": "line",
+   "line": 14,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 18,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      },
+      {
+       "name": "fact",
+       "ref": "4410082928"
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "fact",
+     "line": 16,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750664"
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "fact",
+     "line": 16,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750632"
+      }
+     ]
+    },
+    {
+     "id": "f6",
+     "name": "fact",
+     "line": 14,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750600"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750632",
+     "refs": 1
+    },
+    "4324750632": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 2
+    },
+    "4410082928": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "fact",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4324750664": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    },
+    "4324750600": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    }
+   },
+   "i": 26
+  },
+  {
+   "event": "line",
+   "line": 15,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 18,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      },
+      {
+       "name": "fact",
+       "ref": "4410082928"
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "fact",
+     "line": 16,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750664"
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "fact",
+     "line": 16,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750632"
+      }
+     ]
+    },
+    {
+     "id": "f6",
+     "name": "fact",
+     "line": 15,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750600"
+      }
+     ]
+    }
+   ],
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750632",
+     "refs": 1
+    },
+    "4324750632": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 2
+    },
+    "4410082928": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "fact",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4324750664": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    },
+    "4324750600": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    }
+   },
+   "i": 27
+  },
+  {
+   "event": "return",
+   "line": 15,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 18,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      },
+      {
+       "name": "fact",
+       "ref": "4410082928"
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "fact",
+     "line": 16,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750664"
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "fact",
+     "line": 16,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750632"
+      }
+     ]
+    },
+    {
+     "id": "f6",
+     "name": "fact",
+     "line": 15,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750600"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4324750600",
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750632",
+     "refs": 1
+    },
+    "4324750632": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 2
+    },
+    "4410082928": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "fact",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4324750664": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    },
+    "4324750600": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "1",
+     "refs": 1
+    }
+   },
+   "i": 28
+  },
+  {
+   "event": "return",
+   "line": 16,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 18,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      },
+      {
+       "name": "fact",
+       "ref": "4410082928"
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "fact",
+     "line": 16,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750664"
+      }
+     ]
+    },
+    {
+     "id": "f5",
+     "name": "fact",
+     "line": 16,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750632"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4324750632",
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750632",
+     "refs": 1
+    },
+    "4324750632": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 2
+    },
+    "4410082928": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "fact",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4324750664": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    }
+   },
+   "i": 29
+  },
+  {
+   "event": "return",
+   "line": 16,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 18,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      },
+      {
+       "name": "fact",
+       "ref": "4410082928"
+      }
+     ]
+    },
+    {
+     "id": "f4",
+     "name": "fact",
+     "line": 16,
+     "vars": [
+      {
+       "name": "n",
+       "ref": "4324750664"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4324750760",
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750632",
+     "refs": 1
+    },
+    "4324750632": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    },
+    "4410082928": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "fact",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4324750664": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "3",
+     "refs": 1
+    },
+    "4324750760": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "6",
+     "refs": 0
+    }
+   },
+   "out": "6\n",
+   "i": 30
+  },
+  {
+   "event": "return",
+   "line": 18,
+   "frames": [
+    {
+     "id": "f0",
+     "name": "<module>",
+     "line": 18,
+     "vars": [
+      {
+       "name": "make_counter",
+       "ref": "4410082400"
+      },
+      {
+       "name": "c",
+       "ref": "4410082752"
+      },
+      {
+       "name": "fact",
+       "ref": "4410082928"
+      }
+     ]
+    }
+   ],
+   "returnValue": "4324424152",
+   "heap": {
+    "4410082400": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter",
+     "signature": "()",
+     "refs": 1
+    },
+    "4410082752": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "make_counter.<locals>.step",
+     "signature": "()",
+     "freevars": {
+      "count": "4409841680"
+     },
+     "refs": 1
+    },
+    "4409841680": {
+     "type": "cell",
+     "mutable": true,
+     "kind": "cell",
+     "ref": "4324750632",
+     "refs": 1
+    },
+    "4324750632": {
+     "type": "int",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "2",
+     "refs": 1
+    },
+    "4410082928": {
+     "type": "function",
+     "mutable": true,
+     "kind": "function",
+     "name": "fact",
+     "signature": "(n)",
+     "refs": 1
+    },
+    "4324424152": {
+     "type": "NoneType",
+     "mutable": false,
+     "immortal": true,
+     "kind": "primitive",
+     "repr": "None",
+     "refs": 0
+    }
+   },
+   "i": 31
+  }
+ ],
+ "truncated": false,
+ "error": null
+}

@@ -1,0 +1,106 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+.mono { font-family: "JetBrains Mono", monospace; font-weight: 700; }
+.abs { position: absolute; }
+.card { position: absolute; border-radius: 18px; background: #0e1626; border: 3px solid #26365a; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+.lab { position: absolute; font-size: 34px; font-weight: 700; color: #9fb2cf; white-space: nowrap; }
+.o0 { opacity: 0; }
+.ar { position: absolute; height: 8px; background: currentColor; opacity: 0; }
+.ar.r::after { content: ""; position: absolute; right: -8px; top: -14px; border-left: 28px solid currentColor; border-top: 18px solid transparent; border-bottom: 18px solid transparent; }
+</style>
+<style>
+.vsw { position: absolute; border-radius: 14px; background: #1e1e1e; overflow: hidden; border: 2px solid #3a3a3a; box-shadow: 0 24px 60px rgba(0,0,0,0.55); }
+.vsb { position: absolute; left: 0; top: 0; right: 0; height: 48px; background: #2b2b2b; }
+.vsd { position: absolute; top: 15px; width: 16px; height: 16px; border-radius: 8px; }
+.vsT { position: absolute; left: 0; right: 0; top: 8px; text-align: center; font-size: 28px; color: #c8c8c8; }
+.vst { position: absolute; left: 0; top: 48px; height: 56px; padding: 0 28px; display: flex; align-items: center; font-family: "JetBrains Mono", monospace; font-weight: 500; font-size: 28px; color: #fff; background: #1e1e1e; border-top: 3px solid #3794ff; }
+.vsr { position: absolute; left: 0; right: 0; top: 48px; height: 56px; background: #252526; }
+.vsl { position: absolute; left: 0; height: 54px; display: flex; align-items: center; font-family: "JetBrains Mono", monospace; font-weight: 600; font-size: 36px; color: #d4d4d4; white-space: nowrap; }
+.vsl .n { display: inline-block; width: 64px; text-align: right; color: #b4b4b4; margin-right: 28px; font-weight: 500; }
+.vsl .ty, .vsx .ty { display: inline-block; overflow: hidden; white-space: nowrap; width: 0; vertical-align: bottom; }
+.vsterm { position: absolute; left: 0; right: 0; bottom: 0; border-top: 2px solid #3c3c3c; background: #1e1e1e; }
+.vsth { position: absolute; left: 24px; top: 8px; font-size: 28px; color: #e7e7e7; letter-spacing: 0.04em; }
+.vsx { position: absolute; left: 24px; height: 46px; display: flex; align-items: center; font-family: "JetBrains Mono", monospace; font-weight: 500; font-size: 32px; color: #cccccc; white-space: nowrap; opacity: 0; }
+</style>
+<style>
+.st5 { position: absolute; top: 320px; width: 90px; height: 90px; border-radius: 14px; background: #0e1626; border: 4px solid #26365a; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 800; font-size: 52px; opacity: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+ <div id="all">
+  <div id="ed" class="vsw" style="left:100px;top:250px;width:640px;height:220px">
+    <div class="vsb"><span class="vsd" style="left:20px;background:#ff5f57"></span><span class="vsd" style="left:48px;background:#febc2e"></span><span class="vsd" style="left:76px;background:#28c840"></span><div class="vsT">hello.py</div></div>
+    <div class="vsr"></div><div class="vst">hello.py</div>
+    <div class="vsl" style="top:118px;font-size:44px"><span class="n">1</span><span style="white-space:pre"><span style="color:#dcdcaa">print</span><span style="color:#ffd700">(</span><span style="color:#ce9178">"Hello"</span><span style="color:#ffd700">)</span></span></div>
+  </div>
+  <div id="ar" class="ar r" style="left:770px;top:356px;width:70px;color:#9fb2cf"></div>
+  <div id="lab" class="lab" style="left:880px;top:236px;color:#22d3ee;font-size:36px;opacity:0">stdout — потік символів</div>
+  <div id="strip" style="position:absolute;left:870px;top:310px;width:620px;height:110px;border:4px solid #22d3ee;border-radius:18px;opacity:0"></div>
+  <div id="tiles"></div>
+  <div id="ptr" class="abs mono" style="left:905px;top:420px;font-size:44px;color:#fbbf24;opacity:0;width:40px;text-align:center">▲</div>
+  <div id="one" class="lab" style="left:1290px;top:430px;color:#fb7185;font-size:34px;opacity:0;white-space:nowrap">один символ</div>
+  <div id="esc" class="mono abs" style="left:1290px;top:480px;font-size:40px;color:#fb7185;opacity:0;font-weight:700">'\n'</div>
+  <div id="term" class="vsw" style="left:880px;top:560px;width:600px;height:330px">
+    <div class="vsb"><div class="vsT" style="text-align:left;left:24px">ТЕРМІНАЛ</div></div>
+    <div id="trow" class="abs mono" style="left:24px;top:80px;font-size:56px;display:flex;color:#34d399"></div>
+    <div id="cur" class="abs" style="left:24px;top:84px;width:26px;height:56px;background:#e8eef7;opacity:0"></div>
+  </div>
+ </div>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+const show = (sel, at, d = 0.3) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, at);
+const hide = (sel, at, d = 0.3) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+const pulse = (sel, at, sc = 1.1) => { tl.to(sel, { scale: sc, duration: 0.15 }, at); tl.to(sel, { scale: 1, duration: 0.3 }, at + 0.15); };
+
+const GOLD = "#d4af37";
+const hw = {
+  dimm: (p, w) => {
+    let s = `<svg width="${w}" viewBox="0 0 1000 210" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="1000" height="190" rx="8" fill="#1d6a47" stroke="#0f3d2a" stroke-width="4"/>`;
+    for (let i = 0; i < 8; i++) { const x = 45 + i * 118; s += `<rect id="${p}chip${i}" x="${x}" y="40" width="96" height="84" rx="6" fill="#0b0f14" stroke="#2a3340" stroke-width="3"/><rect x="${x + 12}" y="58" width="44" height="6" fill="#2a3340"/><rect x="${x + 12}" y="76" width="64" height="6" fill="#2a3340"/>`; }
+    for (let k = 0; k < 58; k++) { const x = 14 + k * 16.6; if (x > 400 && x < 450) continue; s += `<rect x="${x}" y="160" width="10" height="30" fill="${GOLD}"/>`; }
+    s += `<rect x="420" y="168" width="18" height="22" fill="#070b14"/><rect x="905" y="135" width="44" height="20" fill="#0b0f14" stroke="#2a3340" stroke-width="2"/></svg>`; return s;
+  },
+  ssd: (w) => {
+    let s = `<svg width="${w}" viewBox="0 0 1000 210" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="1000" height="210" rx="14" fill="#174d36" stroke="#0f3d2a" stroke-width="4"/>`;
+    for (let k = 0; k < 14; k++) s += `<rect x="6" y="${14 + k * 13.5}" width="34" height="8" fill="${GOLD}"/>`;
+    s += `<rect x="150" y="45" width="130" height="120" rx="8" fill="#0b0f14" stroke="#2a3340" stroke-width="3"/><rect x="330" y="45" width="250" height="120" rx="8" fill="#0b0f14" stroke="#2a3340" stroke-width="3"/><rect x="630" y="45" width="250" height="120" rx="8" fill="#0b0f14" stroke="#2a3340" stroke-width="3"/>`;
+    s += `<rect x="352" y="72" width="120" height="8" fill="#2a3340"/><rect x="652" y="72" width="120" height="8" fill="#2a3340"/><circle cx="948" cy="105" r="20" fill="#070b14" stroke="${GOLD}" stroke-width="5"/></svg>`; return s;
+  },
+  cpu: (w) => `<svg width="${w}" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sg${w}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e3e9f3"/><stop offset="1" stop-color="#8794ab"/></linearGradient></defs><rect x="8" y="8" width="284" height="284" rx="22" fill="#2c3b57" stroke="#4a5f86" stroke-width="4"/><rect x="44" y="44" width="212" height="212" rx="14" fill="url(#sg${w})" stroke="#e8eef7" stroke-opacity="0.5" stroke-width="3"/><text x="150" y="172" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="800" font-size="64" fill="#2b3a55">CPU</text><path d="M14 14 L44 14 L14 44 Z" fill="${GOLD}"/></svg>`,
+  monitor: (w) => `<svg width="${w}" viewBox="0 0 440 330" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="420" height="250" rx="18" fill="#1a2236" stroke="#3a4a6e" stroke-width="4"/><rect x="30" y="30" width="380" height="210" rx="8" fill="#050913"/><text x="52" y="150" font-family="JetBrains Mono, monospace" font-weight="800" font-size="72" fill="#34d399">Hello</text><rect x="190" y="260" width="60" height="42" fill="#2c3a5a"/><rect x="130" y="300" width="180" height="16" rx="8" fill="#2c3a5a"/></svg>`
+};
+const typeIn = (sel, n, at, dur) => tl.to(sel, { width: n + "ch", duration: dur, ease: "steps(" + n + ")" }, at);
+
+const T = [0.5, 6.95, 11.37, 17.5], D = [5.8, 3.76, 5.48, 3.3], CL = 21.2;
+const $ = (id) => document.getElementById(id);
+const ch = ["H", "e", "l", "l", "o", "↵"];
+ch.forEach((c, i) => {
+  $("tiles").insertAdjacentHTML("beforeend", `<div id="k${i}" class="st5" style="left:${880 + i * 100}px;color:${i === 5 ? "#fb7185" : "#34d399"};border-color:${i === 5 ? "#fb7185" : "#26365a"}">${c}</div>`);
+  if (i < 5) $("trow").insertAdjacentHTML("beforeend", `<span id="c${i}" style="opacity:0;width:33.6px">${c}</span>`);
+});
+tl.set("#ed", { opacity: 1 }, 0);
+// L1 print writes into stdout
+pulse("#ed", T[0] + 1.0, 1.02);
+show("#ar", T[0] + 2.2); show("#lab", T[0] + 3.0); show("#strip", T[0] + 3.4);
+// L2 stream of characters
+ch.forEach((_, i) => show("#k" + i, T[1] + 0.3 + i * 0.35, 0.2));
+// L3 newline = one character
+tl.to("#k5", { backgroundColor: "rgba(251,113,133,0.25)", duration: 0.3 }, T[2] + 0.5); pulse("#k5", T[2] + 0.5, 1.15);
+show("#one", T[2] + 1.0); show("#esc", T[2] + 2.0); pulse("#esc", T[2] + 2.2, 1.1);
+pulse("#esc", T[2] + 3.2, 1.1); pulse("#one", T[2] + 4.0, 1.08); pulse("#k5", T[2] + 4.8, 1.12);
+hide("#one", T[3] - 0.05, 0.2); hide("#esc", T[3] - 0.05, 0.2);
+// L4 terminal draws characters one by one
+show("#ptr", T[3] + 0.1, 0.1); show("#cur", T[3] + 0.1, 0.05);
+ch.forEach((_, i) => {
+  const a = T[3] + 0.2 + i * 0.5;
+  tl.set("#ptr", { x: i * 100 }, a);
+  tl.set("#k" + i, { backgroundColor: "rgba(34,211,238,0.25)" }, a);
+  if (i < 5) { tl.set("#c" + i, { opacity: 1 }, a); tl.set("#cur", { x: (i + 1) * 33.6 }, a); }
+  else tl.set("#cur", { x: 0, y: 70 }, a);
+});
+hide("#all", CL - 0.35, 0.3);
+window.__timelines["world"] = tl;
+</script>
+
+</template>

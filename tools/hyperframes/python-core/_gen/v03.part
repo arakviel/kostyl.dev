@@ -1,0 +1,43 @@
+<style>
+.cell { position: absolute; top: 420px; width: 240px; height: 200px; border-radius: 16px; background: #0e1626; border: 3px solid #26365a; }
+.cell.on { border-color: #22d3ee; }
+.num { position: absolute; top: 420px; width: 240px; height: 200px; display: flex; align-items: center; justify-content: center; font-size: 88px; color: #34d399; opacity: 0; }
+.adr { position: absolute; top: 650px; width: 240px; text-align: center; font-size: 40px; color: #9fb2cf; opacity: 0; }
+.chr { position: absolute; top: 270px; width: 240px; text-align: center; font-size: 110px; color: #22d3ee; opacity: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div class="lab" style="left:60px;top:170px;font-size:40px;opacity:0" id="hd">оперативна пам'ять</div>
+  <div id="cells"></div>
+  <div id="nums"></div><div id="adrs"></div><div id="chrs"></div>
+  <div id="ordc" class="abs mono" style="left:0;width:1920px;top:800px;text-align:center;font-size:64px;color:#e8eef7;opacity:0"><span style="color:#22d3ee">ord("H")</span> <span style="color:#9fb2cf">→</span> <span style="color:#34d399">72</span></div>
+  <div id="cap" class="abs" style="left:0;width:1920px;top:910px;text-align:center;font-size:44px;font-weight:700;color:#fbbf24;opacity:0">число 72 — літера H, якщо читати його як символ</div>
+</div>
+<script>
+/*PRE*/
+const X0 = 60, W = 240, G = 20;
+const nums = [null, 72, 101, 108, 108, 111, null], chars = [null, "H", "e", "l", "l", "o", null];
+for (let i = 0; i < 7; i++) {
+  const x = X0 + i * (W + G);
+  document.getElementById("cells").insertAdjacentHTML("beforeend", `<div class="cell${nums[i] ? " on" : ""}" style="left:${x}px"></div>`);
+  document.getElementById("adrs").insertAdjacentHTML("beforeend", `<div id="ad${i}" class="adr mono" style="left:${x}px">${999 + i}</div>`);
+  if (nums[i]) {
+    document.getElementById("nums").insertAdjacentHTML("beforeend", `<div id="nm${i}" class="num mono" style="left:${x}px">${nums[i]}</div>`);
+    document.getElementById("chrs").insertAdjacentHTML("beforeend", `<div id="ch${i}" class="chr mono" style="left:${x}px">${chars[i]}</div>`);
+  }
+}
+tl.set("#hd", { opacity: 1 }, 0);
+// L1 0.5-3.15 row of cells; L2 3.8-5.33 addresses
+for (let i = 0; i < 7; i++) show("#ad" + i, 4.0 + i * 0.18, 0.25);
+pulse("#ad1", 5.0, 1.15);
+for (let i = 0; i < 7; i++) pulse(".cell:nth-child(" + (i + 1) + ")", 1.0 + i * 0.3, 1.04);
+// L3 5.98-8.58 letters
+for (let i = 1; i <= 5; i++) show("#ch" + i, 6.3 + (i - 1) * 0.4, 0.25);
+// L4 9.23-14.2 numbers on the words
+const at = [11.3, 11.95, 12.5, 13.1, 13.7];
+for (let i = 1; i <= 5; i++) { show("#nm" + i, at[i - 1], 0.25); pulse("#nm" + i, at[i - 1], 1.15); }
+show("#ordc", 10.0);
+// L5 14.85-17.87
+hide("#ordc", 14.6); show("#cap", 15.0);
+for (let i = 1; i <= 5; i++) tl.to("#ch" + i, { color: "#fbbf24", duration: 0.3 }, 15.6 + i * 0.12);
+window.__timelines["world"] = tl;
+</script>

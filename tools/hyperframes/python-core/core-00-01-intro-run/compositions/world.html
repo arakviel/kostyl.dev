@@ -1,0 +1,57 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+    .mono { font-family: "JetBrains Mono", monospace; }
+    .card { position: absolute; top: 330px; width: 520px; height: 300px; border-radius: 20px; background: #0e1626; border: 3px solid #1f2d4a; }
+    .ctitle { position: absolute; left: 28px; top: 20px; font-size: 32px; font-weight: 700; color: #9fb2cf; }
+    .code { position: absolute; left: 0; width: 520px; top: 140px; text-align: center; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 58px; color: #22d3ee; white-space: nowrap; }
+    .out { position: absolute; left: 150px; top: 130px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 72px; color: #34d399; opacity: 0; white-space: nowrap; }
+    .prompt { position: absolute; left: 36px; top: 140px; font-family: "JetBrains Mono", monospace; font-weight: 700; font-size: 58px; color: #9fb2cf; opacity: 0.6; }
+    #run { position: absolute; left: 190px; top: 690px; width: 240px; height: 96px; border-radius: 48px; background: #34d399; color: #052018; font-size: 48px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 14px; }
+    .chip { position: absolute; left: 850px; top: 400px; width: 220px; height: 160px; border-radius: 22px; background: #0e1626; border: 4px solid #22d3ee; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 800; font-size: 64px; color: #22d3ee; opacity: 0; }
+    .q { position: absolute; font-family: "JetBrains Mono", monospace; font-weight: 800; color: #fbbf24; opacity: 0; }
+    .arrow { position: absolute; height: 6px; background: repeating-linear-gradient(90deg, #9fb2cf 0 18px, transparent 18px 32px); opacity: 0; }
+    .step { position: absolute; top: 400px; width: 130px; height: 160px; border-radius: 20px; background: #0e1626; border: 4px solid #fbbf24; opacity: 0; }
+    .step .s { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: "JetBrains Mono", monospace; font-weight: 800; font-size: 80px; }
+    .tag { position: absolute; font-size: 36px; font-weight: 700; color: #9fb2cf; opacity: 0; white-space: nowrap; }
+  </style>
+  <div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+    <div id="a1" class="card" style="left:100px"><div class="ctitle">hello.py</div><div class="code">print("Hello")</div></div>
+    <div id="a2" class="card" style="left:1300px"><div class="ctitle">Термінал</div><div class="prompt">&gt;_</div><div id="hello" class="out">Hello</div></div>
+    <div id="run"><span>▶</span><span>Run</span></div>
+    <div id="arr" class="arrow" style="left:660px;top:477px;width:580px"></div>
+    <div id="chip" class="chip">CPU</div>
+    <div id="qc" class="q" style="left:928px;top:260px;font-size:120px">?</div>
+    <div id="s1" class="step" style="left:655px"><div class="s" id="s1q" style="color:#fbbf24">?</div><div class="s" id="s1n" style="color:#22d3ee;opacity:0">1</div></div>
+    <div id="s2" class="step" style="left:815px"><div class="s" id="s2q" style="color:#fbbf24">?</div><div class="s" id="s2n" style="color:#22d3ee;opacity:0">2</div></div>
+    <div id="s3" class="step" style="left:975px"><div class="s" id="s3q" style="color:#fbbf24">?</div><div class="s" id="s3n" style="color:#22d3ee;opacity:0">3</div></div>
+    <div id="s4" class="step" style="left:1135px"><div class="s" id="s4q" style="color:#fbbf24">?</div><div class="s" id="s4n" style="color:#22d3ee;opacity:0">4</div></div>
+    <div id="tag1" class="tag" style="left:655px;top:600px;width:610px;text-align:center">кілька кроків</div>
+    <div id="tag2" class="tag" style="left:100px;top:850px;font-size:32px;color:#6f84a6">схема: кроки розбираємо в наступних відео</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const show = (sel, at, d = 0.3) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, at);
+    const hide = (sel, at, d = 0.3) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+    const pulse = (sel, at, sc = 1.12) => { tl.to(sel, { scale: sc, duration: 0.15 }, at); tl.to(sel, { scale: 1, duration: 0.3 }, at + 0.15); };
+    // L1 0.5-3.98: Run -> Hello
+    pulse("#run", 1.4, 0.92);
+    show("#hello", 2.5, 0.3); pulse("#hello", 2.9, 1.08);
+    // L2 4.6-6.88: the computer cannot read Python
+    tl.to("#hello", { opacity: 0.25, duration: 0.4 }, 4.7);
+    show("#arr", 5.0); show("#chip", 5.0); show("#qc", 5.6); pulse("#qc", 6.0, 1.2);
+    // L3 7.5-10.52: several steps
+    hide("#chip", 7.6); hide("#qc", 7.6); hide("#arr", 7.6);
+    show("#s1", 7.9, 0.4); show("#s2", 8.5, 0.4); show("#s3", 9.1, 0.4); show("#s4", 9.7, 0.4);
+    show("#tag1", 10.0); show("#tag2", 10.2);
+    // L4 11.2-12.78: one by one
+    tl.to("#hello", { opacity: 1, duration: 0.4 }, 11.0);
+    [["s1", 11.4], ["s2", 11.8], ["s3", 12.2], ["s4", 12.6]].forEach(([id, at]) => {
+      tl.to("#" + id + "q", { opacity: 0, duration: 0.2 }, at);
+      tl.to("#" + id + "n", { opacity: 1, duration: 0.2 }, at);
+      tl.to("#" + id, { borderColor: "#22d3ee", duration: 0.2 }, at);
+      pulse("#" + id, at, 1.1);
+    });
+    window.__timelines["world"] = tl;
+  </script>
+</template>

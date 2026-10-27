@@ -1,0 +1,35 @@
+<style>
+.bx { position: absolute; top: 330px; width: 240px; height: 150px; border-radius: 18px; background: #0e1626; border: 4px solid #26365a; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 36px; font-weight: 700; opacity: 0; text-align: center; line-height: 1.2; }
+.th { position: absolute; left: 0; width: 1920px; text-align: center; font-size: 54px; font-weight: 700; opacity: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="b0" class="bx" style="left:90px;border-color:#fbbf24;color:#fbbf24"><span class="mono">hello.py</span><span style="font-size:30px;color:#9fb2cf">диск</span></div>
+  <div id="b1" class="bx" style="left:390px;border-color:#34d399;color:#34d399"><span>RAM</span><span style="font-size:30px;color:#9fb2cf">числа</span></div>
+  <div id="b2" class="bx" style="left:690px;border-color:#22d3ee;color:#22d3ee"><span>компілятор</span><span style="font-size:30px;color:#9fb2cf">CPython</span></div>
+  <div id="b3" class="bx" style="left:990px;border-color:#22d3ee;color:#22d3ee"><span>байт-код</span><span style="font-size:30px;color:#9fb2cf">команди</span></div>
+  <div id="b4" class="bx" style="left:1290px;border-color:#22d3ee;color:#22d3ee"><span>PVM</span><span style="font-size:30px;color:#9fb2cf">виконує</span></div>
+  <div id="b5" class="bx mono" style="left:1590px;border-color:#34d399;color:#34d399;font-size:56px">Hello</div>
+  <div id="ar0" class="ar r" style="left:335px;top:400px;width:45px;color:#9fb2cf"></div>
+  <div id="ar1" class="ar r" style="left:635px;top:400px;width:45px;color:#9fb2cf"></div>
+  <div id="ar2" class="ar r" style="left:935px;top:400px;width:45px;color:#9fb2cf"></div>
+  <div id="ar3" class="ar r" style="left:1235px;top:400px;width:45px;color:#9fb2cf"></div>
+  <div id="ar4" class="ar r" style="left:1535px;top:400px;width:45px;color:#9fb2cf"></div>
+  <div id="t1" class="th" style="top:620px;color:#34d399">1 · усе — числа</div>
+  <div id="t2" class="th" style="top:720px;color:#22d3ee">2 · Python компілює в байт-код</div>
+  <div id="t3" class="th" style="top:820px;color:#fbbf24">3 · PVM виконує</div>
+</div>
+<script>
+/*PRE*/
+// L1 0.5-1.61: recap + flow appears
+tl.set("#b0", { opacity: 1 }, 0);
+for (let i = 1; i < 6; i++) show("#b" + i, 0.6 + i * 0.35, 0.3);
+for (let i = 0; i < 5; i++) show("#ar" + i, 0.9 + i * 0.35, 0.2);
+// L2 2.26-4.49: everything is numbers
+pulse("#b1", 2.6, 1.08); show("#t1", 3.0);
+// L3 5.14-9.23: code is translated
+pulse("#b2", 5.6, 1.08); pulse("#b3", 7.0, 1.08);
+// L4 9.88-13.73
+show("#t2", 10.3); pulse("#b2", 10.6, 1.08); pulse("#b3", 11.0, 1.08);
+show("#t3", 11.9); pulse("#b4", 12.2, 1.08); pulse("#b5", 12.8, 1.1);
+window.__timelines["world"] = tl;
+</script>
