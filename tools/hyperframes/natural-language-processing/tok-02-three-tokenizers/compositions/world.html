@@ -1,0 +1,378 @@
+<template>
+<style>
+#root {
+  position: absolute;
+  inset: 0;
+  background: #070b14;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+  color: #e8eef7;
+}
+
+.mono {
+  font-family: "JetBrains Mono", monospace;
+}
+
+.card {
+  position: absolute;
+  border-radius: 18px;
+  background: #0e1626;
+  border: 2px solid #223250;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* Header */
+#header {
+  position: absolute;
+  left: 80px;
+  top: 34px;
+  width: 1760px;
+}
+.title {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #f1f5f9;
+  line-height: 1.2;
+}
+.subtitle {
+  font-size: 28px;
+  color: #94a3b8;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+/* Input string card */
+#input-card {
+  position: absolute;
+  left: 80px;
+  top: 145px;
+  width: 1760px;
+  height: 110px;
+  padding: 0 36px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  border-color: #334155;
+}
+.input-label {
+  font-size: 28px;
+  font-weight: 600;
+  color: #94a3b8;
+}
+.input-text {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 38px;
+  font-weight: 800;
+  color: #38bdf8;
+  letter-spacing: -0.01em;
+}
+
+/* Tokenizers comparison card */
+#tokenizers-card {
+  position: absolute;
+  left: 80px;
+  top: 280px;
+  width: 1760px;
+  height: 510px;
+  padding: 24px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tok-row {
+  height: 140px;
+  background: #111a2e;
+  border: 2px solid #243556;
+  border-radius: 14px;
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tok-row-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tok-method-wrap {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.tok-method-name {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.tok-count-badge {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 28px;
+  font-weight: 800;
+  padding: 4px 14px;
+  border-radius: 8px;
+}
+
+.tok-row-note {
+  font-size: 28px;
+  font-weight: 600;
+  opacity: 0;
+}
+
+.tokens-container {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.token-pill {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 28px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+/* Split style */
+.split-color { color: #fbbf24; }
+.split-badge { background: rgba(251, 191, 36, 0.2); border: 2px solid #fbbf24; color: #fbbf24; }
+.split-pill { background: rgba(251, 191, 36, 0.14); border: 2px solid #fbbf24; color: #fef08a; }
+
+/* Word tokenize style */
+.word-color { color: #34d399; }
+.word-badge { background: rgba(52, 211, 153, 0.2); border: 2px solid #34d399; color: #34d399; }
+.word-pill { background: rgba(52, 211, 153, 0.14); border: 2px solid #34d399; color: #a7f3d0; }
+
+/* Wordpunct style */
+.punct-color { color: #fb7185; }
+.punct-badge { background: rgba(251, 113, 133, 0.2); border: 2px solid #fb7185; color: #fb7185; }
+.punct-pill { background: rgba(251, 113, 133, 0.14); border: 2px solid #fb7185; color: #fecdd3; }
+
+/* Bottom takeaway card */
+#takeaway-card {
+  position: absolute;
+  left: 80px;
+  top: 815px;
+  width: 1760px;
+  height: 180px;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-color: #334155;
+  opacity: 0;
+}
+
+.takeaway-counts {
+  display: flex;
+  gap: 20px;
+}
+
+.count-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  background: #1e293b;
+  border: 2px solid;
+}
+
+.count-num {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 38px;
+  font-weight: 800;
+}
+.count-label {
+  font-size: 28px;
+  font-weight: 600;
+  color: #94a3b8;
+}
+
+.takeaway-text-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 820px;
+}
+
+.takeaway-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.takeaway-desc {
+  font-size: 28px;
+  color: #94a3b8;
+}
+</style>
+
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <!-- Top header -->
+  <div id="header">
+    <div class="title">Порівняння токенізаторів: один рядок — різні токени</div>
+    <div class="subtitle">Як split(), word_tokenize та wordpunct розбирають текст на частини</div>
+  </div>
+
+  <!-- Input text card -->
+  <div id="input-card" class="card">
+    <div class="input-label">Вхідний рядок:</div>
+    <div id="input-str" class="input-text">"Don't stop, it's 3.5 USD!"</div>
+  </div>
+
+  <!-- Main tokenizers card -->
+  <div id="tokenizers-card" class="card">
+    <!-- Row 1: split() -->
+    <div id="row-split" class="tok-row">
+      <div class="tok-row-header">
+        <div class="tok-method-wrap">
+          <span class="tok-method-name split-color">text.split()</span>
+          <span id="badge-split" class="tok-count-badge split-badge">5 токенів</span>
+        </div>
+        <div id="note-split" class="tok-row-note split-color">пунктуація «,» та «!» лишається у словах</div>
+      </div>
+      <div id="tokens-split" class="tokens-container">
+        <span class="token-pill split-pill">"Don't"</span>
+        <span id="sp-punct-1" class="token-pill split-pill">"stop,"</span>
+        <span class="token-pill split-pill">"it's"</span>
+        <span class="token-pill split-pill">"3.5"</span>
+        <span id="sp-punct-2" class="token-pill split-pill">"USD!"</span>
+      </div>
+    </div>
+
+    <!-- Row 2: word_tokenize() -->
+    <div id="row-word" class="tok-row">
+      <div class="tok-row-header">
+        <div class="tok-method-wrap">
+          <span class="tok-method-name word-color">word_tokenize()</span>
+          <span id="badge-word" class="tok-count-badge word-badge">9 токенів</span>
+        </div>
+        <div id="note-word" class="tok-row-note word-color">відокремлює розділові знаки, ділить Don't → Do + n't</div>
+      </div>
+      <div id="tokens-word" class="tokens-container">
+        <span id="wt-do" class="token-pill word-pill">"Do"</span>
+        <span id="wt-nt" class="token-pill word-pill">"n't"</span>
+        <span class="token-pill word-pill">"stop"</span>
+        <span class="token-pill word-pill">","</span>
+        <span class="token-pill word-pill">"it"</span>
+        <span class="token-pill word-pill">"'s"</span>
+        <span class="token-pill word-pill">"3.5"</span>
+        <span class="token-pill word-pill">"USD"</span>
+        <span class="token-pill word-pill">"!"</span>
+      </div>
+    </div>
+
+    <!-- Row 3: wordpunct_tokenize() -->
+    <div id="row-punct" class="tok-row">
+      <div class="tok-row-header">
+        <div class="tok-method-wrap">
+          <span class="tok-method-name punct-color">wordpunct_tokenize()</span>
+          <span id="badge-punct" class="tok-count-badge punct-badge">13 токенів</span>
+        </div>
+        <div id="note-punct" class="tok-row-note punct-color">число 3.5 розриває на 3 токени: "3", ".", "5"</div>
+      </div>
+      <div id="tokens-punct" class="tokens-container">
+        <span class="token-pill punct-pill">"Don"</span>
+        <span class="token-pill punct-pill">"'"</span>
+        <span class="token-pill punct-pill">"t"</span>
+        <span class="token-pill punct-pill">"stop"</span>
+        <span class="token-pill punct-pill">","</span>
+        <span class="token-pill punct-pill">"it"</span>
+        <span class="token-pill punct-pill">"'"</span>
+        <span class="token-pill punct-pill">"s"</span>
+        <span id="wp-num-1" class="token-pill punct-pill">"3"</span>
+        <span id="wp-num-2" class="token-pill punct-pill">"."</span>
+        <span id="wp-num-3" class="token-pill punct-pill">"5"</span>
+        <span class="token-pill punct-pill">"USD"</span>
+        <span class="token-pill punct-pill">"!"</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Takeaway Card -->
+  <div id="takeaway-card" class="card">
+    <div class="takeaway-counts">
+      <div class="count-card" style="border-color:#fbbf24">
+        <span class="count-num split-color">5</span>
+        <span class="count-label">split()</span>
+      </div>
+      <div class="count-card" style="border-color:#34d399">
+        <span class="count-num word-color">9</span>
+        <span class="count-label">word_tokenize</span>
+      </div>
+      <div class="count-card" style="border-color:#fb7185">
+        <span class="count-num punct-color">13</span>
+        <span class="count-label">wordpunct</span>
+      </div>
+    </div>
+
+    <div class="takeaway-text-wrap">
+      <div class="takeaway-title">Жоден метод не є універсальним</div>
+      <div class="takeaway-desc">Вибір токенізатора залежить від того, чи важливі числа, апострофи та розділові знаки</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const tl = gsap.timeline({ paused: true });
+
+// Social thumbnail at t=0
+tl.set("#header", { opacity: 1 }, 0);
+tl.set("#input-card", { opacity: 1 }, 0);
+tl.set("#tokenizers-card", { opacity: 1 }, 0);
+tl.set("#row-split, #row-word, #row-punct", { opacity: 1 }, 0);
+
+// Beat 1: Intro (vo1: 0.5s - 3.82s)
+// "Один рядок — і три різні токенізатори."
+tl.to("#input-card", { borderColor: "#38bdf8", duration: 0.4, yoyo: true, repeat: 1 }, 0.8);
+tl.to("#row-split", { borderColor: "#fbbf24", duration: 0.35, yoyo: true, repeat: 1 }, 1.8);
+tl.to("#row-word", { borderColor: "#34d399", duration: 0.35, yoyo: true, repeat: 1 }, 2.5);
+tl.to("#row-punct", { borderColor: "#fb7185", duration: 0.35, yoyo: true, repeat: 1 }, 3.2);
+
+// Beat 2: split() breakdown (vo2: 4.6s - 9.64s)
+// "Метод сплит залишає кому та знак оклику прямо в словах."
+tl.to("#row-word, #row-punct", { opacity: 0.25, duration: 0.3 }, 4.6);
+tl.to("#row-split", { borderColor: "#fbbf24", duration: 0.3 }, 4.6);
+tl.to("#note-split", { opacity: 1, duration: 0.3 }, 5.2);
+tl.to("#sp-punct-1, #sp-punct-2", { borderColor: "#ffffff", duration: 0.35, yoyo: true, repeat: 1 }, 7.5);
+tl.to("#badge-split", { borderColor: "#fde047", duration: 0.3, yoyo: true, repeat: 1 }, 8.8);
+
+// Beat 3: word_tokenize() breakdown (vo3: 10.4s - 17.56s)
+// "Word_tokenize відокремлює пунктуацію та ділить «don't» на два окремі токени."
+tl.to("#row-split", { opacity: 0.25, borderColor: "#243556", duration: 0.3 }, 10.4);
+tl.to("#row-word", { opacity: 1, borderColor: "#34d399", duration: 0.3 }, 10.4);
+tl.to("#note-word", { opacity: 1, duration: 0.3 }, 11.2);
+tl.to("#wt-do, #wt-nt", { borderColor: "#ffffff", duration: 0.35, yoyo: true, repeat: 1 }, 12.8);
+tl.to("#tokens-word .token-pill:nth-child(4), #tokens-word .token-pill:nth-child(9)", { borderColor: "#ffffff", duration: 0.35, yoyo: true, repeat: 1 }, 14.8);
+tl.to("#badge-word", { borderColor: "#6ee7b7", duration: 0.3, yoyo: true, repeat: 1 }, 16.5);
+
+// Beat 4: wordpunct_tokenize() breakdown (vo4: 18.3s - 23.54s)
+// "Wordpunct розбиває навіть десяткове число на три окремі частини."
+tl.to("#row-word", { opacity: 0.25, borderColor: "#243556", duration: 0.3 }, 18.3);
+tl.to("#row-punct", { opacity: 1, borderColor: "#fb7185", duration: 0.3 }, 18.3);
+tl.to("#note-punct", { opacity: 1, duration: 0.3 }, 19.0);
+tl.to("#wp-num-1, #wp-num-2, #wp-num-3", { borderColor: "#ffffff", duration: 0.35, yoyo: true, repeat: 1 }, 20.2);
+tl.to("#badge-punct", { borderColor: "#fda4af", duration: 0.3, yoyo: true, repeat: 1 }, 22.2);
+
+// Beat 5: Comparison takeaway (vo5: 24.3s - 29.18s)
+// "Кількість токенів скрізь різна, тому метод обирають суто під задачу."
+tl.to("#row-split, #row-word, #row-punct", { opacity: 1, duration: 0.3 }, 24.3);
+tl.fromTo("#takeaway-card", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 24.5);
+tl.to(".count-card", { borderColor: "#ffffff", duration: 0.35, yoyo: true, repeat: 1 }, 26.2);
+tl.to(".takeaway-title", { color: "#38bdf8", duration: 0.3, yoyo: true, repeat: 1 }, 27.8);
+
+// Transition to closing claim
+tl.to("#header, #input-card, #tokenizers-card, #takeaway-card", { opacity: 0, duration: 0.3 }, 29.7);
+
+window.__timelines["world"] = tl;
+</script>
+</template>
+

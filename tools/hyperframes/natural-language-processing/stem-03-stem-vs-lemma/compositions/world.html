@@ -1,0 +1,344 @@
+<template>
+<style>
+#root {
+  position: absolute;
+  inset: 0;
+  background: #070b14;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+  color: #e8eef7;
+}
+
+.mono {
+  font-family: "JetBrains Mono", monospace;
+}
+
+.card {
+  position: absolute;
+  border-radius: 18px;
+  background: #0e1626;
+  border: 2px solid #223250;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* Header */
+#header {
+  position: absolute;
+  left: 80px;
+  top: 34px;
+  width: 1760px;
+}
+.title {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #f1f5f9;
+  line-height: 1.2;
+}
+.subtitle {
+  font-size: 28px;
+  color: #94a3b8;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+/* Main comparison table card */
+#table-card {
+  position: absolute;
+  left: 80px;
+  top: 145px;
+  width: 1760px;
+  height: 640px;
+  padding: 20px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Columns header */
+.col-header-row {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  height: 52px;
+  border-bottom: 2px solid #1e293b;
+}
+.col-th {
+  font-size: 28px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.col-th-word { width: 340px; color: #94a3b8; }
+.col-th-stem { width: 560px; color: #fbbf24; }
+.col-th-lemma { flex: 1; color: #34d399; }
+
+/* Table rows */
+.table-row {
+  height: 94px;
+  background: #111a2e;
+  border: 2px solid #243556;
+  border-radius: 14px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.cell-word {
+  width: 320px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 32px;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.cell-stem {
+  width: 540px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cell-lemma {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.pill {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 28px;
+  font-weight: 800;
+  padding: 6px 18px;
+  border-radius: 8px;
+  min-width: 140px;
+  text-align: center;
+}
+
+.pill-ok {
+  background: rgba(52, 211, 153, 0.18);
+  border: 2px solid #34d399;
+  color: #34d399;
+}
+
+.pill-fake {
+  background: rgba(244, 63, 94, 0.18);
+  border: 2px solid #fb7185;
+  color: #fb7185;
+}
+
+.pill-same {
+  background: rgba(251, 191, 36, 0.18);
+  border: 2px solid #fbbf24;
+  color: #fbbf24;
+}
+
+.pill-tag {
+  font-size: 28px;
+  font-weight: 600;
+}
+.tag-fake { color: #fb7185; }
+.tag-ok { color: #34d399; }
+.tag-same { color: #fbbf24; }
+
+/* Bottom comparison card */
+#bottom-card {
+  position: absolute;
+  left: 80px;
+  top: 810px;
+  width: 1760px;
+  height: 185px;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-color: #334155;
+  opacity: 0;
+}
+
+.method-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 800px;
+}
+
+.method-summary-h {
+  font-size: 32px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.method-summary-p {
+  font-size: 28px;
+  color: #94a3b8;
+  line-height: 1.35;
+}
+</style>
+
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <!-- Top header -->
+  <div id="header">
+    <div class="title">Стеммінг проти лемматизації: як зводити форми слів</div>
+    <div class="subtitle">Відрізання закінчень за правилами чи пошук канонічної форми у словнику</div>
+  </div>
+
+  <!-- Main table card -->
+  <div id="table-card" class="card">
+    <div class="col-header-row">
+      <div class="col-th col-th-word">Слово</div>
+      <div class="col-th col-th-stem">Стеммер Портера (правила)</div>
+      <div class="col-th col-th-lemma">Лемматизатор WordNet (словник)</div>
+    </div>
+
+    <!-- Row 1: running -->
+    <div id="row-1" class="table-row">
+      <div class="cell-word">running</div>
+      <div class="cell-stem">
+        <span class="pill pill-ok">run</span>
+        <span class="pill-tag tag-ok">✓ корінь</span>
+      </div>
+      <div class="cell-lemma">
+        <span class="pill pill-ok">run</span>
+        <span class="pill-tag tag-ok">✓ початкова форма</span>
+      </div>
+    </div>
+
+    <!-- Row 2: studies -->
+    <div id="row-2" class="table-row">
+      <div class="cell-word">studies</div>
+      <div class="cell-stem">
+        <span id="pill-studies-stem" class="pill pill-fake">studi</span>
+        <span id="tag-studies-stem" class="pill-tag tag-fake">✗ штучна основа</span>
+      </div>
+      <div class="cell-lemma">
+        <span class="pill pill-ok">study</span>
+        <span class="pill-tag tag-ok">✓ дійсне слово</span>
+      </div>
+    </div>
+
+    <!-- Row 3: university -->
+    <div id="row-3" class="table-row">
+      <div class="cell-word">university</div>
+      <div class="cell-stem">
+        <span id="pill-univ-stem" class="pill pill-fake">univers</span>
+        <span id="tag-univ-stem" class="pill-tag tag-fake">✗ злиття з universe</span>
+      </div>
+      <div class="cell-lemma">
+        <span class="pill pill-ok">university</span>
+        <span class="pill-tag tag-ok">✓ окреме поняття</span>
+      </div>
+    </div>
+
+    <!-- Row 4: mice -->
+    <div id="row-4" class="table-row">
+      <div class="cell-word">mice</div>
+      <div class="cell-stem">
+        <span class="pill pill-same">mice</span>
+        <span class="pill-tag tag-same">не знає форми</span>
+      </div>
+      <div class="cell-lemma">
+        <span id="pill-mice-lemma" class="pill pill-ok">mouse</span>
+        <span id="tag-mice-lemma" class="pill-tag tag-ok">✓ нерегулярна форма</span>
+      </div>
+    </div>
+
+    <!-- Row 5: was -->
+    <div id="row-5" class="table-row">
+      <div class="cell-word">was</div>
+      <div class="cell-stem">
+        <span class="pill pill-fake">wa</span>
+        <span class="pill-tag tag-fake">✗ обрізало закінчення</span>
+      </div>
+      <div class="cell-lemma">
+        <span id="pill-was-lemma" class="pill pill-same">was</span>
+        <span id="tag-was-lemma" class="pill-tag tag-same">без pos: як іменник</span>
+        <span id="pill-was-v" class="pill pill-ok" style="opacity:0;margin-left:12px">be</span>
+        <span id="tag-was-v" class="pill-tag tag-ok" style="opacity:0">з pos="v" ✓</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom comparison card -->
+  <div id="bottom-card" class="card">
+    <div class="method-summary">
+      <div class="method-summary-h" style="color:#fbbf24">
+        <span>Стеммінг</span>
+        <span style="font-size:28px;background:rgba(251,191,36,0.18);padding:4px 12px;border-radius:8px">Швидко</span>
+      </div>
+      <div class="method-summary-p">
+        Відрізає суфікси за правилами мови. Не потребує словників, але породжує неіснуючі основи.
+      </div>
+    </div>
+
+    <div style="width:2px;height:120px;background:#334155"></div>
+
+    <div class="method-summary">
+      <div class="method-summary-h" style="color:#34d399">
+        <span>Лемматизація</span>
+        <span style="font-size:28px;background:rgba(52,211,153,0.18);padding:4px 12px;border-radius:8px">Точно</span>
+      </div>
+      <div class="method-summary-p">
+        Шукає слово в морфологічному словнику. Зводить нерегулярні форми до правильної леми.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const tl = gsap.timeline({ paused: true });
+
+// Social thumbnail at t=0
+tl.set("#header", { opacity: 1 }, 0);
+tl.set("#table-card", { opacity: 1 }, 0);
+tl.set(".table-row", { opacity: 1 }, 0);
+
+// Beat 1: Intro (vo1: 0.5s - 4.26s)
+// "Стеммер просто відрізає типові закінчення за правилами."
+tl.to(".col-th-stem", { color: "#ffffff", duration: 0.4, yoyo: true, repeat: 1 }, 0.8);
+tl.to("#row-1 .cell-stem .pill", { borderColor: "#ffffff", duration: 0.35, yoyo: true, repeat: 1 }, 1.8);
+tl.to("#row-1", { borderColor: "#fbbf24", duration: 0.35, yoyo: true, repeat: 1 }, 2.8);
+
+// Beat 2: Stemmer errors (vo2: 5.0s - 11.12s)
+// "Зі слова «studies» виходить «studi», а «university» і «universe» взагалі зливаються."
+tl.to("#row-1, #row-4, #row-5", { opacity: 0.25, duration: 0.35 }, 5.0);
+tl.to("#row-2, #row-3", { borderColor: "#fb7185", duration: 0.35 }, 5.0);
+tl.to("#pill-studies-stem", { borderColor: "#ffffff", duration: 0.35, yoyo: true, repeat: 1 }, 6.2);
+tl.to("#pill-univ-stem", { borderColor: "#ffffff", duration: 0.35, yoyo: true, repeat: 1 }, 8.5);
+
+// Beat 3: Lemmatizer with dictionary (vo3: 11.9s - 17.74s)
+// "Лемматизатор спирається на словник: нерегулярне «mice» стає «mouse»."
+tl.to("#row-2, #row-3", { opacity: 0.25, borderColor: "#243556", duration: 0.35 }, 11.9);
+tl.to("#row-4", { opacity: 1, borderColor: "#34d399", duration: 0.35 }, 11.9);
+tl.to(".col-th-lemma", { color: "#ffffff", duration: 0.4, yoyo: true, repeat: 1 }, 12.2);
+tl.to("#pill-mice-lemma", { borderColor: "#ffffff", duration: 0.35, yoyo: true, repeat: 1 }, 14.2);
+tl.to("#tag-mice-lemma", { color: "#a7f3d0", duration: 0.35, yoyo: true, repeat: 1 }, 15.8);
+
+// Beat 4: POS tagging requirement (vo4: 18.5s - 23.46s)
+// "Але без частини мови лемматизатор вважає «was» іменником."
+tl.to("#row-4", { opacity: 0.25, borderColor: "#243556", duration: 0.35 }, 18.5);
+tl.to("#row-5", { opacity: 1, borderColor: "#fbbf24", duration: 0.35 }, 18.5);
+tl.to("#pill-was-lemma", { borderColor: "#ffffff", duration: 0.35, yoyo: true, repeat: 1 }, 19.8);
+tl.to("#tag-was-lemma", { color: "#fef08a", duration: 0.35, yoyo: true, repeat: 1 }, 21.4);
+
+// Beat 5: POS verb -> be & Summary (vo5: 24.2s - 29.56s)
+// "Вкажіть частину мови «дієслово», і ви отримаєте правильну форму «be»."
+tl.to("#pill-was-lemma, #tag-was-lemma", { opacity: 0.35, duration: 0.3 }, 24.2);
+tl.to("#pill-was-v, #tag-was-v", { opacity: 1, duration: 0.35 }, 24.4);
+tl.to("#pill-was-v", { borderColor: "#ffffff", duration: 0.35, yoyo: true, repeat: 1 }, 25.0);
+
+// Reveal bottom card
+tl.to("#row-1, #row-2, #row-3, #row-4, #row-5", { opacity: 1, borderColor: "#243556", duration: 0.35 }, 26.0);
+tl.fromTo("#bottom-card", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 26.5);
+tl.to("#bottom-card", { borderColor: "#38bdf8", duration: 0.35, yoyo: true, repeat: 1 }, 28.0);
+
+// Transition to closing claim
+tl.to("#header, #table-card, #bottom-card", { opacity: 0, duration: 0.3 }, 30.1);
+
+window.__timelines["world"] = tl;
+</script>
+</template>

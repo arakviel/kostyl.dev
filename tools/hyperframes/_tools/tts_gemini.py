@@ -10,9 +10,11 @@ if not KEY:
     sys.exit("Error: GEMINI_API_KEY or GOOGLE_GENERATIVE_AI_API_KEY environment variable required")
 
 MODELS = [
-    os.environ.get("GEMINI_TTS_MODEL", "gemini-3.1-flash-tts-preview"),
+    "gemini-3.8-flash-tts",
+    "gemini-3.1-flash-tts-preview",
     "gemini-3.8-flash-lite-tts",
     "gemini-2.5-flash-preview-tts",
+    "gemini-2.5-pro-preview-tts",
 ]
 
 outdir, lines = sys.argv[1], sys.argv[2:]
@@ -74,14 +76,14 @@ for i, text in enumerate(lines, 1):
                     success = True
                     break
             except urllib.error.HTTPError as e:
+                err_msg = e.read().decode("utf-8", errors="replace")
                 if e.code == 429:
-                    err_msg = e.read().decode("utf-8", errors="replace")
+                    print(f"429 on {model}: {err_msg[:120]}")
                     if "per day limit exceeded" in err_msg or attempt == 3:
                         print(f"Model {model} quota reached, trying next model...")
                         break
                     time.sleep(5)
                 else:
-                    err_msg = e.read().decode("utf-8", errors="replace")
                     print(f"HTTPError on line {i}: {e.code} - {err_msg}")
                     break
             except Exception as e:
