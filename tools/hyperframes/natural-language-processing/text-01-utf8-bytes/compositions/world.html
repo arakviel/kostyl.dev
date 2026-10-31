@@ -1,0 +1,532 @@
+<template>
+<style>
+#root {
+  position: absolute;
+  inset: 0;
+  background: #070b14;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+  color: #e8eef7;
+}
+
+.mono {
+  font-family: "JetBrains Mono", monospace;
+}
+
+.card {
+  position: absolute;
+  border-radius: 18px;
+  background: #0e1626;
+  border: 2px solid #223250;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* Header */
+#header {
+  position: absolute;
+  left: 80px;
+  top: 36px;
+  width: 1760px;
+}
+.title {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #f1f5f9;
+  line-height: 1.2;
+}
+.subtitle {
+  font-size: 28px;
+  color: #94a3b8;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+/* Scene 1: Word "кіт" breakdown */
+#scene-kit {
+  position: absolute;
+  left: 80px;
+  top: 155px;
+  width: 1760px;
+  height: 860px;
+}
+
+#letters-row {
+  display: flex;
+  gap: 36px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.char-card {
+  width: 480px;
+  height: 540px;
+  background: #111a2e;
+  border: 2px solid #243556;
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 16px 36px rgba(0,0,0,0.5);
+}
+
+.char-badge {
+  font-size: 28px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.char-glyph {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 130px;
+  font-weight: 800;
+  color: #f8fafc;
+  line-height: 1.1;
+  margin-top: 8px;
+}
+
+.char-arrow {
+  font-size: 32px;
+  color: #64748b;
+  margin: 12px 0;
+  opacity: 0;
+}
+
+.code-point-box {
+  background: rgba(251, 191, 36, 0.12);
+  border: 2px solid #fbbf24;
+  border-radius: 12px;
+  padding: 8px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 380px;
+  opacity: 0;
+}
+
+.cp-label {
+  font-size: 28px;
+  color: #fbbf24;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cp-val {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 34px;
+  font-weight: 800;
+  color: #fef08a;
+}
+
+.bytes-box {
+  margin-top: 18px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  opacity: 0;
+}
+
+.byte-pill {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 30px;
+  font-weight: 800;
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.18);
+  border: 2px solid #34d399;
+  border-radius: 10px;
+  padding: 8px 20px;
+}
+
+.byte-pill-label {
+  font-size: 28px;
+  font-weight: 700;
+  color: #34d399;
+}
+
+/* Scene 1 Summary bar */
+#kit-summary {
+  position: absolute;
+  left: 0;
+  bottom: 30px;
+  width: 1760px;
+  height: 170px;
+  padding: 0 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-color: #334155;
+  opacity: 0;
+}
+
+.summary-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.metric-tag {
+  font-size: 28px;
+  font-weight: 600;
+  color: #94a3b8;
+}
+
+.metric-val-chars {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 52px;
+  font-weight: 800;
+  color: #22d3ee;
+}
+
+.metric-val-bytes {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 52px;
+  font-weight: 800;
+  color: #34d399;
+}
+
+.summary-hex-repr {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 30px;
+  color: #e2e8f0;
+  background: #1e293b;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: 1px solid #475569;
+}
+
+/* Scene 2: Comparison table */
+#scene-table {
+  position: absolute;
+  left: 80px;
+  top: 155px;
+  width: 1760px;
+  height: 860px;
+  opacity: 0;
+}
+
+.comp-table-card {
+  width: 1760px;
+  height: 610px;
+  padding: 24px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.comp-row {
+  height: 115px;
+  background: #131d31;
+  border: 2px solid #233554;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  padding: 0 28px;
+  gap: 24px;
+}
+
+.comp-glyph {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 44px;
+  font-weight: 800;
+  color: #f8fafc;
+  width: 130px;
+}
+
+.comp-type {
+  font-size: 28px;
+  font-weight: 600;
+  color: #94a3b8;
+  width: 220px;
+}
+
+.comp-cp {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 28px;
+  font-weight: 700;
+  color: #fbbf24;
+  width: 180px;
+}
+
+.comp-bytes-pills {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+}
+
+.cpill {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 28px;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 8px;
+}
+.cpill-1 { background: rgba(56, 189, 248, 0.2); border: 2px solid #38bdf8; color: #38bdf8; }
+.cpill-2 { background: rgba(52, 211, 153, 0.2); border: 2px solid #34d399; color: #34d399; }
+.cpill-3 { background: rgba(251, 191, 36, 0.2); border: 2px solid #fbbf24; color: #fbbf24; }
+.cpill-4 { background: rgba(251, 113, 133, 0.2); border: 2px solid #fb7185; color: #fb7185; }
+
+.comp-stat {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 28px;
+  font-weight: 700;
+  color: #e2e8f0;
+  width: 320px;
+  text-align: right;
+}
+
+.comp-bytes-count {
+  font-size: 30px;
+  font-weight: 800;
+  padding: 6px 18px;
+  border-radius: 8px;
+  width: 160px;
+  text-align: center;
+}
+
+#takeaway-card {
+  position: absolute;
+  left: 0;
+  bottom: 30px;
+  width: 1760px;
+  height: 170px;
+  padding: 0 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-color: #38bdf8;
+  opacity: 0;
+}
+
+.takeaway-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.takeaway-title {
+  font-size: 34px;
+  font-weight: 800;
+  color: #f8fafc;
+}
+.takeaway-sub {
+  font-size: 28px;
+  color: #94a3b8;
+}
+
+.takeaway-pill {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 32px;
+  font-weight: 800;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.15);
+  border: 2px solid #38bdf8;
+  border-radius: 12px;
+  padding: 14px 28px;
+}
+</style>
+
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <!-- Top header -->
+  <div id="header">
+    <div class="title">Символи та байти: кодування тексту в UTF-8</div>
+    <div class="subtitle">Чому кількість символів і розмір у байтах не збігаються</div>
+  </div>
+
+  <!-- Scene 1: Word "кіт" -->
+  <div id="scene-kit">
+    <div id="letters-row">
+      <!-- Letter 1: к -->
+      <div id="card-char-1" class="char-card">
+        <div class="char-badge">Символ 1</div>
+        <div class="char-glyph">к</div>
+        <div id="arrow-1" class="char-arrow">↓</div>
+        <div id="cp-1" class="code-point-box">
+          <div class="cp-label">Кодова позиція</div>
+          <div class="cp-val">U+043A</div>
+        </div>
+        <div id="bytes-1" class="bytes-box">
+          <div class="byte-pill">D0</div>
+          <div class="byte-pill">BA</div>
+          <div class="byte-pill-label">2 байти</div>
+        </div>
+      </div>
+
+      <!-- Letter 2: і -->
+      <div id="card-char-2" class="char-card">
+        <div class="char-badge">Символ 2</div>
+        <div class="char-glyph">і</div>
+        <div id="arrow-2" class="char-arrow">↓</div>
+        <div id="cp-2" class="code-point-box">
+          <div class="cp-label">Кодова позиція</div>
+          <div class="cp-val">U+0456</div>
+        </div>
+        <div id="bytes-2" class="bytes-box">
+          <div class="byte-pill">D1</div>
+          <div class="byte-pill">96</div>
+          <div class="byte-pill-label">2 байти</div>
+        </div>
+      </div>
+
+      <!-- Letter 3: т -->
+      <div id="card-char-3" class="char-card">
+        <div class="char-badge">Символ 3</div>
+        <div class="char-glyph">т</div>
+        <div id="arrow-3" class="char-arrow">↓</div>
+        <div id="cp-3" class="code-point-box">
+          <div class="cp-label">Кодова позиція</div>
+          <div class="cp-val">U+0442</div>
+        </div>
+        <div id="bytes-3" class="bytes-box">
+          <div class="byte-pill">D1</div>
+          <div class="byte-pill">82</div>
+          <div class="byte-pill-label">2 байти</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scene 1 summary -->
+    <div id="kit-summary" class="card">
+      <div class="summary-metric">
+        <div class="metric-tag">Довжина рядка len(s)</div>
+        <div class="metric-val-chars">3 символи</div>
+      </div>
+      <div class="summary-hex-repr">b'\xd0\xba\xd1\x96\xd1\x82'</div>
+      <div class="summary-metric">
+        <div class="metric-tag">Розмір у пам'яті len(b)</div>
+        <div class="metric-val-bytes">6 байтів</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scene 2: Comparison table -->
+  <div id="scene-table">
+    <div class="comp-table-card card">
+      <!-- Row 1: cat -->
+      <div id="crow-1" class="comp-row">
+        <div class="comp-glyph">cat</div>
+        <div class="comp-type">латиниця</div>
+        <div class="comp-cp">U+0063…</div>
+        <div class="comp-bytes-pills">
+          <span class="cpill cpill-1">63</span>
+          <span class="cpill cpill-1">61</span>
+          <span class="cpill cpill-1">74</span>
+        </div>
+        <div class="comp-stat">3 символи / 3 байти</div>
+        <div class="comp-bytes-count cpill-1">1 байт/символ</div>
+      </div>
+
+      <!-- Row 2: кіт -->
+      <div id="crow-2" class="comp-row">
+        <div class="comp-glyph">кіт</div>
+        <div class="comp-type">кирилиця</div>
+        <div class="comp-cp">U+043A…</div>
+        <div class="comp-bytes-pills">
+          <span class="cpill cpill-2">D0 BA</span>
+          <span class="cpill cpill-2">D1 96</span>
+          <span class="cpill cpill-2">D1 82</span>
+        </div>
+        <div class="comp-stat">3 символи / 6 байтів</div>
+        <div class="comp-bytes-count cpill-2">2 байти/символ</div>
+      </div>
+
+      <!-- Row 3: € -->
+      <div id="crow-3" class="comp-row">
+        <div class="comp-glyph">€</div>
+        <div class="comp-type">валюта</div>
+        <div class="comp-cp">U+20AC</div>
+        <div class="comp-bytes-pills">
+          <span class="cpill cpill-3">E2</span>
+          <span class="cpill cpill-3">82</span>
+          <span class="cpill cpill-3">AC</span>
+        </div>
+        <div class="comp-stat">1 символ / 3 байти</div>
+        <div class="comp-bytes-count cpill-3">3 байти/символ</div>
+      </div>
+
+      <!-- Row 4: 🐱 -->
+      <div id="crow-4" class="comp-row">
+        <div class="comp-glyph">🐱</div>
+        <div class="comp-type">емодзі</div>
+        <div class="comp-cp">U+1F431</div>
+        <div class="comp-bytes-pills">
+          <span class="cpill cpill-4">F0</span>
+          <span class="cpill cpill-4">9F</span>
+          <span class="cpill cpill-4">90</span>
+          <span class="cpill cpill-4">B1</span>
+        </div>
+        <div class="comp-stat">1 символ / 4 байти</div>
+        <div class="comp-bytes-count cpill-4">4 байти/символ</div>
+      </div>
+    </div>
+
+    <!-- Takeaway bottom bar -->
+    <div id="takeaway-card" class="card">
+      <div class="takeaway-left">
+        <div class="takeaway-title">len("кіт") ≠ len("кіт".encode("utf-8"))</div>
+        <div class="takeaway-sub">len() рахує абстрактні символи, а байти показують фізичний розмір</div>
+      </div>
+      <div class="takeaway-pill">1 до 4 байтів на символ</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const tl = gsap.timeline({ paused: true });
+
+// Social thumbnail at t=0
+tl.set("#header", { opacity: 1 }, 0);
+tl.set("#scene-kit", { opacity: 1 }, 0);
+tl.set(".char-card", { opacity: 1 }, 0);
+
+// Beat 1: Word "кіт" intro (vo1: 0.5s - 3.7s)
+// "Слово «кіт» має три літери."
+tl.to("#card-char-1", { borderColor: "#38bdf8", duration: 0.35, yoyo: true, repeat: 1 }, 0.8);
+tl.to("#card-char-2", { borderColor: "#38bdf8", duration: 0.35, yoyo: true, repeat: 1 }, 1.6);
+tl.to("#card-char-3", { borderColor: "#38bdf8", duration: 0.35, yoyo: true, repeat: 1 }, 2.4);
+
+// Beat 2: Unicode code points (vo2: 4.4s - 9.08s)
+// "Кожна літера — це окремий номер у таблиці Юнікод."
+tl.to("#arrow-1, #cp-1", { opacity: 1, duration: 0.3 }, 4.6);
+tl.to("#arrow-2, #cp-2", { opacity: 1, duration: 0.3 }, 5.8);
+tl.to("#arrow-3, #cp-3", { opacity: 1, duration: 0.3 }, 7.0);
+tl.to(".cp-val", { color: "#ffffff", duration: 0.3, yoyo: true, repeat: 1 }, 8.2);
+
+// Beat 3: UTF-8 bytes in memory (vo3: 9.8s - 16.44s)
+// "У файлі кожна кирилична літера займає два байти, тож слово займає шість."
+tl.to("#bytes-1", { opacity: 1, duration: 0.35 }, 10.0);
+tl.to("#bytes-2", { opacity: 1, duration: 0.35 }, 11.2);
+tl.to("#bytes-3", { opacity: 1, duration: 0.35 }, 12.4);
+
+// Reveal bottom summary bar at 13.5s
+tl.fromTo("#kit-summary", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 13.5);
+tl.to(".metric-val-chars", { color: "#e0f2fe", duration: 0.3, yoyo: true, repeat: 1 }, 14.5);
+tl.to(".metric-val-bytes", { color: "#d1fae5", duration: 0.3, yoyo: true, repeat: 1 }, 15.5);
+
+// Beat 4: Transition to comparison table (vo4: 17.2s - 24.36s)
+// "Латинська літера займає один байт, знак євро — три, а емодзі — чотири."
+tl.to("#scene-kit", { opacity: 0, duration: 0.35 }, 16.9);
+tl.fromTo("#scene-table", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 17.2);
+
+// Highlight rows sequentially with the narration
+tl.to("#crow-1", { borderColor: "#38bdf8", duration: 0.5, yoyo: true, repeat: 1 }, 17.6);
+tl.to("#crow-2", { borderColor: "#34d399", duration: 0.5, yoyo: true, repeat: 1 }, 19.5);
+tl.to("#crow-3", { borderColor: "#fbbf24", duration: 0.5, yoyo: true, repeat: 1 }, 21.2);
+tl.to("#crow-4", { borderColor: "#fb7185", duration: 0.5, yoyo: true, repeat: 1 }, 22.8);
+
+// Beat 5: Takeaway (vo5: 25.1s - 29.5s)
+// "Тому довжина рядка в символах і в байтах — це різні числа."
+tl.fromTo("#takeaway-card", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 25.2);
+tl.to(".takeaway-pill", { color: "#ffffff", duration: 0.3, yoyo: true, repeat: 1 }, 27.0);
+tl.to(".takeaway-title", { color: "#38bdf8", duration: 0.3, yoyo: true, repeat: 1 }, 28.5);
+
+// Transition to closing claim
+tl.to("#header, #scene-table", { opacity: 0, duration: 0.3 }, 29.9);
+
+window.__timelines["world"] = tl;
+</script>
+</template>
+

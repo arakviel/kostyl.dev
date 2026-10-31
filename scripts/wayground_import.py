@@ -25,6 +25,7 @@ import os
 import sys
 import uuid
 import json
+import re
 import argparse
 import requests
 from pathlib import Path
@@ -76,45 +77,53 @@ def login(email: str, password: str, sid: str = "") -> requests.Session:
         "Content-Type": "application/json",
     })
 
+    # Спробуємо спочатку авторизуватися через email/password, якщо вони є
+    if email and password:
+        print(f"[~] Авторизація як {email}...")
+        try:
+            resp = requests.post(
+                "https://wayground.com/_authserver/public/public/v1/auth/login/local",
+                json={"username": email, "password": password, "requestId": str(uuid.uuid4())},
+                headers={
+                    "Content-Type": "application/json",
+                    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+                    "Origin": "https://wayground.com",
+                },
+                timeout=30,
+            )
+            if resp.status_code == 200 and resp.json().get("success"):
+                cookie_sid = resp.cookies.get("_sid")
+                quizizz_uid = resp.cookies.get("quizizz_uid")
+                if cookie_sid:
+                    for domain in ["wayground.com", ".wayground.com", "quizizz.com", ".quizizz.com"]:
+                        session.cookies.set("_sid", cookie_sid, domain=domain)
+                    if quizizz_uid:
+                        session.cookies.set("quizizz_uid", quizizz_uid, domain="wayground.com")
+                    user = resp.json().get("data", {}).get("user", {})
+                    name = f"{user.get('firstName', '')} {user.get('lastName', '')}".strip()
+                    print(f"[✓] Авторизовано: {name}")
+
+                    # Оновлюємо WAYGROUND_SID у .env для наступних запусків
+                    for env_dir in [Path(__file__).parent, Path.cwd()]:
+                        env_file = env_dir / ".env"
+                        if env_file.exists():
+                            content = env_file.read_text()
+                            if "WAYGROUND_SID=" in content:
+                                content = re.sub(r"WAYGROUND_SID=.*", f"WAYGROUND_SID={cookie_sid}", content)
+                            else:
+                                content += f"\nWAYGROUND_SID={cookie_sid}\n"
+                            env_file.write_text(content)
+                            break
+                    return session
+        except Exception as e:
+            print(f"[!] Помилка login/local: {e}")
+
     if sid:
         print("[~] Використовуємо збережений WAYGROUND_SID...")
         for domain in ["wayground.com", ".wayground.com", "quizizz.com", ".quizizz.com"]:
             session.cookies.set("_sid", sid, domain=domain)
         print("[✓] Сесія встановлена через SID")
         return session
-
-    print(f"[~] Авторизація як {email}...")
-    resp = requests.post(
-        "https://wayground.com/_authserver/public/public/v1/auth/login/local",
-        json={"username": email, "password": password, "requestId": str(uuid.uuid4())},
-        headers={
-            "Content-Type": "application/json",
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
-            "Origin": "https://wayground.com",
-        },
-        timeout=30,
-    )
-    if resp.status_code != 200 or not resp.json().get("success"):
-        raise RuntimeError(f"Помилка авторизації. HTTP {resp.status_code}: {resp.text[:200]}")
-
-    cookie_sid = resp.cookies.get("_sid")
-    quizizz_uid = resp.cookies.get("quizizz_uid")
-    if not cookie_sid:
-        raise RuntimeError(
-            "_sid cookie не знайдено у відповіді login.\n"
-            "Ймовірно, увімкнено 2FA. Отримайте _sid з браузера після ручного входу "
-            "та збережіть у scripts/.env як WAYGROUND_SID=<значення>"
-        )
-
-    for domain in ["wayground.com", ".wayground.com", "quizizz.com", ".quizizz.com"]:
-        session.cookies.set("_sid", cookie_sid, domain=domain)
-    if quizizz_uid:
-        session.cookies.set("quizizz_uid", quizizz_uid, domain="wayground.com")
-
-    user = resp.json().get("data", {}).get("user", {})
-    name = f"{user.get('firstName', '')} {user.get('lastName', '')}".strip()
-    print(f"[✓] Авторизовано: {name}")
-    return session
 
 
 # ---------------------------------------------------------------------------

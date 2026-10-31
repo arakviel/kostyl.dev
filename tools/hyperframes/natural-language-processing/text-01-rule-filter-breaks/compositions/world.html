@@ -1,0 +1,502 @@
+<template>
+<style>
+#root {
+  position: absolute;
+  inset: 0;
+  background: #070b14;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+  color: #e8eef7;
+}
+
+.mono {
+  font-family: "JetBrains Mono", monospace;
+}
+
+.card {
+  position: absolute;
+  border-radius: 16px;
+  background: #0e1626;
+  border: 2px solid #223250;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* Header styles */
+#header {
+  position: absolute;
+  left: 80px;
+  top: 36px;
+  width: 780px;
+}
+.title {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #f1f5f9;
+  line-height: 1.2;
+}
+.subtitle {
+  font-size: 28px;
+  color: #94a3b8;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+/* Word lists */
+#lists-wrap {
+  position: absolute;
+  left: 900px;
+  top: 36px;
+  width: 940px;
+  display: flex;
+  gap: 20px;
+}
+.word-box {
+  flex: 1;
+  border-radius: 14px;
+  padding: 12px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pos-box {
+  background: rgba(16, 185, 129, 0.12);
+  border: 2px solid #34d399;
+}
+.neg-box {
+  background: rgba(244, 63, 94, 0.12);
+  border: 2px solid #fb7185;
+}
+.box-title {
+  font-size: 28px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.pos-box .box-title { color: #34d399; }
+.neg-box .box-title { color: #fb7185; }
+.box-words {
+  font-size: 28px;
+  font-family: "JetBrains Mono", monospace;
+  color: #e2e8f0;
+}
+
+/* Reviews table */
+#table-card {
+  position: absolute;
+  left: 80px;
+  top: 175px;
+  width: 1760px;
+  height: 610px;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.review-row {
+  position: relative;
+  height: 98px;
+  background: #131d31;
+  border: 2px solid #233554;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 16px;
+}
+
+.row-num {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 28px;
+  font-weight: 700;
+  color: #64748b;
+  width: 36px;
+  text-align: center;
+}
+
+.review-text {
+  font-size: 30px;
+  font-weight: 500;
+  color: #e2e8f0;
+  flex: 1;
+  white-space: nowrap;
+}
+
+.kw-pos {
+  color: #34d399;
+  font-weight: 700;
+  background: rgba(52, 211, 153, 0.16);
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(52, 211, 153, 0.4);
+}
+
+.kw-neg {
+  color: #fb7185;
+  font-weight: 700;
+  background: rgba(251, 113, 133, 0.16);
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(251, 113, 133, 0.4);
+}
+
+.kw-negation {
+  color: #fbbf24;
+  font-weight: 800;
+  background: rgba(251, 191, 36, 0.22);
+  padding: 2px 10px;
+  border-radius: 6px;
+  border: 2px solid #fbbf24;
+}
+
+.row-note {
+  font-size: 28px;
+  font-weight: 600;
+  color: #fbbf24;
+  width: 400px;
+  text-align: right;
+  opacity: 0;
+  white-space: nowrap;
+}
+
+.row-pred {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 28px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 8px;
+  width: 220px;
+  text-align: center;
+  opacity: 0;
+}
+.pred-pos {
+  background: rgba(34, 211, 238, 0.15);
+  color: #22d3ee;
+  border: 1px solid #22d3ee;
+}
+.pred-neg {
+  background: rgba(251, 113, 133, 0.15);
+  color: #fb7185;
+  border: 1px solid #fb7185;
+}
+
+.row-verdict {
+  font-size: 28px;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 8px;
+  width: 230px;
+  text-align: center;
+  opacity: 0;
+}
+.verdict-ok {
+  background: rgba(52, 211, 153, 0.2);
+  color: #34d399;
+  border: 1.5px solid #34d399;
+}
+.verdict-fail {
+  background: rgba(244, 63, 94, 0.22);
+  color: #fb7185;
+  border: 1.5px solid #fb7185;
+}
+
+/* Bottom summary bar */
+#summary-card {
+  position: absolute;
+  left: 80px;
+  top: 815px;
+  width: 1760px;
+  height: 180px;
+  padding: 0 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-color: #334155;
+  opacity: 0;
+}
+
+.summary-left {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.metric-number {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 84px;
+  font-weight: 800;
+  color: #fbbf24;
+  letter-spacing: -0.03em;
+}
+
+.metric-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.metric-title {
+  font-size: 34px;
+  font-weight: 800;
+  color: #f8fafc;
+}
+
+.metric-sub {
+  font-size: 28px;
+  color: #94a3b8;
+}
+
+.error-pill {
+  background: rgba(244, 63, 94, 0.2);
+  border: 2px solid #fb7185;
+  border-radius: 12px;
+  padding: 14px 28px;
+  color: #fb7185;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+/* Insight screen for beat 5 */
+#insights-screen {
+  position: absolute;
+  left: 80px;
+  top: 220px;
+  width: 1760px;
+  display: flex;
+  gap: 32px;
+  opacity: 0;
+}
+
+.insight-card {
+  flex: 1;
+  background: #0f172a;
+  border: 2px solid #38bdf8;
+  border-radius: 18px;
+  padding: 44px 36px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.insight-tag {
+  font-size: 28px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #38bdf8;
+  letter-spacing: 0.08em;
+}
+
+.insight-h {
+  font-size: 36px;
+  font-weight: 800;
+  color: #f1f5f9;
+  line-height: 1.25;
+}
+
+.insight-p {
+  font-size: 28px;
+  color: #94a3b8;
+  line-height: 1.45;
+}
+
+.insight-eg {
+  margin-top: 10px;
+  padding: 14px 20px;
+  background: #1e293b;
+  border-radius: 10px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 28px;
+  color: #e2e8f0;
+}
+</style>
+
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <!-- Top header -->
+  <div id="header">
+    <div class="title">Чому правило зі списком слів помиляється</div>
+    <div class="subtitle">Аналіз тональності за окремими словами</div>
+  </div>
+
+  <!-- Word lists -->
+  <div id="lists-wrap">
+    <div id="box-pos" class="word-box pos-box">
+      <div class="box-title">Позитивні слова</div>
+      <div class="box-words">{"чудовий", "задоволений", "чудово"}</div>
+    </div>
+    <div id="box-neg" class="word-box neg-box">
+      <div class="box-title">Негативні слова</div>
+      <div class="box-words">{"жахлива", "поганий", "зламався"}</div>
+    </div>
+  </div>
+
+  <!-- Table card with 5 reviews -->
+  <div id="table-card" class="card">
+    <!-- Row 1 -->
+    <div id="row-1" class="review-row">
+      <span class="row-num">1</span>
+      <span class="review-text">«<span class="kw-pos">Чудовий</span> товар, дуже <span class="kw-pos">задоволений</span>!»</span>
+      <span id="note-1" class="row-note"></span>
+      <span id="pred-1" class="row-pred pred-pos">+2 слова</span>
+      <span id="verd-1" class="row-verdict verdict-ok">✓ Правильно</span>
+    </div>
+
+    <!-- Row 2 -->
+    <div id="row-2" class="review-row">
+      <span class="row-num">2</span>
+      <span class="review-text">«<span class="kw-neg">Жахлива</span> якість, гроші на вітер.»</span>
+      <span id="note-2" class="row-note"></span>
+      <span id="pred-2" class="row-pred pred-neg">+1 слово</span>
+      <span id="verd-2" class="row-verdict verdict-ok">✓ Правильно</span>
+    </div>
+
+    <!-- Row 3 -->
+    <div id="row-3" class="review-row">
+      <span class="row-num">3</span>
+      <span class="review-text">«<span id="neg-word-3" class="kw-negation">Не</span> можу сказати, що товар <span class="kw-neg">поганий</span>.»</span>
+      <span id="note-3" class="row-note">«не» змінює зміст!</span>
+      <span id="pred-3" class="row-pred pred-neg">+1 слово</span>
+      <span id="verd-3" class="row-verdict verdict-fail">✗ Помилка</span>
+    </div>
+
+    <!-- Row 4 -->
+    <div id="row-4" class="review-row">
+      <span class="row-num">4</span>
+      <span class="review-text">«Товар <span id="neg-word-4" class="kw-negation">не</span> <span class="kw-pos">чудовий</span>, а просто нормальний.»</span>
+      <span id="note-4" class="row-note">«не» нівелює оцінку</span>
+      <span id="pred-4" class="row-pred pred-pos">+1 слово</span>
+      <span id="verd-4" class="row-verdict verdict-fail">✗ Помилка</span>
+    </div>
+
+    <!-- Row 5 -->
+    <div id="row-5" class="review-row">
+      <span class="row-num">5</span>
+      <span class="review-text">«<span class="kw-pos">Чудово</span>! <span class="kw-pos">Чудово</span> <span class="kw-neg">зламався</span> вже за день.»</span>
+      <span id="note-5" class="row-note">іронія: +2 слів проти -1</span>
+      <span id="pred-5" class="row-pred pred-pos">+2 vs -1</span>
+      <span id="verd-5" class="row-verdict verdict-fail">✗ Помилка</span>
+    </div>
+  </div>
+
+  <!-- Bottom summary card -->
+  <div id="summary-card" class="card">
+    <div class="summary-left">
+      <div class="metric-number">2 / 5</div>
+      <div class="metric-details">
+        <div class="metric-title">Правильно визначено лише 2 з 5 відгуків (40%)</div>
+        <div class="metric-sub">Три відгуки визначено хибно через ігнорування контексту</div>
+      </div>
+    </div>
+    <div class="error-pill">3 помилки з 5</div>
+  </div>
+
+  <!-- Insights screen (Beat 5) -->
+  <div id="insights-screen">
+    <div class="insight-card">
+      <div class="insight-tag">Фактор 1</div>
+      <div class="insight-h">Заперечення</div>
+      <div class="insight-p">Частка «не» повністю змінює зміст твердження на протилежний.</div>
+      <div class="insight-eg">«не поганий» ≠ «поганий»</div>
+    </div>
+
+    <div class="insight-card" style="border-color:#34d399">
+      <div class="insight-tag" style="color:#34d399">Фактор 2</div>
+      <div class="insight-h">Порядок слів</div>
+      <div class="insight-p">Позиція слова визначає граматичну роль і зв'язки з сусідами.</div>
+      <div class="insight-eg">порядок має значення</div>
+    </div>
+
+    <div class="insight-card" style="border-color:#fbbf24">
+      <div class="insight-tag" style="color:#fbbf24">Фактор 3</div>
+      <div class="insight-h">Тон та іронія</div>
+      <div class="insight-p">Сарказм використовує схвальні слова для вираження обурення.</div>
+      <div class="insight-eg">«Чудово зламався!»</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const tl = gsap.timeline({ paused: true });
+
+// Social thumbnail at t=0
+tl.set("#header", { opacity: 1 }, 0);
+tl.set("#lists-wrap", { opacity: 1 }, 0);
+tl.set("#table-card", { opacity: 1 }, 0);
+
+// Beat 1: Initial state & Word lists highlight (vo1: 0.5s - 3.7s)
+// "Фільтр рахує слова зі списків."
+tl.to("#box-pos", { borderColor: "#6ee7b7", backgroundColor: "rgba(16, 185, 129, 0.22)", duration: 0.5, yoyo: true, repeat: 1 }, 0.8);
+tl.to("#box-neg", { borderColor: "#fda4af", backgroundColor: "rgba(244, 63, 94, 0.22)", duration: 0.5, yoyo: true, repeat: 1 }, 1.8);
+tl.to(".kw-pos, .kw-neg", { borderColor: "#e2e8f0", duration: 0.4, yoyo: true, repeat: 1 }, 2.8);
+
+// Beat 2: Rows classified one by one (vo2: 4.5s - 7.58s)
+// "Два відгуки з п'яти він визначив правильно."
+// Row 1 (OK)
+tl.to("#pred-1", { opacity: 1, duration: 0.2 }, 4.6);
+tl.to("#verd-1", { opacity: 1, duration: 0.2 }, 4.75);
+
+// Row 2 (OK)
+tl.to("#pred-2", { opacity: 1, duration: 0.2 }, 5.1);
+tl.to("#verd-2", { opacity: 1, duration: 0.2 }, 5.25);
+
+// Row 3 (Fail)
+tl.to("#pred-3", { opacity: 1, duration: 0.2 }, 5.6);
+tl.to("#verd-3", { opacity: 1, duration: 0.2 }, 5.75);
+
+// Row 4 (Fail)
+tl.to("#pred-4", { opacity: 1, duration: 0.2 }, 6.1);
+tl.to("#verd-4", { opacity: 1, duration: 0.2 }, 6.25);
+
+// Row 5 (Fail)
+tl.to("#pred-5", { opacity: 1, duration: 0.2 }, 6.6);
+tl.to("#verd-5", { opacity: 1, duration: 0.2 }, 6.75);
+
+// Pop summary card
+tl.fromTo("#summary-card", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 7.1);
+tl.to(".metric-number", { color: "#fef08a", duration: 0.2, yoyo: true, repeat: 1 }, 7.3);
+
+// Beat 3: Negation focus (vo3: 8.4s - 12.84s)
+// "Заперечення «не» змінює зміст, а фільтр його не бачить."
+// Dim other rows
+tl.to("#row-1, #row-2, #row-5", { opacity: 0.25, duration: 0.3 }, 8.4);
+tl.to("#row-3, #row-4", { borderColor: "#fbbf24", duration: 0.35 }, 8.4);
+
+// Reveal row notes for negation
+tl.to("#note-3", { opacity: 1, duration: 0.3 }, 8.8);
+tl.to("#neg-word-3", { backgroundColor: "rgba(251, 191, 36, 0.45)", duration: 0.3, yoyo: true, repeat: 1 }, 9.2);
+
+tl.to("#note-4", { opacity: 1, duration: 0.3 }, 10.4);
+tl.to("#neg-word-4", { backgroundColor: "rgba(251, 191, 36, 0.45)", duration: 0.3, yoyo: true, repeat: 1 }, 10.8);
+
+// Fill dead stretch around 11.8s
+tl.to("#row-3, #row-4", { backgroundColor: "#1e293b", duration: 0.4, yoyo: true, repeat: 1 }, 11.8);
+
+// Beat 4: Irony focus (vo4: 13.6s - 16.92s)
+// "Іронічне «чудово» — теж."
+tl.to("#note-3, #note-4", { opacity: 0, duration: 0.2 }, 13.4);
+tl.to("#row-3, #row-4", { borderColor: "#233554", opacity: 0.25, duration: 0.3 }, 13.5);
+tl.to("#row-5", { opacity: 1, borderColor: "#fb7185", duration: 0.35 }, 13.6);
+
+// Pulse row 5 note and keywords
+tl.to("#note-5", { opacity: 1, duration: 0.3 }, 13.9);
+tl.to("#row-5 .kw-pos", { borderColor: "#6ee7b7", duration: 0.35, yoyo: true, repeat: 1 }, 14.5);
+tl.to("#row-5 .kw-neg", { borderColor: "#fda4af", duration: 0.35, yoyo: true, repeat: 1 }, 15.6);
+
+// Beat 5: Context insights (vo5: 17.7s - 22.22s)
+// "Слова самі по собі не несуть значення, його задає контекст."
+tl.to("#table-card, #summary-card, #lists-wrap", { opacity: 0, duration: 0.4 }, 17.5);
+tl.fromTo("#insights-screen", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 17.8);
+
+// Subtle card stagger pulse during vo5
+tl.to(".insight-card:nth-child(1)", { borderColor: "#bae6fd", duration: 0.4, yoyo: true, repeat: 1 }, 18.6);
+tl.to(".insight-card:nth-child(2)", { borderColor: "#6ee7b7", duration: 0.4, yoyo: true, repeat: 1 }, 19.8);
+tl.to(".insight-card:nth-child(3)", { borderColor: "#fde68a", duration: 0.4, yoyo: true, repeat: 1 }, 21.0);
+
+// Transition to closing claim
+// Fade out everything in world before lines claim card appears at 23.0s
+tl.to("#header, #insights-screen", { opacity: 0, duration: 0.3 }, 22.7);
+
+window.__timelines["world"] = tl;
+</script>
+</template>

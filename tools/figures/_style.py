@@ -57,3 +57,13 @@ def save(fig, script_file):
     out.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out, dpi=200, bbox_inches="tight")
     print(out)
+
+
+def chips(ax, x, y, tokens, fc=GREY, h=9, size=12, gap=1.2, char_w=1.55, pad=2.6, mono=True, colors=None):
+    """Ряд «фішок»-токенів; повертає x правого краю."""
+    for i, t in enumerate(tokens):
+        w = max(5.0, len(t) * char_w + pad)
+        color = colors[i] if colors else fc
+        box(ax, x, y, w, h, t, fc=color, mono=mono, size=size)
+        x += w + gap
+    return x
