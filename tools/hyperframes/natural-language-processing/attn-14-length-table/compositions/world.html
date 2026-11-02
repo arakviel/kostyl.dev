@@ -1,0 +1,68 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.abs { position: absolute; }
+#title { left: 80px; top: 40px; font-size: 44px; font-weight: 800; letter-spacing: -0.02em; }
+#subtitle { left: 80px; top: 100px; font-size: 30px; color: #9fb2cf; }
+#axis { left: 130px; top: 800px; width: 1660px; height: 2px; background: #223250; }
+.gl { top: 820px; width: 360px; text-align: center; font-size: 44px; font-weight: 800; color: #9fb2cf; opacity: 0; }
+.bar { width: 160px; border-radius: 10px 10px 0 0; opacity: 0; transform-origin: center bottom; }
+.bv { width: 160px; text-align: center; font-size: 40px; font-weight: 800; opacity: 0; }
+#lg1 { left: 1180px; top: 150px; font-size: 36px; font-weight: 800; color: #fb7185; opacity: 0; }
+#lg2 { left: 1480px; top: 150px; font-size: 36px; font-weight: 800; color: #34d399; opacity: 0; }
+#xl { left: 130px; top: 890px; font-size: 34px; color: #9fb2cf; opacity: 0; }
+#cap { left: 80px; top: 960px; width: 1760px; text-align: center; font-size: 44px; font-weight: 800; color: #22d3ee; opacity: 0; }
+#stage { position: absolute; inset: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+ <div id="stage">
+  <div id="title" class="abs">Розвернути послідовність: точність за довжиною входу</div>
+  <div id="subtitle" class="abs">GRU із 64 нейронами, 3000 кроків навчання, довжини 3–24</div>
+  <div id="lg1" class="abs mono">■ без уваги</div><div id="lg2" class="abs mono">■ з увагою</div>
+  <div id="axis" class="abs"></div>
+  <div id="bars"></div>
+  <div id="xl" class="abs mono">довжина входу, символів</div>
+  <div id="cap" class="abs mono">один вектор → доступ до всіх станів енкодера</div>
+ </div>
+</div>
+<script>
+const G = [["3–6", 99.8, 99.8], ["7–12", 82.8, 98.6], ["13–18", 20.8, 96.2], ["19–24", 0.2, 87.6]];
+const bars = document.getElementById("bars");
+const fmt = v => v.toFixed(1).replace(".", ",") + "%";
+G.forEach(([name, a, b], g) => {
+  const x0 = 180 + g * 410;
+  bars.insertAdjacentHTML("beforeend", `<div id="gl${g}" class="abs gl mono" style="left:${x0 - 20}px">${name}</div>`);
+  [[a, "#fb7185", x0], [b, "#34d399", x0 + 180]].forEach(([v, col, x], k) => {
+    const h = Math.max(3, Math.round(v * 5.2));
+    bars.insertAdjacentHTML("beforeend",
+      `<div id="b${g}${k}" class="abs bar" style="left:${x}px;top:${800 - h}px;height:${h}px;background:${col}"></div>` +
+      `<div id="v${g}${k}" class="abs bv mono" style="left:${x}px;top:${800 - h - 54}px;color:${col}">${fmt(v)}</div>`);
+  });
+});
+const tl = gsap.timeline({ paused: true });
+const fade = (ids, at, o = 1, d = 0.4) => tl.to(ids, { opacity: o, duration: d }, at);
+for (let g = 0; g < 4; g++) for (let k = 0; k < 2; k++) tl.set(`#b${g}${k}`, { scaleY: 0 }, 0);
+const showBar = (g, k, at) => { fade([`#b${g}${k}`, `#v${g}${k}`], at); tl.to(`#b${g}${k}`, { scaleY: 1, duration: 0.8, ease: "power2.out" }, at); };
+// L1 0.4-7.9
+fade("#xl", 1.2); fade("#lg1", 3.8); fade("#lg2", 5.0);
+tl.to("#axis", { backgroundColor: "#3b5a8a", duration: 0.5, yoyo: true, repeat: 1 }, 2.2);
+tl.to("#subtitle", { color: "#e8eef7", duration: 0.5, yoyo: true, repeat: 1 }, 6.0);
+// L2 8.5-17.7
+fade("#gl0", 9.0); showBar(0, 0, 11.8); showBar(0, 1, 12.3);
+tl.to(["#v00", "#v01"], { scale: 1.08, duration: 0.4, yoyo: true, repeat: 1 }, 14.5);
+tl.to("#gl0", { color: "#e8eef7", duration: 0.5 }, 15.5);
+// L3 18.3-27.6
+fade("#gl1", 18.6); showBar(1, 0, 21.0); showBar(1, 1, 24.6);
+tl.to("#v10", { scale: 1.08, duration: 0.4, yoyo: true, repeat: 1 }, 26.0);
+// L4 28.2-39.9
+fade("#gl2", 28.5); showBar(2, 0, 31.2); showBar(2, 1, 33.0);
+fade("#gl3", 34.4); showBar(3, 0, 37.4); showBar(3, 1, 38.6);
+// L5 40.5-46.3
+fade("#cap", 41.4);
+tl.to("#v31", { scale: 1.08, duration: 0.4, yoyo: true, repeat: 1 }, 43.5);
+tl.to("#cap", { scale: 1.03, duration: 0.4, yoyo: true, repeat: 1 }, 44.5);
+tl.to("#stage", { opacity: 0, duration: 0.3 }, 46.8);
+window.__timelines["world"] = tl;
+</script>
+</template>

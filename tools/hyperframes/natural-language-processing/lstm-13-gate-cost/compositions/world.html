@@ -1,0 +1,75 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.abs { position: absolute; }
+#title { left: 80px; top: 40px; font-size: 44px; font-weight: 800; letter-spacing: -0.02em; }
+#subtitle { left: 80px; top: 100px; font-size: 30px; color: #9fb2cf; }
+.rl { left: 80px; width: 220px; font-size: 52px; font-weight: 800; opacity: 0; }
+.blk { height: 96px; border-radius: 14px; text-align: center; line-height: 90px; font-size: 32px; font-weight: 800; opacity: 0; border: 3px solid; }
+.pb { left: 1240px; height: 70px; border-radius: 10px; opacity: 0; transform-origin: left center; }
+.pn { font-size: 46px; font-weight: 800; opacity: 0; white-space: nowrap; }
+.mult { font-size: 40px; font-weight: 800; color: #fbbf24; opacity: 0; }
+.ab { left: 330px; height: 80px; border-radius: 12px; opacity: 0; transform-origin: left center; }
+.av { font-size: 56px; font-weight: 800; opacity: 0; white-space: nowrap; }
+#end1 { left: 80px; top: 880px; width: 1760px; text-align: center; font-size: 46px; font-weight: 700; color: #22d3ee; opacity: 0; }
+#stage { position: absolute; inset: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+ <div id="stage">
+  <div id="title" class="abs">Скільки коштують вентилі</div>
+  <div id="subtitle" class="abs">Однакові розміри входу й стану; відгуки IMDB, 10 000 для навчання, 6 епох</div>
+  <div id="rows"></div>
+  <div id="end1" class="abs mono">GRU з меншою кількістю параметрів виграла в LSTM</div>
+ </div>
+</div>
+<script>
+const ROWS = [
+  ["RNN", "#9fb2cf", 230, [["W", "#9fb2cf"]], 8320, 68.0],
+  ["GRU", "#34d399", 410, [["reset", "#34d399"], ["update", "#34d399"], ["кандидат", "#22d3ee"]], 24960, 83.2],
+  ["LSTM", "#fbbf24", 590, [["input", "#fbbf24"], ["forget", "#fbbf24"], ["output", "#fbbf24"], ["кандидат", "#22d3ee"]], 33280, 75.5]];
+const rows = document.getElementById("rows");
+const fmt = n => n.toLocaleString("uk-UA").replace(/ /g, " ");
+ROWS.forEach(([name, col, y, blocks, params, acc], r) => {
+  rows.insertAdjacentHTML("beforeend", `<div id="rl${r}" class="abs rl mono" style="top:${y + 10}px;color:${col}">${name}</div>`);
+  blocks.forEach(([b, bc], j) => rows.insertAdjacentHTML("beforeend",
+    `<div id="k${r}_${j}" class="abs blk mono" style="left:${330 + j * 215}px;top:${y}px;width:200px;color:${bc};border-color:${bc};background:#0e1626">${b}</div>`));
+  const w = Math.round(params / 33280 * 440);
+  rows.insertAdjacentHTML("beforeend",
+    `<div id="pb${r}" class="abs pb" style="top:${y + 12}px;width:${w}px;background:${col}"></div>` +
+    `<div id="pn${r}" class="abs pn mono" style="left:${1240 + w + 14}px;top:${y + 14}px;color:${col}">${fmt(params)}</div>`);
+  rows.insertAdjacentHTML("beforeend",
+    `<div id="ab${r}" class="abs ab" style="top:${y + 6}px;width:${Math.round(acc * 9)}px;background:${col}"></div>` +
+    `<div id="av${r}" class="abs av mono" style="left:${330 + Math.round(acc * 9) + 20}px;top:${y + 2}px;color:${col}">${acc.toFixed(1).replace(".", ",")}%</div>`);
+});
+rows.insertAdjacentHTML("beforeend",
+  `<div id="m1" class="abs mult mono" style="left:1240px;top:${230 + 80}px">×1</div>` +
+  `<div id="m2" class="abs mult mono" style="left:1240px;top:${410 + 80}px">×3</div>` +
+  `<div id="m3" class="abs mult mono" style="left:1240px;top:${590 + 80}px">×4</div>`);
+const tl = gsap.timeline({ paused: true });
+const fade = (ids, at, o = 1, d = 0.4) => tl.to(ids, { opacity: o, duration: d }, at);
+for (let r = 0; r < 3; r++) { tl.set("#pb" + r, { scaleX: 0 }, 0); tl.set("#ab" + r, { scaleX: 0 }, 0); }
+// L1 0.4-9.9
+fade("#rl0", 0.7); fade("#k0_0", 0.9);
+fade("#rl2", 3.4); [0, 1, 2, 3].forEach(j => fade(`#k2_${j}`, 3.5 + j * 0.55));
+fade("#rl1", 8.3); [0, 1, 2].forEach(j => fade(`#k1_${j}`, 8.5 + j * 0.35));
+tl.to(["#k0_0", "#k1_0", "#k1_1", "#k1_2"], { scale: 1.05, duration: 0.3, yoyo: true, repeat: 1 }, 10.6);
+tl.to(["#k2_0", "#k2_1", "#k2_2", "#k2_3"], { scale: 1.05, duration: 0.3, yoyo: true, repeat: 1 }, 11.6);
+// L2 10.5-22.2
+const bar = (r, at) => { fade(["#pb" + r, "#pn" + r], at); tl.to("#pb" + r, { scaleX: 1, duration: 0.8, ease: "power2.out" }, at); };
+bar(2, 12.7); bar(0, 14.2); fade("#m1", 15.2); fade("#m3", 15.5);
+bar(1, 17.3); fade("#m2", 18.4);
+tl.to("#pn2", { scale: 1.06, transformOrigin: "left center", duration: 0.4, yoyo: true, repeat: 1 }, 20.0);
+// L3 22.8-32.7
+const hide = ["#pb0", "#pb1", "#pb2", "#pn0", "#pn1", "#pn2", "#m1", "#m2", "#m3"];
+for (let r = 0; r < 3; r++) for (let j = 0; j < 4; j++) if (!(r === 0 && j > 0) && !(r === 1 && j > 2)) hide.push(`#k${r}_${j}`);
+fade(hide, 22.9, 0);
+const acc = (r, at) => { fade(["#ab" + r, "#av" + r], at); tl.to("#ab" + r, { scaleX: 1, duration: 0.9, ease: "power2.out" }, at); };
+acc(0, 25.6); acc(2, 29.3); acc(1, 31.3);
+// L4 33.4-41.0
+fade("#end1", 34.6);
+tl.to("#ab1", { opacity: 0.6, duration: 0.4, yoyo: true, repeat: 3 }, 36.8);
+tl.to("#stage", { opacity: 0, duration: 0.3 }, 41.4);
+window.__timelines["world"] = tl;
+</script>
+</template>

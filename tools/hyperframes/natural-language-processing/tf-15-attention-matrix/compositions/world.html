@@ -1,0 +1,77 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.abs { position: absolute; }
+#title { left: 80px; top: 40px; font-size: 44px; font-weight: 800; letter-spacing: -0.02em; }
+#subtitle { left: 80px; top: 100px; font-size: 30px; color: #9fb2cf; }
+#strip { left: 80px; top: 150px; width: 1760px; text-align: center; font-size: 40px; font-weight: 800; opacity: 0; white-space: nowrap; }
+#strip span { margin: 0 24px; }
+#sm { left: 80px; top: 150px; width: 1760px; text-align: center; font-size: 40px; font-weight: 800; color: #22d3ee; opacity: 0; }
+.rl { left: 180px; width: 260px; text-align: right; font-size: 48px; font-weight: 800; opacity: 0; }
+.cl { top: 250px; width: 220px; text-align: center; font-size: 40px; font-weight: 800; color: #9fb2cf; opacity: 0; }
+.cell { width: 212px; height: 122px; border-radius: 12px; text-align: center; line-height: 118px; font-size: 44px; font-weight: 800; border: 3px solid #223250; opacity: 0; }
+.sum { left: 1380px; font-size: 38px; font-weight: 800; color: #34d399; opacity: 0; white-space: nowrap; }
+#dim { left: 180px; top: 200px; width: 260px; text-align: right; font-size: 32px; color: #9fb2cf; opacity: 0; }
+#cap { left: 80px; top: 930px; width: 1760px; text-align: center; font-size: 42px; font-weight: 800; opacity: 0; white-space: nowrap; }
+#out { left: 80px; top: 150px; width: 1760px; text-align: center; font-size: 46px; font-weight: 800; color: #fbbf24; opacity: 0; }
+#stage { position: absolute; inset: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+ <div id="stage">
+  <div id="title" class="abs">Self-attention: матриця ваг</div>
+  <div id="subtitle" class="abs">Чотири слова, вектори з 8 чисел, випадкові вектори (seed 1) — ілюстрація механіки</div>
+  <div id="strip" class="abs mono"><span style="color:#22d3ee">Q = X·Wq</span><span style="color:#fbbf24">K = X·Wk</span><span style="color:#34d399">V = X·Wv</span></div>
+  <div id="sm" class="abs mono">A = softmax(Q·Kᵀ / √8)</div>
+  <div id="out" class="abs mono">out = A · V</div>
+  <div id="dim" class="abs mono">вектор із 8 чисел</div>
+  <div id="grid"></div>
+  <div id="cap" class="abs mono"></div>
+ </div>
+</div>
+<script>
+const W = ["the", "cat", "sat", "down"];
+const A = [[0.10, 0.52, 0.36, 0.02], [0.60, 0.19, 0.09, 0.13], [0.26, 0.14, 0.24, 0.36], [0.12, 0.31, 0.55, 0.02]];
+const grid = document.getElementById("grid");
+const fmt = v => v.toFixed(2).replace(".", ",");
+W.forEach((w, j) => grid.insertAdjacentHTML("beforeend", `<div id="cl${j}" class="abs cl mono" style="left:${480 + j * 220}px">${w}</div>`));
+A.forEach((row, i) => {
+  grid.insertAdjacentHTML("beforeend", `<div id="rl${i}" class="abs rl mono" style="top:${322 + i * 140}px;color:#22d3ee">${W[i]}</div>`);
+  row.forEach((v, j) => grid.insertAdjacentHTML("beforeend",
+    `<div id="c${i}${j}" class="abs cell mono" style="left:${480 + j * 220}px;top:${300 + i * 140}px;background:rgba(34,211,238,${(0.15 + v * 0.95).toFixed(2)});color:${v >= 0.45 ? '#06222a' : '#e8eef7'}">${fmt(v)}</div>`));
+  grid.insertAdjacentHTML("beforeend", `<div id="s${i}" class="abs sum mono" style="top:${330 + i * 140}px">Σ ≈ 1</div>`);
+});
+const tl = gsap.timeline({ paused: true });
+const fade = (ids, at, o = 1, d = 0.4) => tl.to(ids, { opacity: o, duration: d }, at);
+// L1 0.4-7.4
+[0, 1, 2, 3].forEach(i => fade("#rl" + i, 2.5 + i * 0.3));
+fade("#dim", 4.8);
+tl.to("#subtitle", { color: "#e8eef7", duration: 0.5, yoyo: true, repeat: 1 }, 1.0);
+// L2 8.0-17.5
+fade("#strip", 8.6);
+tl.to("#strip span:nth-child(1)", { scale: 1.1, duration: 0.3, yoyo: true, repeat: 1 }, 11.6);
+tl.to("#strip span:nth-child(2)", { scale: 1.1, duration: 0.3, yoyo: true, repeat: 1 }, 12.6);
+tl.to("#strip span:nth-child(3)", { scale: 1.1, duration: 0.3, yoyo: true, repeat: 1 }, 13.6);
+fade("#strip", 14.5, 0); fade("#sm", 14.7);
+// L3 18.1-28.3
+fade(["#cl0", "#cl1", "#cl2", "#cl3"], 18.5);
+[0, 1, 2, 3].forEach(i => { for (let j = 0; j < 4; j++) fade(`#c${i}${j}`, 21.4 + i * 1.0 + j * 0.06, 1, 0.3); });
+[0, 1, 2, 3].forEach(i => fade("#s" + i, 25.8 + i * 0.25));
+// L4 29.0-39.5
+tl.to("#c01", { borderColor: "#fbbf24", duration: 0.4 }, 31.5);
+tl.to("#c01", { scale: 1.08, duration: 0.35, yoyo: true, repeat: 1 }, 32.9);
+tl.to("#rl0", { color: "#fbbf24", duration: 0.4 }, 31.5);
+const cap = document.getElementById("cap");
+cap.innerHTML = "<span id='cp1' class='abs' style='left:0;width:1760px;opacity:0;color:#9fb2cf'>вектори випадкові: це механіка, а не змістові зв’язки</span>" +
+                "<span id='cp2' class='abs' style='left:0;width:1760px;opacity:0;color:#fbbf24'>слова переставили → вихід лише переставився: порядку мережа не бачить</span>";
+fade("#cap", 33.8); fade("#cp1", 34.2);
+// L5 40.1-49.6
+fade("#cp1", 40.0, 0); fade("#sm", 40.1, 0); fade("#out", 40.6);
+tl.to("#out", { scale: 1.05, duration: 0.4, yoyo: true, repeat: 1 }, 43.0);
+fade("#cp2", 44.2);
+tl.to("#cp2", { scale: 1.03, duration: 0.4, yoyo: true, repeat: 1 }, 47.9);
+for (let s = 5.2; s < 49; s += 2.6) tl.to("#title", { opacity: 0.8, duration: 0.5, yoyo: true, repeat: 1 }, s);
+tl.to("#stage", { opacity: 0, duration: 0.3 }, 50.0);
+window.__timelines["world"] = tl;
+</script>
+</template>

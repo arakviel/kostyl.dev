@@ -1,0 +1,79 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.abs { position: absolute; }
+#title { left: 80px; top: 40px; font-size: 44px; font-weight: 800; letter-spacing: -0.02em; }
+#subtitle { left: 80px; top: 100px; font-size: 30px; color: #9fb2cf; }
+.tile { top: 220px; width: 260px; height: 110px; border-radius: 16px; text-align: center; line-height: 104px; font-size: 44px; font-weight: 800; border: 3px solid #223250; background: #0e1626; opacity: 0; }
+.pad { border-style: dashed; color: #64748b; }
+.hs { top: 400px; width: 90px; height: 90px; border-radius: 45px; text-align: center; line-height: 86px; font-size: 36px; font-weight: 800; border: 3px solid #223250; background: #0e1626; opacity: 0; }
+.st { top: 520px; width: 260px; text-align: center; font-size: 34px; color: #9fb2cf; opacity: 0; }
+#hn { left: 130px; top: 590px; font-size: 40px; font-weight: 800; color: #fbbf24; opacity: 0; white-space: nowrap; }
+.lb { left: 130px; font-size: 40px; font-weight: 800; opacity: 0; white-space: nowrap; }
+.bgb { left: 650px; width: 900px; height: 62px; border-radius: 10px; background: #111a2e; opacity: 0; }
+.bar { left: 650px; height: 62px; border-radius: 10px; opacity: 0; transform-origin: left center; }
+.bv { left: 1580px; font-size: 48px; font-weight: 800; opacity: 0; }
+#stage { position: absolute; inset: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+ <div id="stage">
+  <div id="title" class="abs">Пастка з padding у RNN</div>
+  <div id="subtitle" class="abs">Схема; точність — з експерименту лекції (10 000 відгуків, 6 епох)</div>
+  <div id="tiles"></div>
+  <div id="hn" class="abs mono">h_n береться тут</div>
+  <div id="l1" class="abs lb mono" style="top:760px;color:#fb7185">без packing</div>
+  <div id="g1" class="abs bgb" style="top:752px"></div><div id="b1" class="abs bar" style="top:752px;width:500px;background:#fb7185"></div><div id="v1" class="abs bv mono" style="top:748px;color:#fb7185">≈ 50%</div>
+  <div id="l2" class="abs lb mono" style="top:870px;color:#34d399">з packing</div>
+  <div id="g2" class="abs bgb" style="top:862px"></div><div id="b2" class="abs bar" style="top:862px;width:680px;background:#34d399"></div><div id="v2" class="abs bv mono" style="top:858px;color:#34d399">68,0%</div>
+ </div>
+</div>
+<script>
+const W = [["not", 0], ["good", 0], ["pad", 1], ["pad", 1], ["pad", 1]];
+const X = i => 130 + i * 290;
+const tiles = document.getElementById("tiles");
+W.forEach(([w, p], i) => {
+  tiles.insertAdjacentHTML("beforeend",
+    `<div id="t${i}" class="abs tile mono ${p ? 'pad' : ''}" style="left:${X(i)}px;${p ? '' : 'color:#22d3ee'}">${p ? '&lt;pad&gt;' : w}</div>` +
+    `<div id="h${i}" class="abs hs mono" style="left:${X(i) + 85}px">h${i + 1}</div>` +
+    `<div id="s${i}" class="abs st mono" style="left:${X(i)}px">крок ${i + 1}</div>`);
+});
+const tl = gsap.timeline({ paused: true });
+const fade = (ids, at, o = 1, d = 0.4) => tl.to(ids, { opacity: o, duration: d }, at);
+// L1 0.4-7.3
+fade(["#t0", "#t1"], 1.2); fade(["#t2", "#t3", "#t4"], 5.6);
+tl.to(["#t0", "#t1"], { borderColor: "#22d3ee", duration: 0.4, yoyo: true, repeat: 1 }, 3.2);
+tl.to(["#t0", "#t1"], { scale: 1.06, duration: 0.3, yoyo: true, repeat: 1 }, 7.6);
+tl.to(["#t2", "#t3", "#t4"], { scale: 1.04, duration: 0.3, yoyo: true, repeat: 1 }, 8.9);
+// L2 7.9-17.3
+tl.to(["#t0", "#t1"], { backgroundColor: "#0b3a44", duration: 0.4 }, 10.4);
+tl.to(["#t2", "#t3", "#t4"], { borderColor: "#fbbf24", duration: 0.4 }, 11.7);
+for (let i = 0; i < 5; i++) fade("#h" + i, 13.4 + i * 0.25);
+for (let i = 0; i < 5; i++) fade("#s" + i, 15.4 + i * 0.35);
+// L3 17.9-25.2
+fade("#hn", 18.2);
+tl.to("#hn", { x: X(4) - X(0) + 0, duration: 0.01 }, 18.0);
+tl.to("#h4", { borderColor: "#fbbf24", duration: 0.4 }, 18.3);
+tl.to(["#t2", "#t3", "#t4"], { scale: 1.05, duration: 0.3, yoyo: true, repeat: 1, stagger: 0.25 }, 20.4);
+tl.to("#t1", { opacity: 0.3, duration: 0.8 }, 23.0);
+tl.to("#hn", { scale: 1.05, transformOrigin: "left center", duration: 0.4, yoyo: true, repeat: 1 }, 27.0);
+tl.to("#hn", { scale: 1.05, transformOrigin: "left center", duration: 0.4, yoyo: true, repeat: 1 }, 28.6);
+// L4 25.9-33.8
+fade(["#l1", "#g1"], 26.2);
+fade(["#b1", "#v1"], 30.4); tl.to("#b1", { scaleX: 1, duration: 1.2, ease: "power2.out" }, 30.4);
+tl.to("#v1", { scale: 1.08, transformOrigin: "left center", duration: 0.4, yoyo: true, repeat: 1 }, 32.2);
+tl.to("#b1", { opacity: 0.6, duration: 0.4, yoyo: true, repeat: 1 }, 33.6);
+tl.to("#v1", { scale: 1.08, transformOrigin: "left center", duration: 0.4, yoyo: true, repeat: 1 }, 35.0);
+// L5 34.4-44.4
+tl.to("#t1", { opacity: 1, duration: 0.5 }, 36.2);
+tl.to("#hn", { x: X(1) - X(0), duration: 0.8, ease: "power2.inOut" }, 36.4);
+tl.to("#h4", { borderColor: "#223250", duration: 0.4 }, 36.4);
+tl.to("#h1", { borderColor: "#fbbf24", duration: 0.4 }, 36.8);
+tl.to(["#t2", "#t3", "#t4", "#h2", "#h3", "#h4", "#s2", "#s3", "#s4"], { opacity: 0.25, duration: 0.6 }, 38.4);
+fade(["#l2", "#g2"], 40.0);
+fade(["#b2", "#v2"], 41.8); tl.to("#b2", { scaleX: 1, duration: 1.2, ease: "power2.out" }, 41.8);
+tl.to("#stage", { opacity: 0, duration: 0.3 }, 44.9);
+tl.set("#b1,#b2", { scaleX: 0 }, 0);
+window.__timelines["world"] = tl;
+</script>
+</template>

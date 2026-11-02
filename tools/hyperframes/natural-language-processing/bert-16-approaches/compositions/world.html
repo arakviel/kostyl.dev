@@ -1,0 +1,65 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.abs { position: absolute; }
+#title { left: 80px; top: 40px; font-size: 44px; font-weight: 800; letter-spacing: -0.02em; }
+#subtitle { left: 80px; top: 100px; font-size: 30px; color: #9fb2cf; }
+.lab { left: 80px; width: 560px; font-size: 36px; font-weight: 800; opacity: 0; white-space: nowrap; }
+.inf { left: 80px; width: 560px; font-size: 32px; color: #9fb2cf; opacity: 0; white-space: nowrap; }
+.bg { left: 660px; width: 880px; height: 62px; border-radius: 10px; background: #111a2e; opacity: 0; }
+.bar { left: 660px; height: 62px; border-radius: 10px; opacity: 0; transform-origin: left center; }
+.val { font-size: 48px; font-weight: 800; opacity: 0; white-space: nowrap; }
+#note { left: 80px; top: 960px; width: 1760px; text-align: center; font-size: 42px; font-weight: 800; color: #22d3ee; opacity: 0; }
+#stage { position: absolute; inset: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+ <div id="stage">
+  <div id="title" class="abs">Усі підходи модуля на 5000 тестових відгуках IMDB</div>
+  <div id="subtitle" class="abs">Accuracy; навчання з нуля — 10 000 відгуків, 6 епох</div>
+  <div id="rows"></div>
+  <div id="note" class="abs mono">DistilBERT ≈ у 100 разів більший за решту (66 млн параметрів)</div>
+ </div>
+</div>
+<script>
+const R = [
+  ["Усереднення embeddings", "1 с · 0,64 млн параметрів", 84.6, "#22d3ee"],
+  ["Проста RNN", "28 с · 0,65 млн", 68.0, "#9fb2cf"],
+  ["LSTM", "57 с · 0,67 млн", 75.5, "#fbbf24"],
+  ["GRU", "55 с · 0,67 млн", 83.2, "#34d399"],
+  ["Transformer з нуля", "97 с · 0,71 млн", 78.5, "#c084fc"],
+  ["DistilBERT без донавчання", "готова модель · 66 млн", 87.7, "#fb7185"],
+  ["DistilBERT, донавчання", "2 000 відгуків · 142 с", 87.7, "#fb7185"]];
+const rows = document.getElementById("rows");
+const fmt = v => v.toFixed(1).replace(".", ",") + "%";
+R.forEach(([n, info, acc, col], i) => {
+  const y = 175 + i * 110, w = Math.round((acc - 50) / 40 * 880);
+  rows.insertAdjacentHTML("beforeend",
+    `<div id="l${i}" class="abs lab mono" style="top:${y}px;color:${col}">${n}</div>` +
+    `<div id="i${i}" class="abs inf mono" style="top:${y + 46}px">${info}</div>` +
+    `<div id="g${i}" class="abs bg" style="top:${y + 12}px"></div>` +
+    `<div id="b${i}" class="abs bar" style="top:${y + 12}px;width:${w}px;background:${col}"></div>` +
+    `<div id="v${i}" class="abs val mono" style="left:${660 + w + 18}px;top:${y + 8}px;color:${col}">${fmt(acc)}</div>`);
+});
+const tl = gsap.timeline({ paused: true });
+const fade = (ids, at, o = 1, d = 0.4) => tl.to(ids, { opacity: o, duration: d }, at);
+for (let i = 0; i < 7; i++) tl.set("#b" + i, { scaleX: 0 }, 0);
+const row = (i, at) => { fade(["#l" + i, "#i" + i, "#g" + i, "#b" + i, "#v" + i], at); tl.to("#b" + i, { scaleX: 1, duration: 0.8, ease: "power2.out" }, at); };
+// L1 0.4-6.0
+[0, 1, 2, 3, 4, 5, 6].forEach(i => fade(["#l" + i, "#g" + i], 1.0 + i * 0.35, 1));
+tl.to("#subtitle", { color: "#e8eef7", duration: 0.5, yoyo: true, repeat: 1 }, 3.5);
+// L2 6.7-23.6
+fade("#b0", 9.0); fade(["#i0", "#v0"], 9.0); tl.to("#b0", { scaleX: 1, duration: 0.8, ease: "power2.out" }, 9.0);
+const sb = (i, at) => { fade(["#i" + i, "#b" + i, "#v" + i], at); tl.to("#b" + i, { scaleX: 1, duration: 0.8, ease: "power2.out" }, at); };
+sb(1, 14.5); sb(2, 17.2); sb(3, 19.3); sb(4, 21.0);
+// L3 24.2-35.2
+sb(5, 27.5); sb(6, 31.5);
+// L4 35.8-48.3
+tl.to(["#b1", "#b4"], { opacity: 0.45, duration: 0.4, yoyo: true, repeat: 1 }, 36.3);
+tl.to(["#b5", "#b6"], { opacity: 0.6, duration: 0.4, yoyo: true, repeat: 3 }, 40.0);
+fade("#note", 45.0);
+for (let s = 4.6; s < 48; s += 2.4) tl.to("#title", { opacity: 0.8, duration: 0.5, yoyo: true, repeat: 1 }, s);
+tl.to("#stage", { opacity: 0, duration: 0.3 }, 48.8);
+window.__timelines["world"] = tl;
+</script>
+</template>
