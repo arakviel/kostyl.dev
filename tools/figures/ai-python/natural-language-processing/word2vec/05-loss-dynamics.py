@@ -1,48 +1,20 @@
-"""
-Візуалізація динаміки loss під час навчання Word2Vec.
-Показує типову криву: швидке падіння на початку, потім плато.
-"""
-import matplotlib.pyplot as plt
-import numpy as np
+"""Loss за епоху (різниця накопичених значень gensim). Накопичені значення — з виводу лекції."""
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+from _style import *
+import numpy as np
 
-output_dir = Path("public/images/ai-python/natural-language-processing/word2vec")
-output_dir.mkdir(parents=True, exist_ok=True)
-
-# Симульовані значення loss за епоху (типова крива навчання)
-epochs = np.arange(1, 21)
-# Експоненціальне затухання + шум
-base_loss = 3_800_000 * np.exp(-0.15 * epochs) + 800_000
-noise = np.random.RandomState(42).normal(0, 50_000, len(epochs))
-loss_per_epoch = base_loss + noise
-
-fig, ax = plt.subplots(figsize=(10, 5), dpi=200)
-
-ax.plot(epochs, loss_per_epoch, marker="o", linewidth=2.5, markersize=7,
-        color="#2563EB", markerfacecolor="#DBEAFE", markeredgecolor="#2563EB",
-        markeredgewidth=2)
-
-# Анотація критичних точок
-ax.annotate("Швидке навчання", xy=(3, loss_per_epoch[2]), xytext=(6, 3_000_000),
-            arrowprops=dict(arrowstyle="->", color="#D97706", lw=1.5),
-            fontsize=11, color="#D97706", family="DejaVu Sans", fontweight="bold")
-
-ax.annotate("Плато", xy=(17, loss_per_epoch[16]), xytext=(14, 1_500_000),
-            arrowprops=dict(arrowstyle="->", color="#16A34A", lw=1.5),
-            fontsize=11, color="#16A34A", family="DejaVu Sans", fontweight="bold")
-
-ax.set_xlabel("Епоха", fontsize=12, fontweight="bold", family="DejaVu Sans")
-ax.set_ylabel("Loss за епоху", fontsize=12, fontweight="bold", family="DejaVu Sans")
-ax.set_title("Динаміка навчання Word2Vec (skip-gram)",
-             fontsize=14, fontweight="bold", color="#1E293B", family="DejaVu Sans", pad=15)
-
-ax.grid(True, alpha=0.3, linestyle="--")
-ax.set_xlim(0, 21)
-ax.set_ylim(0, 4_200_000)
-
-# Форматування осі Y (мільйони)
-ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f"{x/1e6:.1f}M"))
-
-plt.tight_layout()
-plt.savefig(output_dir / "05-loss-dynamics.png", dpi=200, bbox_inches="tight", facecolor="white")
-print(f"✓ Збережено: {output_dir / '05-loss-dynamics.png'}")
+cum = [4163257, 7458082, 10312332, 13003633, 15687613, 18294990, 20840348, 23379856, 25921468, 28468028,
+       31022754, 33554528, 34905832, 36233112, 37555140, 38860508, 40142336, 41431184, 42709352, 43967696]
+per = [cum[0]] + [cum[i] - cum[i - 1] for i in range(1, len(cum))]
+fig, ax = plt.subplots(figsize=(9.5, 4.8))
+ax.plot(range(1, 21), [p / 1e6 for p in per], "o-", color="#2563EB", lw=2.4)
+ax.axvline(12.5, color="#DC2626", ls="--", lw=1.4)
+ax.text(12.8, 3.6, "накопичене значення перетнуло\n2²⁵ ≈ 33,5 млн: точність float32\nзменшилась, прирости стали меншими",
+        color="#DC2626", fontsize=11, va="top")
+ax.text(2.3, 4.0, "швидке навчання", color="#D97706", fontsize=12, fontweight="bold")
+ax.set_xlabel("епоха"); ax.set_ylabel("loss за епоху, млн"); ax.set_xticks(range(1, 21)); ax.grid(alpha=0.3)
+ax.set_ylim(0, 4.6)
+for s in ("top", "right"): ax.spines[s].set_visible(False)
+save(fig, __file__)

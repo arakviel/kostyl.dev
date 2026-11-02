@@ -1,81 +1,27 @@
-"""
-Порівняння мішка слів і усередненого вектора embeddings.
-Показує різницю між розрідженим і щільним представленням.
-"""
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-import numpy as np
+"""Речення «this movie is great»: мішок слів проти усередненого вектора (числа embedding — умовні, середнє рахується тут)."""
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+from _style import *
+import numpy as np
 
-output_dir = Path("public/images/ai-python/natural-language-processing/embeddings-for-classification")
-output_dir.mkdir(parents=True, exist_ok=True)
-
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5), dpi=200)
-
-# Мішок слів (розріджений)
-ax1.set_title("Мішок слів (Bag-of-Words)", fontsize=13, fontweight="bold",
-              color="#1E293B", family="DejaVu Sans", pad=15)
-ax1.set_xlim(0, 10)
-ax1.set_ylim(0, 10)
-ax1.axis("off")
-
-# Вектор
-vocab_size = 10000
-nonzero_words = 8
-rect1 = patches.FancyBboxPatch((1, 4), 8, 2, boxstyle="round,pad=0.1",
-                               linewidth=2, edgecolor="#2563EB",
-                               facecolor="#E2E8F0", alpha=0.7)
-ax1.add_patch(rect1)
-
-# Кілька ненульових позицій
-for i in range(nonzero_words):
-    x = 1.5 + i * 0.9
-    ax1.text(x, 5, "1", ha="center", va="center", fontsize=10,
-             fontweight="bold", color="#DC2626", family="DejaVu Sans")
-
-# Нулі
-for i in range(5):
-    x = 2.5 + nonzero_words * 0.9 + i * 0.6
-    ax1.text(x, 5, "0", ha="center", va="center", fontsize=9,
-             color="#64748B", alpha=0.4, family="DejaVu Sans")
-
-ax1.text(5, 3, f"Розмір: {vocab_size:,}", ha="center", fontsize=11,
-         color="#64748B", family="DejaVu Sans")
-ax1.text(5, 2.2, f"Ненульових: ~{nonzero_words}", ha="center", fontsize=11,
-         color="#64748B", family="DejaVu Sans")
-ax1.text(5, 7, "Розріджений вектор", ha="center", fontsize=12,
-         fontweight="bold", color="#2563EB", family="DejaVu Sans")
-
-# Усереднений вектор (щільний)
-ax2.set_title("Усереднений вектор embeddings", fontsize=13, fontweight="bold",
-              color="#1E293B", family="DejaVu Sans", pad=15)
-ax2.set_xlim(0, 10)
-ax2.set_ylim(0, 10)
-ax2.axis("off")
-
-# Вектор
-embed_size = 100
-rect2 = patches.FancyBboxPatch((1, 4), 8, 2, boxstyle="round,pad=0.1",
-                               linewidth=2, edgecolor="#16A34A",
-                               facecolor="#DCFCE7", alpha=0.7)
-ax2.add_patch(rect2)
-
-# Усі ненульові
-np.random.seed(42)
-values = np.random.randn(10) * 0.5
-for i in range(10):
-    x = 1.5 + i * 0.8
-    val = values[i]
-    ax2.text(x, 5, f"{val:.2f}", ha="center", va="center", fontsize=9,
-             fontweight="bold", color="#16A34A", family="DejaVu Sans")
-
-ax2.text(5, 3, f"Розмір: {embed_size}", ha="center", fontsize=11,
-         color="#64748B", family="DejaVu Sans")
-ax2.text(5, 2.2, "Усі числа ненульові", ha="center", fontsize=11,
-         color="#64748B", family="DejaVu Sans")
-ax2.text(5, 7, "Щільний вектор", ha="center", fontsize=12,
-         fontweight="bold", color="#16A34A", family="DejaVu Sans")
-
-plt.tight_layout()
-plt.savefig(output_dir / "01-bow-vs-embedding.png", dpi=200, bbox_inches="tight", facecolor="white")
-print(f"✓ Збережено: {output_dir / '01-bow-vs-embedding.png'}")
+words = ["this", "movie", "is", "great"]
+V = np.array([[0.1, -0.2, 0.3], [0.4, 0.5, -0.1], [0.0, 0.1, 0.2], [0.9, 0.6, 0.4]])
+avg = V.mean(0)
+fig, ax = canvas(12, 6)
+ax.text(1, 97, "Мішок слів: довжина = словник (10 000)", fontsize=13, fontweight="bold")
+for i in range(14):
+    hot = i in (2, 5, 9, 12)
+    box(ax, 1 + i * 6.2, 72, 5.4, 11, "1" if hot else "0", fc=AMBER if hot else GREY, size=11, mono=True)
+ax.text(1 + 14 * 6.2, 77.5, "… усього 10 000 клітинок, ненульових 4", fontsize=11, va="center", color="#475569")
+ax.text(1, 56, "Усереднений вектор: довжина = d (тут 3, у GloVe 100)", fontsize=13, fontweight="bold")
+for r, w in enumerate(words):
+    y = 40 - r * 0 
+    box(ax, 1 + r * 17, 36, 15, 12, w, fc=GREEN, size=12, mono=True)
+    for j in range(3):
+        pass
+    ax.text(8.5 + r * 17, 31, "[" + ", ".join(f"{x:+.1f}" for x in V[r]) + "]", ha="center", fontsize=9.5, fontfamily="DejaVu Sans Mono")
+    arrow(ax, 8.5 + r * 17, 28, 36, 20)
+box(ax, 18, 6, 36, 12, "середнє: [" + ", ".join(f"{x:+.2f}" for x in avg) + "]", fc=BLUE, size=11.5, mono=True)
+ax.text(62, 12, "← усі числа ненульові;\n    вектор речення", fontsize=11.5, va="center", color="#475569")
+save(fig, __file__)

@@ -1,0 +1,97 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.abs { position: absolute; }
+#title { left: 80px; top: 40px; font-size: 44px; font-weight: 800; letter-spacing: -0.02em; }
+#subtitle { left: 80px; top: 100px; font-size: 30px; color: #9fb2cf; }
+#plane { left: 80px; top: 170px; width: 1060px; height: 780px; border: 2px solid #223250; border-radius: 12px; background: #0b1324; }
+#axis { left: 443px; top: 172px; width: 2px; height: 776px; background: #223250; }
+.dot { z-index: 6; width: 34px; height: 34px; border-radius: 17px; opacity: 0; }
+.wl { z-index: 6; font-size: 36px; font-weight: 800; opacity: 0; white-space: nowrap; }
+.ell { border-radius: 50%; opacity: 0; border: 3px dashed; }
+.ln { height: 4px; border-radius: 2px; opacity: 0; transform-origin: 0 50%; }
+#tbl { left: 1210px; top: 170px; width: 630px; }
+.row { font-size: 36px; opacity: 0; height: 58px; white-space: nowrap; }
+.row b { display: inline-block; width: 170px; }
+.dist { left: 1210px; font-size: 40px; font-weight: 800; opacity: 0; white-space: nowrap; }
+#gl1 { font-size: 34px; font-weight: 800; color: #22d3ee; opacity: 0; }
+#gl2 { font-size: 34px; font-weight: 800; color: #fbbf24; opacity: 0; }
+#stage { position: absolute; inset: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+ <div id="stage">
+  <div id="title" class="abs">Слова як точки на площині</div>
+  <div id="subtitle" class="abs">Іграшкові 2D-вектори з уроку, задані вручну (не навчені моделлю)</div>
+  <div id="plane" class="abs"></div>
+  <div id="axis" class="abs"></div>
+  <div id="pts"></div>
+  <div id="tbl" class="abs"></div>
+  <div id="d1" class="abs dist mono" style="top:640px;color:#22d3ee">king–queen: 0,141</div>
+  <div id="d2" class="abs dist mono" style="top:710px;color:#fbbf24">cat–dog: 0,141</div>
+  <div id="d3" class="abs dist mono" style="top:780px;color:#fb7185">king–cat: 1,105</div>
+ </div>
+</div>
+<script>
+const W = [
+ ["king", 0.8, 0.6, "#22d3ee"], ["queen", 0.7, 0.7, "#22d3ee"], ["man", 0.6, 0.3, "#22d3ee"],
+ ["woman", 0.5, 0.6, "#22d3ee"], ["cat", -0.3, 0.5, "#fbbf24"], ["dog", -0.2, 0.4, "#fbbf24"]];
+const px = x => 110 + (x + 0.5) / 1.5 * 1000, py = y => 200 + (0.9 - y) / 0.8 * 700;
+const P = {}; W.forEach(w => P[w[0]] = [px(w[1]), py(w[2])]);
+const pts = document.getElementById("pts"), tbl = document.getElementById("tbl");
+const fmt = v => v.toFixed(1).replace(".", ",");
+W.forEach((w, i) => {
+  const [x, y] = P[w[0]];
+  pts.insertAdjacentHTML("beforeend",
+    `<div id="dot-${w[0]}" class="abs dot" style="left:${x - 17}px;top:${y - 17}px;background:${w[3]}"></div>` +
+    `<div id="wl-${w[0]}" class="abs wl mono" style="left:${w[0]==='queen' ? x - 150 : x - 60}px;top:${w[0]==='queen' ? y - 20 : (w[0]==='cat' ? y - 66 : y + 24)}px;width:120px;text-align:${w[0]==='queen' ? 'right' : 'center'};color:${w[3]}">${w[0]}</div>`);
+  tbl.insertAdjacentHTML("beforeend",
+    `<div id="row-${w[0]}" class="row mono" style="color:${w[3]}"><b>${w[0]}</b>[${fmt(w[1])}; ${fmt(w[2])}]</div>`);
+});
+function line(id, a, b, col) {
+  const [x1, y1] = P[a], [x2, y2] = P[b], L = Math.hypot(x2 - x1, y2 - y1), ang = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+  pts.insertAdjacentHTML("beforeend", `<div id="${id}" class="abs ln" style="left:${x1}px;top:${y1 - 2}px;width:${L}px;background:${col}"></div>`);
+  gsap.set("#" + id, { rotation: ang });
+}
+line("ln1", "king", "queen", "#22d3ee"); line("ln2", "cat", "dog", "#fbbf24"); line("ln3", "king", "cat", "#fb7185");
+pts.insertAdjacentHTML("beforeend",
+  `<div id="e1" class="abs ell" style="left:637px;top:325px;width:480px;height:500px;border-color:#22d3ee"></div>` +
+  `<div id="e2" class="abs ell" style="left:136px;top:440px;width:280px;height:310px;border-color:#fbbf24"></div>` +
+  `<div id="gl1" class="abs mono" style="left:637px;top:835px;width:480px;text-align:center">люди</div>` +
+  `<div id="gl2" class="abs mono" style="left:136px;top:762px;width:280px;text-align:center">тварини</div>`);
+
+const tl = gsap.timeline({ paused: true });
+// L1 0.4-8.6
+tl.to("#plane", { borderColor: "#3b5a8a", duration: 0.6, yoyo: true, repeat: 1 }, 1.2);
+tl.to("#axis", { opacity: 0.4, duration: 0.6, yoyo: true, repeat: 1 }, 2.8);
+const rowT = { king: 4.6, queen: 5.6, man: 6.2, woman: 6.8, cat: 7.3, dog: 7.8 };
+W.forEach(w => tl.to("#row-" + w[0], { opacity: 1, duration: 0.3 }, rowT[w[0]]));
+tl.to("#row-king", { scale: 1.06, transformOrigin: "left center", duration: 0.4, yoyo: true, repeat: 1 }, 6.0);
+// L2 9.2-15.2
+W.forEach((w, i) => {
+  tl.to("#dot-" + w[0], { opacity: 1, scale: 1, duration: 0.35 }, 11.9 + i * 0.35);
+  tl.to("#wl-" + w[0], { opacity: 1, duration: 0.35 }, 11.9 + i * 0.35);
+});
+tl.to("#plane", { borderColor: "#3b5a8a", duration: 0.5, yoyo: true, repeat: 1 }, 9.6);
+// L3 15.8-21.8
+W.forEach((w, i) => tl.to("#dot-" + w[0], { scale: 1.2, duration: 0.3, yoyo: true, repeat: 1 }, 14.4 + i * 0.4));
+tl.to("#plane", { borderColor: "#3b5a8a", duration: 0.5, yoyo: true, repeat: 1 }, 16.3);
+tl.to("#ln1", { opacity: 1, duration: 0.4 }, 17.8);
+tl.to("#d1", { opacity: 1, duration: 0.4 }, 19.3);
+tl.to(["#dot-king", "#dot-queen"], { scale: 1.3, duration: 0.3, yoyo: true, repeat: 1 }, 17.9);
+// L4 22.5-29.3
+tl.to("#ln2", { opacity: 1, duration: 0.4 }, 22.7);
+tl.to("#d2", { opacity: 1, duration: 0.4 }, 24.0);
+tl.to(["#dot-cat", "#dot-dog"], { scale: 1.3, duration: 0.3, yoyo: true, repeat: 1 }, 22.9);
+tl.to("#ln3", { opacity: 1, duration: 0.5 }, 26.4);
+tl.to("#d3", { opacity: 1, duration: 0.4 }, 27.9);
+// L5 29.9-38.3
+tl.to(["#ln1", "#ln2", "#ln3"], { opacity: 0.35, duration: 0.4 }, 30.1);
+tl.to(["#e1", "#gl1"], { opacity: 1, duration: 0.5 }, 32.8);
+tl.to(["#e2", "#gl2"], { opacity: 1, duration: 0.5 }, 33.8);
+tl.to("#e1", { opacity: 0.5, duration: 0.5, yoyo: true, repeat: 3 }, 35.0);
+tl.to("#e2", { opacity: 0.5, duration: 0.5, yoyo: true, repeat: 3 }, 35.3);
+tl.to("#stage", { opacity: 0, duration: 0.3 }, 38.8);
+window.__timelines["world"] = tl;
+</script>
+</template>

@@ -1,74 +1,18 @@
-#!/usr/bin/env python3
-"""Найвагоміші слова для кожного класу."""
-import matplotlib.pyplot as plt
+"""Коефіцієнти LogisticRegression: топ-15 слів кожного класу (вивід лекції 06)."""
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+from _style import *
 import numpy as np
 
-# Дані з лекції
-positive_words = [
-    ('excellent', 1.687), ('wonderful', 1.435), ('perfect', 1.429), ('best', 1.414),
-    ('fun', 1.380), ('great', 1.359), ('loved', 1.251), ('today', 1.198),
-    ('enjoyed', 1.176), ('favorite', 1.164), ('outstanding', 1.144), ('beautifully', 1.142),
-    ('superb', 1.139), ('brilliant', 1.130), ('entertaining', 1.126)
-]
-
-negative_words = [
-    ('worst', -2.086), ('bad', -1.913), ('awful', -1.575), ('waste', -1.560),
-    ('boring', -1.475), ('terrible', -1.417), ('poor', -1.299), ('worse', -1.286),
-    ('stupid', -1.283), ('dull', -1.255), ('ridiculous', -1.226), ('annoying', -1.185),
-    ('pointless', -1.145), ('unfunny', -1.113), ('lame', -1.102)
-]
-
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 8), facecolor='#070b14')
-
-# Позитивні слова
-ax1.set_facecolor('#070b14')
-words_pos = [w for w, _ in positive_words]
-coefs_pos = [c for _, c in positive_words]
-
-bars1 = ax1.barh(range(len(words_pos)), coefs_pos, color='#10b981', edgecolor='#059669', linewidth=1.5)
-ax1.set_yticks(range(len(words_pos)))
-ax1.set_yticklabels(words_pos, fontsize=11, color='#e2e8f0')
-ax1.set_xlabel('Коефіцієнт (вплив на клас)', fontsize=12, color='#e2e8f0', fontweight='bold')
-ax1.set_title('Найвагоміші для ПОЗИТИВНОГО класу', fontsize=13, color='#10b981', fontweight='bold', pad=15)
-ax1.invert_yaxis()
-
-# Додати значення
-for i, (bar, coef) in enumerate(zip(bars1, coefs_pos)):
-    ax1.text(coef + 0.03, i, f'{coef:.2f}', va='center', fontsize=9, color='#10b981', fontweight='bold')
-
-ax1.tick_params(colors='#e2e8f0', labelsize=10)
-ax1.spines['top'].set_visible(False)
-ax1.spines['right'].set_visible(False)
-ax1.spines['bottom'].set_color('#334155')
-ax1.spines['left'].set_color('#334155')
-ax1.grid(axis='x', alpha=0.2, color='#334155', linestyle='--')
-
-# Негативні слова
-ax2.set_facecolor('#070b14')
-words_neg = [w for w, _ in negative_words]
-coefs_neg = [c for _, c in negative_words]
-
-bars2 = ax2.barh(range(len(words_neg)), coefs_neg, color='#ef4444', edgecolor='#dc2626', linewidth=1.5)
-ax2.set_yticks(range(len(words_neg)))
-ax2.set_yticklabels(words_neg, fontsize=11, color='#e2e8f0')
-ax2.set_xlabel('Коефіцієнт (вплив на клас)', fontsize=12, color='#e2e8f0', fontweight='bold')
-ax2.set_title('Найвагоміші для НЕГАТИВНОГО класу', fontsize=13, color='#ef4444', fontweight='bold', pad=15)
-ax2.invert_yaxis()
-
-# Додати значення
-for i, (bar, coef) in enumerate(zip(bars2, coefs_neg)):
-    ax2.text(coef - 0.03, i, f'{coef:.2f}', va='center', ha='right', fontsize=9, color='#ef4444', fontweight='bold')
-
-ax2.tick_params(colors='#e2e8f0', labelsize=10)
-ax2.spines['top'].set_visible(False)
-ax2.spines['right'].set_visible(False)
-ax2.spines['bottom'].set_color('#334155')
-ax2.spines['left'].set_color('#334155')
-ax2.grid(axis='x', alpha=0.2, color='#334155', linestyle='--')
-
-plt.suptitle('Коефіцієнти LogisticRegression: які слова найважливіші', 
-             fontsize=15, color='#e2e8f0', fontweight='bold', y=0.98)
-plt.tight_layout()
-plt.savefig('public/images/ai-python/natural-language-processing/text-classification-baseline/03-top-words.png',
-            dpi=150, facecolor='#070b14', edgecolor='none')
-print("✓ 03-top-words.png створено")
+pos = [("seen",0.476),("overall",0.465),("fun",0.439),("well",0.428),("excellent",0.421),("great",0.419),("job",0.417),("until",0.413),("yet",0.396),("back",0.383),("perfectly",0.377),("husband",0.361),("terrific",0.356),("solid",0.354),("memorable",0.348)]
+neg = [("bad",-0.850),("worst",-0.650),("unfortunately",-0.551),("script",-0.528),("nothing",-0.518),("plot",-0.500),("looks",-0.475),("ridiculous",-0.452),("awful",-0.446),("reason",-0.443),("women",-0.440),("only",-0.429),("waste",-0.425),("supposed",-0.415),("minute",-0.409)]
+fig, axes = plt.subplots(1, 2, figsize=(11, 5.6))
+for ax, data, col, title in [(axes[0], pos, "#16A34A", "підштовхують до «позитивний»"), (axes[1], neg, "#DC2626", "підштовхують до «негативний»")]:
+    w, v = zip(*data); y = range(len(w))
+    ax.barh(y, v, color=col); ax.set_yticks(y); ax.set_yticklabels(w, fontsize=11.5); ax.invert_yaxis(); ax.set_title(title, fontsize=13, color=col)
+    for yi, vi in zip(y, v): ax.text(vi + (0.01 if vi > 0 else -0.01), yi, f"{vi:+.2f}".replace(".", ",").replace("-", "−"), va="center", ha="left" if vi > 0 else "right", fontsize=10.5)
+    ax.set_xlabel("коефіцієнт моделі")
+    for s in ("top", "right"): ax.spines[s].set_visible(False)
+axes[0].set_xlim(0, 0.58); axes[1].set_xlim(-1.0, 0); axes[1].yaxis.tick_right()
+save(fig, __file__)

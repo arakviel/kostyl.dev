@@ -1,0 +1,93 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.abs { position: absolute; }
+#header { left: 80px; top: 40px; width: 1760px; }
+#title { font-size: 44px; font-weight: 800; letter-spacing: -0.02em; }
+#subtitle { font-size: 30px; color: #9fb2cf; margin-top: 8px; }
+#gridwrap { left: 80px; top: 190px; width: 1200px; height: 600px; border: 2px solid #223250; border-radius: 6px; background: #0b1324; }
+#gridwrap img { position: absolute; left: 0; top: 0; width: 1200px; height: 600px; }
+#gridcap { left: 80px; top: 806px; width: 1200px; font-size: 30px; color: #9fb2cf; }
+#c1 { left: 80px; top: 870px; font-size: 62px; font-weight: 800; color: #e8eef7; white-space: nowrap; }
+#c1 .n { color: #22d3ee; }
+#c2 { left: 80px; top: 870px; font-size: 62px; font-weight: 800; color: #fbbf24; opacity: 0; white-space: nowrap; }
+#c3 { left: 80px; top: 962px; font-size: 40px; font-weight: 600; color: #34d399; opacity: 0; white-space: nowrap; }
+#panel { left: 1340px; top: 190px; width: 500px; height: 600px; border-radius: 18px; background: #0e1626; border: 2px solid #223250; }
+.lbl { font-size: 32px; font-weight: 700; color: #9fb2cf; left: 1380px; }
+.barbg { left: 1380px; width: 420px; height: 56px; border-radius: 8px; background: #111a2e; }
+.bar { left: 1380px; height: 56px; border-radius: 8px; transform-origin: left center; }
+#bar1 { width: 420px; background: #fb7185; }
+#bar2 { width: 34px; background: #34d399; }
+.big { left: 1380px; font-size: 68px; font-weight: 800; }
+#mb1 { top: 330px; color: #fb7185; opacity: 0; }
+#mb2 { top: 650px; color: #34d399; opacity: 0; }
+.chip { top: 478px; height: 52px; padding: 0 14px; line-height: 52px; font-size: 32px; font-weight: 700; border-radius: 10px; background: #0b2a2a; border: 2px solid #34d399; color: #34d399; opacity: 0; font-family: "JetBrains Mono", monospace; }
+#ratio { left: 1690px; top: 528px; font-size: 56px; font-weight: 800; color: #fbbf24; opacity: 0; }
+#stage { position: absolute; inset: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+ <div id="stage">
+  <div id="header" class="abs"><div id="title">Матриця документ–слово: відгуки на фільми</div><div id="subtitle">CountVectorizer(max_features=5000), корпус movie_reviews</div></div>
+  <div id="gridwrap" class="abs">
+    <img id="gplain" src="assets/img/grid-plain.png" />
+    <img id="gnz" src="assets/img/grid-nz.png" style="opacity:0" />
+  </div>
+  <div id="gridcap" class="abs">Фрагмент: перші 100 відгуків × кожне 25-те слово з 5000</div>
+  <div id="c1" class="abs mono"><span class="n" id="a1">2000</span><span id="a2" style="opacity:0"> × <span class="n">5000</span></span><span id="a3" style="opacity:0"> = 10 000 000</span></div>
+  <div id="c2" class="abs mono">94,49% нулів</div>
+  <div id="c3" class="abs mono">≈ 275 слів на відгук із 5000 (5,51%)</div>
+  <div id="panel" class="abs"></div>
+  <div class="abs lbl" style="top:226px">Щільний масив float64</div>
+  <div class="abs barbg" style="top:270px"></div>
+  <div id="bar1" class="abs bar" style="top:270px"></div>
+  <div id="mb1" class="abs big mono">76,3 МБ</div>
+  <div id="chl" class="abs lbl" style="top:426px;opacity:0">CSR зберігає:</div>
+  <div id="ch1" class="abs chip" style="left:1380px">data</div>
+  <div id="ch2" class="abs chip" style="left:1500px">indices</div>
+  <div id="ch3" class="abs chip" style="left:1676px">indptr</div>
+  <div class="abs lbl" style="top:546px">Розріджена CSR</div>
+  <div class="abs barbg" style="top:590px"></div>
+  <div id="bar2" class="abs bar" style="top:590px"></div>
+  <div id="mb2" class="abs big mono" style="top:660px">6,3 МБ</div>
+  <div id="ratio" class="abs mono">÷12</div>
+ </div>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+tl.set("#bar1,#bar2", { scaleX: 0 }, 0);
+// L1 0.4-6.5
+tl.to("#a2", { opacity: 1, duration: 0.3 }, 2.7);
+tl.to("#a3", { opacity: 1, duration: 0.3 }, 4.2);
+tl.fromTo("#gplain", { opacity: 0.8 }, { opacity: 1, duration: 0.6, ease: "sine.inOut" }, 1.2);
+tl.to("#c1", { scale: 1.04, transformOrigin: "left center", duration: 0.35, yoyo: true, repeat: 1 }, 4.4);
+// L2 7.1-13.2
+tl.to("#bar1", { scaleX: 1, duration: 3.2, ease: "power2.out" }, 7.2);
+tl.to("#mb1", { opacity: 1, duration: 0.35 }, 10.5);
+tl.to("#gplain", { opacity: 0.85, duration: 0.5, yoyo: true, repeat: 1 }, 8.6);
+tl.to("#mb1", { scale: 1.08, transformOrigin: "left center", duration: 0.4, yoyo: true, repeat: 1 }, 11.2);
+// L3 13.8-22.0
+tl.to("#c1", { opacity: 0, duration: 0.3 }, 13.5);
+tl.to("#c2", { opacity: 1, duration: 0.4 }, 14.2);
+tl.to("#gplain", { opacity: 0.55, duration: 0.6 }, 14.2);
+tl.to("#gnz", { opacity: 1, duration: 0.8 }, 14.4);
+tl.to("#gnz", { opacity: 0.7, duration: 0.5, yoyo: true, repeat: 3 }, 15.6);
+tl.to("#c3", { opacity: 1, duration: 0.4 }, 17.9);
+tl.to("#c3", { scale: 1.04, transformOrigin: "left center", duration: 0.4, yoyo: true, repeat: 1 }, 20.0);
+// L4 22.7-26.9
+tl.to("#gplain", { opacity: 0.12, duration: 0.7 }, 22.9);
+tl.to("#chl", { opacity: 1, duration: 0.35 }, 22.9);
+tl.to("#ch1", { opacity: 1, duration: 0.35 }, 23.2);
+tl.to("#ch2", { opacity: 1, duration: 0.35 }, 24.3);
+tl.to("#ch3", { opacity: 1, duration: 0.35 }, 25.4);
+tl.to("#gnz", { opacity: 1, duration: 0.5 }, 22.9);
+// L5 27.5-33.2
+tl.to("#bar2", { scaleX: 1, duration: 1.4, ease: "power2.out" }, 27.7);
+tl.to("#mb2", { opacity: 1, duration: 0.35 }, 30.4);
+tl.to("#ratio", { opacity: 1, scale: 1.0, duration: 0.4 }, 31.1);
+tl.to("#ratio", { scale: 1.12, transformOrigin: "left center", duration: 0.4, yoyo: true, repeat: 1 }, 32.0);
+// close
+tl.to("#stage", { opacity: 0, duration: 0.3 }, 33.3);
+window.__timelines["world"] = tl;
+</script>
+</template>

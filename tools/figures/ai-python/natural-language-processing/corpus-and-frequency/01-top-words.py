@@ -1,47 +1,20 @@
-#!/usr/bin/env python3
-"""Діаграма 20 найчастіших слів у корпусі Movie Reviews."""
-import matplotlib.pyplot as plt
-from collections import Counter
-from nltk.corpus import movie_reviews
+"""20 найчастіших слів корпусу movie_reviews (реальні дані)."""
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _style import *
+import numpy as np
+from _data import freq, all_words, vocab_growth
 
-# Завантажити всі слова
-all_words = [
-    w.lower() for fid in movie_reviews.fileids()
-    for w in movie_reviews.words(fid)
-    if any(c.isalpha() for c in w)
-]
-
-freq = Counter(all_words)
-top20 = freq.most_common(20)
-words, counts = zip(*top20)
-
-# Створення графіка
-fig, ax = plt.subplots(figsize=(12, 6), facecolor='#070b14')
-ax.set_facecolor('#070b14')
-
-bars = ax.bar(range(len(words)), counts, color='#06b6d4', edgecolor='#0e7490', linewidth=1.5)
-
-ax.set_xticks(range(len(words)))
-ax.set_xticklabels(words, rotation=45, ha='right', fontsize=11, color='#e2e8f0')
-ax.set_ylabel('Частота', fontsize=13, color='#e2e8f0', fontweight='bold')
-ax.set_xlabel('Слово', fontsize=13, color='#e2e8f0', fontweight='bold')
-ax.set_title('20 найчастіших слів у корпусі Movie Reviews', 
-             fontsize=15, color='#e2e8f0', fontweight='bold', pad=20)
-
-# Додати значення на стовпчиках
-for i, (bar, count) in enumerate(zip(bars, counts)):
-    if i < 5:  # Тільки для перших 5
-        ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 1500,
-                f'{count:,}', ha='center', va='bottom', fontsize=9, color='#06b6d4')
-
-ax.tick_params(colors='#e2e8f0', labelsize=10)
-ax.spines['top'].set_visible(False)
-ax.spines['right'].set_visible(False)
-ax.spines['bottom'].set_color('#334155')
-ax.spines['left'].set_color('#334155')
-ax.grid(axis='y', alpha=0.2, color='#334155', linestyle='--')
-
-plt.tight_layout()
-plt.savefig('public/images/ai-python/natural-language-processing/corpus-and-frequency/01-top-words.png',
-            dpi=150, facecolor='#070b14', edgecolor='none')
-print("✓ 01-top-words.png створено")
+top = freq.most_common(20)
+words, counts = zip(*top)
+fig, ax = plt.subplots(figsize=(11, 4.8))
+cols = ["#D97706" if w == "s" else ("#2563EB" if w == "film" else "#94A3B8") for w in words]
+ax.bar(range(20), counts, color=cols)
+for i in (0, 1, 19): ax.text(i, counts[i] + 800, f"{counts[i]:,}".replace(",", " "), ha="center", fontsize=11, fontweight="bold")
+ax.set_xticks(range(20)); ax.set_xticklabels(words, rotation=45, ha="right", fontsize=12)
+ax.set_ylabel("скільки разів зустрілося")
+ax.text(9, 60000, "сірі — службові слова\nсиній — слово зі змістом (film)\nжовтий — залишок «'s» після токенізації", fontsize=11.5, color="#475569")
+for s in ("top", "right"): ax.spines[s].set_visible(False)
+save(fig, __file__)

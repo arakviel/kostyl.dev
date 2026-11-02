@@ -1,0 +1,90 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.abs { position: absolute; }
+#title { left: 80px; top: 40px; font-size: 44px; font-weight: 800; letter-spacing: -0.02em; }
+#subtitle { left: 80px; top: 100px; font-size: 30px; color: #9fb2cf; }
+#plane { left: 80px; top: 170px; width: 1160px; height: 790px; border: 2px solid #223250; border-radius: 12px; background: #0b1324; }
+.dot { width: 30px; height: 30px; border-radius: 15px; background: #3a4a68; }
+.cl { font-size: 36px; font-weight: 800; opacity: 0; white-space: nowrap; }
+.ell { border-radius: 50%; border: 3px dashed; opacity: 0; }
+.blk { left: 1290px; width: 570px; opacity: 0; }
+.blk .n { font-size: 36px; font-weight: 800; }
+.blk .w { font-size: 32px; color: #9fb2cf; line-height: 1.2; }
+#d1 { left: 1290px; top: 190px; font-size: 56px; font-weight: 800; color: #22d3ee; opacity: 0; white-space: nowrap; }
+#d2 { left: 1290px; top: 270px; font-size: 56px; font-weight: 800; color: #fbbf24; opacity: 0; white-space: nowrap; }
+#stage { position: absolute; inset: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+ <div id="stage">
+  <div id="title" class="abs">Карта слів: PCA векторів GloVe</div>
+  <div id="subtitle" class="abs">glove-wiki-gigaword-100, 30 слів, реальна проєкція зі 100 вимірів у 2</div>
+  <div id="plane" class="abs"></div>
+  <div id="pts"></div>
+  <div id="d1" class="abs mono">100 → 2 виміри</div>
+  <div id="d2" class="abs mono">38,8% розкиду</div>
+  <div id="legend"></div>
+ </div>
+</div>
+<script>
+const XY = [[3.854, -0.327], [3.312, -1.033], [3.934, -0.16], [3.718, -0.072], [3.169, -0.409], [2.821, -1.232], [2.364, -1.794], [2.713, -1.314], [3.077, -1.448], [2.571, -1.322], [-2.955, 0.556], [-2.656, 0.979], [-1.38, 1.435], [-2.57, -0.429], [-2.204, 0.753], [-2.973, -2.833], [-2.716, -2.198], [-3.283, -1.409], [-2.696, -2.612], [-2.801, -1.758], [-1.202, 0.169], [-0.938, -0.642], [-0.269, 0.068], [-0.714, 0.102], [-1.723, -1.829], [-0.098, 4.171], [-0.39, 3.751], [0.359, 3.479], [0.341, 3.831], [-0.662, 3.529]];
+const CAT = [
+ ["Країни", ["france","germany","italy","spain","russia"], "#60a5fa"],
+ ["Столиці", ["paris","berlin","rome","madrid","moscow"], "#34d399"],
+ ["Технології", ["computer","software","internet","technology","digital"], "#fbbf24"],
+ ["Наука", ["physics","chemistry","biology","mathematics","science"], "#fb7185"],
+ ["Мистецтво", ["music","art","painting","sculpture","literature"], "#c084fc"],
+ ["Тварини", ["dog","cat","horse","bird","fish"], "#f472b6"]];
+const cx = 0.33, cy = 0.67, K = 98;
+const px = x => 660 + (x - cx) * K, py = y => 565 - (y - cy) * K;
+const LP = [
+  (mx, my, rx, ry) => [mx - 150, my - ry - 50, 'center'],
+  (mx, my, rx, ry) => [mx - 150, my + ry + 6, 'center'],
+  (mx, my, rx, ry) => [mx - 150, my - ry - 50, 'center'],
+  (mx, my, rx, ry) => [mx + rx + 10, my + ry - 75, 'left'],
+  (mx, my, rx, ry) => [mx - 150, my + ry + 6, 'center'],
+  (mx, my, rx, ry) => [mx + rx + 10, my - 20, 'left']];
+const pts = document.getElementById("pts"), leg = document.getElementById("legend");
+const tl = gsap.timeline({ paused: true });
+let idx = 0;
+CAT.forEach(([name, ws, col], c) => {
+  let sx = 0, sy = 0, minx = 1e9, maxx = -1e9, miny = 1e9, maxy = -1e9;
+  ws.forEach((w, j) => {
+    const [x, y] = XY[idx + j], X = px(x), Y = py(y);
+    sx += X; sy += Y; minx = Math.min(minx, X); maxx = Math.max(maxx, X); miny = Math.min(miny, Y); maxy = Math.max(maxy, Y);
+    pts.insertAdjacentHTML("beforeend", `<div id="dot${c}_${j}" class="abs dot" style="left:${X - 15}px;top:${Y - 15}px;opacity:0"></div>`);
+  });
+  idx += ws.length;
+  const mx = sx / ws.length, my = sy / ws.length, rx = (maxx - minx) / 2 + 55, ry = (maxy - miny) / 2 + 55;
+  pts.insertAdjacentHTML("beforeend",
+    `<div id="e${c}" class="abs ell" style="left:${mx - rx}px;top:${my - ry}px;width:${2 * rx}px;height:${2 * ry}px;border-color:${col}"></div>` +
+    `<div id="cl${c}" class="abs cl mono" style="left:${LP[c](mx, my, rx, ry)[0]}px;top:${LP[c](mx, my, rx, ry)[1]}px;width:300px;text-align:${LP[c](mx, my, rx, ry)[2]};color:${col}">${name}</div>`);
+  leg.insertAdjacentHTML("beforeend",
+    `<div id="b${c}" class="abs blk" style="top:${[340,440,540,680,820,925][c]}px"><div class="n mono" style="color:${col}">${name}</div><div class="w">${ws.join(" ")}</div></div>`);
+});
+const dots = c => Array.from({ length: 5 }, (_, j) => `#dot${c}_${j}`);
+const colour = (c, at) => { tl.to(dots(c), { backgroundColor: CAT[c][2], duration: 0.4 }, at); tl.to(`#b${c}`, { opacity: 1, duration: 0.4 }, at); tl.to(`#cl${c}`, { opacity: 1, duration: 0.4 }, at + 0.2); };
+// L1 0.4-9.6
+tl.to("#d1", { opacity: 1, duration: 0.4 }, 1.2);
+tl.to("#d2", { opacity: 1, duration: 0.4 }, 6.6);
+tl.to("#plane", { borderColor: "#3b5a8a", duration: 0.5, yoyo: true, repeat: 1 }, 3.0);
+tl.to("#plane", { borderColor: "#3b5a8a", duration: 0.5, yoyo: true, repeat: 1 }, 7.9);
+tl.to("#d1", { scale: 1.05, transformOrigin: "left center", duration: 0.4, yoyo: true, repeat: 1 }, 9.0);
+// L2 10.2-18.2
+for (let c = 0; c < 6; c++) tl.to(dots(c), { opacity: 1, duration: 0.3, stagger: 0.04 }, 10.5 + c * 0.1);
+colour(0, 12.7); colour(1, 14.0);
+tl.to(["#d1", "#d2"], { opacity: 0.35, duration: 0.5 }, 12.5);
+tl.to(["#e0", "#e1"], { opacity: 0.8, duration: 0.5 }, 16.4);
+// L3 18.9-23.7
+colour(2, 19.2); colour(3, 20.3); colour(4, 21.9);
+tl.to(["#e2", "#e3"], { opacity: 0.8, duration: 0.5 }, 20.9);
+tl.to("#e4", { opacity: 0.8, duration: 0.5 }, 22.6);
+// L4 24.3-27.7
+colour(5, 24.7); tl.to("#e5", { opacity: 0.8, duration: 0.5 }, 25.6);
+// L5 28.3-33.8
+for (let c = 0; c < 6; c++) tl.to(`#e${c}`, { opacity: 0.4, duration: 0.4, yoyo: true, repeat: 1 }, 29.0 + c * 0.7);
+tl.to("#stage", { opacity: 0, duration: 0.3 }, 34.2);
+window.__timelines["world"] = tl;
+</script>
+</template>

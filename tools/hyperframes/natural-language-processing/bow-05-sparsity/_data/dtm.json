@@ -1,0 +1,18 @@
+{
+ "shape": [
+  2000,
+  5000
+ ],
+ "nnz": 550689,
+ "sparsity_pct": 94.49,
+ "dense_mb": 76.3,
+ "sparse_mb": 6.3,
+ "ratio": 12.1,
+ "mean_nonzero_per_doc": 275.3,
+ "median_nonzero_per_doc": 269.0,
+ "sub_shape": [
+  100,
+  200
+ ],
+ "sub_nnz": 985
+}

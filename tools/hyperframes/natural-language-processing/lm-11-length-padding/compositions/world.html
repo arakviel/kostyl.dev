@@ -1,0 +1,94 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.abs { position: absolute; }
+#title { left: 80px; top: 40px; font-size: 44px; font-weight: 800; letter-spacing: -0.02em; }
+#subtitle { left: 80px; top: 100px; font-size: 30px; color: #9fb2cf; }
+.hb { background: #3b82f6; border-radius: 4px 4px 0 0; opacity: 0; transform-origin: center bottom; }
+#axis { left: 130px; top: 760px; width: 1650px; height: 2px; background: #223250; }
+.xl { top: 775px; width: 140px; text-align: center; font-size: 32px; color: #9fb2cf; }
+.mk { width: 3px; opacity: 0; }
+.ml { font-size: 34px; font-weight: 800; white-space: nowrap; opacity: 0; }
+#trk { left: 130px; top: 850px; width: 1601px; height: 56px; border-radius: 8px; background: #1a2336; opacity: 0; }
+#fil { left: 130px; top: 850px; width: 232px; height: 56px; border-radius: 8px; background: #22d3ee; opacity: 0; }
+#pl { left: 130px; top: 925px; font-size: 38px; font-weight: 700; color: #22d3ee; opacity: 0; white-space: nowrap; }
+.bt { font-size: 40px; font-weight: 800; opacity: 0; white-space: nowrap; }
+.rw { height: 38px; border-radius: 6px; opacity: 0; }
+.st { font-size: 40px; font-weight: 800; opacity: 0; white-space: nowrap; }
+#sch { left: 80px; top: 990px; font-size: 32px; color: #9fb2cf; opacity: 0; }
+#stage { position: absolute; inset: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+ <div id="stage">
+  <div id="title" class="abs">Довжини відгуків IMDB і padding</div>
+  <div id="subtitle" class="abs">5000 випадкових відгуків із навчальної частини (довжина в словах)</div>
+  <div id="hist"></div>
+  <div id="axis" class="abs"></div>
+  <div id="mk"></div>
+  <div id="trk" class="abs"></div><div id="fil" class="abs"></div>
+  <div id="pl" class="abs mono">лише 14,5% довжини — реальні слова, решта — padding</div>
+  <div id="bat"></div>
+  <div id="sch" class="abs mono">Схематичний приклад, довжини вигадані</div>
+ </div>
+</div>
+<script>
+const C = [38, 379, 591, 1201, 726, 440, 354, 257, 213, 146, 113, 92, 79, 73, 53, 50, 34, 33, 24, 18, 16, 17, 12, 12, 21, 5, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1];
+const tl = gsap.timeline({ paused: true });
+const hist = document.getElementById("hist");
+C.forEach((c, i) => {
+  const h = Math.max(2, Math.round(c * 0.34));
+  hist.insertAdjacentHTML("beforeend", `<div id="hb${i}" class="abs hb" style="left:${130 + i * 40 + 2}px;top:${760 - h}px;width:36px;height:${h}px"></div>`);
+  tl.to("#hb" + i, { opacity: 1, duration: 0.25 }, 0.8 + i * 0.05);
+});
+tl.set([".hb"], { scaleY: 1 }, 0);
+const axl = document.getElementById("mk");
+[0, 400, 800, 1200, 1600].forEach(v => axl.insertAdjacentHTML("beforeend", `<div class="abs xl mono" style="left:${130 + v - 70}px">${v}</div>`));
+const M = [
+  ["med", 174, "#34d399", "медіана 174", 200, "right"],
+  ["mean", 232, "#22d3ee", "середня 232", 255, "left"],
+  ["p95", 593, "#fbbf24", "95-й перцентиль 593", 330, "left"],
+  ["max", 1601, "#fb7185", "максимум 1601", 410, "right"]];
+M.forEach(([id, v, col, text, ty, al]) => {
+  const x = 130 + v;
+  axl.insertAdjacentHTML("beforeend",
+    `<div id="mk_${id}" class="abs mk" style="left:${x - 1}px;top:${ty + 6}px;height:${760 - ty - 6}px;background:${col}"></div>` +
+    `<div id="ml_${id}" class="abs ml mono" style="top:${ty - 40}px;color:${col};${al === 'left' ? `left:${x + 10}px` : `left:${x - 530}px;width:520px;text-align:right`}">${text}</div>`);
+});
+const bat = document.getElementById("bat");
+const mkBatch = (id, top, lens, pad, label, col) => {
+  bat.insertAdjacentHTML("beforeend", `<div id="${id}t" class="abs bt mono" style="left:130px;top:${top}px;color:${col}">${label}</div>`);
+  lens.forEach((l, i) => bat.insertAdjacentHTML("beforeend",
+    `<div id="${id}r${i}" class="abs rw" style="left:130px;top:${top + 60 + i * 46}px;width:${pad * 0.6}px;background:#1a2336"></div>` +
+    `<div id="${id}f${i}" class="abs rw" style="left:130px;top:${top + 60 + i * 46}px;width:${l * 0.6}px;background:${col}"></div>`));
+};
+mkBatch("ba", 190, [60, 900, 120, 1500], 1500, "Випадковий батч → padding до 1500", "#fb7185");
+mkBatch("bb", 590, [110, 120, 130, 135], 135, "Батч схожої довжини → padding до 135", "#34d399");
+bat.insertAdjacentHTML("beforeend",
+  `<div id="sa" class="abs st mono" style="left:1150px;top:300px;color:#fb7185">реальних слів 43%</div>` +
+  `<div id="sb" class="abs st mono" style="left:1150px;top:700px;color:#34d399">реальних слів 92%</div>`);
+const B = ["ba", "bb"];
+const fade = (ids, at, o = 1, d = 0.4) => tl.to(ids, { opacity: o, duration: d }, at);
+// L1 0.4-11.4
+tl.to("#hist", { opacity: 0.6, duration: 0.5, yoyo: true, repeat: 1 }, 4.6);
+tl.to("#hist", { opacity: 0.6, duration: 0.5, yoyo: true, repeat: 1 }, 6.6);
+fade(["#mk_med", "#ml_med"], 10.1); fade(["#mk_mean", "#ml_mean"], 8.8);
+tl.to("#ml_mean", { scale: 1.06, transformOrigin: "left center", duration: 0.4, yoyo: true, repeat: 1 }, 11.7);
+// L2 12.1-21.2
+tl.to("#hist", { opacity: 0.6, duration: 0.5, yoyo: true, repeat: 1 }, 12.6);
+fade(["#mk_max", "#ml_max"], 14.0);
+tl.to("#ml_max", { scale: 1.06, transformOrigin: "right center", duration: 0.4, yoyo: true, repeat: 1 }, 15.4);
+tl.to("#hist", { opacity: 0.6, duration: 0.5, yoyo: true, repeat: 1 }, 16.8);
+fade(["#trk", "#fil"], 18.3); fade("#pl", 20.4);
+tl.to("#fil", { scaleX: 1.04, transformOrigin: "left center", duration: 0.4, yoyo: true, repeat: 1 }, 20.8);
+// L3 21.9-28.95
+fade(["#mk_p95", "#ml_p95"], 24.3);
+tl.to("#mk_p95", { scaleY: 1.0, opacity: 0.5, duration: 0.4, yoyo: true, repeat: 3 }, 26.2);
+// L4 29.6-35.2
+tl.to(["#hist", "#axis", "#mk", "#trk", "#fil", "#pl"], { opacity: 0, duration: 0.4 }, 29.6);
+B.forEach(id => { for (let i = 0; i < 4; i++) fade([`#${id}r${i}`, `#${id}f${i}`], id === "ba" ? 30.4 : 32.4); fade(`#${id}t`, id === "ba" ? 30.2 : 32.2); });
+fade("#sa", 31.4); fade("#sb", 33.4); fade("#sch", 30.4);
+tl.to("#stage", { opacity: 0, duration: 0.3 }, 35.6);
+window.__timelines["world"] = tl;
+</script>
+</template>

@@ -1,0 +1,87 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.abs { position: absolute; }
+#title { left: 80px; top: 40px; font-size: 44px; font-weight: 800; letter-spacing: -0.02em; }
+#subtitle { left: 80px; top: 100px; font-size: 30px; color: #9fb2cf; }
+.tile { top: 230px; width: 300px; height: 120px; border-radius: 16px; background: #0e1626; border: 3px solid #223250; text-align: center; line-height: 114px; font-size: 44px; font-weight: 800; opacity: 0.4; }
+#win { left: 100px; top: 205px; width: 1740px; height: 170px; border: 4px dashed #22d3ee; border-radius: 22px; opacity: 0; }
+#cw { left: 100px; top: 150px; font-size: 34px; font-weight: 700; color: #22d3ee; opacity: 0; }
+.pr { left: 130px; font-size: 52px; font-weight: 800; opacity: 0; white-space: nowrap; }
+.pr .c { color: #22d3ee; } .pr .x { color: #fbbf24; } .pr .a { color: #9fb2cf; }
+.ph { left: 130px; top: 420px; font-size: 40px; font-weight: 800; opacity: 0; }
+#cb1 { left: 130px; top: 500px; font-size: 52px; font-weight: 800; color: #fbbf24; opacity: 0; white-space: nowrap; }
+#cb2 { left: 130px; top: 600px; font-size: 60px; font-weight: 800; color: #22d3ee; opacity: 0; white-space: nowrap; }
+#cnt { left: 130px; top: 600px; font-size: 56px; font-weight: 800; color: #34d399; opacity: 0; white-space: nowrap; }
+#cnt2 { left: 130px; top: 690px; font-size: 40px; color: #9fb2cf; opacity: 0; white-space: nowrap; }
+#stage { position: absolute; inset: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+ <div id="stage">
+  <div id="title" class="abs">Вікно контексту → навчальні пари</div>
+  <div id="subtitle" class="abs">Речення з лекції, вікно C = 2</div>
+  <div id="tiles"></div>
+  <div id="win" class="abs"></div>
+  <div id="cw" class="abs mono">вікно C = 2</div>
+  <div id="skh" class="abs ph mono" style="color:#fbbf24">Skip-gram: центральне слово → контекст</div>
+  <div id="p1" class="abs pr mono" style="top:500px"><span class="c">processing</span> <span class="a">→</span> <span class="x">natural</span></div>
+  <div id="p2" class="abs pr mono" style="top:580px"><span class="c">processing</span> <span class="a">→</span> <span class="x">language</span></div>
+  <div id="p3" class="abs pr mono" style="top:660px"><span class="c">processing</span> <span class="a">→</span> <span class="x">is</span></div>
+  <div id="p4" class="abs pr mono" style="top:740px"><span class="c">processing</span> <span class="a">→</span> <span class="x">fascinating</span></div>
+  <div id="cbh" class="abs ph mono" style="color:#fbbf24">CBOW: контекст → центральне слово</div>
+  <div id="cb1" class="abs mono">[natural, language, is, fascinating]</div>
+  <div id="cb2" class="abs mono">→ processing</div>
+  <div id="cnt" class="abs mono">2 + 3 + 4 + 3 + 2 = 14 пар</div>
+  <div id="cnt2" class="abs mono">для 5 слів із C = 2</div>
+ </div>
+</div>
+<script>
+const words = ["natural", "language", "processing", "is", "fascinating"];
+const tl = gsap.timeline({ paused: true });
+const tiles = document.getElementById("tiles");
+const X = i => 130 + i * 340;
+words.forEach((w, i) => tiles.insertAdjacentHTML("beforeend",
+  `<div id="t${i}" class="abs tile mono" style="left:${X(i)}px">${w}</div>`));
+// window spans tiles [a..b]
+const winBox = (a, b) => ({ x: X(a) - 20 - 100, w: (X(b) + 300 + 20) - (X(a) - 20) });
+tl.set("#win", { x: winBox(0, 4).x, width: winBox(0, 4).w });
+// L1 0.4-8.5
+words.forEach((w, i) => tl.to("#t" + i, { opacity: 1, duration: 0.35 }, 2.2 + i * 0.35));
+tl.to("#win", { opacity: 1, duration: 0.5 }, 5.4);
+tl.to("#cw", { opacity: 1, duration: 0.4 }, 5.6);
+tl.to("#cw", { scale: 1.08, transformOrigin: "left center", duration: 0.4, yoyo: true, repeat: 1 }, 7.4);
+tl.to("#win", { borderColor: "#34d399", duration: 0.4, yoyo: true, repeat: 1 }, 8.9);
+// L2 9.2-20.0
+tl.to("#t2", { backgroundColor: "#0b3a44", borderColor: "#22d3ee", duration: 0.4 }, 10.9);
+tl.to("#win", { borderColor: "#fbbf24", duration: 0.4, yoyo: true, repeat: 1 }, 13.0);
+tl.to("#t0", { borderColor: "#fbbf24", color: "#fbbf24", duration: 0.35 }, 15.6);
+tl.to("#t1", { borderColor: "#fbbf24", color: "#fbbf24", duration: 0.35 }, 16.8);
+tl.to("#t3", { borderColor: "#fbbf24", color: "#fbbf24", duration: 0.35 }, 17.9);
+tl.to("#t4", { borderColor: "#fbbf24", color: "#fbbf24", duration: 0.35 }, 18.5);
+tl.to("#t2", { scale: 1.06, duration: 0.35, yoyo: true, repeat: 1 }, 19.6);
+tl.to("#win", { borderColor: "#34d399", duration: 0.4, yoyo: true, repeat: 1 }, 21.0);
+tl.to("#cw", { scale: 1.08, transformOrigin: "left center", duration: 0.4, yoyo: true, repeat: 1 }, 22.4);
+// L3 20.6-29.0
+tl.to("#skh", { opacity: 1, duration: 0.4 }, 23.8);
+["#p1", "#p2", "#p3", "#p4"].forEach((s, i) => tl.to(s, { opacity: 1, duration: 0.3 }, 24.6 + i * 0.7));
+tl.to(["#p1", "#p2", "#p3", "#p4"], { scale: 1.03, transformOrigin: "left center", duration: 0.3, yoyo: true, repeat: 1, stagger: 0.25 }, 27.6);
+// L4 29.7-36.7
+tl.to(["#skh", "#p1", "#p2", "#p3", "#p4"], { opacity: 0, duration: 0.4 }, 29.8);
+tl.to("#cbh", { opacity: 1, duration: 0.4 }, 30.9);
+tl.to("#cb1", { opacity: 1, duration: 0.4 }, 32.2);
+tl.to("#cb2", { opacity: 1, duration: 0.4 }, 34.2);
+tl.to("#cb1", { scale: 1.03, transformOrigin: "left center", duration: 0.35, yoyo: true, repeat: 1 }, 35.4);
+// L5 37.3-44.0: window slides to centre "is"
+tl.to(["#cbh", "#cb1", "#cb2"], { opacity: 0, duration: 0.4 }, 37.4);
+tl.to("#win", { x: winBox(1, 4).x, width: winBox(1, 4).w, duration: 0.8, ease: "power2.inOut" }, 37.8);
+tl.to("#t2", { backgroundColor: "#0e1626", borderColor: "#fbbf24", duration: 0.4 }, 37.9);
+tl.to("#t3", { backgroundColor: "#0b3a44", borderColor: "#22d3ee", color: "#e8eef7", duration: 0.4 }, 37.9);
+tl.to("#t0", { borderColor: "#223250", color: "#e8eef7", duration: 0.4 }, 37.9);
+tl.to("#cnt", { opacity: 1, duration: 0.4 }, 40.9);
+tl.to("#cnt2", { opacity: 1, duration: 0.4 }, 42.0);
+tl.to("#cnt", { scale: 1.05, transformOrigin: "left center", duration: 0.4, yoyo: true, repeat: 1 }, 43.0);
+tl.to("#stage", { opacity: 0, duration: 0.3 }, 44.4);
+window.__timelines["world"] = tl;
+</script>
+</template>

@@ -1,72 +1,20 @@
-#!/usr/bin/env python3
-"""Матриця помилок із теплової картою."""
-import matplotlib.pyplot as plt
+"""Матриця помилок з виводу лекції 06: 163, 37, 25, 175."""
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+from _style import *
 import numpy as np
 
-# Матриця з лекції
-cm = np.array([[169, 31], [34, 166]])
-
-fig, ax = plt.subplots(figsize=(9, 8), facecolor='#070b14')
-ax.set_facecolor('#070b14')
-
-# Теплова карта
-im = ax.imshow(cm, cmap='Blues', aspect='auto', alpha=0.8)
-
-# Додати текст у кожну клітинку
+cm = np.array([[163, 37], [25, 175]])
+fig, ax = plt.subplots(figsize=(6.4, 5.6))
+ax.imshow(np.array([[1, 0], [0, 1]]), cmap="Greens", vmin=0, vmax=2.2)
+names = [["TN", "FP"], ["FN", "TP"]]; expl = [["правильно\nнегативні", "помилково\nпозитивні"], ["помилково\nнегативні", "правильно\nпозитивні"]]
 for i in range(2):
     for j in range(2):
-        val = cm[i, j]
-        # Підсвітити діагональ
-        if i == j:
-            color = '#10b981'
-            weight = 'bold'
-            size = 22
-        else:
-            color = '#ef4444'
-            weight = 'bold'
-            size = 20
-        
-        text = ax.text(j, i, str(val), ha='center', va='center',
-                      fontsize=size, color=color, fontweight=weight)
-
-# Мітки осей
-ax.set_xticks([0, 1])
-ax.set_yticks([0, 1])
-ax.set_xticklabels(['Negative', 'Positive'], fontsize=13, color='#e2e8f0', fontweight='bold')
-ax.set_yticklabels(['Negative', 'Positive'], fontsize=13, color='#e2e8f0', fontweight='bold')
-
-ax.set_xlabel('Передбачено', fontsize=14, color='#e2e8f0', fontweight='bold', labelpad=10)
-ax.set_ylabel('Справжнє', fontsize=14, color='#e2e8f0', fontweight='bold', labelpad=10)
-ax.set_title('Матриця помилок: діагональ — правильні, off-diagonal — помилки', 
-             fontsize=15, color='#e2e8f0', fontweight='bold', pad=20)
-
-ax.tick_params(colors='#e2e8f0', labelsize=12)
-
-# Додати анотації
-ax.text(0, -0.4, 'True Negative\n(правильно негативні)', ha='center', fontsize=10, 
-        color='#10b981', fontweight='bold')
-ax.text(1, -0.4, 'False Positive\n(помилково позитивні)', ha='center', fontsize=10, 
-        color='#ef4444', fontweight='bold')
-ax.text(0, 1.4, 'False Negative\n(помилково негативні)', ha='center', fontsize=10, 
-        color='#ef4444', fontweight='bold')
-ax.text(1, 1.4, 'True Positive\n(правильно позитивні)', ha='center', fontsize=10, 
-        color='#10b981', fontweight='bold')
-
-# Статистика
-tn, fp, fn, tp = cm.ravel()
-total = tn + fp + fn + tp
-accuracy = (tp + tn) / total
-
-stats_text = f'Accuracy: {accuracy:.1%}  |  Correct: {tp + tn}/{total}  |  Errors: {fp + fn}/{total}'
-ax.text(0.5, -0.15, stats_text, transform=ax.transAxes,
-        fontsize=11, color='#e2e8f0', ha='center',
-        bbox=dict(boxstyle='round,pad=0.6', facecolor='#0f172a', edgecolor='#06b6d4', linewidth=2))
-
-for spine in ax.spines.values():
-    spine.set_color('#334155')
-    spine.set_linewidth(2)
-
-plt.tight_layout()
-plt.savefig('public/images/ai-python/natural-language-processing/text-classification-baseline/02-confusion-matrix.png',
-            dpi=150, facecolor='#070b14', edgecolor='none')
-print("✓ 02-confusion-matrix.png створено")
+        ok = i == j
+        ax.text(j, i - 0.12, str(cm[i, j]), ha="center", va="center", fontsize=30, fontweight="bold", color="#166534" if ok else "#B91C1C")
+        ax.text(j, i + 0.22, f"{names[i][j]}: {expl[i][j]}", ha="center", va="center", fontsize=11, color=INK)
+ax.set_xticks([0, 1]); ax.set_xticklabels(["negative", "positive"], fontsize=13); ax.set_yticks([0, 1]); ax.set_yticklabels(["negative", "positive"], fontsize=13)
+ax.set_xlabel("передбачено", fontsize=13); ax.set_ylabel("справжній клас", fontsize=13); ax.xaxis.set_label_position("top"); ax.xaxis.tick_top()
+fig.text(0.5, 0.02, "правильно 338 з 400 (84,5%), помилок 62", ha="center", fontsize=12, color="#475569")
+save(fig, __file__)

@@ -1,53 +1,20 @@
-#!/usr/bin/env python3
-"""Закон Ципфа на логарифмічній шкалі."""
-import matplotlib.pyplot as plt
-from collections import Counter
-from nltk.corpus import movie_reviews
+"""Закон Ципфа в подвійному логарифмі: реальні дані проти ідеальної лінії C/r."""
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _style import *
+import numpy as np
+from _data import freq, all_words, vocab_growth
 
-# Завантажити всі слова
-all_words = [
-    w.lower() for fid in movie_reviews.fileids()
-    for w in movie_reviews.words(fid)
-    if any(c.isalpha() for c in w)
-]
-
-freq = Counter(all_words)
-top100 = freq.most_common(100)
-ranks = list(range(1, len(top100) + 1))
-frequencies = [count for _, count in top100]
-
-# Ідеальна лінія Ципфа
-C = frequencies[0]
-ideal = [C / r for r in ranks]
-
-# Створення графіка
-fig, ax = plt.subplots(figsize=(11, 6), facecolor='#070b14')
-ax.set_facecolor('#070b14')
-
-ax.loglog(ranks, frequencies, marker='o', markersize=5, color='#06b6d4', 
-          linewidth=2, label='Реальні дані', markeredgecolor='#0e7490', markeredgewidth=0.8)
-ax.loglog(ranks, ideal, linestyle='--', color='#f59e0b', linewidth=3, 
-          label='Ідеальний Ципф (нахил –1)')
-
-ax.set_xlabel('Ранг слова (log)', fontsize=13, color='#e2e8f0', fontweight='bold')
-ax.set_ylabel('Частота (log)', fontsize=13, color='#e2e8f0', fontweight='bold')
-ax.set_title('Закон Ципфа: частота обернено пропорційна рангу', 
-             fontsize=15, color='#e2e8f0', fontweight='bold', pad=20)
-
-legend = ax.legend(fontsize=11, loc='upper right', framealpha=0.9)
-legend.get_frame().set_facecolor('#0f172a')
-legend.get_frame().set_edgecolor('#334155')
-for text in legend.get_texts():
-    text.set_color('#e2e8f0')
-
-ax.tick_params(colors='#e2e8f0', labelsize=10, which='both')
-ax.spines['top'].set_visible(False)
-ax.spines['right'].set_visible(False)
-ax.spines['bottom'].set_color('#334155')
-ax.spines['left'].set_color('#334155')
-ax.grid(alpha=0.2, color='#334155', linestyle='--', which='both')
-
-plt.tight_layout()
-plt.savefig('public/images/ai-python/natural-language-processing/corpus-and-frequency/04-zipf-loglog.png',
-            dpi=150, facecolor='#070b14', edgecolor='none')
-print("✓ 04-zipf-loglog.png створено")
+top = freq.most_common(100)
+f = np.array([c for _, c in top]); r = np.arange(1, 101)
+fig, ax = plt.subplots(figsize=(9.5, 4.8))
+ax.loglog(r, f, "o-", color="#2563EB", ms=4, lw=1.8, label="реальні дані")
+ax.loglog(r, f[0] / r, "--", color="#D97706", lw=2.2, label="ідеальний Ципф: C / r (нахил −1)")
+ax.set_xlabel("ранг (лог. шкала)"); ax.set_ylabel("частота (лог. шкала)"); ax.grid(alpha=0.3, which="both"); ax.legend(frameon=False)
+slope = np.polyfit(np.log(r), np.log(f), 1)[0]
+ax.text(1.3, 1300, f"нахил реальних даних ≈ {slope:.2f}".replace(".", ",").replace("-", "−"), fontsize=12, color="#2563EB")
+print("slope", slope)
+for s in ("top", "right"): ax.spines[s].set_visible(False)
+save(fig, __file__)
