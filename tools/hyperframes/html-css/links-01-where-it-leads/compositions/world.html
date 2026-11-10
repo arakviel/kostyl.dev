@@ -1,0 +1,71 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #f8fafc; overflow: hidden; font-family: "Inter", sans-serif; color: #0f172a; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.abs { position: absolute; }
+#title { left: 80px; top: 36px; font-size: 48px; font-weight: 800; letter-spacing: -0.02em; }
+#bar { left: 80px; top: 120px; width: 1760px; height: 92px; border-radius: 46px; background: #fff; border: 3px solid #94a3b8; opacity: 0; }
+#url { left: 130px; top: 138px; font-size: 44px; white-space: nowrap; opacity: 0; }
+.lab { top: 224px; font-size: 32px; font-weight: 700; opacity: 0; text-align: center; width: 300px; }
+.row { left: 80px; width: 1760px; height: 96px; opacity: 0; }
+.pill { left: 0; top: 0; width: 740px; height: 96px; border-radius: 16px; background: #e0f2fe; border: 3px solid #0ea5e9; padding: 30px 24px; font-size: 30px; white-space: nowrap; color: #0369a1; }
+.arr { left: 762px; top: 16px; font-size: 52px; color: #64748b; opacity: 0; }
+.res { left: 840px; top: 26px; font-size: 34px; white-space: nowrap; opacity: 0; }
+.res b { color: #059669; font-weight: 800; }
+.note { left: 840px; top: 66px; font-size: 28px; color: #475569; white-space: nowrap; opacity: 0; }
+</style>
+<div data-hf-id="hf-1dtx" id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-wmjf" id="title" class="abs">Куди веде href: адреса, яку добудовує браузер</div>
+  <div data-hf-id="hf-n4ah" id="bar" class="abs"></div>
+  <div data-hf-id="hf-jbl6" id="url" class="abs mono"><span data-hf-id="hf-2p2e" style="color:#0369a1">https://example.com</span><span data-hf-id="hf-mkrn" style="color:#6d28d9">/blog/</span><span data-hf-id="hf-22km" style="color:#047857">post.html</span></div>
+  <div data-hf-id="hf-u6by" id="lab1" class="abs lab" style="left:231px;color:#0369a1">сервер</div>
+  <div data-hf-id="hf-uxpp" id="lab2" class="abs lab" style="left:561px;color:#6d28d9">папка</div>
+  <div data-hf-id="hf-62y5" id="lab3" class="abs lab" style="left:759px;color:#047857">файл</div>
+  <div data-hf-id="hf-0ilc" id="lab0" class="abs" style="left:1100px;top:140px;font-size:34px;color:#475569;opacity:0">поточна сторінка</div>
+  <div data-hf-id="hf-q9ue" id="rows"></div>
+</div>
+<script>
+const BASE = "https://example.com/blog/post.html";
+const R = [
+  ["https://developer.mozilla.org", "", "абсолютна адреса вже повна"],
+  ["about.html", "https://example.com/blog/", "змінився лише файл"],
+  ["/products", "https://example.com", "шлях від кореня сайту"],
+  ["../index.html", "https://example.com/", "на рівень вище"],
+  ["#contacts", "https://example.com/blog/post.html", "та сама сторінка, інший якір"],
+];
+const rows = document.getElementById("rows");
+R.forEach((r, i) => {
+  const full = new URL(r[0], BASE).href;
+  if (!full.startsWith(r[1])) throw new Error("prefix mismatch " + r[0]);
+  const html = r[1].replace(/&/g, "&amp;") + "<b>" + full.slice(r[1].length) + "</b>";
+  rows.insertAdjacentHTML("beforeend",
+    `<div id="row${i}" class="abs row" style="top:${300 + i * 130}px">` +
+    `<div id="pill${i}" class="abs pill mono">href="${r[0]}"</div>` +
+    `<div id="arr${i}" class="abs arr">→</div>` +
+    `<div id="res${i}" class="abs res mono">${html}</div>` +
+    `<div id="note${i}" class="abs note">${r[2]}</div></div>`);
+});
+const tl = gsap.timeline({ paused: true });
+const f = (sel, t, d = 0.4) => tl.to(sel, { opacity: 1, duration: d, ease: "power2.out" }, t);
+const dim = (sel, t) => tl.to(sel, { opacity: 0.5, duration: 0.3 }, t);
+tl.fromTo("#bar", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.4);
+tl.fromTo("#url", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.6);
+f("#lab0", 1.4); f("#lab1", 2.6); f("#lab2", 3.4); f("#lab3", 4.2);
+tl.to("#url", { scale: 1.02, duration: 0.5, yoyo: true, repeat: 1, transformOrigin: "0 50%" }, 5.4);
+// rows: [pill time, result time, note time]
+const T = [[7.4, 8.6, 9.6], [12.6, 14.4, 15.0], [16.6, 17.8, 18.4], [20.8, 22.0, 22.6], [25.6, 27.8, 28.4]];
+T.forEach((t, i) => {
+  tl.to("#row" + i, { opacity: 1, duration: 0.4 }, t[0]);
+  f("#arr" + i, t[1] - 0.2, 0.3); f("#res" + i, t[1]); f("#note" + i, t[2]);
+  if (i > 0) dim("#row" + (i - 1), t[0]);
+  // keep active row from sitting idle: pulse the result
+  tl.fromTo("#res" + i, { scale: 1 }, { scale: 1.03, duration: 0.35, yoyo: true, repeat: 1, transformOrigin: "0 50%" }, t[1] + 0.9);
+});
+tl.to("#pill0", { backgroundColor: "#bae6fd", duration: 0.5, yoyo: true, repeat: 1 }, 10.4);
+tl.to("#pill1", { backgroundColor: "#bae6fd", duration: 0.5, yoyo: true, repeat: 1 }, 19.0);
+tl.to("#pill3", { backgroundColor: "#bae6fd", duration: 0.5, yoyo: true, repeat: 1 }, 24.0);
+tl.to("#pill4", { backgroundColor: "#bae6fd", duration: 0.5, yoyo: true, repeat: 1 }, 30.0);
+tl.to(["#title","#bar","#url","#lab0","#lab1","#lab2","#lab3","#rows"], { opacity: 0, duration: 0.3 }, 31.2);
+window.__timelines["world"] = tl;
+</script>
+</template>

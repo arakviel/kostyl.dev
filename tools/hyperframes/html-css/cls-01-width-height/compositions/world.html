@@ -1,0 +1,71 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #f8fafc; overflow: hidden; font-family: "Inter", sans-serif; color: #0f172a; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.abs { position: absolute; }
+#title { left: 80px; top: 36px; font-size: 48px; font-weight: 800; letter-spacing: -0.02em; }
+.ft { top: 130px; font-size: 38px; font-weight: 800; white-space: nowrap; opacity: 0; }
+.fr { top: 200px; width: 800px; height: 700px; background: #fff; border: 3px solid #94a3b8; border-radius: 20px; overflow: hidden; opacity: 0; }
+.h { left: 36px; top: 28px; font-size: 40px; font-weight: 800; white-space: nowrap; }
+.p1 { left: 36px; top: 96px; font-size: 30px; color: #334155; white-space: nowrap; }
+.p2 { left: 36px; top: 160px; width: 728px; font-size: 32px; line-height: 1.35; color: #0f172a; background: #fef3c7; border-left: 8px solid #f59e0b; padding: 8px 16px; }
+.img { left: 36px; top: 160px; width: 480px; height: 360px; border-radius: 12px; overflow: hidden; opacity: 0; }
+.rsv { left: 36px; top: 160px; width: 480px; height: 360px; border-radius: 12px; border: 4px dashed #059669; background: #ecfdf5; opacity: 0; }
+.rsvl { left: 36px; top: 300px; width: 480px; text-align: center; font-size: 40px; font-weight: 800; color: #059669; opacity: 0; }
+#note { left: 36px; top: 330px; font-size: 32px; color: #b45309; font-weight: 700; white-space: nowrap; opacity: 0; }
+#ghost { z-index: 5; left: 36px; top: 160px; width: 728px; height: 100px; border: 4px dashed #e11d48; border-radius: 10px; opacity: 0; }
+#bad { left: 80px; top: 925px; font-size: 38px; font-weight: 800; color: #fff; background: #e11d48; padding: 6px 24px; border-radius: 14px; opacity: 0; white-space: nowrap; }
+#good { left: 1020px; top: 925px; font-size: 38px; font-weight: 800; color: #fff; background: #059669; padding: 6px 24px; border-radius: 14px; opacity: 0; white-space: nowrap; }
+</style>
+<div data-hf-id="hf-1dtx" id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-w5c0" id="title" class="abs">Чому сторінка «стрибає»</div>
+  <div data-hf-id="hf-3b89" id="ftl" class="abs ft" style="left:80px;color:#e11d48">Без width і height</div>
+  <div data-hf-id="hf-6e7r" id="ftr" class="abs ft mono" style="left:1020px;color:#059669;font-size:34px">width="800" height="600"</div>
+
+  <div data-hf-id="hf-4lpz" id="fl" class="abs fr" style="left:80px">
+    <div data-hf-id="hf-6ngq" class="abs h">Огляд навушників</div>
+    <div data-hf-id="hf-l6ml" class="abs p1">Перший абзац статті вже на екрані.</div>
+    <div data-hf-id="hf-03g3" id="ghost" class="abs"></div>
+    <div data-hf-id="hf-l1op" id="p2l" class="abs p2">Другий абзац: саме тут читач зараз читає речення.</div>
+    <div data-hf-id="hf-qir4" id="imgl" class="abs img"><svg data-hf-id="hf-up8q" width="480" height="360" viewBox="0 0 480 360"><defs data-hf-id="hf-mh0t"><linearGradient data-hf-id="hf-2foy" id="g1" x1="0" y1="0" x2="0" y2="1"><stop data-hf-id="hf-5r5b" offset="0" stop-color="#7dd3fc"/><stop data-hf-id="hf-iy6b" offset="1" stop-color="#e0f2fe"/></linearGradient></defs><rect data-hf-id="hf-1po9" width="480" height="360" fill="url(#g1)"/><circle data-hf-id="hf-znps" cx="370" cy="90" r="40" fill="#fde68a"/><polygon data-hf-id="hf-4cza" points="0,360 130,150 240,280 330,190 480,360" fill="#64748b"/><polygon data-hf-id="hf-v0nx" points="0,360 90,250 200,360" fill="#475569"/></svg></div>
+    <div data-hf-id="hf-0yil" id="note" class="abs">розмір картинки невідомий — місця немає</div>
+  </div>
+
+  <div data-hf-id="hf-1w08" id="fr" class="abs fr" style="left:1020px">
+    <div data-hf-id="hf-lsem" class="abs h">Огляд навушників</div>
+    <div data-hf-id="hf-unlt" class="abs p1">Перший абзац статті вже на екрані.</div>
+    <div data-hf-id="hf-820o" id="rsv" class="abs rsv"></div>
+    <div data-hf-id="hf-jy4o" id="rsvl" class="abs rsvl mono">800 × 600</div>
+    <div data-hf-id="hf-lop3" id="p2r" class="abs p2">Другий абзац: саме тут читач зараз читає речення.</div>
+    <div data-hf-id="hf-sxbq" id="imgr" class="abs img"><svg data-hf-id="hf-r9qm" width="480" height="360" viewBox="0 0 480 360"><defs data-hf-id="hf-vl9d"><linearGradient data-hf-id="hf-b9i9" id="g2" x1="0" y1="0" x2="0" y2="1"><stop data-hf-id="hf-jglr" offset="0" stop-color="#7dd3fc"/><stop data-hf-id="hf-8zr7" offset="1" stop-color="#e0f2fe"/></linearGradient></defs><rect data-hf-id="hf-r5va" width="480" height="360" fill="url(#g2)"/><circle data-hf-id="hf-no2w" cx="370" cy="90" r="40" fill="#fde68a"/><polygon data-hf-id="hf-fsbe" points="0,360 130,150 240,280 330,190 480,360" fill="#64748b"/><polygon data-hf-id="hf-yywh" points="0,360 90,250 200,360" fill="#475569"/></svg></div>
+  </div>
+  <div data-hf-id="hf-sw90" id="bad" class="abs">CLS: текст зсунувся вниз</div>
+  <div data-hf-id="hf-op64" id="good" class="abs">Зсуву немає: місце вже зарезервоване</div>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+const f = (s, t, d = 0.4) => tl.to(s, { opacity: 1, duration: d, ease: "power2.out" }, t);
+const o = (s, t, d = 0.35) => tl.to(s, { opacity: 0, duration: d }, t);
+const pulse = (s, t) => tl.fromTo(s, { scale: 1 }, { scale: 1.04, duration: 0.3, yoyo: true, repeat: 1 }, t);
+const SH = 380;
+f("#fl", 0.4); f("#ftl", 0.6);
+tl.to("#fr", { opacity: 0.3, duration: 0.4 }, 0.8); tl.to("#ftr", { opacity: 0.3, duration: 0.4 }, 1.0);
+f("#note", 2.6); pulse("#note", 5.2); pulse("#p2l", 7.4);
+// image arrives, text jumps
+o("#note", 10.6, 0.3);
+f("#imgl", 11.0, 0.3); tl.to("#p2l", { y: SH, duration: 0.3, ease: "power2.out" }, 11.0);
+f("#ghost", 11.4, 0.3);
+tl.to("#p2l", { borderLeftColor: "#e11d48", duration: 0.3, yoyo: true, repeat: 1 }, 13.4);
+pulse("#ghost", 15.0);
+f("#bad", 16.8, 0.35); pulse("#bad", 18.4);
+// fix: width + height
+tl.to("#fl", { opacity: 0.3, duration: 0.4 }, 20.4); tl.to("#ftl", { opacity: 0.3, duration: 0.4 }, 20.4); o("#bad", 20.4, 0.3);
+tl.to("#fr", { opacity: 1, duration: 0.4 }, 20.4); tl.to("#ftr", { opacity: 1, duration: 0.4 }, 20.4);
+f("#rsv", 21.4, 0.3); f("#rsvl", 21.5, 0.3); tl.to("#p2r", { y: SH, duration: 0.3, ease: "power2.out" }, 21.4);
+pulse("#rsvl", 23.4);
+tl.to("#imgr", { opacity: 1, duration: 0.5 }, 25.3); o("#rsvl", 25.3, 0.3); o("#rsv", 25.8, 0.3);
+f("#good", 26.2, 0.35); pulse("#good", 28.4); pulse("#p2r", 30.4);
+tl.to(["#title","#fl","#fr","#ftl","#ftr","#good","#bad"], { opacity: 0, duration: 0.3 }, 32.4);
+window.__timelines["world"] = tl;
+</script>
+</template>

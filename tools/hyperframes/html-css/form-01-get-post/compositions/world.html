@@ -1,0 +1,77 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #f8fafc; overflow: hidden; font-family: "Inter", sans-serif; color: #0f172a; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.abs { position: absolute; }
+#title { left: 80px; top: 36px; font-size: 48px; font-weight: 800; letter-spacing: -0.02em; }
+#form { left: 80px; top: 130px; width: 640px; height: 420px; border-radius: 20px; background: #fff; border: 3px solid #94a3b8; opacity: 0; }
+.fl { left: 32px; font-size: 30px; font-weight: 700; color: #334155; }
+.fb { left: 32px; width: 576px; height: 60px; border: 3px solid #cbd5e1; border-radius: 12px; font-size: 32px; padding: 10px 16px; }
+#sub { left: 32px; top: 330px; padding: 14px 32px; border-radius: 12px; background: #2563eb; color: #fff; font-size: 32px; font-weight: 700; }
+.chip { left: 780px; height: 70px; border-radius: 14px; border: 3px solid #cbd5e1; background: #fff; font-size: 38px; font-weight: 800; padding: 12px 24px; opacity: 0; white-space: nowrap; }
+#pt { left: 780px; top: 140px; font-size: 36px; font-weight: 700; color: #475569; opacity: 0; }
+#enc { left: 780px; top: 420px; font-size: 32px; color: #475569; opacity: 0; width: 1040px; line-height: 1.4; }
+.pan { left: 80px; width: 1760px; border-radius: 18px; background: #0f172a; opacity: 0; }
+.bd { left: 24px; top: 20px; padding: 6px 22px; border-radius: 10px; font-size: 32px; font-weight: 800; color: #fff; }
+.ln { left: 190px; font-size: 30px; color: #e2e8f0; white-space: nowrap; opacity: 0; }
+.q { color: #38bdf8; font-weight: 800; }
+.pl { color: #fbbf24; font-weight: 800; }
+.tg { height: 54px; border-radius: 27px; font-size: 30px; font-weight: 700; padding: 8px 24px; opacity: 0; white-space: nowrap; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="title" class="abs">Що відбувається при відправці форми</div>
+  <div id="form" class="abs">
+    <div class="abs fl" style="top:24px">Пошук:</div>
+    <div id="fq" class="abs fb mono" style="top:68px">html форми</div>
+    <div class="abs fl" style="top:158px">Мова:</div>
+    <div id="fg" class="abs fb mono" style="top:202px">uk</div>
+    <div id="sub" class="abs">Знайти</div>
+  </div>
+  <div id="pt" class="abs">Що збирає браузер: назва=значення</div>
+  <div id="c1" class="abs chip mono" style="top:210px;color:#0369a1">q = html форми</div>
+  <div id="c2" class="abs chip mono" style="top:300px;color:#7c3aed">lang = uk</div>
+  <div id="enc" class="abs">Значення кодуються: пробіл стає <b class="mono">+</b>, кирилиця — послідовностями <b class="mono">%XX</b></div>
+
+  <div id="pg" class="abs pan" style="top:580px;height:180px">
+    <div class="abs bd" style="background:#0284c7">GET</div>
+    <div id="gl" class="abs ln mono" style="top:24px"><span>https://site.example/search</span><span id="gq" style="opacity:0"><span class="pl">?</span><span class="q" id="gqs"></span></span></div>
+    <div id="gt1" class="abs tg" style="left:24px;top:100px;background:#e0f2fe;color:#0369a1">можна в закладки</div>
+    <div id="gt2" class="abs tg" style="left:360px;top:100px;background:#e0f2fe;color:#0369a1">можна поділитись</div>
+    <div id="gt3" class="abs tg" style="left:720px;top:100px;background:#e0f2fe;color:#0369a1">пошук і фільтри</div>
+  </div>
+  <div id="pp" class="abs pan" style="top:780px;height:200px">
+    <div class="abs bd" style="background:#7c3aed">POST</div>
+    <div id="pl1" class="abs ln mono" style="top:24px">POST /search</div>
+    <div id="pl2" class="abs ln mono" style="top:70px"><span class="q" id="pbs"></span></div>
+    <div id="pl3" class="abs ln mono" style="top:116px;color:#94a3b8">адреса: https://site.example/search</div>
+    <div id="pt1" class="abs tg" style="left:1030px;top:70px;background:#ede9fe;color:#6d28d9">не в історії переглядів</div>
+    <div id="pt2" class="abs tg" style="left:1030px;top:134px;background:#ede9fe;color:#6d28d9">вхід, реєстрація, оплата</div>
+  </div>
+</div>
+<script>
+const qs = new URLSearchParams({ q: "html форми", lang: "uk" }).toString();
+document.getElementById("gqs").textContent = qs;
+document.getElementById("pbs").textContent = qs;
+const tl = gsap.timeline({ paused: true });
+const f = (s, t, d = 0.4) => tl.to(s, { opacity: 1, duration: d, ease: "power2.out" }, t);
+const pulse = (s, t) => tl.fromTo(s, { scale: 1 }, { scale: 1.04, duration: 0.3, yoyo: true, repeat: 1, transformOrigin: "0 50%" }, t);
+const hl = (s, t, c) => tl.to(s, { borderColor: c, duration: 0.3 }, t);
+// l1
+f("#form", 0.4); f("#pt", 2.4); f("#c1", 3.0); f("#c2", 3.8);
+hl("#fq", 3.0, "#0ea5e9"); hl("#fg", 3.8, "#8b5cf6"); pulse("#sub", 5.0);
+// l2: GET
+f("#pg", 6.9); f("#gl", 7.2); f("#gq", 8.6);
+pulse("#c1", 9.4); pulse("#c2", 10.2);
+f("#enc", 11.6); pulse("#gq", 13.0);
+pulse("#enc", 14.4); pulse("#gl", 15.4);
+// l3: GET properties
+f("#gt1", 16.5, 0.3); f("#gt2", 18.4, 0.3); f("#gt3", 21.0, 0.3); pulse("#gl", 22.4);
+// l4: POST
+tl.to(["#pt", "#c1", "#c2", "#enc"], { opacity: 0.25, duration: 0.3 }, 24.5);
+f("#pp", 24.6); f("#pl1", 24.9); f("#pl2", 25.9); f("#pl3", 28.0); f("#pt1", 30.0, 0.3); pulse("#pl2", 31.4);
+// l5
+f("#pt2", 33.8, 0.3); pulse("#pt2", 36.0); pulse("#pp", 37.8);
+tl.to(["#title","#form","#pt","#c1","#c2","#enc","#pg","#pp"], { opacity: 0, duration: 0.3 }, 39.8);
+window.__timelines["world"] = tl;
+</script>
+</template>

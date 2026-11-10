@@ -1,6 +1,6 @@
 ---
 name: lesson-video-hyperframes
-description: Make an explainer/lesson video with HyperFrames (HTML→mp4/webm) for any lesson or article on this site and embed it where the page has a `<!-- VIDEO … -->` slot. Use when the user asks for lesson videos or animations, when new `<!-- VIDEO` slots appear (`grep -rn "^<!-- VIDEO" content`), or when an existing video must be fixed or rebuilt. Works for any subject; the user is asked about voice-over, music and look before building, and approves a preview before anything is published.
+description: Make an explainer/lesson video with HyperFrames (HTML→mp4) for any lesson or article on this site and embed it where the page has a `<!-- VIDEO … -->` slot. Use when the user asks for lesson videos or animations, when new `<!-- VIDEO` slots appear (`grep -rn "^<!-- VIDEO" content`), or when an existing video must be fixed or rebuilt. Works for any subject; the user is asked about voice-over, music and look before building, and approves a preview before anything is published.
 ---
 
 # Lesson videos with HyperFrames
@@ -10,7 +10,7 @@ Read the `hyperframes` skill first for the render contract. This skill is the **
 ## Standing rules
 - **Ask before building, preview before publishing** (see Workflow steps 1 and 7). Never render for delivery, publish into `public/` or edit a lesson before the user has approved the preview of that video — unless the user explicitly waives the approval for the current batch ("без превʼю"). A waiver applies to that batch only; ask again next time.
 - **Never delete or replace existing media** (old `anim-*`, images). New videos are added next to them unless the user says otherwise.
-- Embed as `<video controls preload="metadata" playsinline poster=… class="diagram-img rounded-xl shadow-lg w-full my-6">` with mp4 + webm sources and a jpg poster (not GIF). Narrated videos have no autoplay/muted. `_tools/embed.py` writes this.
+- Embed as `<video controls preload="metadata" playsinline poster=… class="diagram-img rounded-xl shadow-lg w-full my-6">` with an mp4 source only (no webm, to keep the deploy small) and a jpg poster (not GIF). Narrated videos have no autoplay/muted. `_tools/embed.py` writes this.
 - Never write a token or other secret into a file.
 - Talk to the user in the language they write (so far Ukrainian); on-screen and spoken language follows the lesson.
 - Do not commit unless asked. Commit trailer: `Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>`.
@@ -38,7 +38,7 @@ Record the answers in the memory file for this workflow so they need not be aske
 | project per video | `tools/hyperframes/<module>/<slot-id>/` (`index.html`, `compositions/world.html`, `compositions/lines.html`, `assets/{vo,music,sfx,img}`) |
 | helpers | `tools/hyperframes/_tools/`: `new_video.sh`, `make_index.py`, `check.sh`, `publish.sh`, `embed.py`, `sheet.py`, `tts_local.py` |
 | music | `tools/hyperframes/_music/` |
-| published | `public/videos/<course>/<module>/<lesson-folder>/<name>.{mp4,webm}`, poster `public/images/<…>/<name>-poster.jpg` |
+| published | `public/videos/<course>/<module>/<lesson-folder>/<name>.mp4`, poster `public/images/<…>/<name>-poster.jpg` |
 The helpers currently have the CNN module's paths hard-coded (`ROOT`, module folder, `TTS_PY`). For another module copy/parametrise them first (a one-line change per script) and keep the same file layout. `new_video.sh` is TTS-specific; if the user chose another voice option, create the project with `npx hyperframes init <id> --non-interactive` and put audio in `assets/vo/l1.wav…`.
 
 `<lesson-folder>`/`<name>`: if the slot's `file:` line names a path, use it. Otherwise choose a short name in the lesson's image folder. Re-publishing the same name overwrites the files and the embed stays valid.
@@ -51,7 +51,7 @@ The helpers currently have the CNN module's paths hard-coded (`ROOT`, module fol
 5. **Compose.** `compositions/world.html` (one `<template>`, `#root` 1920×1080, `window.__timelines["world"]`). Generate data-driven markup in JS (grids, dots); for big data write the file from a script that inlines JSON. `compositions/lines.html` holds the closing claim card. `index.html` via `make_index.py <id> <total> '<VO [[start,dur],…]>' '<SFX [[name,start,dur],…]>'`.
 6. **Check.** `_tools/check.sh <id>` must come back empty for lint/runtime/layout/motion/contrast/craft. Fix, don't suppress. Then `npx hyperframes snapshot --at …` and `python3 _tools/sheet.py <project-dir> <scratch>/sheet.png`; Read the sheet and compare positions/values against the data, not just "looks fine".
 7. **Preview and approval stop.** Show the user what was built: the snapshot sheet (or Studio link), the narration text with timings, which numbers are real/sourced/illustrative, and ask for approval or changes. Wait. Iterate until approved. (Skip only under an explicit waiver.)
-8. **Publish** after approval: `_tools/publish.sh <id> <name> <lesson-folder> <poster-sec>` → renders at delivery quality and prints duration, LUFS and peak; encodes mp4/webm/jpg. Read the poster jpg once.
+8. **Publish** after approval: `_tools/publish.sh <id> <name> <lesson-folder> <poster-sec>` → renders at delivery quality and prints duration, LUFS and peak; encodes mp4/jpg. Read the poster jpg once.
 9. **Embed**: `python3 _tools/embed.py <lesson.md> <slot-id> <lesson-folder> <name>` (accepts `<!-- VIDEO\nid: x` and `<!-- VIDEO id: x`). For a video without a slot first insert a minimal `<!-- VIDEO\nid: <id>\n-->` where it belongs.
 10. **Verify**: no `^<!-- VIDEO` left for finished slots; every `src=`/`poster=` in the lesson resolves under `public/`.
 11. **Report**: duration, LUFS/peak, content classes (real / sourced / illustrative), deviations from the spec; say plainly that sound was measured, not listened to, unless the user listened. Offer a commit.

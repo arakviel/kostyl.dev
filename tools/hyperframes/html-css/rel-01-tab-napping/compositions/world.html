@@ -1,0 +1,107 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #f8fafc; overflow: hidden; font-family: "Inter", sans-serif; color: #0f172a; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.abs { position: absolute; }
+#title { left: 80px; top: 36px; font-size: 48px; font-weight: 800; letter-spacing: -0.02em; }
+.win { background: #fff; border: 3px solid #94a3b8; border-radius: 20px; overflow: hidden; opacity: 0; }
+.chrome { left: 0; top: 0; width: 100%; height: 76px; background: #e2e8f0; }
+.dot { top: 28px; width: 18px; height: 18px; border-radius: 9px; }
+.urlp { left: 120px; top: 14px; width: 620px; height: 48px; border-radius: 24px; background: #fff; }
+.url { left: 20px; top: 8px; font-size: 28px; white-space: nowrap; color: #334155; }
+.h { left: 36px; font-size: 42px; font-weight: 800; white-space: nowrap; }
+.t { left: 36px; font-size: 32px; color: #334155; white-space: nowrap; }
+.btn { left: 36px; padding: 16px 28px; border-radius: 14px; background: #2563eb; color: #fff; font-size: 32px; font-weight: 700; white-space: nowrap; }
+.fld { left: 36px; width: 520px; height: 56px; border: 2px solid #cbd5e1; border-radius: 10px; font-size: 28px; color: #64748b; padding: 10px 16px; }
+#conn { left: 802px; top: 400px; width: 276px; height: 0; border-top: 6px dashed #e11d48; opacity: 0; }
+#connlab { left: 802px; top: 340px; width: 276px; text-align: center; font-size: 30px; font-weight: 800; color: #e11d48; opacity: 0; }
+#connlab2 { left: 802px; top: 310px; width: 276px; text-align: center; font-size: 30px; font-weight: 800; color: #059669; opacity: 0; }
+#cross { left: 922px; top: 366px; font-size: 80px; font-weight: 800; color: #059669; opacity: 0; }
+.code { left: 80px; top: 740px; width: 1760px; height: 110px; border-radius: 16px; background: #0f172a; font-size: 34px; padding: 34px 32px; white-space: nowrap; opacity: 0; color: #e2e8f0; }
+.code b { color: #fbbf24; font-weight: 700; }
+.code i { color: #38bdf8; font-style: normal; }
+.code u { color: #34d399; text-decoration: none; font-weight: 800; }
+#ref { left: 80px; top: 890px; font-size: 34px; opacity: 0; white-space: nowrap; }
+#refx { left: 80px; top: 906px; width: 780px; height: 5px; background: #e11d48; opacity: 0; }
+#refn { left: 940px; top: 888px; font-size: 32px; color: #475569; opacity: 0; white-space: nowrap; }
+#compat { left: 80px; top: 960px; font-size: 32px; font-weight: 600; color: #047857; opacity: 0; white-space: nowrap; }
+#badge { left: 80px; top: 760px; opacity: 0; }
+#tag { left: 420px; top: 36px; font-size: 38px; font-weight: 800; color: #fff; background: #e11d48; padding: 6px 24px; border-radius: 14px; opacity: 0; }
+</style>
+<div data-hf-id="hf-1dtx" id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-8knk" id="title" class="abs">target="_blank" і window.opener</div>
+  <div data-hf-id="hf-5x6p" id="tag" class="abs" style="left:1100px">tab napping</div>
+
+  <div data-hf-id="hf-pj3q" id="wl" class="abs win" style="left:60px;top:130px;width:730px;height:560px">
+    <div data-hf-id="hf-i3w6" class="abs chrome">
+      <div data-hf-id="hf-uuyn" class="abs dot" style="left:24px;background:#fb7185"></div><div data-hf-id="hf-4v7n" class="abs dot" style="left:54px;background:#fbbf24"></div><div data-hf-id="hf-6zew" class="abs dot" style="left:84px;background:#34d399"></div>
+      <div data-hf-id="hf-iuzd" class="abs urlp"><div data-hf-id="hf-pxhz" id="urla" data-layout-allow-overlap class="abs url mono">https://shop.example/account</div><div data-hf-id="hf-ylpx" id="urlb" data-layout-allow-overlap class="abs url mono" style="color:#e11d48;font-weight:800;opacity:0">https://shop-login.example/signin</div></div>
+    </div>
+    <div data-hf-id="hf-j33e" id="bodya" data-layout-allow-overlap>
+      <div data-hf-id="hf-yqdi" class="abs h" style="top:120px">Ваш акаунт</div>
+      <div data-hf-id="hf-u5oa" class="abs t" style="top:200px">Баланс: 12 480 грн</div>
+      <div data-hf-id="hf-q1x8" id="lnk" class="abs btn" style="top:290px">Партнерська пропозиція ↗</div>
+    </div>
+    <div data-hf-id="hf-gxyw" id="bodyb" data-layout-allow-overlap style="opacity:0">
+      <div data-hf-id="hf-k7d8" class="abs h" style="top:110px;color:#e11d48">Сесію завершено</div>
+      <div data-hf-id="hf-43ke" class="abs fld" style="top:200px">Логін</div>
+      <div data-hf-id="hf-cxg9" class="abs fld" style="top:280px">Пароль</div>
+      <div data-hf-id="hf-7uty" class="abs btn" style="top:370px;background:#e11d48">Увійти</div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-fzvo" id="wr" class="abs win" style="left:1090px;top:200px;width:730px;height:490px">
+    <div data-hf-id="hf-m07u" class="abs chrome">
+      <div data-hf-id="hf-h0sf" class="abs dot" style="left:24px;background:#fb7185"></div><div data-hf-id="hf-0uir" class="abs dot" style="left:54px;background:#fbbf24"></div><div data-hf-id="hf-pb9c" class="abs dot" style="left:84px;background:#34d399"></div>
+      <div data-hf-id="hf-4bvx" class="abs urlp"><div data-hf-id="hf-et8q" class="abs url mono">https://ads.example/offer</div></div>
+    </div>
+    <div data-hf-id="hf-lhc2" class="abs h" style="top:110px">Чужий сайт</div>
+    <div data-hf-id="hf-tk9s" id="rc1" class="abs mono" style="left:36px;top:200px;font-size:28px;color:#334155;opacity:0;white-space:nowrap">window.opener.location =<br data-hf-id="hf-x5px">&nbsp;&nbsp;"https://shop-login.example/signin"</div>
+    <div data-hf-id="hf-5ofs" id="rc2" class="abs mono" style="left:36px;top:200px;font-size:28px;color:#e11d48;font-weight:700;opacity:0;white-space:nowrap">TypeError: Cannot set properties<br data-hf-id="hf-rsrt">of null (setting 'location')</div>
+  </div>
+
+  <div data-hf-id="hf-szfk" id="conn" class="abs"></div>
+  <div data-hf-id="hf-lqmf" id="connlab" class="abs mono">window.opener</div>
+  <div data-hf-id="hf-jwq9" id="cross" class="abs">✕</div>
+  <div data-hf-id="hf-ootp" id="connlab2" class="abs mono">window.opener<br data-hf-id="hf-szow">= null</div>
+
+  <div data-hf-id="hf-ol7g" id="codeA" class="abs code mono">&lt;a <i data-hf-id="hf-hptt">href</i>=<b data-hf-id="hf-yyay">"https://ads.example"</b> <i data-hf-id="hf-ys2t">target</i>=<b data-hf-id="hf-nuiy">"_blank"</b>&gt;Партнер&lt;/a&gt;</div>
+  <div data-hf-id="hf-2huc" id="codeB" class="abs code mono">&lt;a <i data-hf-id="hf-mxw5">href</i>=<b data-hf-id="hf-9hbi">"https://ads.example"</b> <i data-hf-id="hf-c5x5">target</i>=<b data-hf-id="hf-1ury">"_blank"</b> <i data-hf-id="hf-0ev7">rel</i>=<u data-hf-id="hf-0kj8">"noopener noreferrer"</u>&gt;Партнер&lt;/a&gt;</div>
+  <div data-hf-id="hf-l3ou" id="ref" class="abs mono">Referer: https://shop.example/account</div>
+  <div data-hf-id="hf-73k3" id="refx" class="abs"></div>
+  <div data-hf-id="hf-b31f" id="refn" class="abs">noreferrer: заголовок не передається</div>
+  <div data-hf-id="hf-j5z8" id="compat" class="abs">Chrome 88+ і Safari 12.1+ ставлять noopener самі, явний rel — для всіх</div>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+const f = (s, t, d = 0.4) => tl.to(s, { opacity: 1, duration: d, ease: "power2.out" }, t);
+const o = (s, t, d = 0.35) => tl.to(s, { opacity: 0, duration: d }, t);
+const pulse = (s, t) => tl.fromTo(s, { scale: 1 }, { scale: 1.04, duration: 0.3, yoyo: true, repeat: 1 }, t);
+// phase 1: link opens a new tab
+f("#wl", 0.4); f("#codeA", 1.4);
+pulse("#lnk", 2.2); f("#wr", 3.0, 0.5);
+tl.fromTo("#conn", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 4.4); f("#connlab", 4.6);
+pulse("#connlab", 6.2); pulse("#codeA", 6.9);
+// phase 2: hijack
+f("#rc1", 9.4);
+tl.to("#urlb", { opacity: 1, duration: 0.4 }, 11.0); o("#urla", 11.0); tl.to("#bodyb", { opacity: 1, duration: 0.4 }, 11.2); o("#bodya", 11.0);
+tl.to("#wl", { borderColor: "#e11d48", duration: 0.4 }, 11.4);
+pulse("#urlb", 13.0); f("#tag", 14.2, 0.3); pulse("#tag", 15.4);
+// phase 3: rel="noopener"
+o("#codeA", 17.2); f("#codeB", 17.3);
+tl.to("#urla", { opacity: 1, duration: 0.4 }, 17.6); o("#urlb", 17.6); tl.to("#bodya", { opacity: 1, duration: 0.4 }, 17.6); o("#bodyb", 17.6);
+tl.to("#wl", { borderColor: "#94a3b8", duration: 0.4 }, 17.8); o("#tag", 17.6, 0.3);
+o("#rc1", 19.2); f("#rc2", 19.6);
+o("#conn", 20.6); o("#connlab", 20.6); f("#cross", 20.9, 0.3); f("#connlab2", 22.0);
+pulse("#codeB", 18.6); pulse("#cross", 22.8);
+// phase 4: noreferrer
+f("#ref", 24.8);
+tl.to("#refx", { opacity: 1, duration: 0.3 }, 27.2); f("#refn", 27.6);
+pulse("#codeB", 25.4);
+// phase 5: compat
+f("#compat", 30.8); pulse("#codeB", 32.6); pulse("#compat", 34.0);
+// close
+tl.to(["#title","#wl","#wr","#conn","#codeB","#ref","#refx","#refn","#compat","#cross","#connlab2","#rc2","#tag"], { opacity: 0, duration: 0.3 }, 35.7);
+window.__timelines["world"] = tl;
+</script>
+</template>

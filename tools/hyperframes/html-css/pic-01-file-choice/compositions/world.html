@@ -1,0 +1,119 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #f8fafc; overflow: hidden; font-family: "Inter", sans-serif; color: #0f172a; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.abs { position: absolute; }
+#title { left: 80px; top: 36px; font-size: 48px; font-weight: 800; letter-spacing: -0.02em; }
+#sbox { left: 80px; top: 130px; width: 840px; height: 290px; border-radius: 18px; background: #0f172a; opacity: 0; }
+#slab { left: 28px; top: 20px; font-size: 32px; color: #94a3b8; }
+.sr { left: 16px; width: 808px; height: 62px; border-radius: 10px; background: transparent; }
+.srt { left: 28px; font-size: 34px; color: #e2e8f0; white-space: nowrap; }
+.bar { left: 80px; height: 44px; width: 800px; border-radius: 10px; transform-origin: 0 50%; opacity: 0; }
+.bl { left: 80px; font-size: 34px; font-weight: 700; white-space: nowrap; opacity: 0; }
+#track { left: 80px; top: 470px; width: 800px; height: 6px; background: #cbd5e1; border-radius: 3px; opacity: 0; }
+#calc { left: 960px; top: 130px; width: 880px; height: 340px; border-radius: 18px; background: #fff; border: 3px solid #cbd5e1; opacity: 0; }
+.cl { left: 32px; white-space: nowrap; opacity: 0; }
+#chipsl { left: 960px; top: 510px; font-size: 34px; font-weight: 700; color: #475569; opacity: 0; }
+.chip { top: 570px; width: 200px; height: 96px; border-radius: 16px; background: #fff; border: 3px solid #cbd5e1; font-size: 40px; font-weight: 800; text-align: center; padding-top: 24px; opacity: 0; color: #334155; }
+#pick { left: 960px; top: 710px; font-size: 48px; font-weight: 800; color: #047857; opacity: 0; white-space: nowrap; }
+#tbl { left: 960px; top: 150px; width: 880px; opacity: 0; }
+.th { top: 0; font-size: 32px; font-weight: 700; color: #475569; white-space: nowrap; }
+.tr { left: 0; width: 880px; height: 130px; border-radius: 16px; background: #fff; border: 3px solid #cbd5e1; opacity: 0; }
+.td { top: 40px; font-size: 38px; font-weight: 800; white-space: nowrap; }
+</style>
+<div data-hf-id="hf-1dtx" id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-0280" id="title" class="abs">Браузер вибирає файл із srcset</div>
+
+  <div data-hf-id="hf-6ojx" id="sbox" class="abs mono">
+    <div data-hf-id="hf-gzv7" id="slab" class="abs">sizes=</div>
+    <div data-hf-id="hf-8cxy" id="sr0" class="abs sr" style="top:70px"></div><div data-hf-id="hf-ktv6" class="abs srt" style="top:84px">(max-width: 600px) 100vw,</div>
+    <div data-hf-id="hf-xfjl" id="sr1" class="abs sr" style="top:140px"></div><div data-hf-id="hf-qif3" class="abs srt" style="top:154px">(max-width: 1200px) 50vw,</div>
+    <div data-hf-id="hf-fhz6" id="sr2" class="abs sr" style="top:210px"></div><div data-hf-id="hf-velq" class="abs srt" style="top:224px">800px</div>
+  </div>
+  <div data-hf-id="hf-9pyj" id="track" class="abs"></div>
+  <div data-hf-id="hf-juo4" id="wbar" class="abs bar" style="top:440px;background:#38bdf8;transform:scaleX(0.3125)"></div>
+  <div data-hf-id="hf-95d7" id="wlab" class="abs bl mono" style="top:495px;color:#0369a1">вікно: 500 px</div>
+  <div data-hf-id="hf-hsa2" id="sbar" class="abs bar" style="top:560px;background:#fbbf24;transform:scaleX(0.3125)"></div>
+  <div data-hf-id="hf-5g8v" id="slab2" class="abs bl mono" style="top:615px;color:#b45309">слот: 500 px</div>
+
+  <div data-hf-id="hf-kk65" id="calc" class="abs">
+    <div data-hf-id="hf-p3r2" class="abs" style="left:32px;top:24px;font-size:34px;font-weight:700;color:#475569">Яка ширина файлу потрібна</div>
+    <div data-hf-id="hf-p6a5" id="cf" class="abs cl mono" style="top:90px;font-size:38px;color:#334155">слот × DPR = потрібно</div>
+    <div data-hf-id="hf-n8d6" id="c1" class="abs cl mono" style="top:170px;font-size:48px;font-weight:800;color:#0369a1">500 × 1 = 500 px</div>
+    <div data-hf-id="hf-3xlo" id="c2" class="abs cl mono" style="top:250px;font-size:48px;font-weight:800;color:#7c3aed">500 × 2 = 1000 px</div>
+  </div>
+  <div data-hf-id="hf-g18c" id="chipsl" class="abs mono">srcset:</div>
+  <div data-hf-id="hf-ylh3" id="k0" class="abs chip mono" style="left:960px">400w</div>
+  <div data-hf-id="hf-pl7t" id="k1" class="abs chip mono" style="left:1180px">800w</div>
+  <div data-hf-id="hf-j6sa" id="k2" class="abs chip mono" style="left:1400px">1200w</div>
+  <div data-hf-id="hf-341d" id="k3" class="abs chip mono" style="left:1620px">1600w</div>
+  <div data-hf-id="hf-lhbc" id="pick" class="abs mono"></div>
+  <div data-hf-id="hf-uend" id="pk1" class="abs mono" style="left:960px;top:710px;font-size:48px;font-weight:800;color:#0369a1;opacity:0;white-space:nowrap">DPR 1 → 800w</div>
+  <div data-hf-id="hf-25ud" id="pk2" class="abs mono" style="left:960px;top:710px;font-size:48px;font-weight:800;color:#7c3aed;opacity:0;white-space:nowrap">DPR 2 → 1200w</div>
+
+  <div id="dwin" class="abs mono" style="left:80px;top:190px;font-size:34px;font-weight:700;opacity:0"><span id="dw0" class="abs" style="left:0;color:#0369a1;opacity:0;white-space:nowrap">вікно: 500 px</span><span id="dw1" class="abs" style="left:0;color:#0369a1;opacity:0;white-space:nowrap">вікно: 900 px</span><span id="dw2" class="abs" style="left:0;color:#0369a1;opacity:0;white-space:nowrap">вікно: 1400 px</span></div>
+  <div id="dframe" class="abs" style="left:80px;top:260px;width:300px;height:440px;border:3px solid #94a3b8;border-radius:16px;background:#fff;overflow:hidden;opacity:0">
+    <div class="abs" style="left:0;top:0;width:100%;height:40px;background:#e2e8f0"></div>
+    <div id="dimg" class="abs" style="left:10px;top:60px;width:280px;height:158px;border-radius:8px;overflow:hidden;background:linear-gradient(#7dd3fc,#e0f2fe)">
+      <div class="abs" style="left:0;bottom:0;width:100%;height:55%;background:#64748b;clip-path:polygon(0 100%,25% 20%,50% 70%,70% 35%,100% 100%)"></div>
+      <div id="dfile" class="abs mono" style="left:0;top:8px;width:100%;text-align:center;font-size:34px;font-weight:800;color:#0f172a">800w</div>
+    </div>
+    <div class="abs" style="left:10px;top:355px;width:90%;height:14px;border-radius:7px;background:#e2e8f0"></div>
+    <div class="abs" style="left:10px;top:387px;width:70%;height:14px;border-radius:7px;background:#e2e8f0"></div>
+  </div>
+  <div id="dpr2" class="abs mono" style="left:80px;top:730px;font-size:40px;font-weight:800;color:#7c3aed;opacity:0;white-space:nowrap">DPR 2 → 1600w</div>
+  <div data-hf-id="hf-qw78" id="tbl" class="abs"></div>
+</div>
+<script>
+const FILES = [400, 800, 1200, 1600];
+const slotOf = w => w <= 600 ? w : (w <= 1200 ? w * 0.5 : 800);
+const pick = n => FILES.find(x => x >= n) || 1600;
+const tbl = document.getElementById("tbl");
+tbl.insertAdjacentHTML("beforeend",
+  `<div class="abs th" style="left:30px">вікно</div><div class="abs th" style="left:250px">слот</div><div class="abs th" style="left:480px">DPR 1</div><div class="abs th" style="left:700px">DPR 2</div>`);
+[500, 900, 1400].forEach((w, i) => {
+  const s = slotOf(w);
+  tbl.insertAdjacentHTML("beforeend",
+    `<div id="tr${i}" class="abs tr mono" style="top:${70 + i * 160}px">` +
+    `<div class="abs td" style="left:30px;color:#0369a1">${w} px</div>` +
+    `<div class="abs td" style="left:250px;color:#b45309">${s} px</div>` +
+    `<div class="abs td" style="left:480px;color:#0369a1">${pick(s)}w</div>` +
+    `<div class="abs td" style="left:700px;color:#7c3aed">${pick(s * 2)}w</div></div>`);
+});
+const tl = gsap.timeline({ paused: true });
+const f = (s, t, d = 0.4) => tl.to(s, { opacity: 1, duration: d, ease: "power2.out" }, t);
+const o = (s, t, d = 0.35) => tl.to(s, { opacity: 0, duration: d }, t);
+const pulse = (s, t) => tl.fromTo(s, { scale: 1 }, { scale: 1.05, duration: 0.3, yoyo: true, repeat: 1, transformOrigin: "0 50%" }, t);
+const hl = (s, t, c) => tl.to(s, { backgroundColor: c, duration: 0.3 }, t);
+// l1
+f("#sbox", 0.4); f("#track", 3.4); f("#wbar", 3.8); f("#wlab", 4.0);
+f("#chipsl", 1.6); ["#k0","#k1","#k2","#k3"].forEach((k, i) => f(k, 1.8 + i * 0.25, 0.3));
+pulse("#slab", 5.6);
+pulse("#wlab", 7.9);
+// l2: window 500, first rule wins
+hl("#sr0", 9.4, "#1e3a8a"); f("#sbar", 10.4); f("#slab2", 10.6); pulse("#slab2", 12.2);
+// l3: DPR
+f("#calc", 14.2); f("#cf", 14.9); f("#c1", 16.6); f("#c2", 19.3); pulse("#c2", 21.7);
+pulse("#c1", 24.2); pulse("#c2", 25.2);
+// l4: srcset pick
+hl("#k0", 26.2, "#fecaca"); tl.to("#k0", { opacity: 0.45, duration: 0.3 }, 26.2);
+hl("#k1", 29.2, "#bbf7d0"); f("#pk1", 29.3);
+o("#pk1", 31.7, 0.25); hl("#k1", 31.7, "#ffffff"); hl("#k2", 31.9, "#ddd6fe"); f("#pk2", 32.0);
+pulse("#pk2", 33.6);
+// l5: table
+tl.to(["#sbox","#track","#wbar","#wlab","#sbar","#slab2","#calc","#chipsl","#k0","#k1","#k2","#k3","#pk2"], { opacity: 0, duration: 0.3 }, 35.0);
+f("#tbl", 35.3, 0.3); ["#tr0","#tr1","#tr2"].forEach((r, i) => f(r, 35.8 + i * 1.5, 0.35));
+f("#dframe", 35.3, 0.3); f("#dwin", 35.3, 0.3);
+const DW = [[300, 280, 158], [540, 270, 152], [840, 480, 270]];
+DW.forEach((d, i) => {
+  const t = 35.8 + i * 1.5;
+  tl.to("#dframe", { width: d[0], duration: 0.7, ease: "power2.inOut" }, t);
+  tl.to("#dimg", { width: d[1], height: d[2], duration: 0.7, ease: "power2.inOut" }, t);
+  tl.to("#dw" + i, { opacity: 1, duration: 0.3 }, t);
+  if (i > 0) tl.to("#dw" + (i - 1), { opacity: 0, duration: 0.3 }, t);
+});
+f("#dpr2", 39.2, 0.3); pulse("#dpr2", 39.6);
+tl.to(["#title","#tbl","#tr0","#tr1","#tr2","#dframe","#dwin","#dpr2","#dw2"], { opacity: 0, duration: 0.3 }, 40.2);
+window.__timelines["world"] = tl;
+</script>
+</template>

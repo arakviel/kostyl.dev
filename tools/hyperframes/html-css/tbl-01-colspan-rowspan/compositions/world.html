@@ -1,0 +1,79 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #f8fafc; overflow: hidden; font-family: "Inter", sans-serif; color: #0f172a; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.abs { position: absolute; }
+#title { left: 80px; top: 36px; font-size: 48px; font-weight: 800; letter-spacing: -0.02em; }
+#panel { left: 60px; top: 150px; width: 920px; height: 260px; border-radius: 18px; background: #0f172a; }
+.cd { left: 24px; top: 28px; width: 880px; font-size: 28px; line-height: 64px; color: #e2e8f0; white-space: pre; opacity: 0; }
+.cd .a { color: #fbbf24; font-weight: 800; }
+.cd .r { color: #fb7185; font-weight: 800; }
+#grid { left: 1000px; top: 150px; }
+.cell { width: 190px; height: 90px; border-radius: 12px; background: #e0f2fe; border: 3px solid #0ea5e9; font-size: 34px; font-weight: 800; color: #0369a1; text-align: center; padding-top: 22px; }
+#lbl { left: 60px; top: 470px; font-size: 38px; font-weight: 700; color: #334155; opacity: 0; }
+.nt { left: 60px; top: 540px; width: 920px; font-size: 34px; color: #475569; opacity: 0; }
+#bad { z-index: 3; background: #fee2e2; border: 3px dashed #e11d48; color: #b91c1c; opacity: 0; }
+#badl { left: 1030px; top: 520px; font-size: 34px; font-weight: 800; color: #b91c1c; opacity: 0; width: 840px; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="title" class="abs">Таблиця — це сітка</div>
+  <div id="panel" class="abs">
+    <div id="c0" class="abs cd mono">&lt;tr&gt;&lt;td&gt;A1&lt;/td&gt;&lt;td&gt;B1&lt;/td&gt;&lt;td&gt;C1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;A2&lt;/td&gt;&lt;td&gt;B2&lt;/td&gt;&lt;td&gt;C2&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;A3&lt;/td&gt;&lt;td&gt;B3&lt;/td&gt;&lt;td&gt;C3&lt;/td&gt;&lt;/tr&gt;</div>
+    <div id="c1" class="abs cd mono">&lt;tr&gt;&lt;td <span class="a">colspan="2"</span>&gt;A1&lt;/td&gt;&lt;td&gt;C1&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;A2&lt;/td&gt;&lt;td&gt;B2&lt;/td&gt;&lt;td&gt;C2&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;A3&lt;/td&gt;&lt;td&gt;B3&lt;/td&gt;&lt;td&gt;C3&lt;/td&gt;&lt;/tr&gt;</div>
+    <div id="c2" class="abs cd mono">&lt;tr&gt;&lt;td <span class="a">rowspan="2"</span>&gt;A&lt;/td&gt;&lt;td&gt;B&lt;/td&gt;&lt;td&gt;C&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;B2&lt;/td&gt;&lt;td&gt;C2&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;A3&lt;/td&gt;&lt;td&gt;B3&lt;/td&gt;&lt;td&gt;C3&lt;/td&gt;&lt;/tr&gt;</div>
+    <div id="c3" class="abs cd mono">&lt;tr&gt;&lt;td <span class="a">rowspan="2"</span>&gt;A&lt;/td&gt;&lt;td&gt;B&lt;/td&gt;&lt;td&gt;C&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;A2&lt;/td&gt;&lt;td&gt;B2&lt;/td&gt;<span class="r">&lt;td&gt;C2&lt;/td&gt;</span>&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;A3&lt;/td&gt;&lt;td&gt;B3&lt;/td&gt;&lt;td&gt;C3&lt;/td&gt;&lt;/tr&gt;</div>
+  </div>
+  <div id="lbl" class="abs">одна комірка — одна клітинка сітки</div>
+  <div id="n1" class="abs nt">colspan="2": комірка займає два стовпці, у рядку на одну td менше</div>
+  <div id="n2" class="abs nt">rowspan="2": клітинка в наступному рядку вже зайнята, td там не пишуть</div>
+  <div id="n3" class="abs nt" style="color:#b91c1c;font-weight:700">зайва td виходить за межі сітки: зʼявляється четвертий стовпець</div>
+  <div id="grid" class="abs"></div>
+  <div id="bad" class="abs cell">C2</div>
+</div>
+<script>
+const GX = 1000, GY = 150, DX = 210, DY = 110;
+const grid = document.getElementById("grid");
+const names = r => ["A", "B", "C"].map(l => l + (r + 1));
+for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++)
+  grid.insertAdjacentHTML("beforeend", `<div id="g${r}${c}" class="abs cell" style="left:${c * DX}px;top:${r * DY}px;opacity:0">${names(r)[c]}</div>`);
+// row 2 relabel overlay for the error case (A2,B2 shifted by one column)
+const bad = document.getElementById("bad");
+bad.style.left = (GX + 3 * DX) + "px"; bad.style.top = (GY + 1 * DY) + "px";
+const tl = gsap.timeline({ paused: true });
+const f = (s, t, d = 0.4) => tl.to(s, { opacity: 1, duration: d, ease: "power2.out" }, t);
+const o = (s, t, d = 0.35) => tl.to(s, { opacity: 0, duration: d }, t);
+const pulse = (s, t) => tl.fromTo(s, { scale: 1 }, { scale: 1.06, duration: 0.3, yoyo: true, repeat: 1 }, t);
+// phase 1: plain grid
+f("#c0", 0.6); f("#lbl", 1.0);
+for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) f(`#g${r}${c}`, 1.4 + (r * 3 + c) * 0.25, 0.3);
+pulse("#g00", 4.6); pulse("#g11", 5.4); pulse("#g22", 6.0);
+// phase 2: colspan (7.5)
+o("#c0", 7.5); f("#c1", 7.6); o("#lbl", 7.5); f("#n1", 7.8);
+pulse("#c1", 9.0);
+tl.to("#g00", { width: 400, duration: 0.7, ease: "power2.inOut" }, 11.0); o("#g01", 11.0, 0.3);
+pulse("#g00", 13.2); pulse("#g02", 14.4);
+// phase 3: rowspan (17.12)
+o("#c1", 17.12); f("#c2", 17.2); o("#n1", 17.12); f("#n2", 17.4);
+tl.to("#g00", { width: 190, duration: 0.5 }, 17.2); f("#g01", 17.4, 0.3);
+tl.to("#g00", { height: 200, duration: 0.7, ease: "power2.inOut" }, 20.8); o("#g10", 20.8, 0.3);
+pulse("#g00", 22.8); pulse("#g12", 24.0);
+// phase 4: error (26.22)
+o("#c2", 26.22); f("#c3", 26.3); o("#n2", 26.22); f("#n3", 26.5);
+f("#g10", 28.0, 0.3);
+tl.to("#g10", { x: DX, duration: 0.5, ease: "power2.inOut" }, 28.0);
+tl.to("#g11", { x: DX, duration: 0.5, ease: "power2.inOut" }, 28.0);
+tl.to("#g12", { opacity: 0, duration: 0.3 }, 28.0);
+tl.to("#g12", { opacity: 0, duration: 0.01 }, 28.4);
+f("#bad", 29.6); pulse("#bad", 31.2);
+tl.to(["#title","#panel","#grid","#bad","#n3","#c3"], { opacity: 0, duration: 0.3 }, 33.1);
+window.__timelines["world"] = tl;
+</script>
+</template>

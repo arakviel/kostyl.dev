@@ -1,0 +1,71 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #f8fafc; overflow: hidden; font-family: "Inter", sans-serif; color: #0f172a; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.abs { position: absolute; }
+#title { left: 80px; top: 36px; font-size: 48px; font-weight: 800; letter-spacing: -0.02em; }
+.card { width: 860px; height: 380px; border-radius: 20px; background: #fff; border: 3px solid #cbd5e1; opacity: 0; }
+.code { left: 24px; top: 24px; width: 560px; height: 332px; border-radius: 14px; background: #0f172a; color: #e2e8f0; font-size: 28px; line-height: 44px; padding: 14px 18px; white-space: pre; }
+.code .a { color: #fbbf24; font-weight: 800; }
+.list { left: 604px; top: 36px; width: 240px; }
+.it { left: 0; height: 64px; font-size: 30px; white-space: nowrap; }
+.num { left: 0; top: 0; width: 66px; font-size: 38px; font-weight: 800; opacity: 0; }
+.tx { left: 70px; top: 4px; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="title" class="abs">Нумерація в &lt;ol&gt;: правила рахунку</div>
+  <div id="cards"></div>
+</div>
+<script>
+const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const CARDS = [
+  { x: 80, y: 130, col: "#0369a1", attr: null,
+    code: ["<ol>", "  <li>Термінал</li>", "  <li>Проєкт</li>", "  <li>Запуск</li>", "</ol>"],
+    items: ["Термінал", "Проєкт", "Запуск"], nums: [1, 2, 3] },
+  { x: 980, y: 130, col: "#7c3aed", attr: 'start="5"',
+    code: ['<ol start="5">', "  <li>Перший</li>", "  <li>Другий</li>", "</ol>"],
+    items: ["Перший", "Другий"], nums: [5, 6] },
+  { x: 80, y: 550, col: "#047857", attr: "reversed",
+    code: ["<ol reversed>", "  <li>Олена</li>", "  <li>Ігор</li>", "  <li>Марія</li>", "</ol>"],
+    items: ["Олена", "Ігор", "Марія"], nums: [3, 2, 1] },
+  { x: 980, y: 550, col: "#b45309", attr: 'value="',
+    code: ["<ol>", '  <li value="10">Пункт A</li>', "  <li>Пункт B</li>", '  <li value="20">Пункт C</li>', "  <li>Пункт D</li>", "</ol>"],
+    items: ["Пункт A", "Пункт B", "Пункт C", "Пункт D"], nums: [10, 11, 20, 21] },
+];
+const cards = document.getElementById("cards");
+CARDS.forEach((c, i) => {
+  const code = c.code.map(l => {
+    let h = esc(l);
+    if (c.attr) h = h.replace(esc(c.attr), `<span class="a">${esc(c.attr)}</span>`);
+    if (i === 3) h = h.replace(/value="(\d+)"/g, (m) => `<span class="a">${m}</span>`);
+    return h;
+  }).join("\n");
+  const items = c.items.map((t, k) =>
+    `<div class="abs it" style="top:${k * 76}px"><div id="n${i}_${k}" class="abs num mono" style="color:${c.col}">${c.nums[k]}.</div><div class="abs tx">${esc(t)}</div></div>`).join("");
+  cards.insertAdjacentHTML("beforeend",
+    `<div id="card${i}" class="abs card" style="left:${c.x}px;top:${c.y}px"><div class="abs code mono">${code}</div><div class="abs list">${items}</div></div>`);
+});
+const tl = gsap.timeline({ paused: true });
+const pop = (s, t) => tl.fromTo(s, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)", transformOrigin: "0 50%" }, t);
+const pulse = (s, t) => tl.fromTo(s, { scale: 1 }, { scale: 1.1, duration: 0.25, yoyo: true, repeat: 1, transformOrigin: "0 50%" }, t);
+const cardIn = (i, t) => tl.to("#card" + i, { opacity: 1, duration: 0.4 }, t);
+// card 0: plain
+cardIn(0, 0.8);
+[3.6, 4.2, 4.8].forEach((t, k) => pop("#n0_" + k, t));
+pulse("#n0_0", 6.0); pulse("#n0_2", 6.6);
+// card 1: start
+cardIn(1, 8.2); tl.to("#card0", { opacity: 0.8, duration: 0.3 }, 8.2);
+pulse("#card1 .code", 9.4); pulse("#card1 .code", 11.2);
+pop("#n1_0", 13.6); pop("#n1_1", 14.3);
+// card 2: reversed
+cardIn(2, 16.0); tl.to("#card1", { opacity: 0.8, duration: 0.3 }, 16.0);
+pulse("#card2 .code", 17.6); pulse("#card2 .code", 19.6);
+pop("#n2_0", 21.2); pop("#n2_1", 22.1); pop("#n2_2", 23.0);
+// card 3: value
+cardIn(3, 24.9); tl.to("#card2", { opacity: 0.8, duration: 0.3 }, 24.9);
+pulse("#card3 .code", 26.6); pulse("#card3 .code", 28.8); pulse("#card3 .code", 30.4);
+pop("#n3_0", 31.9); pop("#n3_1", 32.8); pop("#n3_2", 33.7); pop("#n3_3", 34.8);
+tl.to(["#title", "#cards"], { opacity: 0, duration: 0.3 }, 35.9);
+window.__timelines["world"] = tl;
+</script>
+</template>

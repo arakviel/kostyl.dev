@@ -1,0 +1,77 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #f8fafc; overflow: hidden; font-family: "Inter", sans-serif; color: #0f172a; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.abs { position: absolute; }
+#title { left: 80px; top: 36px; font-size: 48px; font-weight: 800; letter-spacing: -0.02em; }
+#form { left: 60px; top: 130px; width: 860px; height: 800px; border-radius: 20px; background: #fff; border: 3px solid #94a3b8; opacity: 0; }
+.fl { left: 32px; font-size: 30px; font-weight: 700; color: #334155; }
+.fb { left: 32px; width: 460px; height: 64px; border: 4px solid #cbd5e1; border-radius: 12px; background: #fff; }
+.val { left: 16px; top: 8px; font-size: 32px; white-space: nowrap; opacity: 0; }
+.hint { left: 516px; font-size: 30px; font-weight: 700; white-space: nowrap; opacity: 0; }
+#btn { left: 32px; top: 700px; padding: 16px 40px; border-radius: 12px; background: #2563eb; color: #fff; font-size: 34px; font-weight: 700; }
+#code { left: 960px; top: 130px; width: 900px; height: 360px; border-radius: 18px; background: #0f172a; }
+.cd { left: 24px; top: 24px; font-size: 28px; line-height: 64px; color: #e2e8f0; white-space: pre; opacity: 0; }
+.cd .a { color: #fbbf24; font-weight: 800; }
+#bubble { left: 516px; top: 140px; padding: 12px 22px; border-radius: 12px; background: #1e293b; color: #fff; font-size: 30px; font-weight: 600; opacity: 0; white-space: nowrap; }
+#stop { left: 960px; top: 540px; width: 900px; padding: 18px 28px; border-radius: 16px; background: #fee2e2; border: 3px solid #e11d48; color: #b91c1c; font-size: 38px; font-weight: 800; opacity: 0; }
+#ok { left: 960px; top: 540px; width: 900px; padding: 18px 28px; border-radius: 16px; background: #d1fae5; border: 3px solid #10b981; color: #047857; font-size: 38px; font-weight: 800; opacity: 0; }
+#srv { left: 960px; top: 700px; width: 900px; padding: 18px 28px; border-radius: 16px; background: #fef3c7; border: 3px solid #f59e0b; color: #92400e; font-size: 36px; font-weight: 700; opacity: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="title" class="abs">Валідація форми в браузері</div>
+  <div id="code" class="abs mono">
+    <div id="k0" class="abs cd">&lt;input name="name" <span class="a">required</span>&gt;
+&lt;input name="username" <span class="a">minlength="3"</span>&gt;
+&lt;input type="number" name="age" <span class="a">min="18"</span>&gt;
+&lt;input <span class="a">type="email"</span> name="email"&gt;</div>
+    <div id="k1" class="abs cd">input<span class="a">:invalid</span> { border-color: red; }
+input<span class="a">:valid</span> { border-color: green; }</div>
+  </div>
+  <div id="form" class="abs">
+    <div class="abs fl" style="top:24px">Імʼя</div><div id="b0" class="abs fb" style="top:70px"><div id="v0a" class="abs val mono">Іван</div></div><div id="h0" class="abs hint" style="top:84px;color:#e11d48">поле обовʼязкове</div>
+    <div class="abs fl" style="top:180px">Логін</div><div id="b1" class="abs fb" style="top:226px"><div id="v1a" class="abs val mono">ab</div><div id="v1b" class="abs val mono">ivan</div></div><div id="h1" class="abs hint" style="top:240px;color:#e11d48">мінімум 3 символи</div>
+    <div class="abs fl" style="top:336px">Вік</div><div id="b2" class="abs fb" style="top:382px"><div id="v2a" class="abs val mono">16</div><div id="v2b" class="abs val mono">25</div></div><div id="h2" class="abs hint" style="top:396px;color:#e11d48">не менше 18</div>
+    <div class="abs fl" style="top:492px">Email</div><div id="b3" class="abs fb" style="top:538px"><div id="v3a" class="abs val mono">ivan@</div><div id="v3b" class="abs val mono">ivan@example.com</div></div><div id="h3" class="abs hint" style="top:552px;color:#e11d48">невірний формат</div>
+    <div id="btn" class="abs">Відправити</div>
+    <div id="bubble" class="abs">Заповніть це поле</div>
+  </div>
+  <div id="stop" class="abs">Форма не відправлена: є помилки</div>
+  <div id="ok" class="abs">Усі поля проходять перевірку</div>
+  <div id="srv" class="abs">Сервер усе одно перевіряє дані сам</div>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+const f = (s, t, d = 0.35) => tl.to(s, { opacity: 1, duration: d, ease: "power2.out" }, t);
+const o = (s, t, d = 0.3) => tl.to(s, { opacity: 0, duration: d }, t);
+const pulse = (s, t) => tl.fromTo(s, { scale: 1 }, { scale: 1.04, duration: 0.3, yoyo: true, repeat: 1, transformOrigin: "0 50%" }, t);
+const bd = (s, t, c) => tl.to(s, { borderColor: c, duration: 0.3 }, t);
+// l1: attributes
+f("#form", 0.4); f("#code", 0.4); f("#k0", 0.8);
+pulse("#k0", 2.6); pulse("#k0", 4.0);
+// l2: values + hints (5.94)
+f("#v1a", 6.4); f("#v2a", 6.4); f("#v3a", 6.4);
+f("#h0", 7.6); bd("#b0", 7.6, "#e11d48");
+f("#h1", 10.6); bd("#b1", 10.6, "#e11d48");
+f("#h2", 13.2); bd("#b2", 13.2, "#e11d48");
+pulse("#k0", 9.0); pulse("#k0", 14.6);
+// l3: submit (16.44)
+f("#h3", 17.2); bd("#b3", 17.2, "#e11d48");
+pulse("#btn", 20.0);
+f("#bubble", 21.0); tl.to("#b0", { boxShadow: "0 0 0 6px rgba(225,29,72,0.35)", duration: 0.3 }, 21.0);
+f("#stop", 22.2); pulse("#stop", 24.0);
+// l4: valid/invalid (25.66)
+o("#k0", 25.7); f("#k1", 25.9); o("#bubble", 25.7); o("#stop", 25.7);
+tl.to("#b0", { boxShadow: "0 0 0 0 rgba(0,0,0,0)", duration: 0.2 }, 25.7);
+f("#v0a", 27.0); bd("#b0", 27.0, "#10b981"); o("#h0", 27.0);
+o("#v1a", 28.4); f("#v1b", 28.4); bd("#b1", 28.4, "#10b981"); o("#h1", 28.4);
+o("#v2a", 29.8); f("#v2b", 29.8); bd("#b2", 29.8, "#10b981"); o("#h2", 29.8);
+o("#v3a", 31.2); f("#v3b", 31.2); bd("#b3", 31.2, "#10b981"); o("#h3", 31.2);
+f("#ok", 32.4); pulse("#k1", 31.6);
+// l5: server (34.24)
+tl.to("#ok", { opacity: 0.25, duration: 0.3 }, 34.3);
+f("#srv", 34.4); pulse("#srv", 37.0);
+tl.to(["#title","#form","#code","#ok","#srv"], { opacity: 0, duration: 0.3 }, 39.5);
+window.__timelines["world"] = tl;
+</script>
+</template>

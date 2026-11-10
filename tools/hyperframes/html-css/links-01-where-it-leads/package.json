@@ -1,0 +1,11 @@
+{
+  "name": "links-01-where-it-leads",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes@0.9.3 preview",
+    "check": "npx --yes hyperframes@0.9.3 check",
+    "render": "npx --yes hyperframes@0.9.3 render",
+    "publish": "npx --yes hyperframes@0.9.3 publish"
+  }
+}
