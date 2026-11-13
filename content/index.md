@@ -41,8 +41,20 @@ kostyl.dev
 Основи мови C++, базовий синтаксис, алгоритми та структури даних.
 ::
 
+::card{title="CMake і vcpkg" to="/cpp/cmake/what-is-cmake" icon="i-devicon-cmake"}
+Кросплатформна збірка C++-проєктів: CMakeLists.txt, бібліотеки, тести CTest та менеджер пакетів vcpkg.
+::
+
+::card{title="Реверс-інжиніринг і чіти (C++)" to="/cpp/reverse-engineering/foundations" icon="i-lucide-bug-play"}
+Пам'ять процесів, сканування, вказівники, асемблер і налагоджувач; практика на власній грі та AssaultCube для Windows, Linux і macOS.
+::
+
 ::card{title="JavaScript API" to="/javascript/events/intro" icon="i-simple-icons-javascript"}
 Глибоке занурення в Browser API: події, робота з DOM та мережеві запити.
+::
+
+::card{title="React і TypeScript" to="/react-typescript/from-html-to-project/evolution" icon="i-simple-icons-react"}
+Від HTML до React-проєкту: JSX/TSX, хуки, Context, Redux Toolkit, React Router v7 та форми з Zod.
 ::
 
 ::card{title="HTML & CSS" to="/html-css/intro-html-structure" icon="i-devicon-html5"}
@@ -85,16 +97,20 @@ kostyl.dev
 Основи генеративного ШІ, великі мовні моделі (LLM), RAG, Prompt Engineering та агентні системи.
 ::
 
+::card{title="AI Core" to="/ai-core/ai-native-developer/digital-products" icon="i-lucide-brain"}
+Мислення AI-розробника: машинне навчання, промпт-інжиніринг, перевірка та безпека результатів.
+::
+
+::card{title="AI Developer: Vibe Coding" to="/ai-developer/draft-creation/vibe-coding-workflow" icon="i-lucide-code-xml"}
+Спринт зі створення продукту з AI: чернетка, перша робоча версія, ітерації та перевірка.
+::
+
 ::card{title="AI & Data Science (Python)" to="/ai-python/intro-to-ai/intro-to-ai" icon="i-simple-icons-jupyter"}
 Аналіз даних, наукові обчислення з NumPy, Pandas, Jupyter Notebooks та основи машинного навчання.
 ::
 
-::card{title="Python" to="/python/modules-packages-venv" icon="i-devicon-python"}
-Програмування на Python від азів до складних скриптів та автоматизації (В розробці).
-::
-
-::card{title="Основи програмування" to="/fundamentals" icon="i-lucide-book-open"}
-Базові концепції, алгоритми, математика для програмістів та загальні принципи (В розробці).
+::card{title="Python" to="/python/core/how-computers-run-programs" icon="i-devicon-python"}
+Python від основ (як комп'ютер виконує програму, типи, цикли, налагодження) до ООП, модулів і FastAPI.
 ::
 
 :::
