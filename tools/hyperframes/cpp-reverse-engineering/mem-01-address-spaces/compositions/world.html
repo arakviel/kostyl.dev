@@ -1,0 +1,73 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.abs { position: absolute; }
+#title { left: 80px; top: 40px; font-size: 48px; font-weight: 800; letter-spacing: -0.02em; }
+#subtitle { left: 80px; top: 108px; font-size: 32px; color: #9fb2cf; }
+.proc { border: 3px solid #223250; border-radius: 16px; background: #0b1324; opacity: 0; }
+.ph { font-size: 38px; font-weight: 800; }
+.cell { border-radius: 10px; font-size: 30px; opacity: 0; padding: 14px 22px; white-space: nowrap; }
+#kernel { border: 3px solid #fbbf24; border-radius: 16px; background: #1a1608; opacity: 0; }
+.api { font-size: 34px; border-radius: 12px; padding: 14px 24px; border: 2px solid; opacity: 0; white-space: nowrap; }
+#err { font-size: 40px; font-weight: 800; color: #fb7185; opacity: 0; }
+#ok { font-size: 40px; font-weight: 800; color: #34d399; opacity: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="title" class="abs">Адресний простір процесу</div>
+  <div id="subtitle" class="abs">Схема; адреса 0x10215da70 взята із запуску гри-мішені</div>
+
+  <div id="pg" class="abs proc" style="left:80px;top:220px;width:640px;height:420px"></div>
+  <div id="pgh" class="abs ph" style="left:112px;top:240px;opacity:0;color:#22d3ee">Процес «Гра»</div>
+  <div id="cg" class="abs cell mono" style="left:112px;top:340px;width:576px;background:#0e3a46;color:#22d3ee">0x10215da70 → health = 100</div>
+  <div id="cg2" class="abs cell mono" style="left:112px;top:450px;width:576px;background:#12203a;color:#9fb2cf">0x10215da80 → armor = 50</div>
+
+  <div id="pt" class="abs proc" style="left:1200px;top:220px;width:640px;height:420px"></div>
+  <div id="pth" class="abs ph" style="left:1232px;top:240px;opacity:0;color:#34d399">Процес «Тренер»</div>
+  <div id="ct" class="abs cell mono" style="left:1232px;top:340px;width:576px;background:#0f3a2a;color:#34d399">0x10215da70 → власні дані</div>
+  <div id="ct2" class="abs cell mono" style="left:1232px;top:450px;width:576px;background:#12203a;color:#9fb2cf">не містить health гри</div>
+
+  <div id="kernel" class="abs" style="left:740px;top:300px;width:440px;height:260px"></div>
+  <div id="kh" class="abs ph" style="left:740px;top:330px;width:440px;text-align:center;opacity:0;color:#fbbf24">Ядро ОС</div>
+  <div id="kt" class="abs mono" style="left:740px;top:400px;width:440px;text-align:center;opacity:0;font-size:32px;color:#e8eef7">віртуальна → фізична<br>перевірка прав</div>
+
+  <div id="a1" class="abs" style="left:722px;top:428px;width:16px;height:6px;background:#22d3ee;opacity:0;transform-origin:0 50%"></div>
+  <div id="a2" class="abs" style="left:1182px;top:428px;width:16px;height:6px;background:#34d399;opacity:0;transform-origin:0 50%"></div>
+
+  <div id="api1" class="abs api mono" style="left:80px;top:760px;color:#22d3ee;border-color:#22d3ee">Windows: ReadProcessMemory</div>
+  <div id="api2" class="abs api mono" style="left:700px;top:760px;color:#34d399;border-color:#34d399">Linux: process_vm_readv</div>
+  <div id="api3" class="abs api mono" style="left:1240px;top:760px;color:#fbbf24;border-color:#fbbf24">macOS: mach_vm_read</div>
+  <div id="ok" class="abs mono" style="left:80px;top:900px">права є → дані повернуто</div>
+  <div id="err" class="abs mono" style="left:1000px;top:900px">прав немає → помилка</div>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+// L1 0.4-3.8
+tl.to("#pg", { opacity: 1, duration: 0.5 }, 0.5); tl.to("#pgh", { opacity: 1, duration: 0.5 }, 0.5);
+tl.to("#pt", { opacity: 1, duration: 0.5 }, 1.6); tl.to("#pth", { opacity: 1, duration: 0.5 }, 1.6);
+// L2 4.5-14.5
+tl.to("#cg", { opacity: 1, duration: 0.4 }, 5.2);
+tl.to("#cg2", { opacity: 1, duration: 0.4 }, 6.0);
+tl.to("#cg", { scale: 1.04, transformOrigin: "left center", duration: 0.4, yoyo: true, repeat: 1 }, 8.2);
+tl.to("#kernel", { opacity: 1, duration: 0.5 }, 11.0); tl.to("#kh", { opacity: 1, duration: 0.5 }, 11.0); tl.to("#kt", { opacity: 1, duration: 0.5 }, 11.4);
+tl.to("#a1", { opacity: 1, width: 16, duration: 0.3 }, 12.0);
+tl.to("#cg2", { backgroundColor: "#1a2e57", duration: 0.5, yoyo: true, repeat: 1 }, 12.6);
+// L3 15.2-20.2
+tl.to("#ct", { opacity: 1, duration: 0.4 }, 15.9);
+tl.to("#ct2", { opacity: 1, duration: 0.4 }, 17.6);
+tl.to("#ct", { scale: 1.04, transformOrigin: "left center", duration: 0.4, yoyo: true, repeat: 1 }, 18.4);
+tl.to("#a2", { opacity: 1, duration: 0.3 }, 19.2);
+// L4 20.9-32.0
+tl.to("#kernel", { borderColor: "#fde68a", duration: 0.5, yoyo: true, repeat: 1 }, 21.4);
+tl.to("#api1", { opacity: 1, duration: 0.4 }, 24.2);
+tl.to("#api2", { opacity: 1, duration: 0.4 }, 27.4);
+tl.to("#api3", { opacity: 1, duration: 0.4 }, 29.6);
+tl.to("#kt", { scale: 1.06, duration: 0.4, yoyo: true, repeat: 1 }, 31.0);
+// L5 32.7-37.5
+tl.to("#ok", { opacity: 1, duration: 0.4 }, 33.4);
+tl.to("#err", { opacity: 1, duration: 0.4 }, 35.4);
+tl.to("#subtitle", { color: "#e8eef7", duration: 0.5, yoyo: true, repeat: 1 }, 2.9);
+tl.to("#root > div", { opacity: 0, duration: 0.4 }, 37.6);
+window.__timelines["world"] = tl;
+</script>
+</template>

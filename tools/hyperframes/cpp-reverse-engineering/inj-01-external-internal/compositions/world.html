@@ -1,0 +1,77 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.abs { position: absolute; }
+#title { left: 80px; top: 40px; font-size: 48px; font-weight: 800; letter-spacing: -0.02em; }
+#subtitle { left: 80px; top: 108px; font-size: 32px; color: #9fb2cf; }
+.bx { border: 3px solid; border-radius: 16px; font-size: 36px; font-weight: 800; text-align: center; line-height: 110px; height: 110px; opacity: 0; white-space: nowrap; }
+.ar { height: 6px; background: #9fb2cf; opacity: 0; }
+.lbl { font-size: 32px; color: #9fb2cf; opacity: 0; white-space: nowrap; }
+.chip { font-size: 30px; border: 2px solid; border-radius: 12px; padding: 14px 22px; opacity: 0; white-space: nowrap; }
+.st { font-size: 34px; opacity: 0; white-space: nowrap; }
+.out { font-size: 32px; opacity: 0; white-space: nowrap; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="title" class="abs">External і internal</div>
+  <div id="subtitle" class="abs">Схема; рядки внизу — реальний вивід запуску на macOS</div>
+
+  <div id="rowA" class="abs">
+    <div id="ta" class="abs bx mono" style="left:80px;top:200px;width:380px;color:#34d399;border-color:#34d399;background:#0f3a2a">Тренер</div>
+    <div id="a1" class="abs ar" style="left:470px;top:253px;width:220px"></div>
+    <div id="ka" class="abs bx mono" style="left:700px;top:200px;width:380px;color:#fbbf24;border-color:#fbbf24;background:#1a1608">Ядро ОС</div>
+    <div id="a2" class="abs ar" style="left:1090px;top:253px;width:240px"></div>
+    <div id="ga" class="abs bx mono" style="left:1340px;top:200px;width:420px;color:#22d3ee;border-color:#22d3ee;background:#0e3a46">Гра</div>
+    <div id="la" class="abs lbl mono" style="left:700px;top:325px">кожне читання проходить через ядро</div>
+  </div>
+
+  <div id="gb" class="abs bx" style="left:80px;top:440px;width:900px;height:220px;color:#22d3ee;border-color:#22d3ee;background:#0b1f2a;line-height:60px;text-align:left;padding:14px 30px">
+    <span class="mono">Процес гри</span>
+  </div>
+  <div id="ib" class="abs bx mono" style="left:130px;top:520px;width:480px;color:#34d399;border-color:#34d399;background:#0f3a2a">libinternal</div>
+  <div id="ia" class="abs ar" style="left:620px;top:573px;width:140px;background:#34d399"></div>
+  <div id="il" class="abs lbl mono" style="left:760px;top:548px;color:#34d399">пам'ять</div>
+  <div id="ilb" class="abs lbl mono" style="left:130px;top:630px;color:#34d399;font-size:30px;display:none">напряму</div>
+
+  <div id="c1" class="abs chip mono" style="left:1040px;top:440px;color:#34d399;border-color:#34d399">Linux: LD_PRELOAD</div>
+  <div id="c2" class="abs chip mono" style="left:1040px;top:520px;color:#fbbf24;border-color:#fbbf24">macOS: DYLD_INSERT_LIBRARIES</div>
+  <div id="c3" class="abs chip mono" style="left:1040px;top:600px;color:#22d3ee;border-color:#22d3ee">Windows: CreateRemoteThread + LoadLibrary</div>
+
+  <div id="s1" class="abs st mono" style="left:80px;top:710px;color:#9fb2cf">1. завантаження → стартує потік</div>
+  <div id="s2" class="abs st mono" style="left:80px;top:760px;color:#9fb2cf">2. пошук: ім'я Hero, health = 100, armor = 50</div>
+  <div id="o1" class="abs out mono" style="left:80px;top:850px;color:#34d399">[internal] Player знайдено: 0x102199890</div>
+  <div id="o2" class="abs out mono" style="left:80px;top:920px;color:#e8eef7">[Hero] <span id="hp" style="color:#34d399">HP=999</span>  armor=50  <span id="am" style="color:#34d399">ammo=99</span>/30  score=0  pos=(11.5, 19.5)</div>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+// L1 0.4-6.2
+tl.to("#ta", { opacity: 1, duration: 0.4 }, 1.0); tl.to("#ka", { opacity: 1, duration: 0.4 }, 2.2); tl.to("#ga", { opacity: 1, duration: 0.4 }, 3.4);
+tl.to("#a1", { opacity: 1, duration: 0.3 }, 4.0); tl.to("#a2", { opacity: 1, duration: 0.3 }, 4.6); tl.to("#la", { opacity: 1, duration: 0.4 }, 5.2);
+// L2 6.8-13.4
+tl.to("#rowA", { opacity: 0.35, duration: 0.5 }, 7.0);
+tl.to("#gb", { opacity: 1, duration: 0.4 }, 7.6); tl.to("#ib", { opacity: 1, duration: 0.4 }, 9.2);
+tl.to("#ia", { opacity: 1, duration: 0.3 }, 11.0); tl.to("#il", { opacity: 1, duration: 0.3 }, 11.4);
+tl.to("#ib", { scale: 1.05, duration: 0.3, yoyo: true, repeat: 1 }, 12.4);
+// L3 14.1-25.7
+tl.to("#c1", { opacity: 1, duration: 0.4 }, 16.0);
+tl.to("#c2", { opacity: 1, duration: 0.4 }, 18.6);
+tl.to("#c3", { opacity: 1, duration: 0.4 }, 21.6);
+tl.to("#c1", { scale: 1.05, transformOrigin: "left center", duration: 0.3, yoyo: true, repeat: 1 }, 24.0);
+// L4 26.4-35.4
+tl.to("#s1", { opacity: 1, duration: 0.4 }, 27.0);
+tl.to("#s2", { opacity: 1, duration: 0.4 }, 29.6);
+tl.to("#ib", { scale: 1.05, duration: 0.3, yoyo: true, repeat: 1 }, 31.4);
+tl.to("#o1", { opacity: 1, duration: 0.4 }, 33.2);
+tl.to("#o1", { scale: 1.03, transformOrigin: "left center", duration: 0.3, yoyo: true, repeat: 1 }, 34.8);
+// L5 36.1-43.2
+tl.to("#gb", { borderColor: "#fde68a", duration: 0.4, yoyo: true, repeat: 1 }, 37.6);
+tl.to("#ib", { scale: 1.05, duration: 0.3, yoyo: true, repeat: 1 }, 39.8);
+tl.to("#gb", { borderColor: "#fde68a", duration: 0.4, yoyo: true, repeat: 1 }, 42.2);
+tl.to("#o2", { opacity: 1, duration: 0.4 }, 36.8);
+tl.to("#hp", { scale: 1.2, transformOrigin: "left center", duration: 0.3, yoyo: true, repeat: 1 }, 38.8);
+tl.to("#am", { scale: 1.2, transformOrigin: "left center", duration: 0.3, yoyo: true, repeat: 1 }, 40.4);
+tl.to("#o2", { scale: 1.02, transformOrigin: "left center", duration: 0.4, yoyo: true, repeat: 1 }, 41.8);
+tl.to("#root > div", { opacity: 0, duration: 0.4 }, 43.5);
+window.__timelines["world"] = tl;
+</script>
+</template>

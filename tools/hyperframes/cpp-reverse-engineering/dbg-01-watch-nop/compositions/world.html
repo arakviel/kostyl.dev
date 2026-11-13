@@ -1,0 +1,76 @@
+<template>
+<style>
+#root { position: absolute; inset: 0; background: #070b14; overflow: hidden; font-family: "Inter", sans-serif; color: #e8eef7; }
+.mono { font-family: "JetBrains Mono", monospace; }
+.abs { position: absolute; }
+#title { left: 80px; top: 40px; font-size: 48px; font-weight: 800; letter-spacing: -0.02em; }
+#subtitle { left: 80px; top: 108px; font-size: 32px; color: #9fb2cf; }
+#code { left: 80px; top: 200px; width: 1100px; height: 430px; border: 3px solid #223250; border-radius: 16px; background: #0b1324; }
+.row { left: 110px; width: 1040px; height: 80px; border-radius: 10px; font-size: 34px; line-height: 80px; opacity: 0; white-space: nowrap; padding-left: 20px; }
+.row b { position: absolute; left: 640px; font-weight: 500; color: #22d3ee; }
+.row i { position: absolute; left: 640px; font-style: normal; font-weight: 800; color: #fbbf24; opacity: 0; }
+#hud { left: 1260px; top: 200px; width: 580px; height: 200px; border: 3px solid #223250; border-radius: 16px; background: #0b1324; }
+#hl { left: 1260px; top: 214px; width: 580px; text-align: center; font-size: 32px; color: #9fb2cf; }
+.hv { left: 1260px; top: 255px; width: 580px; text-align: center; font-size: 96px; font-weight: 800; opacity: 0; }
+.badge { left: 1260px; width: 580px; text-align: center; font-size: 34px; font-weight: 700; padding: 16px 0; border-radius: 12px; border: 2px solid; opacity: 0; }
+#strip { left: 80px; top: 720px; width: 1100px; font-size: 64px; font-weight: 800; opacity: 0; white-space: nowrap; }
+#sl { left: 80px; top: 680px; font-size: 32px; color: #9fb2cf; opacity: 0; }
+#fin { left: 1260px; top: 640px; width: 580px; text-align: center; font-size: 40px; font-weight: 800; color: #34d399; opacity: 0; }
+</style>
+<div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+  <div id="title" class="abs">Хто знімає здоров'я</div>
+  <div id="subtitle" class="abs">x86-64, clang -O0 і objdump: реальний фрагмент main.cpp гри-мішені</div>
+
+  <div id="code" class="abs"></div>
+  <div id="r1" class="abs row mono" style="top:225px;color:#9fb2cf">mov rax, [rbp-0x58]<b>48 8b 45 a8</b></div>
+  <div id="r2" class="abs row mono" style="top:315px;color:#9fb2cf">mov ecx, [rax+0x10]<b>8b 48 10</b></div>
+  <div id="r3" class="abs row mono" style="top:405px;color:#fbbf24;background:#1a1608">sub ecx, 0xf<b id="b3">83 e9 0f</b><i id="n3">90 90 90</i></div>
+  <div id="r4" class="abs row mono" style="top:495px;color:#9fb2cf">mov [rax+0x10], ecx<b>89 48 10</b></div>
+
+  <div id="hud" class="abs"></div>
+  <div id="hl" class="abs">health (Player+0x10)</div>
+  <div id="v100" class="abs hv mono" style="color:#22d3ee">100</div>
+  <div id="v85" class="abs hv mono" style="color:#fb7185">85</div>
+  <div id="v100b" class="abs hv mono" style="color:#34d399">100</div>
+  <div id="bw" class="abs badge mono" style="top:440px;color:#fbbf24;border-color:#fbbf24">watchpoint: запис у health</div>
+  <div id="bs" class="abs badge mono" style="top:530px;color:#fb7185;border-color:#fb7185">процес зупинено</div>
+  <div id="sl" class="abs">Патч: три байти sub → NOP</div>
+  <div id="strip" class="abs mono"><span style="color:#22d3ee">83 e9 0f</span> <span style="color:#9fb2cf">→</span> <span style="color:#fbbf24">90 90 90</span></div>
+  <div id="fin" class="abs mono">удар: health лишився 100</div>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+// L1 0.4-6.0
+tl.to("#v100", { opacity: 1, duration: 0.4 }, 0.8);
+tl.to("#code", { borderColor: "#3b5a8a", duration: 0.5, yoyo: true, repeat: 1 }, 2.2);
+tl.to("#hud", { borderColor: "#3b5a8a", duration: 0.5, yoyo: true, repeat: 1 }, 4.2);
+// L2 6.7-13.3
+tl.to("#bw", { opacity: 1, duration: 0.4 }, 7.4);
+tl.to("#v100", { opacity: 0, duration: 0.2 }, 10.2); tl.to("#v85", { opacity: 1, duration: 0.2 }, 10.2);
+tl.to("#hud", { borderColor: "#fb7185", duration: 0.3 }, 10.2);
+tl.to("#bs", { opacity: 1, duration: 0.4 }, 11.0);
+tl.to("#bs", { scale: 1.06, duration: 0.3, yoyo: true, repeat: 1 }, 12.6);
+tl.to("#code", { borderColor: "#3b5a8a", duration: 0.4, yoyo: true, repeat: 1 }, 13.6);
+// L3 14.0-28.6
+tl.to("#r1", { opacity: 1, duration: 0.3 }, 14.6); tl.to("#r2", { opacity: 1, duration: 0.3 }, 15.8);
+tl.to("#r3", { opacity: 1, duration: 0.3 }, 17.0); tl.to("#r4", { opacity: 1, duration: 0.3 }, 18.2);
+tl.to("#r3", { scale: 1.03, transformOrigin: "left center", duration: 0.4, yoyo: true, repeat: 1 }, 21.4);
+tl.to("#bw", { scale: 1.05, duration: 0.3, yoyo: true, repeat: 1 }, 23.4);
+tl.to("#r2", { backgroundColor: "#12203a", duration: 0.4, yoyo: true, repeat: 1 }, 25.0);
+tl.to("#r4", { backgroundColor: "#12203a", duration: 0.4, yoyo: true, repeat: 1 }, 26.6);
+// L4 29.2-40.4
+tl.to("#b3", { scale: 1.15, transformOrigin: "left center", duration: 0.4, yoyo: true, repeat: 1 }, 30.4);
+tl.to("#sl", { opacity: 1, duration: 0.3 }, 33.0); tl.to("#strip", { opacity: 1, duration: 0.5 }, 34.0);
+tl.to("#b3", { opacity: 0, duration: 0.3 }, 37.2); tl.to("#n3", { opacity: 1, duration: 0.3 }, 37.2);
+tl.to("#r3", { color: "#fb7185", duration: 0.3 }, 37.2);
+tl.to("#strip", { scale: 1.04, transformOrigin: "left center", duration: 0.4, yoyo: true, repeat: 1 }, 39.0);
+// L5 41.1-46.2
+tl.to("#bs", { opacity: 0, duration: 0.3 }, 41.4); tl.to("#bw", { opacity: 0, duration: 0.3 }, 41.4);
+tl.to("#v85", { opacity: 0, duration: 0.2 }, 42.2); tl.to("#v100b", { opacity: 1, duration: 0.2 }, 42.2);
+tl.to("#hud", { borderColor: "#34d399", duration: 0.3 }, 42.2);
+tl.to("#fin", { opacity: 1, duration: 0.4 }, 43.2);
+tl.to("#v100b", { scale: 1.1, duration: 0.4, yoyo: true, repeat: 1 }, 44.6);
+tl.to("#root > div", { opacity: 0, duration: 0.4 }, 46.4);
+window.__timelines["world"] = tl;
+</script>
+</template>
