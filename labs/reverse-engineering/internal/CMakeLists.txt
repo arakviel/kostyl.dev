@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.16)
+project(InternalModule CXX)
+set(CMAKE_CXX_STANDARD 17)
+find_package(Threads REQUIRED)
+set(TR ${CMAKE_CURRENT_SOURCE_DIR}/../trainer)
+add_library(internal SHARED internal.cpp ${TR}/process_mac.cpp ${TR}/process_linux.cpp ${TR}/process_win.cpp)
+target_link_libraries(internal Threads::Threads)
