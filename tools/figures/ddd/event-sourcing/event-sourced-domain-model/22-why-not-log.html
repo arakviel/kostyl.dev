@@ -1,0 +1,7 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><link rel="stylesheet" href="../../../_fig.css"></head><body><div id="fig">
+<div class="title">Чому не просто журнал, лог-таблиця чи тригер</div>
+<table class="t"><tr><th>Спосіб</th><th>Проблема</th></tr>
+<tr><td>Текстовий файл логів</td><td class="red-t">транзакція у двох сховищах: логи неузгоджені</td></tr>
+<tr><td>Таблиця логів у тій самій транзакції</td><td class="red-t">можна забути додати запис; схема руйнується</td></tr>
+<tr><td>Тригер, що копіює запис в історію</td><td class="red-t">лише «що» змінилося, без «чому»</td></tr>
+<tr><td><span class="chip supporting">Події</span></td><td class="green-t">містять бізнес-контекст і узгоджені за побудовою</td></tr></table></div></body></html>

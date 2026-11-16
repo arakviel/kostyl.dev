@@ -1,0 +1,6 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><link rel="stylesheet" href="../../../_fig.css"></head><body><div id="fig">
+<div class="title">Стан змінюють лише команди</div>
+<div class="row">
+ <div class="card green grow"><h3>Дозволено</h3><p class="tick">ticket.AddMessage(from, body)</p><p class="tick">ticket.Execute(new Escalate(reason))</p></div>
+ <div class="card red grow"><h3>Заборонено</h3><p class="cross">ticket.Status = Closed</p><p class="cross">ticket.Messages.Add(...)</p></div>
+</div></div></body></html>

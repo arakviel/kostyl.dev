@@ -1,0 +1,8 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><link rel="stylesheet" href="../../../_fig.css"></head><body><div id="fig">
+<div class="title">Схема «сніжинка» (snowflake schema)</div>
+<div class="row" style="align-items:center">
+ <div class="col" style="gap:8px"><div class="card green center">Dim_Country</div><div class="card green center">Dim_Category</div></div><div class="arrow">→</div>
+ <div class="col" style="gap:8px"><div class="card blue center">Dim_Customer</div><div class="card blue center">Dim_Product</div></div><div class="arrow">→</div>
+ <div class="card amber center" style="width:260px"><b>Fact_SolvedCases</b></div>
+</div>
+<p class="sub" style="margin-top:14px">Виміри багаторівневі: менше місця й простіше підтримувати, але запити потребують більше з'єднань.</p></div></body></html>

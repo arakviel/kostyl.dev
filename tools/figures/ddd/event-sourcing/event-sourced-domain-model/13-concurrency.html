@@ -1,0 +1,14 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><link rel="stylesheet" href="../../../_fig.css"></head><body><div id="fig">
+<div class="title">Оптимістичне керування паралелізмом</div>
+<div class="row" style="align-items:center">
+ <div class="card blue center" style="width:240px"><svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:4px auto">
+  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+  <circle cx="12" cy="7" r="4" />
+</svg><b>Агент A</b><p class="cap">читає версію 5</p></div>
+ <div class="col grow"><div class="card green center">Append(expectedVersion = 5) ✓</div><div class="card red center">Append(expectedVersion = 5) ✗<br><span class="cap">вже версія 6: виняток паралелізму</span></div></div>
+ <div class="card blue center" style="width:240px"><svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:4px auto">
+  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+  <circle cx="12" cy="7" r="4" />
+</svg><b>Агент B</b><p class="cap">читає версію 5</p></div>
+</div>
+<p class="sub" style="margin-top:14px">Події подають глибшу інформацію: можна перевірити, чи нові події справді конфліктують.</p></div></body></html>

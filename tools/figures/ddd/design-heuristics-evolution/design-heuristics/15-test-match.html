@@ -1,0 +1,6 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><link rel="stylesheet" href="../../../_fig.css"></head><body><div id="fig">
+<div class="title">Стратегія тестування за патерном логіки</div>
+<table class="t"><tr><th>Патерн</th><th>Стратегія</th><th>Чому</th></tr>
+<tr><td>Domain Model, Event-Sourced DM</td><td><span class="chip supporting">Піраміда</span></td><td>агрегати й об'єкти-значення — ідеальні одиниці для unit-тестів</td></tr>
+<tr><td>Active Record</td><td><span class="chip generic">Діамант</span></td><td>логіка розподілена між сервісним рівнем і рівнем логіки: перевіряємо їх інтеграцію</td></tr>
+<tr><td>Transaction Script</td><td><span class="chip core">Обернена піраміда</span></td><td>проста логіка й мінімум шарів: перевіряємо наскрізний потік</td></tr></table></div></body></html>

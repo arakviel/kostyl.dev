@@ -1,0 +1,16 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><link rel="stylesheet" href="../../../_fig.css"></head><body><div id="fig">
+<div class="title">Приховуємо сеттери: від Player до ApplyBonus</div>
+<div class="row"><div class="col grow"><div class="card" style="background:#0f172a;color:#e2e8f0;font-family:ui-monospace,Menlo,monospace;font-size:20px;line-height:1.5;border-color:#0f172a;padding:18px 24px;white-space:pre;"><span style="color:#94a3b8">// до</span>
+class Player {
+  Guid Id { get; set; }
+  int  Points { get; <span style="color:#f87171">set</span>; }
+}
+// зовнішній код:
+player.Points *= 1 + pct/100.0;</div></div>
+<div class="col grow"><div class="card" style="background:#0f172a;color:#e2e8f0;font-family:ui-monospace,Menlo,monospace;font-size:20px;line-height:1.5;border-color:#0f172a;padding:18px 24px;white-space:pre;"><span style="color:#94a3b8">// після</span>
+class Player {
+  Guid Id { get; private set; }
+  int  Points { get; private set; }
+  <span style="color:#67e8f9">void ApplyBonus</span>(int pct)
+  { Points *= 1 + pct/100.0; }
+}</div></div></div></div></body></html>

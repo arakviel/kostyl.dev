@@ -1,0 +1,7 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><link rel="stylesheet" href="../../../_fig.css"></head><body><div id="fig">
+<div class="title">Два процеси змінюють один агрегат</div>
+<div class="row">
+ <div class="card green grow"><b>Процес 1</b><p>читає v=5 → зберігає v=6 ✓</p></div>
+ <div class="card red grow"><b>Процес 2</b><p>читає v=5 → при збереженні очікує v=5, а там 6 → <span class="tag core">ConcurrencyException</span></p></div>
+</div>
+<p class="sub" style="margin-top:14px">Другий процес повідомляють, що його рішення базувалися на застарілому стані, і він повторює операцію.</p></div></body></html>

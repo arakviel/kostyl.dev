@@ -1,0 +1,7 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><link rel="stylesheet" href="../../../_fig.css"></head><body><div id="fig">
+<div class="title">Як ретранслятор бере нові події</div>
+<div class="row">
+ <div class="card blue grow"><h3>Pull: опитування</h3><p>Постійно запитує БД про неопубліковані події.</p><p class="cap">Потрібні індекси для малого навантаження.</p></div>
+ <div class="card green grow"><h3>Push: хвіст журналу транзакцій</h3><p>База сама повідомляє про нові записи.</p><p class="cap">Приклад: DynamoDB Streams.</p></div>
+</div>
+<p class="sub" style="margin-top:14px">Гарантія — «щонайменше один раз»: після збою подія може бути опублікована повторно.</p></div></body></html>

@@ -1,0 +1,21 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><link rel="stylesheet" href="../../../_fig.css"></head><body><div id="fig">
+<div class="title">Після винесення оркестрації</div>
+<div class="row">
+ <div class="col grow">
+<div class="card" style="background:#0f172a;color:#e2e8f0;font-family:ui-monospace,Menlo,monospace;font-size:20px;line-height:1.5;border-color:#0f172a;padding:18px 24px;white-space:pre;"><span style="color:#94a3b8">// сервісний рівень</span>
+<span style="color:#fbbf24">public class</span> UserService {
+  Create(details) {
+    StartTransaction();
+    ...
+    Commit();
+  }
+}</div></div>
+ <div class="col grow">
+<div class="card" style="background:#0f172a;color:#e2e8f0;font-family:ui-monospace,Menlo,monospace;font-size:20px;line-height:1.5;border-color:#0f172a;padding:18px 24px;white-space:pre;"><span style="color:#94a3b8">// контролер</span>
+Create(details)
+{
+  var r = _userService
+         .Create(details);
+  return View(r);
+}</div></div>
+</div></div></body></html>

@@ -1,0 +1,8 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><link rel="stylesheet" href="../../../_fig.css"></head><body><div id="fig">
+<div class="title">Архітектурний патерн за патерном логіки</div>
+<table class="t"><tr><th>Патерн логіки</th><th>Архітектура</th></tr>
+<tr><td>Event-Sourced Domain Model</td><td><b>CQRS</b> (інакше лише вибірка за ID)</td></tr>
+<tr><td>Domain Model</td><td><b>Порти й адаптери</b></td></tr>
+<tr><td>Active Record</td><td><b>Багатошарова + прикладний (сервісний) рівень</b></td></tr>
+<tr><td>Transaction Script</td><td><b>Мінімальна багатошарова</b> (три шари)</td></tr></table>
+<p class="sub" style="margin-top:14px">Виняток: CQRS корисний і для інших патернів, якщо потрібно кілька персистентних моделей.</p></div></body></html>

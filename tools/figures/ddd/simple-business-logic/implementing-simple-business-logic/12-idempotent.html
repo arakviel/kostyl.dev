@@ -1,0 +1,8 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><link rel="stylesheet" href="../../../_fig.css"></head><body><div id="fig">
+<div class="title">Виправлення: ідемпотентна операція</div>
+<div class="card" style="background:#0f172a;color:#e2e8f0;font-family:ui-monospace,Menlo,monospace;font-size:20px;line-height:1.5;border-color:#0f172a;padding:18px 24px;white-space:pre;">public void Execute(Guid userId, long <span style="color:#fbbf24">visits</span>)
+{
+    _db.Execute("UPDATE Users SET visits = @p1 WHERE user_id = @p2",
+                visits, userId);
+}</div>
+<p class="sub" style="margin-top:14px">Викликач сам читає значення, збільшує його й передає. Повтор з тими самими параметрами дає той самий результат.</p></div></body></html>

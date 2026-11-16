@@ -1,0 +1,15 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><link rel="stylesheet" href="../../../_fig.css"></head><body><div id="fig">
+<div class="title">Приклад порту й адаптера</div>
+<div class="card" style="background:#0f172a;color:#e2e8f0;font-family:ui-monospace,Menlo,monospace;font-size:20px;line-height:1.5;border-color:#0f172a;padding:18px 24px;white-space:pre;"><span style="color:#fbbf24">namespace</span> App.BusinessLogicLayer
+{
+    <span style="color:#fbbf24">public interface</span> <span style="color:#67e8f9">IMessaging</span>
+    {
+        void Publish(Message payload);
+        void Subscribe(Message type, Action callback);
+    }
+}
+
+<span style="color:#fbbf24">namespace</span> App.Infrastructure.Adapters
+{
+    <span style="color:#fbbf24">public class</span> <span style="color:#67e8f9">SQSBus</span> : IMessaging { ... }
+}</div></div></body></html>

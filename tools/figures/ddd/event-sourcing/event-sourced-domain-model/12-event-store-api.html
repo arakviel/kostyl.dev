@@ -1,0 +1,9 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><link rel="stylesheet" href="../../../_fig.css"></head><body><div id="fig">
+<div class="title">Мінімальний інтерфейс сховища подій</div>
+<div class="card" style="background:#0f172a;color:#e2e8f0;font-family:ui-monospace,Menlo,monospace;font-size:20px;line-height:1.5;border-color:#0f172a;padding:18px 24px;white-space:pre;"><span style="color:#fbbf24">interface</span> IEventStore
+{
+    IEnumerable&lt;Event&gt; <span style="color:#67e8f9">Fetch</span>(Guid instanceId);
+    void <span style="color:#67e8f9">Append</span>(Guid instanceId, Event[] newEvents,
+                <span style="color:#fbbf24">int expectedVersion</span>);
+}</div>
+<div class="row" style="margin-top:14px"><div class="card green grow"><b>Fetch:</b> усі події сутності</div><div class="card amber grow"><b>Append:</b> додати нові з очікуваною версією</div></div></div></body></html>

@@ -1,0 +1,14 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><link rel="stylesheet" href="../../../_fig.css"></head><body><div id="fig">
+<div class="title">Проста сага: події → команди</div>
+<div class="card" style="background:#0f172a;color:#e2e8f0;font-family:ui-monospace,Menlo,monospace;font-size:20px;line-height:1.5;border-color:#0f172a;padding:18px 24px;white-space:pre;"><span style="color:#fbbf24">public void</span> Process(CampaignActivated e)
+{
+    var campaign = _repository.Load(e.CampaignId);
+    var materials = campaign.GenerateAdvertisingMaterials();
+    <span style="color:#67e8f9">_publishingService.SubmitAdvertisement</span>(e.CampaignId, materials);
+}
+<span style="color:#fbbf24">public void</span> Process(PublishingRejected e)
+{
+    var campaign = _repository.Load(e.CampaignId);
+    campaign.<span style="color:#67e8f9">TrackPublishingRejection</span>(e.RejectionReason);
+    _repository.CommitChanges(campaign);
+}</div></div></body></html>

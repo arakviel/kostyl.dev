@@ -1,0 +1,10 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><link rel="stylesheet" href="../../../_fig.css"></head><body><div id="fig">
+<div class="title">Схема «зірка» (star schema)</div>
+<div class="row" style="align-items:center;justify-content:center">
+ <div class="col" style="gap:10px;width:250px"><div class="card blue center">Dim_Agent</div><div class="card blue center">Dim_Date</div></div><div class="arrow">→</div>
+ <div class="card amber center" style="width:270px"><svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:4px auto">
+  <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18" />
+</svg><b>Fact_SolvedCases</b></div><div class="arrow">←</div>
+ <div class="col" style="gap:10px;width:250px"><div class="card blue center">Dim_Customer</div><div class="card blue center">Dim_Product</div></div>
+</div>
+<p class="sub" style="margin-top:14px">Зв'язки «багато-до-одного»: кожен вимір використовують багато фактів.</p></div></body></html>

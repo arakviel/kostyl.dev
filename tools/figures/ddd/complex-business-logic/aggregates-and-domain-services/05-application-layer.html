@@ -1,0 +1,9 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><link rel="stylesheet" href="../../../_fig.css"></head><body><div id="fig">
+<div class="title">Прикладний шар лишається простим</div>
+<div class="row" style="align-items:center">
+ <div class="card blue grow center"><b>1. Завантажити</b><p class="cap">_ticketRepository.Load(id)</p></div><div class="arrow">→</div>
+ <div class="card green grow center"><b>2. Виконати</b><p class="cap">ticket.Execute(cmd)</p></div><div class="arrow">→</div>
+ <div class="card amber grow center"><b>3. Зберегти</b><p class="cap">_ticketRepository.Save(ticket)</p></div><div class="arrow">→</div>
+ <div class="card violet grow center"><b>4. Повернути результат</b></div>
+</div>
+<p class="sub" style="margin-top:14px">Уся бізнес-логіка — всередині агрегата, а не в прикладному шарі.</p></div></body></html>

@@ -1,0 +1,11 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><link rel="stylesheet" href="../../../_fig.css"></head><body><div id="fig">
+<div class="title">Помилка 1: публікація прямо з агрегата</div>
+<div class="card" style="background:#0f172a;color:#e2e8f0;font-family:ui-monospace,Menlo,monospace;font-size:20px;line-height:1.5;border-color:#0f172a;padding:18px 24px;white-space:pre;"><span style="color:#fbbf24">public void</span> Deactivate(string reason)
+{
+    ...
+    IsActive = false;
+    var newEvent = new CampaignDeactivated(_id, reason);
+    _events.Append(newEvent);
+    <span style="color:#f87171">_messageBus.Publish(newEvent);</span>   <span style="color:#94a3b8">// ще до коміту!</span>
+}</div>
+<div class="row" style="margin-top:14px"><div class="card red grow"><p class="cross">подію отримають до фіксації стану</p></div><div class="card red grow"><p class="cross">транзакція відкотилася, а подію вже не відкликати</p></div></div></div></body></html>

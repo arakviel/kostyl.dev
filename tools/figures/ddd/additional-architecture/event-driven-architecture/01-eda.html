@@ -1,0 +1,11 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><link rel="stylesheet" href="../../../_fig.css"></head><body><div id="fig">
+<div class="title">Подієво-орієнтована архітектура (EDA)</div>
+<div class="row" style="align-items:center"><div class="card blue center"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:4px auto">
+  <rect width="20" height="8" x="2" y="2" rx="2" ry="2" />
+  <rect width="20" height="8" x="2" y="14" rx="2" ry="2" />
+  <line x1="6" x2="6.01" y1="6" y2="6" />
+  <line x1="6" x2="6.01" y1="18" y2="18" />
+</svg><b>Компонент A</b><p class=cap>публікує подію</p></div><div class="arrow">→</div><div class="card grey center"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1e293b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:4px auto">
+  <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+</svg><b>Брокер повідомлень</b><p class=cap>асинхронно</p></div><div class="arrow">→</div><div class="col grow"><div class="card green center">Підписник 1</div><div class="card green center">Підписник 2</div></div></div>
+<p class="sub" style="margin-top:14px">Замість синхронних викликів кінцевих точок компоненти публікують події про зміни у домені.</p></div></body></html>

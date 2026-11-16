@@ -1,0 +1,8 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><link rel="stylesheet" href="../../../_fig.css"></head><body><div id="fig">
+<div class="title">Помилка 1: оновлення без загальної транзакції</div>
+<div class="row" style="align-items:center">
+ <div class="card green grow center"><b>1</b><br>UPDATE Users SET last_visit</div>
+ <div class="arrow">→</div>
+ <div class="card red grow center"><span class="tag core">збій</span><br><b>2</b><br>INSERT INTO VisitsLog</div>
+</div>
+<p class="sub" style="margin-top:14px">Мережа, тайм-аут бази, взаємне блокування або падіння сервера між кроками лишають систему неузгодженою: користувач оновлений, запису в журналі немає.</p></div></body></html>

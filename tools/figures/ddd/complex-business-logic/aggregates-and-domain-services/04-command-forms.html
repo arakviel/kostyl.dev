@@ -1,0 +1,17 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><link rel="stylesheet" href="../../../_fig.css"></head><body><div id="fig">
+<div class="title">Два способи виразити команду</div>
+<div class="row">
+ <div class="card" style="background:#0f172a;color:#e2e8f0;font-family:ui-monospace,Menlo,monospace;font-size:20px;line-height:1.5;border-color:#0f172a;padding:18px 24px;white-space:pre;flex:1">public void AddMessage(
+    UserId from, string body)
+{
+    var message = new Message(from, body);
+    _messages.Append(message);
+}</div>
+ <div class="card" style="background:#0f172a;color:#e2e8f0;font-family:ui-monospace,Menlo,monospace;font-size:20px;line-height:1.5;border-color:#0f172a;padding:18px 24px;white-space:pre;flex:1">public void Execute(AddMessage cmd)
+{
+    var message = new Message(
+        cmd.from, cmd.body);
+    _messages.Append(message);
+}</div>
+</div>
+<p class="sub" style="margin-top:14px">Метод агрегата або команда як об'єкт-параметр. Автор віддає перевагу явним структурам команд.</p></div></body></html>
