@@ -1,0 +1,7 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "crow-demos",
+  "version": "1.0.0",
+  "description": "Демо-проєкти до серії лекцій з веб-сервера на Crow (C++)",
+  "dependencies": ["crow", "nlohmann-json", "sqlite3", "doctest", "argon2"]
+}

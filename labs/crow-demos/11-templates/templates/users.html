@@ -1,0 +1,11 @@
+    <h1>Користувачі</h1>
+    {{#has_users}}
+    <ul>
+      {{#users}}
+      <li><a href="/users/{{id}}">{{name}}</a>{{#admin}} (адміністратор){{/admin}}</li>
+      {{/users}}
+    </ul>
+    {{/has_users}}
+    {{^has_users}}
+    <p>Користувачів немає.</p>
+    {{/has_users}}
