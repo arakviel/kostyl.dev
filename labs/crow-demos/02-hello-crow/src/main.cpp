@@ -31,5 +31,7 @@ int main(int argc, char* argv[]) {
         return body;
     });
 
-    app.port(static_cast<uint16_t>(port)).multithreaded().run();
+    app.port(static_cast<uint16_t>(port))
+        .multithreaded()
+        .run();
 }

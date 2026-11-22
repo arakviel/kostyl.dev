@@ -1,3 +1,10 @@
+cmake_minimum_required(VERSION 3.20)
+project(repository_tests LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 find_package(Crow CONFIG REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
 find_package(doctest CONFIG REQUIRED)
@@ -16,4 +23,5 @@ add_executable(repository_unit_tests
     tests/test_repository_contract.cpp)
 target_link_libraries(repository_unit_tests PRIVATE repo_core doctest::doctest)
 
+enable_testing()
 add_test(NAME repository_unit_tests COMMAND repository_unit_tests)

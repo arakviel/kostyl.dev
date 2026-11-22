@@ -1,0 +1,79 @@
+@baseUrl = http://localhost:8080
+
+### 1. CREATE — створити задачу (POST /todos -> 201 Created + Location)
+# curl:
+#   curl -i -X POST http://localhost:8080/todos -H "Content-Type: application/json" -d '{"title":"Вивчити Crow","description":"Написати CRUD API"}'
+POST {{baseUrl}}/todos
+Content-Type: application/json
+
+{
+  "title": "Вивчити Crow",
+  "description": "Написати CRUD API"
+}
+
+### 2. CREATE — ще одна задача без description (опційне поле)
+# curl:
+#   curl -i -X POST http://localhost:8080/todos -H "Content-Type: application/json" -d '{"title":"Зробити каву"}'
+POST {{baseUrl}}/todos
+Content-Type: application/json
+
+{
+  "title": "Зробити каву"
+}
+
+### 3. CREATE — помилка валідації (немає title -> 400 Bad Request)
+# curl:
+#   curl -i -X POST http://localhost:8080/todos -H "Content-Type: application/json" -d '{"description":"Без назви"}'
+POST {{baseUrl}}/todos
+Content-Type: application/json
+
+{
+  "description": "Без назви"
+}
+
+### 4. READ (колекція) — усі задачі (GET /todos)
+# curl:
+#   curl -i http://localhost:8080/todos
+GET {{baseUrl}}/todos
+
+### 5. READ (колекція) — фільтр за статусом (?completed=false / ?completed=true)
+# curl:
+#   curl -i "http://localhost:8080/todos?completed=false"
+GET {{baseUrl}}/todos?completed=false
+
+### 6. READ (один елемент) — задача за ID (GET /todos/1)
+# curl:
+#   curl -i http://localhost:8080/todos/1
+GET {{baseUrl}}/todos/1
+
+### 7. READ (один елемент) — не знайдено (404 Not Found)
+# curl:
+#   curl -i http://localhost:8080/todos/999
+GET {{baseUrl}}/todos/999
+
+### 8. UPDATE (повна заміна) — PUT вимагає всі поля (title, description, completed)
+# curl:
+#   curl -i -X PUT http://localhost:8080/todos/1 -H "Content-Type: application/json" -d '{"title":"Вивчити Crow C++","description":"Повна заміна через PUT","completed":false}'
+PUT {{baseUrl}}/todos/1
+Content-Type: application/json
+
+{
+  "title": "Вивчити Crow C++",
+  "description": "Повна заміна через PUT",
+  "completed": false
+}
+
+### 9. UPDATE (часткове) — PATCH змінює лише передані поля
+# curl:
+#   curl -i -X PATCH http://localhost:8080/todos/1 -H "Content-Type: application/json" -d '{"completed":true}'
+PATCH {{baseUrl}}/todos/1
+Content-Type: application/json
+
+{
+  "completed": true
+}
+
+### 10. DELETE — видалити задачу (204 No Content; повторний виклик дасть 404)
+# curl:
+#   curl -i -X DELETE http://localhost:8080/todos/1
+DELETE {{baseUrl}}/todos/1

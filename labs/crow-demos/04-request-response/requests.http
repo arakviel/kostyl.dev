@@ -1,0 +1,78 @@
+@baseUrl = http://localhost:8080
+
+### 1. Інспекція запиту (GET /inspect)
+# curl:
+#   curl -i http://localhost:8080/inspect
+GET {{baseUrl}}/inspect
+
+### 2. Інспекція запиту з тілом і заголовком (POST /inspect)
+# curl:
+#   curl -i -X POST http://localhost:8080/inspect -H "Content-Type: application/json" -d '{"hello":"crow"}'
+POST {{baseUrl}}/inspect
+Content-Type: application/json
+
+{"hello":"crow"}
+
+### 3. Довільний статус-код — підтримуваний (201 Created)
+# curl:
+#   curl -i http://localhost:8080/status/201
+GET {{baseUrl}}/status/201
+
+### 4. Довільний статус-код — непідтримуваний (418 -> 400 Bad Request)
+# curl:
+#   curl -i http://localhost:8080/status/418
+GET {{baseUrl}}/status/418
+
+### 5. Звичайний текст (text/plain)
+# curl:
+#   curl -i http://localhost:8080/text
+GET {{baseUrl}}/text
+
+### 6. HTML-відповідь (text/html)
+# curl:
+#   curl -i http://localhost:8080/html
+GET {{baseUrl}}/html
+
+### 7. JSON-відповідь (application/json)
+# curl:
+#   curl -i http://localhost:8080/json
+GET {{baseUrl}}/json
+
+### 8. XML-відповідь (application/xml)
+# curl:
+#   curl -i http://localhost:8080/xml
+GET {{baseUrl}}/xml
+
+### 9. Завантаження файлу (Content-Disposition: attachment)
+# Примітка для curl: -O -J збереже файл із серверним ім'ям (users.csv).
+# curl:
+#   curl -i http://localhost:8080/download
+#   curl -O -J http://localhost:8080/download
+GET {{baseUrl}}/download
+
+### 10. Перенаправлення (302 Found -> /html)
+# Примітка для curl: без -L покаже 302 і Location, з -L перейде за редіректом.
+# curl:
+#   curl -i http://localhost:8080/old
+#   curl -i -L http://localhost:8080/old
+GET {{baseUrl}}/old
+
+### 11. Власні заголовки відповіді (X-Powered-By, Cache-Control)
+# curl:
+#   curl -i http://localhost:8080/headers
+GET {{baseUrl}}/headers
+
+### 12. Єдиний формат JSON-відповіді — успіх (200 OK)
+# curl:
+#   curl -i http://localhost:8080/api/users/1
+GET {{baseUrl}}/api/users/1
+
+### 13. Єдиний формат JSON-помилки — не знайдено (404 Not Found)
+# curl:
+#   curl -i http://localhost:8080/api/users/99
+GET {{baseUrl}}/api/users/99
+
+### 14. Неіснуючий маршрут (CATCHALL -> 404 HTML)
+# curl:
+#   curl -i http://localhost:8080/nonexistent
+GET {{baseUrl}}/nonexistent

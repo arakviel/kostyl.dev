@@ -1,0 +1,58 @@
+@baseUrl = http://localhost:8080
+
+### 1. Головна сторінка (статичний маршрут)
+# curl:
+#   curl -i http://localhost:8080/
+GET {{baseUrl}}/
+
+### 2. Статус API (вкладений статичний шлях)
+# curl:
+#   curl -i http://localhost:8080/api/v1/status
+GET {{baseUrl}}/api/v1/status
+
+### 3. Користувач за ID (<int>) — успішний запит (200 OK)
+# curl:
+#   curl -i http://localhost:8080/users/1
+GET {{baseUrl}}/users/1
+
+### 4. Користувач за ID (<int>) — не знайдено (404 Not Found)
+# curl:
+#   curl -i http://localhost:8080/users/99
+GET {{baseUrl}}/users/99
+
+### 5. Квадрат числа (<double>)
+# curl:
+#   curl -i http://localhost:8080/square/3.5
+GET {{baseUrl}}/square/3.5
+
+### 6. Привітання (<string>)
+# curl:
+#   curl -i http://localhost:8080/hello/Crow
+GET {{baseUrl}}/hello/Crow
+
+### 7. Кілька параметрів у шляху (<int>/<int>)
+# curl:
+#   curl -i http://localhost:8080/calc/add/2/3
+GET {{baseUrl}}/calc/add/2/3
+
+### 8. Захоплення решти шляху зі слешами (<path>)
+# curl:
+#   curl -i http://localhost:8080/files/docs/2026/readme.txt
+GET {{baseUrl}}/files/docs/2026/readme.txt
+
+### 9. Пошук за query-параметрами (успішний запит)
+# Примітка для curl: -G передає дані в query string, а --data-urlencode коректно кодує кирилицю.
+# curl:
+#   curl -i -G --data-urlencode "q=Марія" --data-urlencode "limit=5" http://localhost:8080/search
+GET {{baseUrl}}/search?q=нко&limit=5
+
+### 10. Пошук без обов'язкового параметра q (400 Bad Request)
+# curl:
+#   curl -i http://localhost:8080/search
+GET {{baseUrl}}/search
+
+### 11. Список значень у query-параметрах (/tags?t[]=cpp&t[]=web)
+# Примітка для curl: прапорець -g (--globoff) вимикає інтерпретацію [] як діапазонів.
+# curl:
+#   curl -i -g "http://localhost:8080/tags?t[]=cpp&t[]=web"
+GET {{baseUrl}}/tags?t[]=cpp&t[]=web&t[]=csharp
