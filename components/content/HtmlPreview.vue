@@ -7,6 +7,10 @@ import { useRoute } from 'nuxt/app'
             type: Boolean,
             default: false,
         },
+        reset: {
+            type: Boolean,
+            default: true,
+        },
     })
 
     const slots = useSlots()
@@ -135,6 +139,7 @@ import { useRoute } from 'nuxt/app'
     <title>HTML Preview</title>
     ${props.tailwind ? '<script src="https://unpkg.com/@tailwindcss/browser@4"><\/script>' : ''}
     <style>
+      ${props.reset ? `
       /* Base CSS Reset */
       *, ::before, ::after {
         box-sizing: border-box;
@@ -142,6 +147,7 @@ import { useRoute } from 'nuxt/app'
         border-style: solid;
         border-color: currentColor;
       }
+      ` : ''}
       
       html {
         line-height: 1.5;
@@ -158,7 +164,7 @@ import { useRoute } from 'nuxt/app'
       }
 
       /* Tailwind 4 integrated via script if active */
-      ${props.tailwind ? '' : `
+      ${props.tailwind || !props.reset ? '' : `
       h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
       a { color: inherit; text-decoration: inherit; }
       b, strong { font-weight: bolder; }
