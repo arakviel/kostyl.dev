@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, computed, useSlots, onMounted, watch } from 'vue'
+    import { ref, computed, useSlots, onMounted, onBeforeUnmount, watch } from 'vue'
 import { useRoute } from 'nuxt/app'
 
     const props = defineProps({
@@ -15,8 +15,22 @@ import { useRoute } from 'nuxt/app'
     const activeTab = ref('preview')
     const route = useRoute()
 
+    let resizeObserver = null
+
+    const measure = () => {
+        const iframe = iframeRef.value
+        const doc = iframe?.contentDocument || iframe?.contentWindow?.document
+        if (!doc?.documentElement) return
+        // Висота html-елемента з height:auto = висота вмісту (на відміну від scrollHeight,
+        // який не менший за висоту самого iframe і тому не дозволяє зменшуватись).
+        const h = Math.ceil(doc.documentElement.getBoundingClientRect().height)
+        if (h > 0 && h !== iframeHeight.value) iframeHeight.value = h
+    }
+
     /**
-     * Reads content height directly from the iframe's contentDocument.
+     * Reads content height from the iframe's contentDocument and keeps it in sync:
+     * the preview may grow after clicks (accordions, tabs), image loading, or when
+     * a hidden tab becomes visible.
      */
     const onIframeLoad = () => {
         const iframe = iframeRef.value
@@ -25,11 +39,17 @@ import { useRoute } from 'nuxt/app'
         const doc = iframe.contentDocument || iframe.contentWindow?.document
         if (!doc?.body) return
 
-        requestAnimationFrame(() => {
-            const height = doc.documentElement.scrollHeight
-            iframeHeight.value = height
-        })
+        requestAnimationFrame(measure)
+
+        resizeObserver?.disconnect()
+        if (typeof ResizeObserver !== 'undefined') {
+            resizeObserver = new ResizeObserver(() => measure())
+            resizeObserver.observe(doc.documentElement)
+            resizeObserver.observe(doc.body)
+        }
     }
+
+    onBeforeUnmount(() => resizeObserver?.disconnect())
 
     // Stable extraction using computed to avoid infinite loops with watch
     const extractedData = computed(() => {
@@ -94,6 +114,10 @@ import { useRoute } from 'nuxt/app'
     onMounted(() => {
         // Initial height check
         onIframeLoad()
+    })
+
+    watch(activeTab, (tab) => {
+        if (tab === 'preview') requestAnimationFrame(measure)
     })
 
     watch(() => route.path, () => {
