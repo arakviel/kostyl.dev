@@ -144,3 +144,6 @@ temp/*.partial
 ~$*.xlsx
 ~$*.docx
 ~$*.pptx
+
+# Playwright MCP session logs and screenshots
+.playwright-mcp/
