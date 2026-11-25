@@ -13,7 +13,7 @@ kostyl.dev
 
 :::card-group
 
-::card{title="C# та .NET" to="/csharp/fundamentals/introduction-to-ecosystem" icon="i-simple-icons-csharp"}
+::card{title="C# та .NET" to="/csharp/fundamentals/dotnet-platform" icon="i-simple-icons-csharp"}
 Почніть з вивчення основ платформи .NET та мови C#. Від базових концепцій до просунутих тем.
 ::
 

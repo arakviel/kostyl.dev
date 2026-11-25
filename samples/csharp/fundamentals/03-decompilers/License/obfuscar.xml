@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- Налаштування Obfuscar для License.dll: перейменування і приховування рядків. -->
+<Obfuscator>
+  <Var name="InPath" value="bin/Release/net10.0" />
+  <Var name="OutPath" value="obfuscated" />
+  <Var name="HideStrings" value="true" />
+  <Var name="KeepPublicApi" value="false" />
+  <Var name="HidePrivateApi" value="true" />
+  <Module file="$(InPath)/License.dll" />
+</Obfuscator>
