@@ -5,7 +5,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
+from matplotlib.patches import FancyArrowPatch, FancyBboxPatch, Rectangle
 
 INK = "#1E293B"
 GREY = "#E2E8F0"
@@ -110,3 +110,26 @@ def save_steps(script_file, steps, draw, size=(12, 6.75), dpi=160, poster=-1):
                                    f"{stem}.gif"], check=True)
         shutil.copy(tmp / f"{(poster % len(steps)):03d}.png", f"{stem}.png")
     print(f"{stem}.mp4")
+
+
+def anatomy(width, height, lines, marks, notes, size=17, x0=24, y0=80, step=9.5):
+    """lines — рядки коду; marks — (рядок, колонка, довжина, колір);
+    notes — (рядок, колонка, текст, x підпису, y підпису, ha). Повертає (fig, ax)."""
+    fig, ax = canvas(width, height)
+    char = 0.602 * size / 72 / (ax.get_position().width * width) * 100
+    for line, start, length, color in marks:
+        y = y0 - line * step
+        ax.add_patch(Rectangle((x0 + start * char - 0.2, y - step / 2 + 0.6), length * char + 0.4, step - 1.2,
+                               fc=color, ec="none", zorder=1))
+    for i, text in enumerate(lines):
+        ax.text(x0, y0 - i * step, text, fontsize=size, fontfamily="DejaVu Sans Mono", va="center", zorder=2)
+    for line, col, text, tx, ty, ha in notes:
+        x = x0 + col * char
+        y = y0 - line * step
+        if abs(ty - y) < step / 2:          # підпис збоку — стрілка до краю символу
+            target = (x, y)
+        else:                               # підпис вище чи нижче — стрілка до верхнього чи нижнього краю
+            target = (x, y + (step / 2 - 0.6) * (1 if ty > y else -1))
+        ax.annotate(text, xy=target, xytext=(tx, ty), fontsize=12.5, ha=ha, va="center", color=INK, linespacing=1.3,
+                    arrowprops=dict(arrowstyle="-", color="#475569", lw=1.1, shrinkA=4, shrinkB=2))
+    return fig, ax
