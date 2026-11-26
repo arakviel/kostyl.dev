@@ -1,0 +1,10 @@
+long l = 0;
+int i = 0;
+double d = 0;
+float f = 0;
+char c = 'A';
+l = i;
+d = f;
+i = c;
+decimal m = i;
+Console.WriteLine($"{l} {d} {i} {m}");
